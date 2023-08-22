@@ -24,7 +24,7 @@ a_step = 0.01
 
 z_var = 3.395
 
-for a_var in np.arange(a_start, a_end+a_step, a_step):
+for a_var in np.arange(a_start, a_end, a_step):
     dest_dir = f"Lattice_var_{a_var:.3f}_dis_{z_var:.3f}"
     os.makedirs(dest_dir, exist_ok = True)
     for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_nci.sh", "vasp_usyd.sh"]:

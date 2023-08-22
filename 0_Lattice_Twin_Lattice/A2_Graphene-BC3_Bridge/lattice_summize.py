@@ -57,8 +57,8 @@ for dest_dir in dirs_to_walk:
 # Sort the results by a_var (the first element of the tuple)
 results.sort(key=lambda x: x[0])
 
-# # Now write the sorted results to the file
-# with open(result_file, "w") as f:
-#     f.write(f"Lattice\t Distance\t Free energy\n")
-#     for a_var, z_var, e_fr_energy in results:
-#         f.write(f"{a_var:.6f}\t{z_var:.6f}\t{e_fr_energy}\n")
+# Now write the sorted results to the file
+with open(result_file, "w") as f:
+    f.write(f"Lattice\t Distance\t Free energy\n")
+    for a_var, z_var, e_fr_energy in results:
+        f.write(f"{a_var:.6f}\t{z_var:.6f}\t{e_fr_energy}\n")

@@ -26,7 +26,7 @@ z_var = 3.558
 
 # a_start = 4.9; a_end = 5.0; a_step = 0.1; z_start = 3.3; z_end = 3.3; z_step = 0.1; 
 
-for a_var in np.arange(a_start, a_end+a_step, a_step):
+for a_var in np.arange(a_start, a_end, a_step):
     dest_dir = f"Lattice_var_{a_var:.3f}_dis_{z_var:.3f}"
     os.makedirs(dest_dir, exist_ok = True)
     for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_nci.sh", "vasp_usyd.sh"]:
@@ -65,4 +65,4 @@ for dest_dir in dirs_to_walk:
     if "vasp_usyd.sh" in os.listdir(dest_dir):
         print(dest_dir)
         subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_nci.sh"])
-        time.sleep(600)
+        time.sleep(4)

@@ -4,54 +4,51 @@
 
 # Finding stablest structure
 
-* Top Layer: Graphene; 
+    * Top Layer: Graphene; 
 
-* Bottom Layer: BC3, Borophene, B4C3;
+    * Bottom Layer: BC3, Borophene, B4C3;
 
-# Self-consistent
+    # Self-consistent
 
-* Rename the CONTCAR from the former step to POSCAR.
+    * Rename the CONTCAR from the former step to POSCAR.
 
-* Set:
+    * Set:
 
-# Output charge function file CHGCAR
-LCHARG = .TRUE.         # LCHARG = .TRUE. for generating CHGCAR
-# Output wave function file WAVECAR
-LWAVE = .TRUE.          # LWAVE = .TRUE. for generating WAVECAR
+        # Output charge function file CHGCAR
+        LCHARG = .TRUE.         # LCHARG = .TRUE. for generating CHGCAR
+        # Output wave function file WAVECAR
+        LWAVE = .TRUE.          # LWAVE = .TRUE. for generating WAVECAR
 
-# # Number of steps for IOM   
-# NSW = 128
-# # CG for ions, often 1 (RMM-DISS) is faster    
-# IBRION = 2
-# # Step for ionic-motion (for MD in fs)
-# POTIM = .5
-# # Stress tensor (2 for relaxation ions)
-# ISIF = 2
+        # # Number of steps for IOM   
+        # NSW = 128
+        # # CG for ions, often 1 (RMM-DISS) is faster    
+        # IBRION = 2
+        # # Step for ionic-motion (for MD in fs)
+        # POTIM = .5
+        # # Stress tensor (2 for relaxation ions)
+        # ISIF = 2
 
+# Bandstructure
 
+# Optical properties
 
+    * Requirment: `WAVECAR`
 
-
-
-
-
-
-
-
-
-
-
-
-* The calculation of self-consistent generates;
-
-* Calculating bandstructure requires;
-
-* Calculating optical properties requires WAVECAR;
-
-* Calculating optical properties requires the initial density of charges;
 
 ## Server
 
-* Check works numbers: `qstat -u $USER | wc -l`
+    * Check works numbers: `qstat -u $USER | wc -l`
 
-* Check space information: `quota -v`
+    * Check space information: `quota -v`
+
+## GIT
+
+    * Clean the record: `git reflog expire --expire=now --all`
+
+    * Clean the repo bin: `git gc --prune=now`
+
+    * Deep clean:
+        git repack -ad
+        git prune
+
+    * Forced push: `git push -f origin main`

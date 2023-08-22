@@ -1,0 +1,599 @@
+ ----------------------------------------------------
+    OOO  PPPP  EEEEE N   N M   M PPPP
+   O   O P   P E     NN  N MM MM P   P
+   O   O PPPP  EEEEE N N N M M M PPPP   -- VERSION
+   O   O P     E     N  NN M   M P
+    OOO  P     EEEEE N   N M   M P
+ ----------------------------------------------------
+ running   48 mpi-ranks, with    1 threads/rank
+ distrk:  each k-point on   48 cores,    1 groups
+ distr:  one band on    1 cores,   48 groups
+ vasp.6.3.2 27Jun22 (build Dec 22 2022 13:13:19) complex                        
+  
+ POSCAR found type information on POSCAR B C 
+ POSCAR found :  2 types and      16 ions
+ Reading from existing POTCAR
+ -----------------------------------------------------------------------------
+|                                                                             |
+|           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
+|           W    W   A  A   R    R  NN   N  II  NN   N  G    G  !!!           |
+|           W    W  A    A  R    R  N N  N  II  N N  N  G       !!!           |
+|           W WW W  AAAAAA  RRRRR   N  N N  II  N  N N  G  GGG   !            |
+|           WW  WW  A    A  R   R   N   NN  II  N   NN  G    G                |
+|           W    W  A    A  R    R  N    N  II  N    N   GGGG   !!!           |
+|                                                                             |
+|     You use a magnetic or noncollinear calculation, but did not specify     |
+|     the initial magnetic moment with the MAGMOM tag. Note that a            |
+|     default of 1 will be used for all atoms. This ferromagnetic setup       |
+|     may break the symmetry of the crystal, in particular it may rule        |
+|     out finding an antiferromagnetic solution. Thence, we recommend         |
+|     setting the initial magnetic moment manually or verifying carefully     |
+|     that this magnetic setup is desired.                                    |
+|                                                                             |
+ -----------------------------------------------------------------------------
+
+ scaLAPACK will be used
+ Reading from existing POTCAR
+ LDA part: xc-table for Pade appr. of Perdew
+ POSCAR found type information on POSCAR B C 
+ POSCAR found :  2 types and      16 ions
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ... GRIDC
+ FFT: planning ... GRID_SOFT
+ FFT: planning ... GRID
+ WAVECAR not read
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1     0.262941559031E+03    0.26294E+03   -0.28922E+04 14208   0.968E+02
+DAV:   2    -0.131252572013E+03   -0.39419E+03   -0.39364E+03 21840   0.183E+02
+DAV:   3    -0.146709146648E+03   -0.15457E+02   -0.15437E+02 25200   0.498E+01
+DAV:   4    -0.146759414663E+03   -0.50268E-01   -0.50243E-01 21984   0.258E+00
+DAV:   5    -0.146759486640E+03   -0.71977E-04   -0.71977E-04 23808   0.106E-01    0.257E+01
+DAV:   6    -0.107536085307E+03    0.39223E+02   -0.65854E+01 24288   0.265E+01    0.150E+01
+DAV:   7    -0.114467557913E+03   -0.69315E+01   -0.10864E+01 23184   0.114E+01    0.870E+00
+DAV:   8    -0.123423146087E+03   -0.89556E+01   -0.82989E+00 25056   0.908E+00    0.466E+00
+DAV:   9    -0.131524081444E+03   -0.81009E+01   -0.45585E+00 19248   0.741E+00    0.305E+00
+DAV:  10    -0.138458771674E+03   -0.69347E+01   -0.96504E+00 20688   0.771E+00    0.178E+00
+DAV:  11    -0.139810207228E+03   -0.13514E+01   -0.14804E+00 20208   0.314E+00    0.123E+00
+DAV:  12    -0.140068371545E+03   -0.25816E+00   -0.38024E-01 19776   0.168E+00    0.487E-01
+DAV:  13    -0.140131725603E+03   -0.63354E-01   -0.50001E-02 17712   0.841E-01    0.217E-01
+DAV:  14    -0.140157274356E+03   -0.25549E-01   -0.90524E-03 17616   0.338E-01    0.110E-01
+DAV:  15    -0.140167727532E+03   -0.10453E-01   -0.54742E-03 18480   0.201E-01    0.533E-02
+DAV:  16    -0.140169817994E+03   -0.20905E-02   -0.10982E-03 16368   0.109E-01    0.307E-02
+DAV:  17    -0.140171783658E+03   -0.19657E-02   -0.29219E-04 14928   0.681E-02    0.192E-02
+DAV:  18    -0.140172984808E+03   -0.12012E-02   -0.13614E-04 15360   0.482E-02    0.146E-02
+DAV:  19    -0.140173567655E+03   -0.58285E-03   -0.67334E-05 18240   0.382E-02    0.874E-03
+DAV:  20    -0.140173765909E+03   -0.19825E-03   -0.28423E-05 16272   0.253E-02    0.507E-03
+DAV:  21    -0.140173796088E+03   -0.30179E-04   -0.10823E-05 19296   0.158E-02    0.316E-03
+DAV:  22    -0.140173838657E+03   -0.42570E-04   -0.54911E-06 20352   0.944E-03    0.223E-03
+DAV:  23    -0.140173855988E+03   -0.17331E-04   -0.22574E-06 21936   0.505E-03    0.111E-03
+DAV:  24    -0.140173860395E+03   -0.44070E-05   -0.56894E-07 21744   0.253E-03    0.561E-04
+DAV:  25    -0.140173862616E+03   -0.22205E-05   -0.13758E-07 18192   0.127E-03    0.316E-04
+DAV:  26    -0.140173863714E+03   -0.10985E-05   -0.84689E-08 18192   0.961E-04    0.141E-04
+DAV:  27    -0.140173864204E+03   -0.48917E-06   -0.32715E-08 18384   0.569E-04
+   1 F= -.14208975E+03 E0= -.14208835E+03  d E =-.142090E+03  mag=     0.0000
+ curvature:   0.00 expect dE= 0.000E+00 dE for cont linesearch  0.000E+00
+ trial: gam= 0.00000 g(F)=  0.244E+00 g(S)=  0.000E+00 ort = 0.000E+00 (trialstep = 0.100E+01)
+ search vector abs. value=  0.244E+00
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140038550175E+03    0.13531E+00   -0.40039E+01 14208   0.208E+01    0.189E+00
+DAV:   2    -0.139925885940E+03    0.11266E+00   -0.69977E-01 21888   0.279E+00    0.875E-01
+DAV:   3    -0.139917804570E+03    0.80814E-02   -0.88879E-02 24528   0.923E-01    0.398E-01
+DAV:   4    -0.139917545884E+03    0.25869E-03   -0.78298E-03 22080   0.275E-01    0.144E-01
+DAV:   5    -0.139917532813E+03    0.13071E-04   -0.55950E-04 16800   0.903E-02    0.278E-02
+DAV:   6    -0.139917524228E+03    0.85848E-05   -0.88513E-05 24240   0.349E-02    0.158E-02
+DAV:   7    -0.139917530724E+03   -0.64961E-05   -0.22090E-05 18288   0.172E-02    0.478E-03
+DAV:   8    -0.139917540669E+03   -0.99446E-05   -0.61909E-06 18960   0.885E-03    0.381E-03
+DAV:   9    -0.139917560885E+03   -0.20216E-04   -0.56615E-06 18336   0.721E-03    0.186E-03
+DAV:  10    -0.139917569788E+03   -0.89025E-05   -0.10755E-06 20736   0.295E-03    0.117E-03
+DAV:  11    -0.139917578990E+03   -0.92019E-05   -0.79800E-07 17664   0.174E-03    0.564E-04
+DAV:  12    -0.139917584140E+03   -0.51501E-05   -0.43673E-07 17328   0.110E-03    0.574E-04
+DAV:  13    -0.139917585725E+03   -0.15846E-05   -0.95736E-08 18288   0.532E-04    0.365E-04
+DAV:  14    -0.139917586568E+03   -0.84371E-06   -0.84388E-08 15792   0.464E-04
+   2 F= -.14184282E+03 E0= -.14184124E+03  d E =0.246935E+00  mag=    -0.0000
+ trial-energy change:    0.246935  1 .order    0.242030   -0.243817    0.727877
+ step:   0.2453(harm=  0.2509)  dis= 0.01099  next Energy=  -142.119585 (dE=-0.298E-01)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140268373144E+03   -0.35079E+00   -0.22625E+01 14208   0.154E+01    0.141E+00
+DAV:   2    -0.140206028079E+03    0.62345E-01   -0.37528E-01 22800   0.214E+00    0.659E-01
+DAV:   3    -0.140200433591E+03    0.55945E-02   -0.60967E-02 21696   0.742E-01    0.275E-01
+DAV:   4    -0.140200306364E+03    0.12723E-03   -0.64335E-03 21408   0.241E-01    0.119E-01
+DAV:   5    -0.140200309646E+03   -0.32824E-05   -0.44241E-04 17376   0.762E-02    0.203E-02
+DAV:   6    -0.140200304300E+03    0.53467E-05   -0.87772E-05 20160   0.308E-02    0.106E-02
+DAV:   7    -0.140200313899E+03   -0.95991E-05   -0.86701E-06 21408   0.989E-03    0.178E-03
+DAV:   8    -0.140200319460E+03   -0.55614E-05   -0.56884E-07 21408   0.241E-03    0.157E-03
+DAV:   9    -0.140200330731E+03   -0.11271E-04   -0.74407E-07 19200   0.201E-03    0.686E-04
+DAV:  10    -0.140200337985E+03   -0.72539E-05   -0.41167E-07 18624   0.132E-03    0.652E-04
+DAV:  11    -0.140200343137E+03   -0.51522E-05   -0.34693E-07 15072   0.993E-04    0.238E-04
+DAV:  12    -0.140200344085E+03   -0.94753E-06   -0.29062E-08 23280   0.333E-04
+   3 F= -.14211952E+03 E0= -.14211805E+03  d E =-.297675E-01  mag=    -0.0000
+ curvature:  -0.13 expect dE=-0.255E-04 dE for cont linesearch -0.593E-07
+ ZBRENT: interpolating
+ opt :   0.2450  next Energy=  -142.119519 (dE=-0.298E-01)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200348694E+03   -0.55572E-05   -0.47012E-06 18672   0.713E-03    0.660E-04
+DAV:   2    -0.140200348800E+03   -0.10547E-06   -0.84812E-08 24624   0.980E-04
+   4 F= -.14211952E+03 E0= -.14211805E+03  d E =-.297682E-01  mag=     0.0000
+ curvature:  -0.12 expect dE=-0.248E-04 dE for cont linesearch -0.769E-09
+ trial: gam= 0.00099 g(F)=  0.202E-03 g(S)=  0.000E+00 ort =-0.391E-04 (trialstep = 0.849E+00)
+ search vector abs. value=  0.202E-03
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200394591E+03   -0.45897E-04   -0.11341E-02 14208   0.447E-01    0.212E-02
+DAV:   2    -0.140200394499E+03    0.91711E-07   -0.53112E-05 23040   0.324E-02    0.126E-02
+DAV:   3    -0.140200397380E+03   -0.28807E-05   -0.69246E-06 14208   0.969E-03    0.201E-03
+DAV:   4    -0.140200397435E+03   -0.55388E-07   -0.67386E-07 26208   0.323E-03
+   5 F= -.14211963E+03 E0= -.14211816E+03  d E =-.106495E-03  mag=     0.0000
+ trial-energy change:   -0.000106  1 .order   -0.000106   -0.000172   -0.000040
+ step:   1.1109(harm=  1.1109)  dis= 0.00199  next Energy=  -142.119632 (dE=-0.112E-03)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200385611E+03    0.11769E-04   -0.10842E-03 14208   0.138E-01    0.664E-03
+DAV:   2    -0.140200385483E+03    0.12884E-06   -0.52452E-06 20064   0.102E-02
+   6 F= -.14211963E+03 E0= -.14211816E+03  d E =-.112431E-03  mag=    -0.0000
+ curvature:  -0.56 expect dE=-0.340E-04 dE for cont linesearch -0.644E-08
+ trial: gam= 0.29467 g(F)=  0.611E-04 g(S)=  0.000E+00 ort = 0.153E-05 (trialstep = 0.901E+00)
+ search vector abs. value=  0.796E-04
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200316522E+03    0.69089E-04   -0.57217E-03 14208   0.329E-01    0.176E-02
+DAV:   2    -0.140200314834E+03    0.16882E-05   -0.50880E-05 20160   0.321E-02    0.106E-02
+DAV:   3    -0.140200315753E+03   -0.91870E-06   -0.89475E-06 17088   0.114E-02
+   7 F= -.14211965E+03 E0= -.14211818E+03  d E =-.186735E-04  mag=     0.0000
+ trial-energy change:   -0.000019  1 .order   -0.000019   -0.000055    0.000018
+ step:   0.6823(harm=  0.6823)  dis= 0.00075  next Energy=  -142.119653 (dE=-0.210E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200339061E+03   -0.24227E-04   -0.32825E-04 16608   0.788E-02    0.357E-03
+DAV:   2    -0.140200339032E+03    0.28341E-07   -0.27385E-06 14400   0.727E-03
+   8 F= -.14211965E+03 E0= -.14211818E+03  d E =-.204771E-04  mag=     0.0000
+ curvature:  -0.44 expect dE=-0.202E-04 dE for cont linesearch -0.884E-08
+ trial: gam= 0.73034 g(F)=  0.458E-04 g(S)=  0.000E+00 ort = 0.126E-05 (trialstep = 0.757E+00)
+ search vector abs. value=  0.901E-04
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200230907E+03    0.10815E-03   -0.48723E-03 14208   0.302E-01    0.165E-02
+DAV:   2    -0.140200229197E+03    0.17092E-05   -0.47799E-05 14208   0.301E-02    0.996E-03
+DAV:   3    -0.140200229566E+03   -0.36842E-06   -0.81849E-06 16416   0.109E-02
+   9 F= -.14211965E+03 E0= -.14211818E+03  d E =0.204095E-05  mag=     0.0000
+ trial-energy change:    0.000002  1 .order    0.000003   -0.000035    0.000042
+ step:   0.3477(harm=  0.3477)  dis= 0.00039  next Energy=  -142.119661 (dE=-0.813E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200298482E+03   -0.69284E-04   -0.13945E-03 14208   0.162E-01    0.838E-03
+DAV:   2    -0.140200298048E+03    0.43426E-06   -0.14437E-05 15888   0.163E-02    0.504E-03
+DAV:   3    -0.140200298149E+03   -0.10116E-06   -0.21825E-06 14208   0.557E-03
+  10 F= -.14211966E+03 E0= -.14211819E+03  d E =-.844659E-05  mag=    -0.0000
+ curvature:  -0.34 expect dE=-0.585E-05 dE for cont linesearch -0.335E-07
+ trial: gam= 0.37031 g(F)=  0.175E-04 g(S)=  0.000E+00 ort = 0.300E-05 (trialstep = 0.675E+00)
+ search vector abs. value=  0.321E-04
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200215162E+03    0.82885E-04   -0.14593E-03 14208   0.165E-01    0.887E-03
+DAV:   2    -0.140200214499E+03    0.66357E-06   -0.17813E-05 14400   0.186E-02    0.529E-03
+DAV:   3    -0.140200214547E+03   -0.47853E-07   -0.28306E-06 15936   0.660E-03
+  11 F= -.14211966E+03 E0= -.14211819E+03  d E =-.194131E-05  mag=    -0.0000
+ trial-energy change:   -0.000002  1 .order   -0.000002   -0.000013    0.000009
+ step:   0.3947(harm=  0.3947)  dis= 0.00026  next Energy=  -142.119665 (dE=-0.367E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200251854E+03   -0.37355E-04   -0.24642E-04 15744   0.679E-02    0.325E-03
+DAV:   2    -0.140200251855E+03   -0.12069E-08   -0.30831E-06 15792   0.760E-03
+  12 F= -.14211966E+03 E0= -.14211820E+03  d E =-.371188E-05  mag=    -0.0000
+ curvature:  -0.34 expect dE=-0.311E-05 dE for cont linesearch -0.524E-09
+ trial: gam= 0.55221 g(F)=  0.915E-05 g(S)=  0.000E+00 ort =-0.222E-06 (trialstep = 0.619E+00)
+ search vector abs. value=  0.187E-04
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200171865E+03    0.79989E-04   -0.74264E-04 15456   0.111E-01    0.596E-03
+DAV:   2    -0.140200171299E+03    0.56607E-06   -0.74158E-06 15072   0.116E-02
+  13 F= -.14211967E+03 E0= -.14211820E+03  d E =-.428264E-05  mag=     0.0000
+ trial-energy change:   -0.000004  1 .order   -0.000005   -0.000006   -0.000004
+ step:   1.7641(harm=  1.7641)  dis= 0.00093  next Energy=  -142.119673 (dE=-0.796E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200018207E+03    0.15366E-03   -0.24404E-03 14400   0.202E-01    0.118E-02
+DAV:   2    -0.140200016903E+03    0.13043E-05   -0.23497E-05 14592   0.210E-02    0.699E-03
+DAV:   3    -0.140200017390E+03   -0.48719E-06   -0.39633E-06 15504   0.743E-03
+  14 F= -.14211967E+03 E0= -.14211820E+03  d E =-.729607E-05  mag=     0.0000
+ curvature:  -1.83 expect dE=-0.214E-04 dE for cont linesearch -0.126E-05
+ ZBRENT: interpolating
+ opt :   1.3292  next Energy=  -142.119673 (dE=-0.808E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140200076539E+03   -0.59636E-04   -0.34614E-04 15408   0.760E-02    0.388E-03
+DAV:   2    -0.140200076417E+03    0.12286E-06   -0.37992E-06 14880   0.819E-03
+  15 F= -.14211967E+03 E0= -.14211820E+03  d E =-.671916E-05  mag=    -0.0000
+ curvature:  -1.13 expect dE=-0.705E-05 dE for cont linesearch -0.435E-09
+ trial: gam= 0.66376 g(F)=  0.622E-05 g(S)=  0.000E+00 ort = 0.847E-07 (trialstep = 0.761E+00)
+ search vector abs. value=  0.146E-04
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140199963413E+03    0.11313E-03   -0.10913E-03 14496   0.134E-01    0.708E-03
+DAV:   2    -0.140199962552E+03    0.86118E-06   -0.14126E-05 14784   0.159E-02    0.417E-03
+DAV:   3    -0.140199962608E+03   -0.56696E-07   -0.20746E-06 16176   0.539E-03
+  16 F= -.14211968E+03 E0= -.14211821E+03  d E =-.406541E-05  mag=     0.0000
+ trial-energy change:   -0.000004  1 .order   -0.000003   -0.000005   -0.000001
+ step:   1.0524(harm=  1.0524)  dis= 0.00030  next Energy=  -142.119675 (dE=-0.330E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140199918172E+03    0.44379E-04   -0.16290E-04 14688   0.521E-02    0.323E-03
+DAV:   2    -0.140199917994E+03    0.17867E-06   -0.19927E-06 14544   0.616E-03
+  17 F= -.14211968E+03 E0= -.14211821E+03  d E =-.455005E-05  mag=    -0.0000
+ curvature:  -1.22 expect dE=-0.233E-04 dE for cont linesearch -0.138E-06
+ trial: gam= 2.96994 g(F)=  0.191E-04 g(S)=  0.000E+00 ort = 0.128E-05 (trialstep = 0.769E-01)
+ search vector abs. value=  0.155E-03
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140199879369E+03    0.38804E-04   -0.11380E-04 14208   0.437E-02    0.269E-03
+DAV:   2    -0.140199879250E+03    0.11814E-06   -0.12841E-06 14208   0.500E-03
+  18 F= -.14211968E+03 E0= -.14211821E+03  d E =-.171004E-05  mag=     0.0000
+ ZBRENT: can't locate minimum, use default step
+ trial-energy change:   -0.000002  1 .order   -0.000002   -0.000002   -0.000002
+ step:   0.3076(harm=  1.4777)  dis= 0.00025  next Energy=  -142.119693 (dE=-0.169E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140199762674E+03    0.11669E-03   -0.10634E-03 14208   0.132E-01    0.749E-03
+DAV:   2    -0.140199761839E+03    0.83471E-06   -0.12480E-05 14208   0.151E-02    0.448E-03
+DAV:   3    -0.140199762015E+03   -0.17624E-06   -0.18951E-06 14928   0.524E-03
+  19 F= -.14211968E+03 E0= -.14211821E+03  d E =-.574643E-05  mag=     0.0000
+ curvature:  -1.51 expect dE=-0.199E-04 dE for cont linesearch -0.235E-05
+ ZBRENT: increasing intervall
+ opt :   0.7690  next Energy=  -142.119686 (dE=-0.100E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140199528642E+03    0.23320E-03   -0.43459E-03 14208   0.266E-01    0.148E-02
+DAV:   2    -0.140199526030E+03    0.26119E-05   -0.49980E-05 14496   0.300E-02    0.878E-03
+DAV:   3    -0.140199525998E+03    0.32186E-07   -0.77095E-06 15120   0.104E-02
+  20 F= -.14211969E+03 E0= -.14211822E+03  d E =-.122332E-04  mag=     0.0000
+ curvature:  -2.77 expect dE=-0.516E-04 dE for cont linesearch -0.979E-06
+ ZBRENT: increasing intervall
+ opt :   1.6919  next Energy=  -142.119688 (dE=-0.116E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140199057369E+03    0.46866E-03   -0.17395E-02 14208   0.533E-01    0.297E-02
+DAV:   2    -0.140199046060E+03    0.11309E-04   -0.20130E-04 15696   0.597E-02    0.175E-02
+DAV:   3    -0.140199047345E+03   -0.12849E-05   -0.30485E-05 15984   0.204E-02    0.433E-03
+DAV:   4    -0.140199047639E+03   -0.29370E-06   -0.57096E-06 15792   0.867E-03
+  21 F= -.14211970E+03 E0= -.14211823E+03  d E =-.190719E-04  mag=    -0.0000
+ curvature:   1.85 expect dE= 0.149E-03 dE for cont linesearch  0.474E-07
+ trial: gam= 4.49678 g(F)=  0.805E-04 g(S)=  0.000E+00 ort = 0.200E-05 (trialstep = 0.192E-01)
+ search vector abs. value=  0.324E-02
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140199003423E+03    0.43922E-04   -0.15831E-04 14736   0.508E-02    0.338E-03
+DAV:   2    -0.140199003342E+03    0.80772E-07   -0.20766E-06 15072   0.623E-03
+  22 F= -.14211970E+03 E0= -.14211823E+03  d E =-.202458E-05  mag=    -0.0000
+ ZBRENT: can't locate minimum, use default step
+ trial-energy change:   -0.000002  1 .order   -0.000002   -0.000002   -0.000002
+ step:   0.0767(harm=  0.0767)  dis= 0.00027  next Energy=  -142.119703 (dE=-0.746E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140198870033E+03    0.13339E-03   -0.13845E-03 15312   0.151E-01    0.872E-03
+DAV:   2    -0.140198869061E+03    0.97273E-06   -0.16252E-05 15408   0.169E-02    0.518E-03
+DAV:   3    -0.140198869209E+03   -0.14811E-06   -0.24002E-06 15408   0.586E-03
+  23 F= -.14211970E+03 E0= -.14211823E+03  d E =-.687041E-05  mag=    -0.0000
+ curvature:  -2.12 expect dE=-0.131E-03 dE for cont linesearch -0.293E-05
+ ZBRENT: increasing intervall
+ opt :   0.1917  next Energy=  -142.119707 (dE=-0.115E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140198602600E+03    0.26646E-03   -0.56524E-03 14208   0.303E-01    0.169E-02
+DAV:   2    -0.140198599219E+03    0.33812E-05   -0.65214E-05 16512   0.340E-02    0.999E-03
+DAV:   3    -0.140198599324E+03   -0.10547E-06   -0.96360E-06 15456   0.115E-02
+  24 F= -.14211971E+03 E0= -.14211824E+03  d E =-.150116E-04  mag=     0.0000
+ curvature:  -3.36 expect dE=-0.146E-03 dE for cont linesearch -0.144E-05
+ ZBRENT: increasing intervall
+ opt :   0.4218  next Energy=  -142.119712 (dE=-0.168E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140198066823E+03    0.53240E-03   -0.22632E-02 14208   0.607E-01    0.340E-02
+DAV:   2    -0.140198052231E+03    0.14592E-04   -0.26120E-04 16992   0.677E-02    0.199E-02
+DAV:   3    -0.140198053696E+03   -0.14647E-05   -0.38307E-05 15456   0.228E-02    0.497E-03
+DAV:   4    -0.140198054004E+03   -0.30834E-06   -0.71533E-06 16608   0.959E-03
+  25 F= -.14211972E+03 E0= -.14211825E+03  d E =-.261010E-04  mag=    -0.0000
+ curvature:  -4.08 expect dE=-0.167E-03 dE for cont linesearch -0.119E-05
+ ZBRENT: increasing intervall
+ opt :   0.8820  next Energy=  -142.119732 (dE=-0.372E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140196992552E+03    0.10611E-02   -0.89888E-02 14208   0.121E+00    0.671E-02
+DAV:   2    -0.140196943538E+03    0.49014E-04   -0.10513E-03 17424   0.135E-01    0.391E-02
+DAV:   3    -0.140196937198E+03    0.63400E-05   -0.15146E-04 15456   0.451E-02    0.941E-03
+DAV:   4    -0.140196939799E+03   -0.26011E-05   -0.29064E-05 20592   0.187E-02    0.430E-03
+DAV:   5    -0.140196940424E+03   -0.62436E-06   -0.60056E-07 16512   0.352E-03
+  26 F= -.14211972E+03 E0= -.14211826E+03  d E =-.262809E-04  mag=    -0.0000
+ curvature: -38.12 expect dE=-0.639E-02 dE for cont linesearch -0.155E-04
+ ZBRENT: bracketing found
+ ZBRENT: interpolating
+ opt :   0.6326  next Energy=  -142.119725 (dE=-0.293E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140197563780E+03   -0.62398E-03   -0.26346E-02 14208   0.656E-01    0.362E-02
+DAV:   2    -0.140197547369E+03    0.16411E-04   -0.31099E-04 15744   0.734E-02    0.212E-02
+DAV:   3    -0.140197546804E+03    0.56510E-06   -0.48054E-05 15744   0.251E-02    0.506E-03
+DAV:   4    -0.140197547791E+03   -0.98634E-06   -0.87924E-06 16368   0.103E-02
+  27 F= -.14211973E+03 E0= -.14211826E+03  d E =-.298286E-04  mag=     0.0000
+ curvature:  -7.94 expect dE=-0.610E-03 dE for cont linesearch -0.261E-07
+ trial: gam= 1.01685 g(F)=  0.769E-04 g(S)=  0.000E+00 ort = 0.326E-05 (trialstep = 0.134E+00)
+ search vector abs. value=  0.343E-02
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140197227983E+03    0.31882E-03   -0.80010E-03 16080   0.361E-01    0.200E-02
+DAV:   2    -0.140197222342E+03    0.56409E-05   -0.94937E-05 15504   0.402E-02    0.117E-02
+DAV:   3    -0.140197222260E+03    0.82505E-07   -0.14238E-05 15072   0.138E-02    0.290E-03
+DAV:   4    -0.140197222591E+03   -0.33162E-06   -0.26647E-06 17568   0.563E-03
+  28 F= -.14211974E+03 E0= -.14211827E+03  d E =-.100498E-04  mag=    -0.0000
+ trial-energy change:   -0.000010  1 .order   -0.000009   -0.000011   -0.000008
+ step:   0.5157(harm=  0.5157)  dis= 0.00186  next Energy=  -142.119746 (dE=-0.207E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140196315922E+03    0.90634E-03   -0.65027E-02 14208   0.103E+00    0.570E-02
+DAV:   2    -0.140196277510E+03    0.38412E-04   -0.75412E-04 16944   0.114E-01    0.331E-02
+DAV:   3    -0.140196274571E+03    0.29394E-05   -0.11032E-04 15456   0.383E-02    0.795E-03
+DAV:   4    -0.140196276027E+03   -0.14562E-05   -0.20920E-05 17424   0.159E-02    0.344E-03
+DAV:   5    -0.140196276554E+03   -0.52625E-06   -0.55551E-07 15888   0.338E-03
+  29 F= -.14211975E+03 E0= -.14211828E+03  d E =-.206996E-04  mag=     0.0000
+ curvature: -11.03 expect dE=-0.562E-03 dE for cont linesearch -0.289E-06
+ trial: gam= 0.64652 g(F)=  0.510E-04 g(S)=  0.000E+00 ort =-0.947E-05 (trialstep = 0.210E+00)
+ search vector abs. value=  0.147E-02
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140195945208E+03    0.33082E-03   -0.82213E-03 14208   0.365E-01    0.201E-02
+DAV:   2    -0.140195940542E+03    0.46667E-05   -0.98444E-05 16368   0.415E-02    0.118E-02
+DAV:   3    -0.140195940614E+03   -0.72087E-07   -0.14140E-05 15936   0.137E-02    0.296E-03
+DAV:   4    -0.140195940823E+03   -0.20893E-06   -0.25409E-06 17184   0.553E-03
+  30 F= -.14211975E+03 E0= -.14211829E+03  d E =-.823284E-05  mag=    -0.0000
+ trial-energy change:   -0.000008  1 .order   -0.000008   -0.000009   -0.000006
+ step:   0.6199(harm=  0.6199)  dis= 0.00168  next Energy=  -142.119760 (dE=-0.139E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140195292391E+03    0.64822E-03   -0.31170E-02 14208   0.711E-01    0.401E-02
+DAV:   2    -0.140195272986E+03    0.19405E-04   -0.37194E-04 16992   0.802E-02    0.233E-02
+DAV:   3    -0.140195273597E+03   -0.61111E-06   -0.53729E-05 15456   0.268E-02    0.565E-03
+DAV:   4    -0.140195274061E+03   -0.46387E-06   -0.10401E-05 18624   0.112E-02    0.255E-03
+DAV:   5    -0.140195274374E+03   -0.31333E-06   -0.25163E-07 16272   0.220E-03
+  31 F= -.14211976E+03 E0= -.14211830E+03  d E =-.125159E-04  mag=    -0.0000
+ curvature: -10.18 expect dE=-0.220E-03 dE for cont linesearch -0.905E-06
+ ZBRENT: interpolating
+ opt :   0.5058  next Energy=  -142.119759 (dE=-0.132E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140195463170E+03   -0.18911E-03   -0.24081E-03 14208   0.198E-01    0.112E-02
+DAV:   2    -0.140195461460E+03    0.17096E-05   -0.29735E-05 15456   0.228E-02    0.659E-03
+DAV:   3    -0.140195461879E+03   -0.41877E-06   -0.46799E-06 15840   0.782E-03
+  32 F= -.14211976E+03 E0= -.14211830E+03  d E =-.131645E-04  mag=    -0.0000
+ curvature:  -7.34 expect dE=-0.106E-03 dE for cont linesearch -0.107E-05
+ ZBRENT: interpolating
+ opt :   0.5699  next Energy=  -142.119759 (dE=-0.128E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140195357619E+03    0.10384E-03   -0.73861E-04 19296   0.110E-01    0.573E-03
+DAV:   2    -0.140195357105E+03    0.51343E-06   -0.83755E-06 14784   0.116E-02
+  33 F= -.14211976E+03 E0= -.14211830E+03  d E =-.132894E-04  mag=    -0.0000
+ curvature:  -1.97 expect dE=-0.349E-04 dE for cont linesearch -0.183E-07
+ ZBRENT: interpolating
+ opt :   0.5821  next Energy=  -142.119759 (dE=-0.133E-04)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140195337111E+03    0.20508E-04   -0.22594E-05 15936   0.204E-02    0.178E-03
+DAV:   2    -0.140195337127E+03   -0.16444E-07   -0.17472E-07 19440   0.181E-03
+  34 F= -.14211976E+03 E0= -.14211830E+03  d E =-.133613E-04  mag=    -0.0000
+ curvature:  -2.43 expect dE=-0.451E-04 dE for cont linesearch -0.205E-07
+ trial: gam= 0.39081 g(F)=  0.186E-04 g(S)=  0.000E+00 ort =-0.352E-05 (trialstep = 0.285E+00)
+ search vector abs. value=  0.241E-03
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140195159811E+03    0.17730E-03   -0.22918E-03 14208   0.192E-01    0.111E-02
+DAV:   2    -0.140195158224E+03    0.15875E-05   -0.27136E-05 16080   0.219E-02    0.647E-03
+DAV:   3    -0.140195158389E+03   -0.16566E-06   -0.40141E-06 15456   0.728E-03
+  35 F= -.14211976E+03 E0= -.14211830E+03  d E =-.346903E-05  mag=    -0.0000
+ trial-energy change:   -0.000003  1 .order   -0.000003   -0.000005   -0.000001
+ step:   0.3607(harm=  0.3607)  dis= 0.00051  next Energy=  -142.119762 (dE=-0.310E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140195110434E+03    0.47790E-04   -0.17584E-04 16656   0.530E-02    0.355E-03
+DAV:   2    -0.140195110240E+03    0.19385E-06   -0.19307E-06 15552   0.592E-03
+  36 F= -.14211976E+03 E0= -.14211830E+03  d E =-.404304E-05  mag=     0.0000
+ curvature:  -2.53 expect dE=-0.293E-04 dE for cont linesearch -0.561E-06
+ ZBRENT: increasing intervall
+ opt :   0.5129  next Energy=  -142.119765 (dE=-0.572E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140195013774E+03    0.96660E-04   -0.64203E-04 14784   0.102E-01    0.616E-03
+DAV:   2    -0.140195013228E+03    0.54608E-06   -0.73829E-06 14784   0.116E-02
+  37 F= -.14211976E+03 E0= -.14211830E+03  d E =-.449114E-05  mag=    -0.0000
+ curvature:  -7.54 expect dE=-0.127E-03 dE for cont linesearch -0.467E-06
+ ZBRENT: increasing intervall
+ opt :   0.8173  next Energy=  -142.119764 (dE=-0.462E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194818688E+03    0.19509E-03   -0.25711E-03 14496   0.205E-01    0.123E-02
+DAV:   2    -0.140194817030E+03    0.16573E-05   -0.29982E-05 14496   0.232E-02    0.726E-03
+DAV:   3    -0.140194817341E+03   -0.31043E-06   -0.45980E-06 14688   0.796E-03
+  38 F= -.14211976E+03 E0= -.14211830E+03  d E =-.350663E-05  mag=    -0.0000
+ curvature:  -2.04 expect dE=-0.851E-04 dE for cont linesearch -0.141E-05
+ ZBRENT: bracketing found
+ ZBRENT: interpolating
+ opt :   0.5830  next Energy=  -142.119764 (dE=-0.463E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194969449E+03   -0.15242E-03   -0.15216E-03 14208   0.157E-01    0.853E-03
+DAV:   2    -0.140194968503E+03    0.94624E-06   -0.19582E-05 15072   0.184E-02    0.495E-03
+DAV:   3    -0.140194968601E+03   -0.97350E-07   -0.27952E-06 16128   0.603E-03
+  39 F= -.14211976E+03 E0= -.14211830E+03  d E =-.473852E-05  mag=    -0.0000
+ curvature:  -0.20 expect dE=-0.403E-05 dE for cont linesearch -0.569E-08
+ trial: gam= 1.00649 g(F)=  0.206E-04 g(S)=  0.000E+00 ort = 0.265E-05 (trialstep = 0.307E+00)
+ search vector abs. value=  0.270E-03
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194771347E+03    0.19716E-03   -0.28594E-03 14688   0.216E-01    0.122E-02
+DAV:   2    -0.140194769491E+03    0.18563E-05   -0.35404E-05 14208   0.247E-02    0.703E-03
+DAV:   3    -0.140194769486E+03    0.48203E-08   -0.52137E-06 15264   0.840E-03
+  40 F= -.14211977E+03 E0= -.14211831E+03  d E =-.335217E-05  mag=     0.0000
+ trial-energy change:   -0.000003  1 .order   -0.000003   -0.000007    0.000001
+ step:   0.2805(harm=  0.2805)  dis= 0.00044  next Energy=  -142.119767 (dE=-0.327E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194787128E+03   -0.17637E-04   -0.18781E-05 14400   0.180E-02    0.884E-04
+DAV:   2    -0.140194787256E+03   -0.12759E-06   -0.37285E-07 16512   0.254E-03
+  41 F= -.14211977E+03 E0= -.14211831E+03  d E =-.353983E-05  mag=     0.0000
+ curvature:  -1.62 expect dE=-0.716E-05 dE for cont linesearch -0.839E-07
+ ZBRENT: interpolating
+ opt :   0.2972  next Energy=  -142.119767 (dE=-0.336E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194776322E+03    0.10806E-04   -0.90369E-06 15168   0.120E-02    0.653E-04
+DAV:   2    -0.140194776325E+03   -0.30441E-08   -0.11517E-07 16512   0.149E-03
+  42 F= -.14211977E+03 E0= -.14211831E+03  d E =-.364368E-05  mag=     0.0000
+ curvature:  -0.21 expect dE=-0.947E-06 dE for cont linesearch -0.110E-07
+ ZBRENT: interpolating
+ opt :   0.3034  next Energy=  -142.119767 (dE=-0.336E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194772256E+03    0.40664E-05   -0.11110E-06 16368   0.436E-03    0.408E-04
+DAV:   2    -0.140194772270E+03   -0.13694E-07   -0.13908E-08 16176   0.559E-04
+  43 F= -.14211977E+03 E0= -.14211831E+03  d E =-.369496E-05  mag=     0.0000
+ curvature:  -0.08 expect dE=-0.358E-06 dE for cont linesearch -0.325E-08
+ ZBRENT: interpolating
+ opt :   0.3057  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194770833E+03    0.14230E-05   -0.14125E-07 16608   0.156E-03    0.199E-04
+DAV:   2    -0.140194770852E+03   -0.18988E-07   -0.22910E-09 17232   0.261E-04
+  44 F= -.14211977E+03 E0= -.14211831E+03  d E =-.374062E-05  mag=     0.0000
+ curvature:  -0.04 expect dE=-0.182E-06 dE for cont linesearch -0.144E-08
+ ZBRENT: interpolating
+ opt :   0.3065  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194770303E+03    0.53023E-06   -0.22588E-08 17664   0.623E-04    0.980E-05
+DAV:   2    -0.140194770319E+03   -0.16393E-07   -0.48219E-10 17808   0.121E-04
+  45 F= -.14211977E+03 E0= -.14211831E+03  d E =-.377847E-05  mag=     0.0000
+ curvature:  -0.02 expect dE=-0.863E-07 dE for cont linesearch -0.647E-09
+ ZBRENT: interpolating
+ opt :   0.3069  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194770101E+03    0.20153E-06   -0.39580E-09 17376   0.262E-04    0.457E-05
+DAV:   2    -0.140194770113E+03   -0.11557E-07   -0.14707E-10 18240   0.679E-05
+  46 F= -.14211977E+03 E0= -.14211831E+03  d E =-.380688E-05  mag=     0.0000
+ curvature:  -0.01 expect dE=-0.386E-07 dE for cont linesearch -0.281E-09
+ ZBRENT: interpolating
+ opt :   0.3070  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194770025E+03    0.76472E-07   -0.75986E-10 18048   0.116E-04    0.222E-05
+DAV:   2    -0.140194770032E+03   -0.71341E-08   -0.44051E-11 19488   0.357E-05
+  47 F= -.14211977E+03 E0= -.14211831E+03  d E =-.382466E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.169E-07 dE for cont linesearch -0.122E-09
+ ZBRENT: interpolating
+ opt :   0.3071  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194769997E+03    0.27758E-07   -0.16357E-10 17952   0.543E-05    0.115E-05
+DAV:   2    -0.140194770001E+03   -0.42292E-08   -0.15980E-11 20160   0.242E-05
+  48 F= -.14211977E+03 E0= -.14211831E+03  d E =-.383596E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.734E-08 dE for cont linesearch -0.524E-10
+ ZBRENT: interpolating
+ opt :   0.3071  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194769987E+03    0.95579E-08   -0.40430E-11 17856   0.288E-05    0.680E-06
+DAV:   2    -0.140194769990E+03   -0.24520E-08   -0.41281E-12 20256   0.168E-05
+  49 F= -.14211977E+03 E0= -.14211831E+03  d E =-.384256E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.317E-08 dE for cont linesearch -0.225E-10
+ ZBRENT: interpolating
+ opt :   0.3071  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194769985E+03    0.24938E-08   -0.12233E-11 17616   0.183E-05    0.470E-06
+DAV:   2    -0.140194769986E+03   -0.15216E-08   -0.55703E-13 21744   0.142E-05
+  50 F= -.14211977E+03 E0= -.14211831E+03  d E =-.384682E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.137E-08 dE for cont linesearch -0.969E-11
+ ZBRENT: interpolating
+ opt :   0.3071  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194769985E+03    0.29013E-09   -0.30669E-12 17616   0.132E-05    0.333E-06
+DAV:   2    -0.140194769985E+03   -0.82855E-09    0.37986E-12 20784   0.108E-05
+  51 F= -.14211977E+03 E0= -.14211831E+03  d E =-.384913E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.588E-09 dE for cont linesearch -0.416E-11
+ ZBRENT: interpolating
+ opt :   0.3072  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194769985E+03   -0.48203E-09    0.28884E-12 17616   0.104E-05    0.251E-06
+DAV:   2    -0.140194769986E+03   -0.48840E-09    0.53680E-12 20064   0.928E-06
+  52 F= -.14211977E+03 E0= -.14211831E+03  d E =-.385069E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.253E-09 dE for cont linesearch -0.179E-11
+ ZBRENT: interpolating
+ opt :   0.3072  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194769985E+03   -0.39381E-09    0.34161E-12 17616   0.814E-06    0.183E-06
+DAV:   2    -0.140194769986E+03   -0.30923E-09    0.61963E-12 14832   0.705E-06
+  53 F= -.14211977E+03 E0= -.14211831E+03  d E =-.385151E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.109E-09 dE for cont linesearch -0.769E-12
+ ZBRENT: interpolating
+ opt :   0.3072  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194769986E+03   -0.24374E-09    0.59013E-12 17088   0.649E-06    0.139E-06
+DAV:   2    -0.140194769986E+03   -0.21919E-09    0.60847E-12 12720   0.595E-06
+  54 F= -.14211977E+03 E0= -.14211831E+03  d E =-.385192E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.468E-10 dE for cont linesearch -0.331E-12
+ ZBRENT: interpolating
+ opt :   0.3072  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194769986E+03   -0.32742E-09    0.73648E-12 16704   0.506E-06    0.102E-06
+DAV:   2    -0.140194769986E+03   -0.10277E-09    0.52449E-12  8160   0.443E-06
+  55 F= -.14211977E+03 E0= -.14211831E+03  d E =-.385225E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.201E-10 dE for cont linesearch -0.142E-12
+ ZBRENT: interpolating
+ opt :   0.3072  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194769986E+03   -0.87311E-10    0.62233E-12 14592   0.391E-06    0.777E-07
+DAV:   2    -0.140194769986E+03   -0.15643E-09    0.72328E-12  7584   0.360E-06
+  56 F= -.14211977E+03 E0= -.14211831E+03  d E =-.385244E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.865E-11 dE for cont linesearch -0.611E-13
+ ZBRENT: interpolating
+ opt :   0.3072  next Energy=  -142.119767 (dE=-0.335E-05)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194769986E+03   -0.16553E-09    0.77239E-12  9312   0.295E-06    0.570E-07
+DAV:   2    -0.140194769986E+03    0.39108E-10    0.49499E-12  7680   0.253E-06
+  57 F= -.14211977E+03 E0= -.14211831E+03  d E =-.385243E-05  mag=     0.0000
+ curvature:  -0.00 expect dE=-0.372E-11 dE for cont linesearch -0.263E-13
+ ZBRENT:  can not reach accuracy
+ opt :   0.0000  next Energy=     0.000000 (dE= 0.142E+03)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.140194970713E+03   -0.20073E-03   -0.28893E-03 14208   0.217E-01    0.127E-02
+DAV:   2    -0.140194968086E+03    0.26274E-05   -0.33640E-05 14784   0.241E-02    0.724E-03
+DAV:   3    -0.140194968618E+03   -0.53188E-06   -0.53221E-06 20784   0.832E-03
+  58 F= -.14211976E+03 E0= -.14211830E+03  d E =-.169075E-07  mag=    -0.0000
+ curvature:   0.00 expect dE= 0.000E+00 dE for cont linesearch  0.000E+00
+ -----------------------------------------------------------------------------
+|                                                                             |
+|     EEEEEEE  RRRRRR   RRRRRR   OOOOOOO  RRRRRR      ###     ###     ###     |
+|     E        R     R  R     R  O     O  R     R     ###     ###     ###     |
+|     E        R     R  R     R  O     O  R     R     ###     ###     ###     |
+|     EEEEE    RRRRRR   RRRRRR   O     O  RRRRRR       #       #       #      |
+|     E        R   R    R   R    O     O  R   R                               |
+|     E        R    R   R    R   O     O  R    R      ###     ###     ###     |
+|     EEEEEEE  R     R  R     R  OOOOOOO  R     R     ###     ###     ###     |
+|                                                                             |
+|     ZBRENT: fatal error in bracketing                                       |
+|      please rerun with smaller EDIFF, or copy CONTCAR                       |
+|      to POSCAR and continue                                                 |
+|                                                                             |
+|       ---->  I REFUSE TO CONTINUE WITH THIS SICK JOB ... BYE!!! <----       |
+|                                                                             |
+ -----------------------------------------------------------------------------
+
