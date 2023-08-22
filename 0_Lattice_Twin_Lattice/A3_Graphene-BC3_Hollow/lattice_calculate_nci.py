@@ -18,9 +18,9 @@ dirs_to_walk    = []
 
 distance_bound = 15.0
 
-a_start = 5.02
-a_end = 5.10
-a_step = 0.01
+a_start = 4.980001
+a_end = 5.100
+a_step = 10
 
 z_var = 3.383
 

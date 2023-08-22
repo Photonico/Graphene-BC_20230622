@@ -18,9 +18,9 @@ dirs_to_walk    = []
 
 distance_bound = 15.0
 
-a_start = 4.90
+a_start = 5.020001
 a_end = 5.05
-a_step = 0.01
+a_step = 1
 
 z_var = 5.544
 
@@ -66,4 +66,4 @@ for dest_dir in dirs_to_walk:
     if "vasp_usyd.sh" in os.listdir(dest_dir):
         print(dest_dir)
         subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_nci.sh"])
-        time.sleep(10)
+        time.sleep(4)
