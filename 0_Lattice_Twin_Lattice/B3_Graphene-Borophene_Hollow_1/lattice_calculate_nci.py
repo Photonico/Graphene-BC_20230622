@@ -21,8 +21,8 @@ distance_bound = 15.0
 z_var = 5.544
 
 a_step = 0.002
-a_start = 4.974
-a_end = 4.985
+a_start = 5.020
+a_end = 5.030
 
 for a_var in np.arange(a_start, a_end, a_step):
     dest_dir = f"Lattice_var_{a_var:.3f}_dis_{z_var:.3f}_fine"
