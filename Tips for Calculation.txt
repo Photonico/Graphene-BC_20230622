@@ -41,14 +41,24 @@
 
     * Check space information: `quota -v`
 
-## GIT
+## GIT Clean
 
-    * Clean the record: `git reflog expire --expire=now --all`
+    * Purge Historical References:
+        git reflog expire --expire=now --all
 
-    * Clean the repo bin: `git gc --prune=now`
+    * Tidy Up the Repository:
+        git gc --prune=now
 
-    * Deep clean:
+    * Deep cleanup:
         git repack -ad
         git prune
 
-    * Forced push: `git push -f origin main`
+    * Stage the Changes:
+        git add .
+
+    * Commit the Staged Changes:
+        git commit -m "Optimized git repository by cleaning up the history"
+
+    * Push Changes Forcefully to the Remote Repository
+        git push -f origin main
+
