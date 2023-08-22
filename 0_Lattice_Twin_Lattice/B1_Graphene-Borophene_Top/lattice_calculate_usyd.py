@@ -13,7 +13,7 @@ import time
 lattice_type = "Top"
 lattice_shift = 0
 
-source_dir      = "Lattice_source"  # Source directory containing INCAR, KPOINTS, POTCAR, and vasp_job.sh
+source_dir      = "lattice_source"  # Source directory containing INCAR, KPOINTS, POTCAR, and vasp_job.sh
 dirs_to_walk    = []
 
 distance_bound = 15.0
