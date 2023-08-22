@@ -18,14 +18,16 @@ dirs_to_walk    = []
 
 distance_bound = 15.0
 
-a_start = 4.98
-a_end = 5.10
-a_step = 0.01
-
 z_var = 3.395
 
-for a_var in np.arange(a_start, a_end, a_step):
-    dest_dir = f"Lattice_var_{a_var:.3f}_dis_{z_var:.3f}"
+a_step = 0.002
+a_start = 5.036
+a_end = 5.050
+
+exclude_values = {5.040, 5.050}
+
+for a_var in list(set(np.arange(a_start, a_end, a_step)) - exclude_values):
+    dest_dir = f"Lattice_var_{a_var:.3f}_dis_{z_var:.3f}_fine"
     os.makedirs(dest_dir, exist_ok = True)
     for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_nci.sh", "vasp_usyd.sh"]:
         shutil.copy(os.path.join(source_dir, file_name), dest_dir)

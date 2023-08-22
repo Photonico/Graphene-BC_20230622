@@ -74,4 +74,4 @@ for lattice_type in ["Top", "Bridge", "Hollow_1", "Hollow_2"]:
         if "vasp_nci.sh" in os.listdir(dest_dir):
             print(dest_dir)
             subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_nci.sh"])
-            time.sleep(2)
+            time.sleep(4)

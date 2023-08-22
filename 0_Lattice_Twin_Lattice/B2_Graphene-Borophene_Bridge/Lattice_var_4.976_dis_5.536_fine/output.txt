@@ -1,0 +1,1738 @@
+Loading vasp/6.3.2
+  Loading requirement: openmpi/4.1.4
+[gadi-cpu-clx-0896:1874146:0:1874146]       ud_ep.c:278  Fatal: UD endpoint 0xf977b00 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874147:0:1874147]       ud_ep.c:278  Fatal: UD endpoint 0xf443c60 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874152:0:1874152]       ud_ep.c:278  Fatal: UD endpoint 0xef05ca0 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874168:0:1874168]       ud_ep.c:278  Fatal: UD endpoint 0xf366050 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874155:0:1874155]       ud_ep.c:278  Fatal: UD endpoint 0xe73d870 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874165:0:1874165]       ud_ep.c:278  Fatal: UD endpoint 0xfc0f530 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874161:0:1874161]       ud_ep.c:278  Fatal: UD endpoint 0xea780e0 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874159:0:1874159]       ud_ep.c:278  Fatal: UD endpoint 0xeadd680 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874149:0:1874149]       ud_ep.c:278  Fatal: UD endpoint 0xef57e60 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874164:0:1874164]       ud_ep.c:278  Fatal: UD endpoint 0xe1dd100 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874122:0:1874122]       ud_ep.c:278  Fatal: UD endpoint 0xe242ac0 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874160:0:1874160]       ud_ep.c:278  Fatal: UD endpoint 0xeb33f50 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874150:0:1874150]       ud_ep.c:278  Fatal: UD endpoint 0xedbbd00 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874145:0:1874145]       ud_ep.c:278  Fatal: UD endpoint 0xf2c4c10 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874158:0:1874158]       ud_ep.c:278  Fatal: UD endpoint 0xe981ed0 to <no debug data>: unhandled timeout error
+[gadi-cpu-clx-0896:1874129:0:1874129]       ud_ep.c:278  Fatal: UD endpoint 0xf86c2f0 to <no debug data>: unhandled timeout error
+==== backtrace (tid:1874122) ====
+==== backtrace (tid:1874129) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x0000000000018106 hmca_bcol_ucx_p2p_progress_fast()  ???:0
+ 4 0x000000000001a468 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x0000000000018106 hmca_bcol_ucx_p2p_progress_fast()  ???:0
+ 4 0x000000000001a468 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+==== backtrace (tid:1874165) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x0000000000018106 hmca_bcol_ucx_p2p_progress_fast()  ???:0
+ 4 0x000000000001a468 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014DEB4F5BCF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014DEB4BD2ACF  gsignal               Unknown  Unknown
+libc-2.28.so       000014DEB4BA5EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    000014DEAEE54ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014DEAEE54CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  000014DEA43E44E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014DEAEE39BDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000014DEAF63B51A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014DE8FB42106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  000014DE8FB44468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014DEB0D1C053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014DEB0CC970D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000014DEB0D12F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000014DEB5333220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014DEB534C94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014DEB5358162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014DEB51CE57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014DEB537B805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014DEB56EDB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014DEB4BBED85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014BA992B9CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014BA98F30ACF  gsignal               Unknown  Unknown
+libc-2.28.so       000014BA98F03EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    000014BA931B2ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014BA931B2CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  000014BA886FC4E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014BA93197BDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000014BA9399951A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014BA70F57106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  000014BA70F59468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014BA9507A053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014BA9502770D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000014BA95070F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000014BA99691220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014BA996AA94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014BA996B6162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014BA9952C57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014BA996D9805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014BA99A4BB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014BA98F1CD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000146ACCF0FCF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000146ACCB86ACF  gsignal               Unknown  Unknown
+libc-2.28.so       0000146ACCB59EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    0000146AC6E08ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000146AC6E08CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  0000146ABC3E44E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000146AC6DEDBDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    0000146AC75EF51A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000146AAC94D106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  0000146AAC94F468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  0000146AC8CD0053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  0000146AC8C7D70D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000146AC8CC6F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000146ACD2E7220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000146ACD30094F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000146ACD30C162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000146ACD18257B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000146ACD32F805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000146ACD6A1B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000146ACCB72D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+==== backtrace (tid:1874158) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x000000000001814e hmca_bcol_ucx_p2p_progress()  ???:0
+ 4 0x000000000001a0e4 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000145B7CC84CF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000145B7C8FBACF  gsignal               Unknown  Unknown
+libc-2.28.so       0000145B7C8CEEA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    0000145B76B7DABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000145B76B7DCD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  0000145B6C0E54E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000145B76B62BDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    0000145B7736451A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000145B5C6C114E  hmca_bcol_ucx_p2p     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000145B5C6C30E4  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  0000145B78A45053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  0000145B789F270D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000145B78A3BF7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000145B7D05C220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000145B7D07594F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000145B7D081162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000145B7CEF757B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000145B7D0A4805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000145B7D416B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000145B7C8E7D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+==== backtrace (tid:1874145) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x000000000001814e hmca_bcol_ucx_p2p_progress()  ???:0
+ 4 0x000000000001a0e4 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014868FADBCF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014868F752ACF  gsignal               Unknown  Unknown
+libc-2.28.so       000014868F725EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    00001486899D4ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    00001486899D4CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  000014867DDEB4E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    00001486899B9BDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000014868A1BB51A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014866978914E  hmca_bcol_ucx_p2p     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014866978B0E4  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014868B89C053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014868B84970D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000014868B892F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000014868FEB3220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014868FECC94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014868FED8162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014868FD4E57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014868FEFB805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014869026DB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014868F73ED85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+==== backtrace (tid:1874164) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x000000000001814e hmca_bcol_ucx_p2p_progress()  ???:0
+ 4 0x000000000001a0e4 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+==== backtrace (tid:1874161) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x000000000001814e hmca_bcol_ucx_p2p_progress()  ???:0
+ 4 0x000000000001a0e4 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  00001478FA46ECF0  Unknown               Unknown  Unknown
+libc-2.28.so       00001478FA0E5ACF  gsignal               Unknown  Unknown
+libc-2.28.so       00001478FA0B8EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    00001478F4367ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    00001478F4367CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  00001478E890B4E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    00001478F434CBDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    00001478F4B4E51A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  00001478D9EAD14E  hmca_bcol_ucx_p2p     Unknown  Unknown
+hmca_bcol_ucx_p2p  00001478D9EAF0E4  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  00001478F622F053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  00001478F61DC70D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  00001478F6225F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  00001478FA846220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  00001478FA85F94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001478FA86B162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  00001478FA6E157B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  00001478FA88E805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    00001478FAC00B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       00001478FA0D1D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014E7E4B96CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014E7E480DACF  gsignal               Unknown  Unknown
+libc-2.28.so       000014E7E47E0EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    000014E7DEA8FABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014E7DEA8FCD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  000014E7CEDEB4E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014E7DEA74BDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000014E7DF27651A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014E7BE3D414E  hmca_bcol_ucx_p2p     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014E7BE3D60E4  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014E7E0957053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014E7E090470D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000014E7E094DF7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000014E7E4F6E220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014E7E4F8794F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014E7E4F93162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014E7E4E0957B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014E7E4FB6805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014E7E5328B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014E7E47F9D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+==== backtrace (tid:1874160) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x0000000000018106 hmca_bcol_ucx_p2p_progress_fast()  ???:0
+ 4 0x000000000001a468 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000149245BDACF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000149245851ACF  gsignal               Unknown  Unknown
+libc-2.28.so       0000149245824EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    000014923FAD3ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014923FAD3CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  000014922FDC54E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014923FAB8BDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    00001492402BA51A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000149225617106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  0000149225619468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014924199B053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014924194870D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000149241991F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000149245FB2220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000149245FCB94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000149245FD7162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000149245E4D57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000149245FFA805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014924636CB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014924583DD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874166] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000146D80EF6CF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000146D80C42F41  __poll                Unknown  Unknown
+libopen-pal.so.40  0000146D7B9FE605  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000146D7BA06EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  0000146D7BA73BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000146D7BA73CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  0000146D813526DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  0000146D812CBE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    0000146D7CF5232C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    0000146D7CF535D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  0000146D812CF552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000146D812CF8F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  0000146D812E794F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000146D812F3162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000146D8116957B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000146D81316805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000146D81688B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000146D80B59D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874123] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014D20F306CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014D20F052F41  __poll                Unknown  Unknown
+libopen-pal.so.40  000014D209E0E605  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014D209E16EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  000014D209E83BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014D209E83CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  000014D20F7626DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000014D20F6DBE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    000014D20B36232C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    000014D20B3635D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000014D20F6DF552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014D20F6DF8F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000014D20F6F794F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014D20F703162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014D20F57957B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014D20F726805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014D20FA98B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014D20EF69D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874124] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  00001472EC30DCF0  Unknown               Unknown  Unknown
+libc-2.28.so       00001472EC059F41  __poll                Unknown  Unknown
+libopen-pal.so.40  00001472E6E15605  Unknown               Unknown  Unknown
+libopen-pal.so.40  00001472E6E1DEF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  00001472E6E8ABEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  00001472E6E8ACA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  00001472EC7696DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  00001472EC6E2E43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    00001472E836932C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    00001472E836A5D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  00001472EC6E6552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001472EC6E68F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  00001472EC6FE94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001472EC70A162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  00001472EC58057B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  00001472EC72D805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    00001472ECA9FB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       00001472EBF70D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000153E1C206CF0  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  0000153E0A5306B6  Unknown               Unknown  Unknown
+libucp.so.0.0.0    0000153E168E651A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000153DF10C6106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  0000153DF10C8468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  0000153E17FC7053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  0000153E17F7470D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000153E17FBDF7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000153E1C5DE220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000153E1C5F794F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000153E1C603162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000153E1C47957B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000153E1C626805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000153E1C998B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000153E1BE69D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874126] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014F6E3477CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014F6E31C3F41  __poll                Unknown  Unknown
+libopen-pal.so.40  000014F6DDF7F605  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014F6DDF87EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  000014F6DDFF4BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014F6DDFF4CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  000014F6E38D36DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000014F6E384CE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    000014F6DF4D332C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    000014F6DF4D45D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000014F6E3850552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014F6E38508F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000014F6E386894F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014F6E3874162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014F6E36EA57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014F6E3897805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014F6E3C09B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014F6E30DAD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874127] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014DC574B9CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014DC57205F41  __poll                Unknown  Unknown
+libopen-pal.so.40  000014DC51FC1605  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014DC51FC9EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  000014DC52036BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014DC52036CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  000014DC579156DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000014DC5788EE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    000014DC5351532C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    000014DC535165D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000014DC57892552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014DC578928F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000014DC578AA94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014DC578B6162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014DC5772C57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014DC578D9805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014DC57C4BB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014DC5711CD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874128] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014A44E64FCF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014A44E39BF41  __poll                Unknown  Unknown
+libopen-pal.so.40  000014A449157605  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014A44915FEF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  000014A4491CCBEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014A4491CCCA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  000014A44EAAB6DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000014A44EA24E43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    000014A44A6AB32C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    000014A44A6AC5D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000014A44EA28552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014A44EA288F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000014A44EA4094F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014A44EA4C162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014A44E8C257B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014A44EA6F805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014A44EDE1B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014A44E2B2D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874130] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  00001510ACC11CF0  Unknown               Unknown  Unknown
+libc-2.28.so       00001510AC95DF41  __poll                Unknown  Unknown
+libopen-pal.so.40  00001510A7719605  Unknown               Unknown  Unknown
+libopen-pal.so.40  00001510A7721EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  00001510A778EBEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  00001510A778ECA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  00001510AD06D6DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  00001510ACFE6E43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    00001510A8C6D32C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    00001510A8C6E5D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  00001510ACFEA552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001510ACFEA8F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  00001510AD00294F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001510AD00E162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  00001510ACE8457B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  00001510AD031805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    00001510AD3A3B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       00001510AC874D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874131] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  00001549A37A1CF0  Unknown               Unknown  Unknown
+libc-2.28.so       00001549A34EDF41  __poll                Unknown  Unknown
+libopen-pal.so.40  000015499E2A9605  Unknown               Unknown  Unknown
+libopen-pal.so.40  000015499E2B1EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  000015499E31EBEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  000015499E31ECA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  00001549A3BFD6DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  00001549A3B76E43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    000015499F7FD32C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    000015499F7FE5D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  00001549A3B7A552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001549A3B7A8F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  00001549A3B9294F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001549A3B9E162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  00001549A3A1457B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  00001549A3BC1805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    00001549A3F33B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       00001549A3404D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014AD8D9C2CF0  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  000014AD77DD18EE  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000014AD880A251A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014AD67B42106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  000014AD67B44468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014AD89783053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014AD8973070D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000014AD89779F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000014AD8DD9A220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014AD8DDB394F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014AD8DDBF162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014AD8DC3557B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014AD8DDE2805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014AD8E154B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014AD8D625D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000147CD29B6CF0  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000147CD29B3367  pthread_spin_lock     Unknown  Unknown
+libuct_ib.so.0.0.  0000147CC0DD3C36  Unknown               Unknown  Unknown
+libucp.so.0.0.0    0000147CCD09651A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000147CA9BBE106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  0000147CA9BC0468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  0000147CCE777053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  0000147CCE72470D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000147CCE76DF7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000147CD2D8E220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000147CD2DA794F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000147CD2DB3162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000147CD2C2957B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000147CD2DD6805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000147CD3148B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000147CD2619D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000151C12ABBCF0  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  0000151BEBB420E1  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  0000151BEBB44468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  0000151C0E87C053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  0000151C0E82970D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000151C0E872F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000151C12E93220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000151C12EAC94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000151C12EB8162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000151C12D2E57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000151C12EDB805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000151C1324DB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000151C1271ED85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014DD61F1ECF0  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000014DD5C5FE572  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014DD36A76106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  000014DD36A78468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014DD5DCDF053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014DD5DC8C70D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000014DD5DCD5F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000014DD622F6220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014DD6230F94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014DD6231B162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014DD6219157B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014DD6233E805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014DD626B0B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014DD61B81D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014EDE6CACCF0  Unknown               Unknown  Unknown
+libuct.so.0.0.0    000014EDE111866D  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000014EDE138C51A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014EDC66E814E  hmca_bcol_ucx_p2p     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014EDC66EA0E4  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014EDE2A6D053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014EDE2A1A70D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000014EDE2A63F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000014EDE7084220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014EDE709D94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014EDE70A9162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014EDE6F1F57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014EDE70CC805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014EDE743EB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014EDE690FD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  00001510A4337CF0  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  0000151092747919  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000015109EA1751A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000151083D74106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  0000151083D76468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  00001510A00F8053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  00001510A00A570D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  00001510A00EEF7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  00001510A470F220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  00001510A472894F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001510A4734162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  00001510A45AA57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  00001510A4757805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    00001510A4AC9B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       00001510A3F9AD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  00001484D6498CF0  Unknown               Unknown  Unknown
+libuct.so.0.0.0    00001484D09047B2  Unknown               Unknown  Unknown
+libucp.so.0.0.0    00001484D0B7851A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  00001484B5ED7106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  00001484B5ED9468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  00001484D2259053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  00001484D220670D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  00001484D224FF7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  00001484D6870220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  00001484D688994F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001484D6895162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  00001484D670B57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  00001484D68B8805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    00001484D6C2AB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       00001484D60FBD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014C056EE2CF0  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  000014C036923462  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014C052CA3053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014C052C5070D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000014C052C99F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000014C0572BA220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014C0572D394F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014C0572DF162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014C05715557B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014C057302805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014C057674B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014C056B45D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[gadi-cpu-clx-0896:1874140:0:1874140] Caught signal 7 (Bus error: nonexistent physical address)
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874141] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000149065F55CF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000149065CA1F41  __poll                Unknown  Unknown
+libopen-pal.so.40  0000149060A5D605  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000149060A65EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  0000149060AD2BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000149060AD2CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  00001490663B16DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000014906632AE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    0000149061FB132C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    0000149061FB25D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000014906632E552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014906632E8F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000014906634694F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000149066352162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  00001490661C857B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000149066375805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    00001490666E7B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000149065BB8D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[gadi-cpu-clx-0896:1874142:0:1874142] Caught signal 7 (Bus error: nonexistent physical address)
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000015172086BCF0  Unknown               Unknown  Unknown
+libc-2.28.so       000015172052FE20  cfree                 Unknown  Unknown
+libucs.so.0.0.0    000015171A7BD4FB  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000015171A7966E1  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000015171A771F7F  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000015171A7633C0  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000015171A763CAF  ucs_debug_backtra     Unknown  Unknown
+libucs.so.0.0.0    000015171A7641B7  ucs_handle_error      Unknown  Unknown
+libucs.so.0.0.0    000015171A764401  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000015171A764610  Unknown               Unknown  Unknown
+libpthread-2.28.s  000015172086BCF0  Unknown               Unknown  Unknown
+libuct.so.0.0.0    000015171ACD97C7  Unknown               Unknown  Unknown
+libuct.so.0.0.0    000015171ACD9999  uct_mm_ep_t_new       Unknown  Unknown
+libuct.so.0.0.0    000015171ACD55E2  uct_ep_create         Unknown  Unknown
+libucp.so.0.0.0    000015171AFB2EEA  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000015171AFB439D  ucp_wireup_init_l     Unknown  Unknown
+libucp.so.0.0.0    000015171AF33137  ucp_ep_create_to_     Unknown  Unknown
+libucp.so.0.0.0    000015171AF33B92  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000015171AF341BE  ucp_ep_create         Unknown  Unknown
+hmca_bcol_ucx_p2p  00001517002A9129  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  00001517002AA02B  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000015171C62C053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000015171C5D970D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000015171C622F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000151720C43220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000151720C5C94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000151720C68162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000151720ADE57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000151720C8B805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000151720FFDB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       00001517204CED85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874144] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014D73A3C9CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014D73A115F41  __poll                Unknown  Unknown
+libopen-pal.so.40  000014D734ED1605  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014D734ED9EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  000014D734F46BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014D734F46CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  000014D73A8256DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000014D73A79EE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    000014D73642532C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    000014D7364265D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000014D73A7A2552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014D73A7A28F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000014D73A7BA94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014D73A7C6162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014D73A63C57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014D73A7E9805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014D73AB5BB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014D73A02CD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874143] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014E779AB3CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014E7797FFF41  __poll                Unknown  Unknown
+libopen-pal.so.40  000014E7745BB605  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014E7745C3EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  000014E774630BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014E774630CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  000014E779F0F6DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000014E779E88E43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    000014E775B0F32C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    000014E775B105D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000014E779E8C552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014E779E8C8F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000014E779EA494F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014E779EB0162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014E779D2657B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014E779ED3805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014E77A245B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014E779716D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+==== backtrace (tid:1874150) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x0000000000018106 hmca_bcol_ucx_p2p_progress_fast()  ???:0
+ 4 0x000000000001a468 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014682967ACF0  Unknown               Unknown  Unknown
+libc-2.28.so       00001468292F1ACF  gsignal               Unknown  Unknown
+libc-2.28.so       00001468292C4EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    0000146823573ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000146823573CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  00001468139BA4E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000146823558BDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    0000146823D5A51A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  00001468090B5106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  00001468090B7468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014682543B053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  00001468253E870D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000146825431F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000146829A52220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000146829A6B94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000146829A77162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  00001468298ED57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000146829A9A805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000146829E0CB40  Unknown    [LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874169] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014856A26ACF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000148569FB6F41  __poll                Unknown  Unknown
+libopen-pal.so.40  0000148564D72605  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000148564D7AEF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  0000148564DE7BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000148564DE7CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  000014856A6C66DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000014856A63FE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    00001485662C632C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    00001485662C75D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000014856A643552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014856A6438F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000014856A65B94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014856A667162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014856A4DD57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014856A68A805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014856A9FCB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000148569ECDD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874148] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000153B2DE09CF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000153B2DB55F41  __poll                Unknown  Unknown
+libopen-pal.so.40  0000153B28911605  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000153B28919EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  0000153B28986BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000153B28986CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  0000153B2E2656DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  0000153B2E1DEE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    0000153B29E6532C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    0000153B29E665D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  0000153B2E1E2552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000153B2E1E28F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  0000153B2E1FA94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000153B2E206162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000153B2E07C57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000153B2E229805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000153B2E59BB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000153B2DA6CD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+==== backtrace (tid:1874146) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x000000000001814e hmca_bcol_ucx_p2p_progress()  ???:0
+ 4 0x000000000001a0e4 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000151D9109DCF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000151D90D14ACF  gsignal               Unknown  Unknown
+libc-2.28.so       0000151D90CE7EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    0000151D8AF96ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000151D8AF96CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  0000151D804E54E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000151D8AF7BBDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    0000151D8B77D51A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000151D70AD814E  hmca_bcol_ucx_p2p     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000151D70ADA0E4  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  0000151D8CE5E053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  0000151D8CE0B70D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000151D8CE54F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000151D91475220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000151D9148E94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000151D9149A162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000151D9131057B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000151D914BD805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000151D9182FB40  Unknown         ==== backtrace (tid:1874159) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x0000000000018106 hmca_bcol_ucx_p2p_progress_fast()  ???:0
+ 4 0x000000000001a468 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014775509ECF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000147754D15ACF  gsignal               Unknown  Unknown
+libc-2.28.so       0000147754CE8EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    000014774EF97ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014774EF97CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  00001477444E54E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014774EF7CBDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000014774F77E51A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014772D575106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  000014772D577468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  0000147750E5F053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  0000147750E0C70D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000147750E55F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000147755476220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014775548F94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014775549B162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014775531157B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  00001477554BE805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000147755830B40  Unknown    ==== backtrace (tid:1874147) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x000000000001814e hmca_bcol_ucx_p2p_progress()  ???:0
+ 4 0x000000000001a0e4 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014AFE98A9CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014AFE9520ACF  gsignal               Unknown  Unknown
+libc-2.28.so       000014AFE94F3EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    000014AFE37A2ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014AFE37A2CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  000014AFD3BC04E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014AFE3787BDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000014AFE3F8951A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014AFC3B6C14E  hmca_bcol_ucx_p2p     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014AFC3B6E0E4  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014AFE566A053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014AFE561770D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000014AFE5660F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000014AFE9C81220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014AFE9C9A94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014AFE9CA6162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014AFE9B1C57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014AFE9CC9805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014AFEA03BB40  Unknown         forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  00001505509C9CF0  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  0000150529EA3100  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000015054C78A053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000015054C73770D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000015054C780F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000150550DA1220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000150550DBA94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000150550DC6162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000150550C3C57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000150550DE9805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000015055115BB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000015055062CD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  00001529577CACF0  Unknown               Unknown  Unknown
+libucp.so.0.0.0    0000152951EAA529  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000152937206106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  0000152937208468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000015295358B053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000015295353870D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000152953581F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000152957BA2220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000152957BBB94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000152957BC7162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000152957A3D57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000152957BEA805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000152957F5CB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000015295742DD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874154] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014B145CDDCF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014B145A29F41  __poll                Unknown  Unknown
+libopen-pal.so.40  000014B1407E5605  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014B1407EDEF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  000014B14085ABEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014B14085ACA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  000014B1461396DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000014B1460B2E43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    000014B141D3932C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    000014B141D3A5D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000014B1460B6552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014B1460B68F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000014B1460CE94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014B1460DA162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014B145F5057B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014B1460FD805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014B14646FB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014B145940D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874156] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000149D249A7CF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000149D246F3F41  __poll                Unknown  Unknown
+libopen-pal.so.40  0000149D1F4AF605  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000149D1F4B7EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  0000149D1F524BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000149D1F524CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  0000149D24E036DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  0000149D24D7CE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    0000149D20A0332C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    0000149D20A045D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  0000149D24D80552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000149D24D808F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  0000149D24D9894F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000149D24DA4162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000149D24C1A57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000149D24DC7805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000149D25139B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000149D2460AD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+==== backtrace (tid:1874168) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x0000000000018106 hmca_bcol_ucx_p2p_progress_fast()  ???:0
+ 4 0x000000000001a468 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014B40D647CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014B40D2BEACF  gsignal               Unknown  Unknown
+libc-2.28.so       000014B40D291EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    000014B407540ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014B407540CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  000014B3FCB014E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    000014B407525BDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    000014B407D2751A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000014B3ED083106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  000014B3ED085468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  000014B409408053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  000014B4093B570D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  000014B4093FEF7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000014B40DA1F220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000014B40DA3894F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014B40DA44162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014B40D8BA57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014B40DA67805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014B40DDD9B40  Unknown    [LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874157] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000014B6C05A0CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000014B6C02ECF41  __poll                Unknown  Unknown
+libopen-pal.so.40  000014B6BB0A8605  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014B6BB0B0EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  000014B6BB11DBEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  000014B6BB11DCA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  000014B6C09FC6DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000014B6C0975E43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    000014B6BC5FC32C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    000014B6BC5FD5D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000014B6C0979552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014B6C09798F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000014B6C099194F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000014B6C099D162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000014B6C081357B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000014B6C09C0805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000014B6C0D32B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014B6C0203D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+[LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874163] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  00001481BEE2ACF0  Unknown               Unknown  Unknown
+libc-2.28.so       00001481BEB76F41  __poll                Unknown  Unknown
+libopen-pal.so.40  00001481B9932605  Unknown               Unknown  Unknown
+libopen-pal.so.40  00001481B993AEF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  00001481B99A7BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  00001481B99A7CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  00001481BF2866DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  00001481BF1FFE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    00001481BAE8632C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    00001481BAE875D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  00001481BF203552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001481BF2038F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  00001481BF21B94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001481BF227162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  00001481BF09D57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  00001481BF24A805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    00001481BF5BCB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       00001481BEA8DD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+==== backtrace (tid:1874149) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x000000000001814e hmca_bcol_ucx_p2p_progress()  ???:0
+ 4 0x000000000001a0e4 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000015512CCFFCF0  Unknown               Unknown  Unknown
+libc-2.28.so       000015512C976ACF  gsignal               Unknown  Unknown
+libc-2.28.so       000015512C949EA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    0000155126BF8ABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000155126BF8CD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  000015511C0E54E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000155126BDDBDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    00001551273DF51A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  000015510C73C14E  hmca_bcol_ucx_p2p     Unknown  Unknown
+hmca_bcol_ucx_p2p  000015510C73E0E4  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  0000155128AC0053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  0000155128A6D70D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000155128AB6F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  000015512D0D7220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  000015512D0F094F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000015512D0FC162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000015512CF7257B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000015512D11F805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000015512D491B40  Unknown         [LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874162] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000148A5E3E1CF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000148A5E12DF41  __poll                Unknown  Unknown
+libopen-pal.so.40  0000148A58EE9605  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000148A58EF1EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  0000148A58F5EBEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000148A58F5ECA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  0000148A5E83D6DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  0000148A5E7B6E43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    0000148A5A43D32C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    0000148A5A43E5D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  0000148A5E7BA552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000148A5E7BA8F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  0000148A5E7D294F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000148A5E7DE162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000148A5E65457B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000148A5E801805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000148A5EB73B40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000148A5E044D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+==== backtrace (tid:1874155) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x0000000000018106 hmca_bcol_ucx_p2p_progress_fast()  ???:0
+ 4 0x000000000001a468 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  0000147B15D71CF0  Unknown               Unknown  Unknown
+libc-2.28.so       0000147B159E8ACF  gsignal               Unknown  Unknown
+libc-2.28.so       0000147B159BBEA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    0000147B0FC6AABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000147B0FC6ACD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  0000147B041D24E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    0000147B0FC4FBDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    0000147B1045151A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  0000147AF57AD106  Unknown               Unknown  Unknown
+hmca_bcol_ucx_p2p  0000147AF57AF468  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  0000147B11B32053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  0000147B11ADF70D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  0000147B11B28F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  0000147B16149220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  0000147B1616294F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  0000147B1616E162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  0000147B15FE457B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  0000147B16191805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    0000147B16503B40  Unknown    [LOG_CAT_P2P] UCX returned connect error: Input/output error
+[LOG_CAT_P2P] hmca_bcol_ucx_p2p_preconnect() failed
+[gadi-cpu-clx-0896.gadi.nci.org.au:1874167] Error: /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  000015182EB29CF0  Unknown               Unknown  Unknown
+libc-2.28.so       000015182E875F41  __poll                Unknown  Unknown
+libopen-pal.so.40  0000151829631605  Unknown               Unknown  Unknown
+libopen-pal.so.40  0000151829639EF5  opal_libevent2022     Unknown  Unknown
+libopen-pal.so.40  00001518296A6BEB  Unknown               Unknown  Unknown
+libopen-pal.so.40  00001518296A6CA3  opal_progress         Unknown  Unknown
+libmpi.so.40.30.4  000015182EF856DB  ompi_request_defa     Unknown  Unknown
+libmpi.so.40.30.4  000015182EEFEE43  Unknown               Unknown  Unknown
+libucc.so.1.0.0    000015182AB8532C  ucc_core_addr_exc     Unknown  Unknown
+libucc.so.1.0.0    000015182AB865D9  ucc_context_creat     Unknown  Unknown
+libmpi.so.40.30.4  000015182EF02552  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000015182EF028F5  mca_coll_ucc_comm     Unknown  Unknown
+libmpi.so.40.30.4  000015182EF1A94F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  000015182EF26162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  000015182ED9C57B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  000015182EF49805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    000015182F2BBB40  Unknown               Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000015182E78CD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+==== backtrace (tid:1874152) ====
+ 0 0x000000000005b4e8 uct_ud_ep_deferred_timeout_handler()  :0
+ 1 0x0000000000052bdf ucs_callbackq_slow_proxy()  :0
+ 2 0x000000000004951a ucp_worker_progress()  ???:0
+ 3 0x000000000001814e hmca_bcol_ucx_p2p_progress()  ???:0
+ 4 0x000000000001a0e4 hmca_bcol_ucx_p2p_init_query()  ???:0
+ 5 0x00000000000b3053 hmca_bcol_base_init()  ???:0
+ 6 0x000000000006070d hmca_coll_ml_init_query()  ???:0
+ 7 0x00000000000a9f7a hcoll_init_with_opts()  ???:0
+ 8 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:301
+ 9 0x00000000001ca220 mca_coll_hcoll_comm_query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/hcoll/coll_hcoll_module.c:263
+10 0x00000000001e394f query_2_0_0()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:540
+11 0x00000000001e394f query()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:523
+12 0x00000000001e394f check_one_component()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:486
+13 0x00000000001e394f check_components.isra.1.lto_priv.1112()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:406
+14 0x00000000001ef162 mca_coll_base_comm_select()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/mca/coll/base/coll_base_comm_select.c:114
+15 0x000000000006557b ompi_mpi_init()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/source/openmpi-4.1.4/ompi/runtime/ompi_mpi_init.c:958
+16 0x0000000000212805 PMPI_Init_thread()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/gcc/ompi/pinit_thread.c:67
+17 0x000000000004fb40 ompi_init_thread_f()  /jobfs/53639599.gadi-pbs/0/openmpi/4.1.4/build/intel/ompi/mpi/fortran/mpif-h/profile/pinit_thread_f.c:76
+18 0x000000000052adeb mpimy_mp_m_init_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/mpi.F:214
+19 0x0000000000581b3b main_mpi_mp_init_mpi_()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main_mpi.F:91
+20 0x000000000495f241 MAIN__()  /jobfs/67636493.gadi-pbs/0/vasp/6.3.2/source/vasp.6.3.2/build/std/main.F:481
+21 0x000000000041c4a2 main()  ???:0
+22 0x000000000003ad85 __libc_start_main()  ???:0
+23 0x000000000041c3ae _start()  ???:0
+=================================
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+vasp_std-xy        0000000004E4AFDB  Unknown               Unknown  Unknown
+libpthread-2.28.s  00001533D0141CF0  Unknown               Unknown  Unknown
+libc-2.28.so       00001533CFDB8ACF  gsignal               Unknown  Unknown
+libc-2.28.so       00001533CFD8BEA5  abort                 Unknown  Unknown
+libucs.so.0.0.0    00001533CA03AABD  Unknown               Unknown  Unknown
+libucs.so.0.0.0    00001533CA03ACD1  Unknown               Unknown  Unknown
+libuct_ib.so.0.0.  00001533BE5244E8  Unknown               Unknown  Unknown
+libucs.so.0.0.0    00001533CA01FBDF  Unknown               Unknown  Unknown
+libucp.so.0.0.0    00001533CA82151A  ucp_worker_progre     Unknown  Unknown
+hmca_bcol_ucx_p2p  00001533AF34C14E  hmca_bcol_ucx_p2p     Unknown  Unknown
+hmca_bcol_ucx_p2p  00001533AF34E0E4  hmca_bcol_ucx_p2p     Unknown  Unknown
+libhcoll.so.1.0.1  00001533CBF02053  hmca_bcol_base_in     Unknown  Unknown
+libhcoll.so.1.0.1  00001533CBEAF70D  hmca_coll_ml_init     Unknown  Unknown
+libhcoll.so.1.0.1  00001533CBEF8F7A  hcoll_init_with_o     Unknown  Unknown
+libmpi.so.40.30.4  00001533D0519220  mca_coll_hcoll_co     Unknown  Unknown
+libmpi.so.40.30.4  00001533D053294F  Unknown               Unknown  Unknown
+libmpi.so.40.30.4  00001533D053E162  mca_coll_base_com     Unknown  Unknown
+libmpi.so.40.30.4  00001533D03B457B  ompi_mpi_init         Unknown  Unknown
+libmpi.so.40.30.4  00001533D0561805  PMPI_Init_thread      Unknown  Unknown
+libmpi_mpifh.so    00001533D08D3B40  Unknown                    Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000147B159D4D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+      Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014AFE950CD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+      Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000015512C962D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+           Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       000014B40D2AAD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+           Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       00001468292DDD85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+      Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000151D90D00D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+           Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       0000147754D01D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+      Unknown  Unknown
+vasp_std-xy        000000000052ADEB  mpimy_mp_m_init_          214  mpi.F
+vasp_std-xy        0000000000581B3B  main_mpi_mp_init_          91  main_mpi.F
+vasp_std-xy        000000000495F241  MAIN__                    481  main.F
+vasp_std-xy        000000000041C4A2  Unknown               Unknown  Unknown
+libc-2.28.so       00001533CFDA4D85  __libc_start_main     Unknown  Unknown
+vasp_std-xy        000000000041C3AE  Unknown               Unknown  Unknown
+--------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 0 on node gadi-cpu-clx-0896 exited on signal 6 (Aborted).
+--------------------------------------------------------------------------
+
+======================================================================================
+                  Resource Usage on 2023-08-22 23:19:50:
+   Job Id:             93245429.gadi-pbs
+   Project:            g46
+   Exit Status:        134 (Linux Signal 6 SIGABRT Abort)
+   Service Units:      1.15
+   NCPUs Requested:    48                     NCPUs Used: 48              
+                                           CPU Time Used: 00:32:05        
+   Memory Requested:   190.0GB               Memory Used: 15.11GB         
+   Walltime requested: 47:59:59            Walltime Used: 00:00:43        
+   JobFS requested:    10.0GB                 JobFS used: 0B              
+======================================================================================

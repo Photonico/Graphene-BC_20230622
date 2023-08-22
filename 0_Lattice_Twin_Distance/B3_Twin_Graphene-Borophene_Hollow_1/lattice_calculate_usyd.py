@@ -69,4 +69,4 @@ for dest_dir in dirs_to_walk:
     if "vasp_usyd.sh" in os.listdir(dest_dir):
         print(dest_dir)
         subprocess.run(["csh", "-c", f"cd {dest_dir}; qsub vasp_usyd.sh"])
-        time.sleep(2)
+        time.sleep(4)
