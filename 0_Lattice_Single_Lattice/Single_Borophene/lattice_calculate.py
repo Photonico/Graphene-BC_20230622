@@ -10,7 +10,7 @@ import subprocess
 import shutil
 import time
 
-source_dir      = "lattice_source"  # Source directory containing INCAR, KPOINTS, POTCAR, and vasp_job.sh
+source_dir = "../lattice_source"
 dest_dir_base   = "Lattice_var_"    # Base name for destination directories
 dirs_to_walk    = []
 

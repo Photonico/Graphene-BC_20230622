@@ -13,7 +13,7 @@ import time
 lattice_type = "Bridge"
 lattice_shift = 1/12
 
-source_dir      = "lattice_source"  # Source directory containing INCAR, KPOINTS, POTCAR, and vasp_job.sh
+source_dir      = "../lattice_source"  # Source directory containing INCAR, KPOINTS, POTCAR, and vasp_job.sh
 dirs_to_walk    = []
 
 distance_bound = 15.0
@@ -25,8 +25,8 @@ a_start = 5.000
 a_end = 5.020
 
 # for a_var in np.arange(a_start, a_end, a_step):
-for a_var in [4.972, 4.973, 4.975, 4.977, 4.979, 4.981, 4.983, 4.985, 4.987, 4.988]:
-    dest_dir = f"Lattice_var_{a_var:.3f}_dis_{z_var:.3f}_fine"
+for a_var in [4.955, 4.8965, 4.971, 4.972, 4.973, 4.975, 4.977, 4.979, 4.981, 4.983, 4.985, 4.986, 4.987, 4.988, 4.989, 4.995]:
+    dest_dir = f"Lattice_var_{a_var:.3f}_dis_{z_var:.3f}_former"
     os.makedirs(dest_dir, exist_ok = True)
     for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_nci.sh", "vasp_usyd.sh"]:
         shutil.copy(os.path.join(source_dir, file_name), dest_dir)

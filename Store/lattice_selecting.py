@@ -5,7 +5,7 @@
 import os
 import xml.etree.ElementTree as ET
 
-def select_lattice(project_folder):
+def lattice_select(project_folder):
     xml_path = os.path.join(project_folder, "vasprun.xml")
     poscar_path = os.path.join(project_folder, "POSCAR")
     if os.path.isfile(xml_path) and os.path.isfile(poscar_path):

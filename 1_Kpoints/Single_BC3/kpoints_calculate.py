@@ -11,7 +11,7 @@ import shutil
 import textwrap
 import time
 
-source_dir      = "Kpoints_source"  # Source directory containing INCAR, KPOINTS, POTCAR, and vasp_job.sh
+source_dir      = "../kpoints_source"
 dest_dir_base   = "Kpoints_var_"    # Base name for destination directories
 dirs_to_walk    = []
 

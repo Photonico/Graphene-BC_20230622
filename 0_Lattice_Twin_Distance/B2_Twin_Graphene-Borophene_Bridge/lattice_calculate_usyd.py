@@ -13,7 +13,7 @@ import time
 lattice_type = "Bridge"
 lattice_shift = 1/12
 
-source_dir      = "lattice_source"  # Source directory containing INCAR, KPOINTS, POTCAR, and vasp_job.sh
+source_dir = "../lattice_source"
 dirs_to_walk    = []
 
 distance_bound = 15.0
