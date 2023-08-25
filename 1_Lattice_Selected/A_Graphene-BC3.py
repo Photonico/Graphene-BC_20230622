@@ -10,7 +10,7 @@ import subprocess
 import shutil
 import time
 
-source_dir = "../lattice_source" 
+source_dir = "lattice_source" 
 distance_bound  = 15.0
 
 for lattice_type in ["Top", "Bridge", "Hollow"]:
