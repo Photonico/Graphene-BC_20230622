@@ -18,22 +18,22 @@ for lattice_type in ["Top", "Bridge", "Hollow_1", "Hollow_2"]:
     if lattice_type == "Top":
         lattice_code = "C1"
         lattice_shift = -1/6
-        a_var = 1; z_var = 2
+        a_var = 4.846; z_var = 3.514
 
     elif lattice_type == "Bridge":
         lattice_code = "C2"
         lattice_shift = -1/12
-        a_var = 1; z_var = 2
+        a_var = 4.846; z_var = 3.520
 
     elif lattice_type == "Hollow_1":
         lattice_code = "C3"
         lattice_shift = -1/18
-        a_var = 1; z_var = 2
+        a_var = 4.846; z_var = 3.555
 
     elif lattice_type == "Hollow_2":
         lattice_code = "C4"
         lattice_shift = 0
-        a_var = 1; z_var = 2
+        a_var = 4.846; z_var = 3.536
 
     dirs_to_walk = []; dest_dir = f"Twin_{lattice_code}_Graphene-B4C3_{lattice_type}_var_{a_var:.3f}_dis_{z_var:.3f}"
     os.makedirs(dest_dir, exist_ok = True)
