@@ -14,12 +14,12 @@ source_dir = "lattice_source"
 distance_bound  = 15.0
 
 # for lattice_type in ["Top", "Bridge", "Hollow_1", "Hollow_2"]:
-for lattice_type in ["Top", "Bridge", "Hollow_1", "Hollow_2"]:
+for lattice_type in ["Hollow_2"]:
 
     if lattice_type == "Top":
         lattice_code = "C1"
         lattice_shift = -1/6
-        a_var = 4.846; z_var = 3.500
+        a_var = 4.846; z_var = 3.512
 
     elif lattice_type == "Bridge":
         lattice_code = "C2"
@@ -34,7 +34,7 @@ for lattice_type in ["Top", "Bridge", "Hollow_1", "Hollow_2"]:
     elif lattice_type == "Hollow_2":
         lattice_code = "C4"
         lattice_shift = 0
-        a_var = 4.846; z_var = 3.536
+        a_var = 4.846; z_var = 3.540
 
     dirs_to_walk = []
     dest_dir = f"Twin_{lattice_code}_Graphene-B4C3_{lattice_type}_var_{a_var:.3f}_dis_{z_var:.3f}"

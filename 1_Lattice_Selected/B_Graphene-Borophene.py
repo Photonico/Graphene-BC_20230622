@@ -19,7 +19,7 @@ for lattice_type in ["Top"]:
     if lattice_type == "Top":
         lattice_code = "B1"
         lattice_shift = 0
-        a_var = 4.979; z_var = 4.000
+        a_var = 4.979; z_var = 3.540
 
     elif lattice_type == "Bridge":
         lattice_code = "B2"
