@@ -30,7 +30,7 @@ for lattice_type in ["Top", "Bridge", "Hollow"]:
         lattice_shift = 1/6
         a_var = 5.044; z_var = 3.768
 
-    dirs_to_walk = []; dest_dir = f"Twin_{lattice_code}_Graphene-BC3_{lattice_type}_var_{a_var:.3f}_dis_{z_var:.3f}"
+    dirs_to_walk = []; dest_dir = f"Twin_{lattice_code}_Graphene-BC3_{lattice_type}_var_{a_var:.3f}_dis_{z_var:.3f}_128"
     os.makedirs(dest_dir, exist_ok = True)
     for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_nci.sh", "vasp_usyd.sh"]:
         shutil.copy(os.path.join(source_dir, file_name), dest_dir)

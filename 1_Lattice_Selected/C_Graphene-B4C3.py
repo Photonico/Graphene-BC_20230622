@@ -13,8 +13,8 @@ import time
 source_dir = "lattice_source" 
 distance_bound  = 15.0
 
-# for lattice_type in ["Top", "Bridge", "Hollow_1", "Hollow_2"]:
-for lattice_type in ["Hollow_2"]:
+for lattice_type in ["Top", "Bridge", "Hollow_1", "Hollow_2"]:
+# for lattice_type in ["Hollow_2"]:
 
     if lattice_type == "Top":
         lattice_code = "C1"
@@ -37,7 +37,7 @@ for lattice_type in ["Hollow_2"]:
         a_var = 4.846; z_var = 3.540
 
     dirs_to_walk = []
-    dest_dir = f"Twin_{lattice_code}_Graphene-B4C3_{lattice_type}_var_{a_var:.3f}_dis_{z_var:.3f}"
+    dest_dir = f"Twin_{lattice_code}_Graphene-B4C3_{lattice_type}_var_{a_var:.3f}_dis_{z_var:.3f}_128"
     os.makedirs(dest_dir, exist_ok = True)
     for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_nci.sh", "vasp_usyd.sh"]:
         shutil.copy(os.path.join(source_dir, file_name), dest_dir)
