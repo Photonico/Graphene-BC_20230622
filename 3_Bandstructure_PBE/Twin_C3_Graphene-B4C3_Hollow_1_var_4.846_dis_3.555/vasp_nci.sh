@@ -9,7 +9,6 @@
 #PBS -l walltime=47:59:59
 #PBS -l wd
 #PBS -l jobfs=10GB
-#PBS -l storage=scratch/g46/lu2626+gdata/g46/lu2626
 #PBS -l software=vasp
 #PBS -m ea
 #PBS -M luke.niu@sydney.edu.au
