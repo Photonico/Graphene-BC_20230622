@@ -98,6 +98,7 @@
     + LFS files: `git add large_file_directory`
 + Commit the changes: `git commit -m "Commit message"`
   + Push the change: `git push`
+  + Push to the origin branch: `git push origin main`
 
 + Pull the repository
   + Downloads the LFS files from the Git LFS server: `git lfs fetch`

@@ -1,0 +1,65 @@
+#### Calculation Information for SC
+# Created by Lu Niu, LukeNiu@outlook.com, May 18, 2023
+
+## Project name
+SYSTEM = BS
+
+## Start parameters for this Run (default ICHARG = 2 when ISTART = 0; ICHARG = 11 for bandstructure and DOS calculation)
+ISTART = 0
+ICHARG = 11
+
+## Electronic optimization (Low, Medium, High, Accurate)
+PREC = Accurate
+# Projected Density of States and Mulliken population analysis (Active for Banstructure)
+LORBIT = 11
+# Defaults from POTCAR
+ENCUT = 450                     # Taken from "Strain-tunable electronic..." RSC Adv., 2018, 8, 1686
+# # Output charge function file CHGCAR
+# LCHARG = .TRUE.
+# # Output wave function file WAVECAR
+# LWAVE = .TRUE.
+
+# Alorithm for electron optimization, can be also FAST or ALL
+ALGO = Normal
+# of ELM steps, sometimes default is too small
+NELM = 64
+# Stopping-criterion for ELM
+EDIFF = 1E-6
+# Stopping-criterion for IOM (all forces smaller 1E-2)
+EDIFFG = -1E-3
+# Broadening and DOS related values (ISMEAR = -5 for tetrahedral method for DOS)
+SIGMA = 0.1
+ISMEAR = 0  # Gaussian Smearing
+
+# Electron Spin (1 for single layer / 2 for double layers)
+# ISPIN = 2       # 2 for spin-polarized calculations (collinear) are performed
+# Magnetic moment
+# MAGMON = 1
+
+# ## Ionic relaxation
+# # Number of steps for IOM   
+# NSW = 128
+# # CG for ions, often 1 (RMM-DISS) is faster    
+# IBRION = 2
+# # Step for ionic-motion (for MD in fs)
+# POTIM = .5
+# # Stress tensor (2 for relaxation ions)
+# ISIF = 2
+
+# Performance optimization
+# The number of groups made, each group working on one set of k-points 
+# KPAR = 1
+# How many cores handling one orbital
+# NCORE = 4
+# Real space projection; slightly less accurate but faster 
+# LREAL = .FALSE.
+# Generalized Gradient Approximation (GGA)
+GGA = PE
+# Include VdW dispersion correction
+IVDW = 12
+# Symmetry
+ISYM = 0
+
+# Dipole Correction (Double layers only)
+# DIPOL = .TRUE.             # Dipole correction adjusts forces and potential.
+# IDIPOL = 3                  # 1 for x direction, 2 for y direction, 3 for z direction, 4 for all 3-dimensions
