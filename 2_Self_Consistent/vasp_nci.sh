@@ -16,4 +16,4 @@
 
 module load vasp/6.3.2
 
-mpirun vasp_std-xy >vasp.log
+mpirun vasp_std >vasp.log
