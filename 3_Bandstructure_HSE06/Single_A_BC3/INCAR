@@ -5,8 +5,8 @@
 SYSTEM = BS_HSE06
 
 ## Start parameters for this Run (default ICHARG = 2 when ISTART = 0; ICHARG = 11 for bandstructure and DOS calculation)
-ISTART = 0
-ICHARG = 11
+ISTART = 1
+ICHARG = 2
 
 ## Electronic optimization (Low, Medium, High, Accurate)
 PREC = Accurate
@@ -20,7 +20,8 @@ ENCUT = 450                     # Taken from "Strain-tunable electronic..." RSC 
 # LWAVE = .TRUE.
 
 # Alorithm for electron optimization, can be also FAST or ALL
-ALGO = Normal
+# ALGO = Normal
+ALGO = Damped
 # of ELM steps, sometimes default is too small
 NELM = 64
 # Stopping-criterion for ELM
@@ -55,6 +56,11 @@ ISMEAR = 0  # Gaussian Smearing
 # LREAL = .FALSE.
 # Generalized Gradient Approximation (GGA)
 GGA = PE
+# Hartree-Fock/DFT hybrid functional type calculation is performed.
+LHFCALC = .TRUE.
+AEXX = 0.25
+HFSCREEN = 0.2
+# More information about Hybrid functionals: `https://www.vasp.at/wiki/index.php/List_of_hybrid_functionals`
 # Include VdW dispersion correction
 IVDW = 12
 # Symmetry
@@ -63,3 +69,5 @@ ISYM = 0
 # Dipole Correction (Double layers only)
 # DIPOL = .TRUE.             # Dipole correction adjusts forces and potential.
 # IDIPOL = 3                  # 1 for x direction, 2 for y direction, 3 for z direction, 4 for all 3-dimensions
+
+
