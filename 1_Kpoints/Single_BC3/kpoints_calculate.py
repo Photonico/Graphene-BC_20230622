@@ -11,18 +11,18 @@ import shutil
 import textwrap
 import time
 
-source_dir      = "../kpoints_source"
-dest_dir_base   = "Kpoints_var_"    # Base name for destination directories
+source_dir      = "kpoints_source"
+dest_dir_base   = "Kpoints_"        # Base name for destination directories
 dirs_to_walk    = []
 
-start = 1
-end = 20
-step = 1
+start = 45
+end = 61
+step = 2
 
 for k_var in np.arange(start, end+step, step):
     dest_dir = f"{dest_dir_base}{k_var}"
     os.makedirs(dest_dir, exist_ok = True)
-    for file_name in ["INCAR", "POSCAR", "vasp_job.sh", "POTCAR"]:
+    for file_name in ["INCAR", "POSCAR", "vasp_nci.sh", "POTCAR"]:
         shutil.copy(os.path.join(source_dir, file_name), dest_dir)
     with open(os.path.join(dest_dir, "KPOINTS"), "w") as f:
         f.write(textwrap.dedent(f"""
@@ -37,8 +37,8 @@ for k_var in np.arange(start, end+step, step):
 
 time.sleep(2)
 
-# for dest_dir in dirs_to_walk:
-#     if "vasp_job.sh" in os.listdir(dest_dir):
-#         print(dest_dir)
-#         subprocess.run(["csh", "-c", f"cd {dest_dir}; qsub vasp_job.sh"])
-#         time.sleep(4)
+for dest_dir in dirs_to_walk:
+    if "vasp_nci.sh" in os.listdir(dest_dir):
+        print(dest_dir)
+        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_nci.sh"])
+        time.sleep(4)

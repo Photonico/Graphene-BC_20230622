@@ -5,7 +5,7 @@
 import os
 import xml.etree.ElementTree as ET
 
-dest_dir_base = "Kpoints_var_" # Base name for destination directories
+dest_dir_base = "Kpoints_"  # Base name for destination directories
 result_file = "Kpoints.dat"
 
 dirs_to_walk = [dir for dir in os.listdir() if dir.startswith(dest_dir_base)]
