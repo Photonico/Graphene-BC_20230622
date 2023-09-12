@@ -1,0 +1,63 @@
+ running on   16 total cores
+ distrk:  each k-point on   16 cores,    1 groups
+ distr:  one band on    1 cores,   16 groups
+ using from now: INCAR     
+ vasp.5.4.4.18Apr17-6-g9f103f2a35 (build Mar 30 2023 15:39:25) complex          
+  
+ POSCAR found type information on POSCAR  B  C 
+ POSCAR found :  2 types and       8 ions
+ scaLAPACK will be used
+
+ ----------------------------------------------------------------------------- 
+|                                                                             |
+|           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
+|           W    W   A  A   R    R  NN   N  II  NN   N  G    G  !!!           |
+|           W    W  A    A  R    R  N N  N  II  N N  N  G       !!!           |
+|           W WW W  AAAAAA  RRRRR   N  N N  II  N  N N  G  GGG   !            |
+|           WW  WW  A    A  R   R   N   NN  II  N   NN  G    G                |
+|           W    W  A    A  R    R  N    N  II  N    N   GGGG   !!!           |
+|                                                                             |
+|      For optimal performance we recommend to set                            |
+|        NCORE= 4 - approx SQRT( number of cores)                             |
+|      NCORE specifies how many cores store one orbital (NPAR=cpu/NCORE).     |
+|      This setting can  greatly improve the performance of VASP for DFT.     |
+|      The default,   NCORE=1            might be grossly inefficient         |
+|      on modern multi-core architectures or massively parallel machines.     |
+|      Do your own testing !!!!                                               |
+|      Unfortunately you need to use the default for GW and RPA calculations. |
+|      (for HF NCORE is supported but not extensively tested yet)             |
+|                                                                             |
+ ----------------------------------------------------------------------------- 
+
+ LDA part: xc-table for Pade appr. of Perdew
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ...
+ WAVECAR not read
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1     0.181224308607E+03    0.18122E+03   -0.10081E+04 25216   0.620E+02
+DAV:   2    -0.505753441822E+02   -0.23180E+03   -0.20562E+03 42592   0.156E+02
+DAV:   3    -0.729381904182E+02   -0.22363E+02   -0.22127E+02 35440   0.550E+01
+DAV:   4    -0.734695827273E+02   -0.53139E+00   -0.53045E+00 35312   0.103E+01
+DAV:   5    -0.734814723693E+02   -0.11890E-01   -0.11881E-01 32416   0.145E+00    0.132E+01
+DAV:   6    -0.689750043317E+02    0.45065E+01   -0.40605E+00 36240   0.791E+00    0.742E+00
+DAV:   7    -0.673313114427E+02    0.16437E+01   -0.37141E+00 36432   0.711E+00    0.220E+00
+DAV:   8    -0.672518588208E+02    0.79453E-01   -0.22617E-01 34176   0.181E+00    0.525E-01
+DAV:   9    -0.672369026873E+02    0.14956E-01   -0.22818E-02 33008   0.654E-01    0.180E-01
+DAV:  10    -0.672259302690E+02    0.10972E-01   -0.68735E-03 33264   0.293E-01    0.158E-01
+DAV:  11    -0.672252084180E+02    0.72185E-03   -0.31045E-03 33568   0.195E-01    0.518E-02
+DAV:  12    -0.672231607260E+02    0.20477E-02   -0.14879E-03 27552   0.105E-01    0.403E-02
+DAV:  13    -0.672259060381E+02   -0.27453E-02   -0.28470E-04 32256   0.605E-02    0.228E-02
+DAV:  14    -0.672288148280E+02   -0.29088E-02   -0.60368E-04 33088   0.632E-02    0.186E-02
+DAV:  15    -0.672290263259E+02   -0.21150E-03   -0.35242E-05 33824   0.195E-02    0.753E-03
+DAV:  16    -0.672296031549E+02   -0.57683E-03   -0.55809E-05 30720   0.177E-02    0.253E-03
+DAV:  17    -0.672296599467E+02   -0.56792E-04   -0.20272E-06 30816   0.442E-03    0.155E-03
+DAV:  18    -0.672296851903E+02   -0.25244E-04   -0.83660E-07 27776   0.238E-03    0.295E-04
+DAV:  19    -0.672296867185E+02   -0.15282E-05   -0.17376E-08 26080   0.462E-04    0.189E-04
+DAV:  20    -0.672296877651E+02   -0.10465E-05   -0.24426E-08 22000   0.380E-04    0.441E-05
+DAV:  21    -0.672296878665E+02   -0.10145E-06   -0.33344E-09 23888   0.150E-04
+   1 F= -.67907725E+02 E0= -.67907725E+02  d E =-.679077E+02
+ curvature:   0.00 expect dE= 0.000E+00 dE for cont linesearch  0.000E+00
+ trial: gam= 0.00000 g(F)=  0.163E-05 g(S)=  0.000E+00 ort = 0.000E+00 (trialstep = 0.100E+01)
+ search vector abs. value=  0.163E-05
+ reached required accuracy - stopping structural energy minimisation
