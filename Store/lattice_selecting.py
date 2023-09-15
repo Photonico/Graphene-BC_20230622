@@ -37,31 +37,42 @@ def lattice_select_bilayer_distance(project_folder, bottom_atom_number, top_atom
     poscar_path = os.path.join(project_folder, "POSCAR")
     contcar_path = os.path.join(project_folder, "CONTCAR")
 
-    if os.path.isfile(xml_path) and os.path.isfile(poscar_path) and os.path.isfile(contcar_path):
-        try:
-            tree = ET.parse(xml_path)
-            root = tree.getroot()
-            e_fr_energy = float(root.findall(".//calculation/energy/i[@name='e_fr_energy']")[-1].text)
-            with open(poscar_path, "r") as poscar_file:
-                first_line = poscar_file.readline()
-                lattice_type = first_line.split()[0]
-                a_var = float(first_line.split("lattice parameter")[1].split()[0])
-                lines = poscar_file.readlines()
-                fifth_line = lines[3]
-                distance_bound  = float(fifth_line.split()[-1])
+    lattice_type = None
+    a_var = None
+    z_var = None
+    e_fr_energy = None
 
-            with open(contcar_path, "r") as contcar_file:
-                first_line = contcar_file.readline()
-                lines = contcar_file.readlines()
-                bottom_set = lines[7: 7 + bottom_atom_number]                                               # Extract lines for the first set of values
-                bottom_avg = compute_average(bottom_set)
-                top_set = lines[7 + bottom_atom_number: 7 + bottom_atom_number+top_atom_number]             # Extract lines for the second set of values
-                top_avg = compute_average(top_set)
-                z_var = (top_avg - bottom_avg) * distance_bound
-            z_var = 1
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        e_fr_energy = float(root.findall(".//calculation/energy/i[@name='e_fr_energy']")[-1].text)
+    except Exception as e:
+        print(f"Error parsing xml file: {e}")
+        return None
 
-            return lattice_type, a_var, z_var, e_fr_energy
+    try:
+        with open(poscar_path, "r") as poscar_file:
+            first_line = poscar_file.readline()
+            lattice_type = first_line.split()[0]
+            a_var = float(first_line.split("lattice parameter")[1].split()[0])
+            lines = poscar_file.readlines()
+            fifth_line = lines[3]
+            distance_bound  = float(fifth_line.split()[-1])
+    except Exception as e:
+        print(f"Error reading POSCAR file: {e}")
+        return None
 
-        except Exception as e:
-            print("Error parsing files:", e)
-            return None
+    try:
+        with open(contcar_path, "r") as contcar_file:
+            first_line = contcar_file.readline()
+            lines = contcar_file.readlines()
+            bottom_set = lines[7: 7 + bottom_atom_number]                                               # Extract lines for the first set of values
+            bottom_avg = compute_average(bottom_set)
+            top_set = lines[7 + bottom_atom_number: 7 + bottom_atom_number+top_atom_number]             # Extract lines for the second set of values
+            top_avg = compute_average(top_set)
+            z_var = (top_avg - bottom_avg) * distance_bound
+    except Exception as e:
+        print(f"Error reading CONTCAR file: {e}")
+        return None
+    
+    return lattice_type, a_var, z_var, e_fr_energy
