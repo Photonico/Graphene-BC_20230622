@@ -32,11 +32,10 @@ def lattice_select(project_folder):
             print("Error parsing files:", e)
             return None
 
-def lattice_select_distance(project_folder, layer_number, total_atom_number):
+def lattice_select_bilayer_distance(project_folder, bottom_atom_number, top_atom_number):
     xml_path = os.path.join(project_folder, "vasprun.xml")
     poscar_path = os.path.join(project_folder, "POSCAR")
     contcar_path = os.path.join(project_folder, "CONTCAR")
-    atom_number = int(total_atom_number / 2)
 
     if os.path.isfile(xml_path) and os.path.isfile(poscar_path) and os.path.isfile(contcar_path):
         try:
@@ -50,21 +49,18 @@ def lattice_select_distance(project_folder, layer_number, total_atom_number):
                 lines = poscar_file.readlines()
                 fifth_line = lines[3]
                 distance_bound  = float(fifth_line.split()[-1])
-            if layer_number == 2:
-                with open(contcar_path, "r") as contcar_file:
-                    first_line = contcar_file.readline()
-                    lines = contcar_file.readlines()
-                    bottom_set = lines[7: 7 + atom_number]                      # Extract lines for the first set of values
-                    bottom_avg = compute_average(bottom_set)
-                    top_set = lines[7 + atom_number: 7 + 2*atom_number]         # Extract lines for the second set of values
-                    top_avg = compute_average(top_set)
-                    z_var = (top_avg - bottom_avg) * distance_bound  
-                return lattice_type, a_var, z_var, e_fr_energy
-            elif layer_number == 1:
-                return lattice_type, a_var, distance_bound, e_fr_energy
-            else:
-                print("Error: Unsupported layer_number provided!")
-                return None
+
+            with open(contcar_path, "r") as contcar_file:
+                first_line = contcar_file.readline()
+                lines = contcar_file.readlines()
+                bottom_set = lines[7: 7 + bottom_atom_number]                                               # Extract lines for the first set of values
+                bottom_avg = compute_average(bottom_set)
+                top_set = lines[7 + bottom_atom_number: 7 + bottom_atom_number+top_atom_number]             # Extract lines for the second set of values
+                top_avg = compute_average(top_set)
+                z_var = (top_avg - bottom_avg) * distance_bound
+            z_var = 1
+
+            return lattice_type, a_var, z_var, e_fr_energy
 
         except Exception as e:
             print("Error parsing files:", e)
