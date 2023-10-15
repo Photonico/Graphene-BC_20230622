@@ -23,7 +23,7 @@ def pdos_total_plotting(pdos_result, matter, x_range, y_top, method):
     p_x_pdos_sum = pdos_result[12]
 
     # Set up the specified style parameters
-    plt.figure(dpi=196, figsize=(10, 6))
+    plt.figure(dpi=256, figsize=(10, 6))
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
     # Title and labels
@@ -66,7 +66,7 @@ def pdos_total_plotting(pdos_result, matter, x_range, y_top, method):
 # PDoS Plotting for each element
 def pdos_single_element_summary(matter, pdos_total, element, pdos_element, x_range, y_top, method):
 
-    fig, axs = plt.subplots(1, 2, figsize=(12, 6), dpi=196)
+    fig, axs = plt.subplots(1, 2, figsize=(12, 6), dpi=256)
     axes_element = [axs[0], axs[1]]
 
     elements = [matter, element]
@@ -151,7 +151,7 @@ def pdos_duo_element_summary(matter, pdos_total, element_1, pdos_1, element_2, p
 
     gs = gridspec.GridSpec(2, 2, width_ratios=[1, 1])
 
-    fig = plt.figure(figsize=(12,10), dpi=196)
+    fig = plt.figure(figsize=(12,10), dpi=256)
     ax0 = fig.add_subplot(gs[0, :])
     ax1 = fig.add_subplot(gs[1, 0])
     ax2 = fig.add_subplot(gs[1, 1])
@@ -248,7 +248,7 @@ def pdos_duo_element_summary(matter, pdos_total, element_1, pdos_1, element_2, p
 
 def pdos_tri_element_summary(matter, pdos_total, element_1, pdos_1, element_2, pdos_2, element_3, pdos_3, x_range, y_top, method):
 
-    fig, axs = plt.subplots(2, 2, figsize=(12, 10), dpi=196)
+    fig, axs = plt.subplots(2, 2, figsize=(12, 10), dpi=256)
 
     axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
     elements = [matter, element_1, element_2, element_3]

@@ -33,7 +33,7 @@ def density_data(ax, energy_data_real, density_data_real, energy_data_imag, dens
 
 def density_plotting(opt_data, matter, y_bot, y_top):
     # y_range_min, y_range_max, x_range_left, x_range_right = plot_range_setting(opt_data)
-    fig, axs = plt.subplots(1, 2, dpi=196, figsize=(14.4, 6.4))
+    fig, axs = plt.subplots(1, 2, dpi=256, figsize=(14.4, 6.4))
     # fig.suptitle(f"Charge density response for {matter} with {str(NBANDS)} vacant energy bands")
     fig.suptitle(f"Charge density response for {matter}", fontsize =1.0*18)
     axs[0].set_xlabel(r"Energy (eV)", fontsize =1.0* 12); axs[0].set_ylabel(r"$\varepsilon(\omega)$", fontsize =1.0* 16)
@@ -56,7 +56,7 @@ def density_plotting(opt_data, matter, y_bot, y_top):
 ### Charge density response inplane
 def density_plotting_in(opt_data, matter, y_bot, y_top):
 
-    plt.figure(dpi=196, figsize=(9.6, 6.4))
+    plt.figure(dpi=256, figsize=(9.6, 6.4))
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
     plt.title(f"Charge density response for {matter} inplane", fontsize =1.0*18)
 
@@ -74,7 +74,7 @@ def density_plotting_in(opt_data, matter, y_bot, y_top):
 ### Charge density response outplane
 def density_plotting_out(opt_data, matter, y_bot, y_top):
 
-    plt.figure(dpi=196, figsize=(9.6, 6.4))
+    plt.figure(dpi=256, figsize=(9.6, 6.4))
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
     plt.title(f"Charge density response for {matter} outplane", fontsize =1.0*18)
 
@@ -100,7 +100,7 @@ def absorption_data(ax, energy_data_real, density_data_real, energy_data_imag, d
 
 def absorption_plotting(opt_data, matter, y_bot, y_top):
     # y_range_min, y_range_max, x_range_left, x_range_right = plot_range_setting(opt_data)
-    fig, axs = plt.subplots(1, 2, dpi=196, figsize=(14.4, 6.4))
+    fig, axs = plt.subplots(1, 2, dpi=256, figsize=(14.4, 6.4))
     fig.suptitle(f"Absorption coefficient for {matter}", fontsize =1.0*18)
     axs[0].set_xlabel(r"Energy (eV)", fontsize =1.0* 12); axs[0].set_ylabel(r"Absorption Coefficient", fontsize =1.0* 12)
     axs[1].set_xlabel(r"Energy (eV)", fontsize =1.0* 12); axs[1].set_ylabel(r"Absorption Coefficient", fontsize =1.0* 12)
@@ -122,7 +122,7 @@ def absorption_plotting(opt_data, matter, y_bot, y_top):
 ### Absorption coefficient inplane
 def absorption_in(opt_data, matter, y_bot, y_top):
 
-    plt.figure(dpi=196, figsize=(9.6, 6.4))
+    plt.figure(dpi=256, figsize=(9.6, 6.4))
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
     plt.title(f"Absorption coefficient for {matter} inplane", fontsize =1.0*18)
 
@@ -138,7 +138,7 @@ def absorption_in(opt_data, matter, y_bot, y_top):
 ### Absorption coefficient outplane
 def absorption_out(opt_data, matter, y_bot, y_top):
 
-    plt.figure(dpi=196, figsize=(9.6, 6.4))
+    plt.figure(dpi=256, figsize=(9.6, 6.4))
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
     plt.title(f"Absorption coefficient for {matter} outplane", fontsize =1.0*18)
 
@@ -154,7 +154,7 @@ def absorption_out(opt_data, matter, y_bot, y_top):
 def absorption_inplane_comparing(matter_1, opt_data_1, matter_2, opt_data_2,  matter_3, opt_data_3, y_bot, y_top):
     # matter_1 means the double layer which is compared with single layer matter_2 and matter_3
 
-    plt.figure(dpi=196, figsize=(9.6, 6.4))
+    plt.figure(dpi=256, figsize=(9.6, 6.4))
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
     plt.title(f"Absorption coefficient for {matter_1}", fontsize =1.0*18)
 

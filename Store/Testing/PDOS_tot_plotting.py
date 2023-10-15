@@ -9,7 +9,7 @@ params = {"text.usetex": False, "font.family": "serif", "mathtext.fontset": "cm"
 plt.rcParams.update(params)
 
 def set_plot_style():
-    plt.figure(dpi=196, figsize=(9.6, 6.4))
+    plt.figure(dpi=256, figsize=(9.6, 6.4))
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
 def plot_dos(pos_data, matter, y_top):

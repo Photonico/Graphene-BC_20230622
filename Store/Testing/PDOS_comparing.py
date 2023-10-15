@@ -10,7 +10,7 @@ plt.rcParams.update(params)
 
 # Comparing plotting for two elements
 def pdos_duo_element(matter, element_1, pdos_1, element_2, pdos_2, y_top):
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14.4, 6.4), dpi=196)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14.4, 6.4), dpi=256)
 
     axes = [ax1, ax2]
     elements = [element_1, element_2]
@@ -78,9 +78,9 @@ def pdos_duo_element(matter, element_1, pdos_1, element_2, pdos_2, y_top):
     plt.tight_layout()
 
 def pdos_tri_element(matter, pdos_sum, element_1, pdos_1, element_2, pdos_2, element_3, pdos_3, y_top_0, y_top_1, y_top_2, y_top_3):
-    # fig, (ax0, ax1, ax2, ax3) = plt.subplots(2, 2, figsize=(14.4, 10.2), dpi=196)
+    # fig, (ax0, ax1, ax2, ax3) = plt.subplots(2, 2, figsize=(14.4, 10.2), dpi=256)
     # axes = [ax0, ax1, ax2, ax3]
-    fig, axs = plt.subplots(2, 2, figsize=(14.4, 10.2), dpi=196)
+    fig, axs = plt.subplots(2, 2, figsize=(14.4, 10.2), dpi=256)
     axes = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
 
     elements = [matter, element_1, element_2, element_3]

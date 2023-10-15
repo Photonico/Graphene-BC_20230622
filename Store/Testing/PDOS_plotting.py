@@ -22,7 +22,7 @@ def pdos_total_plotting(pdos_result, matter, y_top):
     p_x_pdos_sum = pdos_result[12]
 
     # Set up the specified style parameters
-    plt.figure(dpi=196, figsize=(9.6, 6.4))
+    plt.figure(dpi=256, figsize=(9.6, 6.4))
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
     # Title and labels
@@ -78,7 +78,7 @@ def pdos_element_plotting(pdos_result, matter, y_top):
     p_x_pdos_sum = pdos_result[12]
 
     # Set up the specified style parameters
-    plt.figure(dpi=196, figsize=(9.6, 6.4))
+    plt.figure(dpi=256, figsize=(9.6, 6.4))
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
     # Title and labels
