@@ -155,7 +155,7 @@ def pdos_C_of_BC3_in_Graphene_BC3(file_path):
     root = tree.getroot()
 
     ## Analysis elements
-    index_start = 3
+    index_start = 2
     index_end = 8
 
     ## Extract Fermi energy
@@ -430,14 +430,3 @@ def pdos_C_of_Graphene_in_Graphene_BC3(file_path):
             energy_pdos_shift, s_pdos_sum, p_y_pdos_sum, p_z_pdos_sum, p_x_pdos_sum,    # 8 ~ 12
             d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_xz_pdos_sum,                 # 13 ~ 16
             x2_y2_pdos_sum)
-
-## Doule layer: Graphene-B3C4
-
-def pdos_B_of_B3C4_in_Graphene_B3C4(file_path):
-    return file_path
-
-def pdos_C_of_B3C4_in_Graphene_B3C4(file_path):
-    return file_path
-
-def pdos_C_of_Graphene_in_Graphene_B3C4(file_path):
-    return file_path

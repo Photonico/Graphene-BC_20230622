@@ -172,7 +172,7 @@ def pdos_total_extracting(file_path):
             d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_xz_pdos_sum,                 # 13 ~ 16
             x2_y2_pdos_sum)
 
-### PDOS for elements
+### Elements analysis for PDoS calculation
 def get_elements(file_path):
     # Parse the XML file
     tree = ET.parse(file_path)
@@ -197,6 +197,7 @@ def get_elements(file_path):
 
     return element_ions
 
+### PDOS for elements
 def pdos_element_extracting(file_path, element):
     ## Analysis vasprun.xml file
     tree = ET.parse(file_path)
@@ -337,3 +338,6 @@ def pdos_element_extracting(file_path, element):
             energy_pdos_shift, s_pdos_sum, p_y_pdos_sum, p_z_pdos_sum, p_x_pdos_sum,    # 8 ~ 12
             d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_xz_pdos_sum,                 # 13 ~ 16
             x2_y2_pdos_sum)
+
+### PDOS for customized range
+def pdos_Custom
