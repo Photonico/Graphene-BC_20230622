@@ -3,7 +3,7 @@
 
 def filter_segment(lattice_source, distance_source, free_energy_source, lattice_start, lattice_end):
     filtered_data = [(lattice, distance, energy) for lattice, distance, energy in zip(lattice_source, distance_source, free_energy_source) if lattice_start <= lattice <= lattice_end]
-    
+
     if not filtered_data:
         return [], [], []
 
