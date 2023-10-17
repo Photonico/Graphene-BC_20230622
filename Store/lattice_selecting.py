@@ -1,4 +1,5 @@
 #### Extract selected lattice and free energy
+# pylint: disable = C0103, C0114, C0116
 
 # Created by Lu Niu LukeNiu@outlook.com
 
@@ -74,5 +75,5 @@ def lattice_select_bilayer_distance(project_folder, bottom_atom_number, top_atom
     except Exception as e:
         print(f"Error reading CONTCAR file: {e}")
         return None
-    
+
     return lattice_type, a_var, z_var, e_fr_energy
