@@ -9,8 +9,43 @@ params = {"text.usetex": False, "font.family": "serif", "mathtext.fontset": "cm"
           "axes.titlesize": 18, "axes.labelsize": 12, "figure.facecolor": "w"}
 plt.rcParams.update(params)
 
-# Total PDoS Plotting
-def pdos_total_plotting(pdos_result, matter, x_range, y_top, method):
+def set_plot_style():
+    plt.figure(dpi=256, figsize=(10, 6))
+    plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
+### DoS Plotting
+def dos_plotting(matter, pos_data, x_range, y_top, method):
+    # Plotting settings
+    set_plot_style()
+
+    # Data plotting range
+    # y_axis_top = max(pos_data[6]); y_limit = y_axis_top * 0.6
+    y_limit = y_top
+
+    # Data plotting
+    plt.plot(pos_data[5], pos_data[6], c="#8C64F0", label="Total DOS")
+    # plt.plot(pos_data[5], pos_data[7], c="#1473D2", label="Integrated DOS")
+
+    # Plot Fermi energy as a vertical line
+    efermi = pos_data[0]
+    shift = efermi
+    plt.axvline(x = efermi-shift, linestyle="--", color="#F5820F", alpha=0.95, label="Fermi energy")
+    fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
+    plt.text(efermi-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
+
+    # Title
+    plt.title(f"Electronic density of state for {matter} ({method})")
+    plt.ylabel(r"Density of States", fontsize = 1.0* 12)
+    plt.xlabel(r"Energy (eV)", fontsize = 1.0* 12)
+
+    # y_axis_top = max(max(total_dos_list), max(integrated_dos_list))
+    plt.ylim(0, y_limit)
+    plt.xlim(-x_range, x_range)
+    plt.legend(loc="best")
+    # plt.show()
+
+###  Total PDoS Plotting
+def pdos_total_plotting(matter, pdos_result, x_range, y_top, method):
     # Extract data
     # pdos_result = pdos_single_extracting(pdos_file_path)
     efermi_pdos = pdos_result[0]
@@ -23,8 +58,7 @@ def pdos_total_plotting(pdos_result, matter, x_range, y_top, method):
     p_x_pdos_sum = pdos_result[12]
 
     # Set up the specified style parameters
-    plt.figure(dpi=256, figsize=(10, 6))
-    plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+    set_plot_style()
 
     # Title and labels
     # plt.title(f"Projected electronic density of state for {matter}")
@@ -56,14 +90,14 @@ def pdos_total_plotting(pdos_result, matter, x_range, y_top, method):
 
     plt.axvline(x = efermi_pdos-shift, linestyle="--", color="#F5820F", alpha=0.95, label=r"Fermi energy")
 
-    fermi_energy_text = f"Fermi energy:\n{efermi_pdos:.3f} (eV)"
+    fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
     plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
 
     plt.ylim(0, y_limit)
     plt.xlim(-x_range, x_range)
     plt.legend(loc="best")
 
-# PDoS Plotting for each element
+###  PDoS Plotting for each element
 def pdos_single_element_summary(matter, pdos_total, element, pdos_element, x_range, y_top, method):
 
     fig, axs = plt.subplots(1, 2, figsize=(12, 6), dpi=256)
@@ -123,7 +157,7 @@ def pdos_single_element_summary(matter, pdos_total, element, pdos_element, x_ran
         ax.set_ylim(0, y_limit)
         ax.set_xlim(-x_range, x_range)
 
-        fermi_energy_text = f"Fermi energy:\n{efermi_pdos:.3f} (eV)"
+        fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
         ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
 
         x_label, y_label = label_positions[i]
@@ -214,7 +248,7 @@ def pdos_duo_element_summary(matter, pdos_total, element_1, pdos_1, element_2, p
         ax.axvline(x = efermi_pdos-shift, linestyle="--", color="#F5820F", alpha=0.95, label=r"Fermi energy")
         ax.set_ylim(0, y_limit)
         ax.set_xlim(-x_range, x_range)
-        fermi_energy_text = f"Fermi energy:\n{efermi_pdos:.3f} (eV)"
+        fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
         if i == 1:
             ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="left")
         else:
@@ -314,7 +348,7 @@ def pdos_tri_element_summary(matter, pdos_total, element_1, pdos_1, element_2, p
         ax.axvline(x = efermi_pdos-shift, linestyle="--", color="#F5820F", alpha=0.95, label=r"Fermi energy")
         ax.set_ylim(0, y_limit)
         ax.set_xlim(-x_range, x_range)
-        fermi_energy_text = f"Fermi energy:\n{efermi_pdos:.3f} (eV)"
+        fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
         if i == 2:
             ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="left")
             ax.legend(loc="upper left")
@@ -344,7 +378,10 @@ def pdos_tri_element_summary(matter, pdos_total, element_1, pdos_1, element_2, p
 
     # return list([matter, pdos_total, element_1, pdos_1, element_2, pdos_2, element_3, pdos_3, x_range, y_top, method])
 
+### General usage
 def pdos_element_plotting(*args):
+    if len(args) == 5:
+        return pdos_total_plotting(args[0], args[1], args[2], args[3], args[4])
     if len(args) == 7:
         return pdos_single_element_summary(args[0], args[1], args[2], args[3], args[4], args[5], args[6])
     if len(args) == 9:
