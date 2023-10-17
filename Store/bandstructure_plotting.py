@@ -11,4 +11,3 @@ def bandstructure_input():
             return BS_directory
         else:
             print("The directory does not exist. Please try again.")
-
