@@ -380,6 +380,9 @@ def pdos_tri_element_summary(matter, pdos_total, element_1, pdos_1, element_2, p
 
 ### General usage
 def pdos_element_plotting(*args):
+    if args[0] == "help":
+        print("help information")
+        return
     if len(args) == 5:
         return pdos_total_plotting(args[0], args[1], args[2], args[3], args[4])
     if len(args) == 7:
