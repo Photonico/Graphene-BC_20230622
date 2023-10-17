@@ -56,8 +56,8 @@ def pdos_total_plotting(pdos_result, matter, x_range, y_top, method):
 
     plt.axvline(x = efermi_pdos-shift, linestyle="--", color="#F5820F", alpha=0.95, label=r"Fermi energy")
 
-    # fermi_energy_text = f"Fermi energy: {efermi_pdos:.3f} (eV)"
-    # plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="right")
+    fermi_energy_text = f"Fermi energy:\n{efermi_pdos:.3f} (eV)"
+    plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
 
     plt.ylim(0, y_limit)
     plt.xlim(-x_range, x_range)
@@ -116,19 +116,21 @@ def pdos_single_element_summary(matter, pdos_total, element, pdos_element, x_ran
 
         if i == 0:
             y_limit = y_top
-            ax.legend(loc="upper right")
         elif i == 1:
             y_limit = y_top * 0.5
-            ax.legend(loc="upper right")
 
         ax.axvline(x = efermi_pdos-shift, linestyle="--", color="#F5820F", alpha=0.95, label=r"Fermi energy")
         ax.set_ylim(0, y_limit)
         ax.set_xlim(-x_range, x_range)
 
-        fermi_energy_text = f"Fermi energy: {efermi_pdos:.3f} (eV)"
-        ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="right")
+        fermi_energy_text = f"Fermi energy:\n{efermi_pdos:.3f} (eV)"
+        ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
 
         x_label, y_label = label_positions[i]
+        if i == 0:
+            ax.legend(loc="upper right")
+        elif i == 1:
+            ax.legend(loc="upper right")
         relative_offset = 0.025  # adjust this value as needed
         if x_label == 0:
             ha = "left"; x_label_offset = relative_offset
@@ -204,30 +206,34 @@ def pdos_duo_element_summary(matter, pdos_total, element_1, pdos_1, element_2, p
 
         if i == 0:
             y_limit = y_top
-            ax.legend(loc="upper right")
         elif i == 1:
             y_limit = y_top * 0.5
-            ax.legend(loc="upper left")
         elif i == 2:
             y_limit = y_top * 0.5
-            ax.legend(loc="upper right")
 
         ax.axvline(x = efermi_pdos-shift, linestyle="--", color="#F5820F", alpha=0.95, label=r"Fermi energy")
         ax.set_ylim(0, y_limit)
         ax.set_xlim(-x_range, x_range)
-        fermi_energy_text = f"Fermi energy: {efermi_pdos:.3f} (eV)"
+        fermi_energy_text = f"Fermi energy:\n{efermi_pdos:.3f} (eV)"
         if i == 1:
-            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="left")
+            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="left")
         else:
-            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="right")
+            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
 
         x_label, y_label = label_positions[i]
         if i == 0:
             x_relative_offset = 0.025 * 0.5
             y_relative_offset = 0.025
-        else:
+            ax.legend(loc="upper right")
+        elif i==1:
             x_relative_offset = 0.025
             y_relative_offset = 0.025
+            ax.legend(loc="upper left")
+        elif i==2:
+            x_relative_offset = 0.025
+            y_relative_offset = 0.025
+            ax.legend(loc="upper right")
+
         if x_label == 0:
             ha = "left"; x_label_offset = x_relative_offset
         else:
@@ -298,25 +304,23 @@ def pdos_tri_element_summary(matter, pdos_total, element_1, pdos_1, element_2, p
 
         if i == 0:
             y_limit = y_top
-            ax.legend(loc="upper right")
         elif i == 1:
             y_limit = round(y_top * 0.3)
-            ax.legend(loc="upper right")
         elif i == 2:
             y_limit = round(y_top * 0.3)
-            ax.legend(loc="upper left")
         elif i == 3:
             y_limit = round(y_top * 0.3)
-            ax.legend(loc="upper right")
-        
+
         ax.axvline(x = efermi_pdos-shift, linestyle="--", color="#F5820F", alpha=0.95, label=r"Fermi energy")
         ax.set_ylim(0, y_limit)
         ax.set_xlim(-x_range, x_range)
-        fermi_energy_text = f"Fermi energy: {efermi_pdos:.3f} (eV)"
+        fermi_energy_text = f"Fermi energy:\n{efermi_pdos:.3f} (eV)"
         if i == 2:
-            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="left")
+            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="left")
+            ax.legend(loc="upper left")
         else:
-            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="right")
+            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
+            ax.legend(loc="upper right")
 
         x_label, y_label = label_positions[i]
         relative_offset = 0.025
