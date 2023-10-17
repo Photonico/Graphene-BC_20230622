@@ -48,7 +48,7 @@ def density_plotting(opt_data, matter, y_bot, y_top):
         # ax.set_ylim(-10, 25)
         ax.set_ylim(y_bot, y_top)
         ax.set_xlim(0, 6)
-    
+
     plt.tight_layout()
     # plt.savefig(f"Figures/optical_{Matter}.svg")
     # plt.show()
