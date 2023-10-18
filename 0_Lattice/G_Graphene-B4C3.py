@@ -10,55 +10,51 @@ import subprocess
 import shutil
 import time
 
-source_dir = "lattice_source" 
+source_dir = "lattice_source"
 distance_bound  = 15.0
 
 for lattice_type in ["Top", "Bridge", "Hollow_1", "Hollow_2"]:
+# for lattice_type in ["Hollow_2"]:
 
     if lattice_type == "Top":
-        lattice_code = "B1"
-        lattice_shift = 0
-        a_var = 4.979; z_var = 3.540
+        lattice_shift = -1/6
+        a_var = 4.846; z_var = 3.512
 
     elif lattice_type == "Bridge":
-        lattice_code = "B2"
-        lattice_shift = 1/12
-        a_var = 4.979; z_var = 3.530
+        lattice_shift = -1/12
+        a_var = 4.846; z_var = 3.520
 
-    elif lattice_type == "Hollow_1":
-        lattice_code = "B3"
-        lattice_shift = 1/9
-        a_var = 4.979; z_var = 3.534
+    elif lattice_type == "Hollow1":
+        lattice_shift = -1/18
+        a_var = 4.846; z_var = 3.555
 
-    elif lattice_type == "Hollow_2":
-        lattice_code = "B4"
-        lattice_shift = 1/6
-        a_var = 4.979; z_var = 3.546
+    elif lattice_type == "Hollow2":
+        lattice_shift = 0
+        a_var = 4.846; z_var = 3.540
 
     dirs_to_walk = []
-    dest_dir = f"Twin_{lattice_code}_Graphene-Borophene_{lattice_type}_a{a_var:.3f}_d{z_var:.3f}"
+    dest_dir = f"G_Graphene-B4C3_{lattice_type}_a{a_var:.3f}_d{z_var:.3f}"
     os.makedirs(dest_dir, exist_ok = True)
     for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_nci.sh", "vasp_usyd.sh"]:
         shutil.copy(os.path.join(source_dir, file_name), dest_dir)
     a_1 = np.sqrt(3) * 0.5 * a_var
     a_2 = 0.5 * a_var
     with open(os.path.join(dest_dir, "POSCAR"), "w") as f:
-        f.write(f"""Graphene-Borophene {lattice_type} with lattice parameter {a_var:.3f} and distance {z_var:.3f}
+        f.write(f"""Graphene-B4C3 {lattice_type} with lattice parameter {a_var:.3f} and distance {z_var:.3f}
         1.0
         {a_1:.16f}    {a_2:.16f}    0.0000000000000000
        -{a_1:.16f}    {a_2:.16f}    0.0000000000000000
         0.0000000000000000    0.0000000000000000   {distance_bound:.16f}
         B   C
-        8   8
+        4   11
         Direct
-        0.6688868879072842  0.0000000000000000  0.1000000000000014
-        0.3311121120927183  0.0000000000000000  0.1000000000000014
-        0.0000000000000000  0.3311121120927183  0.1000000000000014
-        0.0000000000000000  0.6688868879072842  0.1000000000000014
-        0.3311121120927183  0.3311121120927183  0.1000000000000014
-        0.6688868879072842  0.6688868879072842  0.1000000000000014
-        0.6666659999999993  0.3333330000000032  0.0992218869917920
-        0.3333330000000032  0.6666659999999993  0.1007781130082108
+        0.0041536073678543  0.0026721015370299  0.1203413379052876
+        0.3569533512947416  0.0028550305604824  0.0974889342262841
+        0.0042385768318738  0.3555069917146056  0.0974925637235273
+        0.6514229529441167  0.6500655703952489  0.0974768786615599
+        0.3280864628224336  0.3267193752228721  0.1003050777105869
+        0.6802777482657802  0.0027808524732649  0.1002756210064604
+        0.0041653004731970  0.6788380780964971  0.1002655867662980
         {0.1666659999999993+lattice_shift:.16f}  {0.3333330000000032-lattice_shift:.16f}  {0.1000000000000000+z_var/distance_bound:.16f}
         {0.3333330000000032+lattice_shift:.16f}  {0.1666659999999993-lattice_shift:.16f}  {0.1000000000000000+z_var/distance_bound:.16f}
         {0.1666659999999993+lattice_shift:.16f}  {0.8333330000000032-lattice_shift:.16f}  {0.1000000000000000+z_var/distance_bound:.16f}
