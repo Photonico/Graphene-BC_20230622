@@ -5,4 +5,4 @@ import subprocess
 
 activate_env = "conda activate myenv"
 
-subprocess.run(activate_env, shell=True, check=True)
+subprocess.run(activate_env, shell = True, check = True)
