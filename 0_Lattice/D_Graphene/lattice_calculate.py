@@ -21,7 +21,7 @@ step = 0.005
 arr = np.arange(start, end+step, step)
 arr_ext = np.append(arr, 2.467)
 
-for a_var in arr:
+for a_var in arr_ext:
     dest_dir = f"{dest_dir_base}{a_var:.3f}"
     os.makedirs(dest_dir, exist_ok = True)
     for file_name in ["INCAR", "KPOINTS", "vasp_nci.sh", "POTCAR"]:
