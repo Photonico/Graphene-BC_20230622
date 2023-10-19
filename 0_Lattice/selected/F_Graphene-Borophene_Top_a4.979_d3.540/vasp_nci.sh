@@ -4,8 +4,8 @@
 #PBS -q normal
 #PBS -o output.txt
 #PBS -j oe
-#PBS -l mem=190GB
-#PBS -l ncpus=48
+#PBS -l mem=96GB
+#PBS -l ncpus=24
 #PBS -l walltime=47:59:59
 #PBS -l wd
 #PBS -l jobfs=10GB
