@@ -16,19 +16,26 @@
 
 ### lattice constant - free energy
 
-* Data extracting, reading, and data prcessing
+* Data extracting, reading
   * lattice_free_energy_input(directory)
   * specify_lattice_free_energy(directory)
   * check_lattice_free_energy(sup_directory)
   * summarize_lattice_free_energy(sup_directory)
   * read_lattice_free_energy_data(data_path)
   * read_lattice_free_energy_count(data_path, count)
+
+* Data processing
   * polynomially_fit_curve(lattice, free_energy, method, count)
+  * extract_fitted_extreme_lattice_free_energy(data_path)
+    * extract_fitted_minimum_lattice_free_energy(data_path)
+    * extract_fitted_maximum_lattice_free_energy(data_path)
 
 * Plotting
-  * plot_lattice_free_energy_single(matter, source_data, selected_data, count, color)
-
-* Plotting
+  * plot_lattice_free_energy(matter_count, ...)
+    * plot_lattice_free_energy_solo(...)
+    * plot_lattice_free_energy_duo(...)
+    * plot_lattice_free_energy_tri(...)
+    * plot_lattice_free_energy_qua(...)
 
 
 

@@ -174,7 +174,39 @@ def polynomially_fit_curve(lattice_list, free_energy_list = None, fit_method = N
     fitted_free_energy = f(fitted_lattice)
     return fitted_lattice, fitted_free_energy
 
-def plot_lattice_free_energy_single(matter, source_data, selected_data, sample_count, color_family):
+def extract_fitted_minimum_lattice_free_energy(source_data):
+    lattice_source, free_energy_source = read_lattice_free_energy_data(source_data)
+    fitted_lattice, fitted_free_energy = polynomially_fit_curve(lattice_source, free_energy_source, 3, 4000)
+
+    # Find the index of the minimum value in fitted_free_energy
+    min_index = np.argmin(fitted_free_energy)
+
+    # Use this index to get the minimum value of fitted_free_energy and its corresponding fitted_lattice value
+    fitted_free_energy_min = fitted_free_energy[min_index]
+    fitted_lattice_min = fitted_lattice[min_index]
+
+    return fitted_lattice_min, fitted_free_energy_min
+
+def extract_fitted_maximum_lattice_free_energy(source_data):
+    lattice_source, free_energy_source = read_lattice_free_energy_data(source_data)
+    fitted_lattice, fitted_free_energy = polynomially_fit_curve(lattice_source, free_energy_source, 3, 4000)
+
+    # Find the index of the maximum value in fitted_free_energy
+    max_index = np.argmax(fitted_free_energy)
+
+    # Use this index to get the maximum value of fitted_free_energy and its corresponding fitted_lattice value
+    fitted_free_energy_max = fitted_free_energy[max_index]
+    fitted_lattice_max = fitted_lattice[max_index]
+
+    return fitted_lattice_max, fitted_free_energy_max
+
+def extract_fitted_extreme_lattice_free_energy(extract_type, source_data):
+    if extract_type in ("Minium", "minium", "MIN", "Min", "min"):
+        return extract_fitted_minimum_lattice_free_energy(source_data)    
+    if extract_type in ("Maxium", "maxium", "MAX", "Max", "max"):
+        return extract_fitted_maximum_lattice_free_energy(source_data)
+
+def plot_lattice_free_energy_solo(matter, source_data, color_family, sample_count, selected_data=None):
     fig_setting = canvas_setting()
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -182,22 +214,75 @@ def plot_lattice_free_energy_single(matter, source_data, selected_data, sample_c
     plt.title(f"Free energy versus lattice for {matter}"); plt.xlabel(r"Lattice constant (Å)"); plt.ylabel(r"Energy (eV)")
 
     # Color calling
-    color = color_sampling(color_family)
+    colors = color_sampling(color_family)
     # Data reading
     lattice_source, free_energy_source = read_lattice_free_energy_data(source_data)
     lattice_sample, free_energy_sample = read_lattice_free_energy_count(source_data, sample_count)
     fitted_lattice, fitted_free_energy = polynomially_fit_curve(lattice_source, free_energy_source, 3, 4000)
-    selected_lattice, select_free_energy = specify_lattice_free_energy(selected_data)
+    if selected_data != None:
+        selected_lattice, select_free_energy = specify_lattice_free_energy(selected_data)
 
     # Minimum free energy and the corresponding lattice
     min_energy_index = free_energy_source.index(min(free_energy_source))
     min_lattice = lattice_source[min_energy_index]
     min_free_energy = min(free_energy_source)
 
-    plt.plot(fitted_lattice, fitted_free_energy, c=color[1], label="Fitted data", zorder=1)
-    plt.scatter(lattice_sample, free_energy_sample, s=48, fc="#FFF", ec=color[1], label="Source data", zorder=1)
-    plt.scatter(min_lattice, min_free_energy, s=96, fc="#FFF", ec=color[2], label="Source lowest point", zorder=1)
-    plt.scatter(selected_lattice,  select_free_energy, s=24,  facecolors="#FFF", ec=color[4], label="Selected data", zorder=2)
+    # Plotting
+    plt.plot(fitted_lattice, fitted_free_energy, c=colors[1], label="Fitted data", zorder=1)
+    plt.scatter(lattice_sample, free_energy_sample, s=48, fc="#FFF", ec=colors[1], label="Source data", zorder=1)
+    plt.scatter(min_lattice, min_free_energy, s=96, fc="#FFF", ec=colors[2], label="Source lowest point", zorder=1)
+    if selected_data != None:
+        plt.scatter(selected_lattice,  select_free_energy, s=24,  facecolors="#FFF", ec=colors[4], label="Selected data", zorder=2)
 
     plt.legend(loc="best")
     plt.show()
+
+def plot_lattice_free_energy_duo(title, matter1, source_data1, color_family1, matter2, source_data2, color_family2, sample_count, selected_data1=None, selected_data2=None):
+    fig_setting = canvas_setting()
+    plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
+    params = fig_setting[2]; plt.rcParams.update(params)
+    plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+    plt.title(f"Free energy versus lattice for {title}"); plt.xlabel(r"Lattice constant (Å)"); plt.ylabel(r"Energy (eV)")
+
+    # Color calling
+    colors1 = color_sampling(color_family1)
+    colors2 = color_sampling(color_family2)
+
+    # Data reading
+    lattice_source1, free_energy_source1 = read_lattice_free_energy_data(source_data1)
+    lattice_sample1, free_energy_sample1 = read_lattice_free_energy_count(source_data1, sample_count)
+    fitted_lattice1, fitted_free_energy1 = polynomially_fit_curve(lattice_source1, free_energy_source1, 3, 4000)
+
+    lattice_source2, free_energy_source2 = read_lattice_free_energy_data(source_data2)
+    lattice_sample2, free_energy_sample2 = read_lattice_free_energy_count(source_data2, sample_count)
+    fitted_lattice2, fitted_free_energy2 = polynomially_fit_curve(lattice_source2, free_energy_source2, 3, 4000)
+
+    if selected_data1 != None:
+        selected_lattice1, select_free_energy1 = specify_lattice_free_energy(selected_data1)
+    if selected_data2 != None:
+        selected_lattice2, select_free_energy2 = specify_lattice_free_energy(selected_data2)
+
+    # Minimum free energy and the corresponding lattice
+    min_energy_index1 = free_energy_source1.index(min(free_energy_source1))
+    min_lattice1 = lattice_source1[min_energy_index1]
+    min_free_energy1 = min(free_energy_source1)
+
+    min_energy_index2 = free_energy_source2.index(min(free_energy_source2))
+    min_lattice2 = lattice_source1[min_energy_index2]
+    min_free_energy2 = min(free_energy_source2)
+
+    # Plotting
+    plt.plot(fitted_lattice, fitted_free_energy, c=colors[1], label="Fitted data", zorder=1)
+    plt.scatter(lattice_sample, free_energy_sample, s=48, fc="#FFF", ec=colors[1], label="Source data", zorder=1)
+    plt.scatter(min_lattice, min_free_energy, s=96, fc="#FFF", ec=colors[2], label="Source lowest point", zorder=1)
+    if selected_data != None:
+        plt.scatter(selected_lattice,  select_free_energy, s=24,  facecolors="#FFF", ec=colors[4], label="Selected data", zorder=2)
+
+    plt.legend(loc="best")
+    plt.show()
+def plot_lattice_free_energy(matter_count, *args):
+    if matter_count == 1:
+        if len(args) == 4:
+            return plot_lattice_free_energy_solo(args[0], args[1], args[2], args[3])
+        elif len(args) == 5:
+            return plot_lattice_free_energy_solo(args[0], args[1], args[2], args[3], args[4])
