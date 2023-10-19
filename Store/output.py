@@ -6,29 +6,38 @@ import os
 def canvas_setting(*args):
     help_info = "Usage: canvas_setting(length, width, dpi, font)\n" + \
                 "The default setting is length: 10, width: 6, dpi: 196, font: 'Serif'" + \
-                "The return values are [0]: size_setting, [1]: dpi, [2]: figure params"
+                "The return values are :" + \
+                "\t[0]: size_setting"+\
+                "\t[1]: dpi"+\
+                "\t[2]: figure params (font)"+\
+                "\t[3]: legend location"
     default_style = {"length": 10,
                      "width": 6,
                      "dpi": 196,
                      "font_style": "serif"}
     default_params = {"text.usetex": False, "font.family": "serif", "mathtext.fontset": "cm",
         "axes.titlesize": 18, "axes.labelsize": 14, "figure.facecolor": "w"}
+    default_legend = "upper right"
     if len(args) == 0:
-        return (default_style["length"],default_style["width"]), default_style["dpi"], default_params
+        return (default_style["length"],default_style["width"]), default_style["dpi"], default_params, default_legend
     if len(args) == 1:
         if args[0] == "help":
             print(help_info)
             return
         else:
-            return (args[0], 6), 196, default_params
+            return (args[0], 6), 196, default_params, default_legend
     if len(args) == 2:
-        return (args[0], args[1]), 196, default_params
+        return (args[0], args[1]), 196, default_params, default_legend
     if len(args) == 3:
-        return (args[0], args[1]), args[2], default_params
+        return (args[0], args[1]), args[2], default_params, default_legend
     if len(args) == 4:
         customized_params = {"text.usetex": False, "font.family": args[3], "mathtext.fontset": "cm",
             "axes.titlesize": 18, "axes.labelsize": 14, "figure.facecolor": "w"}
-        return (args[0], args[1]), args[2], customized_params
+        return (args[0], args[1]), args[2], customized_params, default_legend
+    if len(args) == 5:
+        customized_params = {"text.usetex": False, "font.family": args[3], "mathtext.fontset": "cm",
+            "axes.titlesize": 18, "axes.labelsize": 14, "figure.facecolor": "w"}
+        return (args[0], args[1]), args[2], customized_params, args[4]
 
 def vasprun_directory(directory="."):
     """Find folders with complete vasprun.xml and print incomplete ones."""
@@ -104,7 +113,7 @@ def color_sampling(color_family):
         color_set.append("#FFD71E")
         color_set.append("#FA8C00")
         return color_set
-    if color_family in ("Blue", "blue"):
+    if color_family in ("Blue", "blue", "Azure", "azure"):
         color_set.append("#145AAA")
         color_set.append("#1473E1")
         color_set.append("#1EB4FF")
