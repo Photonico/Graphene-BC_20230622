@@ -20,12 +20,12 @@
   * check_vasprun(sup_directory)
   * lattice_free_energy_input(directory)
   * specify_lattice_free_energy(directory)
-  * specify_lattice_distance(directory)
+  * specify_biolayer_lattice(directory)
   * summarize_lattice_free_energy(sup_directory)
-  * summarize_lattice_distance(sup_directory)
+  * summarize_biolayer_lattice(sup_directory)
   * read_lattice_free_energy_data(data_path)
   * read_lattice_free_energy_count(data_path, count)
-  * read_lattice_distance(data_path)
+  * read_biolayerlattice(data_path)
 
 * Data processing
   * polynomially_fit_curve(lattice, free_energy, method, count)
@@ -44,10 +44,8 @@
 
 
 
-### lattice - distance - free energy
 
-* lattice_distance_free_energy_input(directory)
-* lattice_distance_free_energy_specific(directory)
+
 
 ### Bandstructure
 
