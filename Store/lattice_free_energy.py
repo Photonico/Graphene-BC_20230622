@@ -8,22 +8,12 @@ import matplotlib.pyplot as plt
 
 from Store.output import canvas_setting, color_sampling
 
-def lattice_free_energy_input():
-    while True:
-        free_energy_directory = input("Please input the directory of free energy calculation: ")
-        if os.path.exists(free_energy_directory):
-            print(f"Your free energy calculation is located in {free_energy_directory}.")
-            return free_energy_directory
-        else:
-            print("The directory does not exist. Please try again.")
-
-def check_lattice_free_energy(directory="."):
+def check_vasprun(directory="."):
     """Find folders with complete vasprun.xml and print incomplete ones."""
     # Check if the user asked for help
     if directory == "help":
         print("Please use this function on the parent directory of the project's main folder.")
         return []
-
     complete_folders = []
     # Traverse all folders under "directory"
     for dirpath, _, filenames in os.walk(directory):
@@ -43,8 +33,16 @@ def check_lattice_free_energy(directory="."):
                         print(f"vasprun.xml in {dirpath} is incomplete.")
             except IOError as e:                        # Change from Exception to IOError
                 print(f"Error reading {file_name_xml}: {e}")
-
     return complete_folders
+
+def lattice_free_energy_input():
+    while True:
+        free_energy_directory = input("Please input the directory of free energy calculation: ")
+        if os.path.exists(free_energy_directory):
+            print(f"Your free energy calculation is located in {free_energy_directory}.")
+            return free_energy_directory
+        else:
+            print("The directory does not exist. Please try again.")
 
 def specify_lattice_free_energy(directory):
     if directory == "help":
@@ -68,23 +66,23 @@ def specify_lattice_free_energy(directory):
 
             return a_length, e_fr_energy
 
-        except Exception as e:
+        except ET.ParseError as e:
             print("Error parsing vasprun.xml:", e)
             return None
     else:
         print("vasprun.xml not found in the specified directory.")
         return None
 
-def summarize_free_energy_directory(directory=".", lattice_start = None, lattice_end = None):
+def summarize_lattice_free_energy_directory(directory=".", lattice_start = None, lattice_end = None):
     result_file = "lattice_free_energy.dat"
     result_file_path = os.path.join(directory, result_file)
-    
+
     if directory == "help":
         print("Please use this function on the parent directory of the project's main folder.")
         return []
-    
-    # Use check_lattice_free_energy to get folders with complete vasprun.xml
-    dirs_to_walk = check_lattice_free_energy(directory)
+
+    # Use check_vasprun to get folders with complete vasprun.xml
+    dirs_to_walk = check_vasprun(directory)
     results = []
 
     for dest_dir in dirs_to_walk:
@@ -236,7 +234,7 @@ def plot_lattice_free_energy_solo(matter, sample_count, source_data, color_famil
     lattice_source, free_energy_source = read_lattice_free_energy_data(source_data)
 
     lattice_sample, free_energy_sample = read_lattice_free_energy_count(source_data, sample_count)
-    
+
     fitted_lattice, fitted_free_energy = polynomially_fit_curve(lattice_source, free_energy_source, 3, 4000)
     if selected_data != None:
         selected_lattice, select_free_energy = specify_lattice_free_energy(selected_data)
@@ -308,10 +306,10 @@ def plot_lattice_free_energy_duo(title, sample_count, matter1, source_data1, col
     plt.legend(loc=fig_setting[3])
     plt.show()
 
-def plot_lattice_free_energy_tri(title, sample_count, 
-                                 matter1, source_data1, color_family1, 
-                                 matter2, source_data2, color_family2, 
-                                 matter3, source_data3, color_family3, 
+def plot_lattice_free_energy_tri(title, sample_count,
+                                 matter1, source_data1, color_family1,
+                                 matter2, source_data2, color_family2,
+                                 matter3, source_data3, color_family3,
                                  selected_data1=None, selected_data2=None, selected_data3=None):
 
     fig_setting = canvas_setting()
@@ -383,10 +381,10 @@ def plot_lattice_free_energy_tri(title, sample_count,
     plt.show()
 
 def plot_lattice_free_energy_quad(title, sample_count, 
-                                 matter1, source_data1, color_family1, 
-                                 matter2, source_data2, color_family2, 
-                                 matter3, source_data3, color_family3, 
-                                 matter4, source_data4, color_family4, 
+                                 matter1, source_data1, color_family1,
+                                 matter2, source_data2, color_family2,
+                                 matter3, source_data3, color_family3,
+                                 matter4, source_data4, color_family4,
                                  selected_data1=None, selected_data2=None, selected_data3=None, selected_data4=None):
 
     fig_setting = canvas_setting()

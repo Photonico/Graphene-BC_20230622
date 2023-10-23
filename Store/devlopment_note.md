@@ -17,12 +17,15 @@
 ### lattice constant - free energy
 
 * Data extracting, reading
+  * check_vasprun(sup_directory)
   * lattice_free_energy_input(directory)
   * specify_lattice_free_energy(directory)
-  * check_lattice_free_energy(sup_directory)
+  * specify_lattice_distance(directory)
   * summarize_lattice_free_energy(sup_directory)
+  * summarize_lattice_distance(sup_directory)
   * read_lattice_free_energy_data(data_path)
   * read_lattice_free_energy_count(data_path, count)
+  * read_lattice_distance(data_path)
 
 * Data processing
   * polynomially_fit_curve(lattice, free_energy, method, count)
