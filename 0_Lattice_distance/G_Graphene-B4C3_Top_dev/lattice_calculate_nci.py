@@ -13,7 +13,7 @@ import time
 lattice_type = "Top"
 lattice_shift = -1/6
 
-source_dir = "../lattice_source"
+source_dir = "lattice_source"
 dirs_to_walk    = []
 
 distance_bound = 15.0

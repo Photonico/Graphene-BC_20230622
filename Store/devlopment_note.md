@@ -14,27 +14,30 @@
 
 * output(length, width, dpi, font_style)
 
+* algorithms
+  * compute_average(data_lines)
+
 ### lattice constant - free energy
 
 * Data extracting, reading
-  * check_vasprun(sup_directory)
-  * lattice_free_energy_input(directory)
-  * specify_lattice_free_energy(directory)
+  * check_vasprun(sup_directory) - complete
+  * lattice_free_energy_input(directory) - complete
+  * specify_lattice_free_energy(directory) - complete
   * specify_biolayer_lattice(directory)
-  * summarize_lattice_free_energy(sup_directory)
+  * summarize_lattice_free_energy(sup_directory) - complete
   * summarize_biolayer_lattice(sup_directory)
-  * read_lattice_free_energy_data(data_path)
-  * read_lattice_free_energy_count(data_path, count)
+  * read_lattice_free_energy_data(data_path) - complete
+  * read_lattice_free_energy_count(data_path, count) - complete
   * read_biolayerlattice(data_path)
 
 * Data processing
-  * polynomially_fit_curve(lattice, free_energy, method, count)
-  * extract_fitted_extreme_lattice_free_energy(data_path)
+  * polynomially_fit_curve(lattice, free_energy, method, count) - complete
+  * extract_fitted_extreme_lattice_free_energy(data_path) - complete
     * extract_fitted_minimum_lattice_free_energy(data_path)
     * extract_fitted_maximum_lattice_free_energy(data_path)
 
 * Plotting
-  * plot_lattice_free_energy(matter_count, ...)
+  * plot_lattice_free_energy(matter_count, ...) - complete
     * plot_lattice_free_energy_solo(...)
     * plot_lattice_free_energy_duo(...)
     * plot_lattice_free_energy_tri(...)
