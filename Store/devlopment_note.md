@@ -17,7 +17,7 @@
 * algorithms
   * compute_average(data_lines)
 
-### lattice constant - free energy
+### lattice.py: lattice constant - free energy
 
 * Data extracting, reading
   * check_vasprun(sup_directory) - complete
@@ -50,7 +50,7 @@
 
 
 
-### Bandstructure
+### bandstructure.py: Bandstructure analysis and plotting
 
 * def EIGENVAL_BS_extracting(*args)
   * def EIGENVAL_BS_single_extracting(directory)
