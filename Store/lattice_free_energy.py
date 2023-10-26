@@ -73,6 +73,64 @@ def specify_lattice_free_energy(directory):
         print("vasprun.xml not found in the specified directory.")
         return None
 
+def specify_biolayer_lattice(directory):
+    if directory == "help":
+        print("Please use this function on the directory of the specific work folder and.")
+        return []
+
+    xml_path = os.path.join(directory, "vasprun.xml")
+    contcar_path = os.path.join(directory, "CONTCAR")
+
+    if os.path.isfile(xml_path) and os.path.isfile(contcar_path):
+        try:
+            tree = ET.parse(xml_path)
+            root = tree.getroot()
+
+            with open (xml_path, "r", encoding="utf-8"):
+                # Extract free energy
+                free_energy = float(root.findall(".//calculation/energy/i[@name='e_fr_energy']")[-1].text)
+
+                # Extract lattice constant
+                # Assuming the lattice constant is the length of the 'a' vector from the final structure
+                basis_vectors = root.findall(".//calculation/structure/crystal/varray[@name='basis']")[-1]
+                a_vector = basis_vectors[0].text.split()
+                lattice = (float(a_vector[0])**2 + float(a_vector[1])**2 + float(a_vector[2])**2)**0.5
+
+            coordinates = []
+            with open (contcar_path, "r", encoding="utf-8") as contcar_file:
+                lines = contcar_file.readlines()
+                distance_bound = float(lines[4].split()[-1])
+                for index, line in enumerate(lines):
+                    if any(keyword in line.lower() for keyword in ["cartesian", "cart", "direct", "fractional"]):
+                        coord_start_index = index + 1
+                        break
+                else: raise ValueError("Direct or Cartesian keyword not found in CONTCAR file.")
+                total_atoms = sum([int(count) for count in lines[coord_start_index - 2].split()])
+                coord_end_index = coord_start_index + total_atoms
+
+                coordinates = lines[coord_start_index: coord_end_index]; top_layer = []; bottom_layer = []
+                z_values = [float(coord.split()[-1]) for coord in coordinates]; z_average = np.mean(z_values)
+                for coord in coordinates:
+                    _, _, z = map(float, coord.split())
+                    if z < z_average:
+                        bottom_layer.append(coord)
+                    else:
+                        top_layer.append(coord)
+                z_values_bottom = [float(coord.split()[-1]) for coord in bottom_layer]; z_average_bottom = np.mean(z_values_bottom)
+                z_values_top = [float(coord.split()[-1]) for coord in top_layer]; z_average_top = np.mean(z_values_top)
+                if any(keyword in line.lower() for keyword in ["cartesian", "cart"]):
+                    distance = z_average_top - z_average_bottom
+                if any(keyword in line.lower() for keyword in ["direct", "fractional"]):
+                    distance = (z_average_top - z_average_bottom) * distance_bound
+            return lattice, distance, free_energy
+
+        except ET.ParseError as e:
+            print("Error parsing vasprun.xml:", e)
+            return None
+    else:
+        print("vasprun.xml not found in the specified directory.")
+        return None
+
 def summarize_lattice_free_energy_directory(directory=".", lattice_start = None, lattice_end = None):
     result_file = "lattice_free_energy.dat"
     result_file_path = os.path.join(directory, result_file)
@@ -148,7 +206,7 @@ def read_lattice_free_energy_count(lattice_path, count=None):
     # Initialize the lists for lattice constant and free energy
     lattice_value, free_energy_value = [], []
     lattice_sample_init, lattice_sample, free_energy_sample = [], [], []
-    if count!=None or count not in ("ALL","All","all"):
+    if (count is not None) or (count not in ("ALL","All","all")):
         with open(lattice_path, "r", encoding="utf-8") as f:
             lines = f.readlines()[1:]
             for line in lines:
@@ -217,7 +275,7 @@ def extract_fitted_maximum_lattice_free_energy(source_data):
 
 def extract_fitted_extreme_lattice_free_energy(extract_type, source_data):
     if extract_type in ("Minium", "minium", "MIN", "Min", "min"):
-        return extract_fitted_minimum_lattice_free_energy(source_data)    
+        return extract_fitted_minimum_lattice_free_energy(source_data)
     if extract_type in ("Maxium", "maxium", "MAX", "Max", "max"):
         return extract_fitted_maximum_lattice_free_energy(source_data)
 
@@ -236,7 +294,7 @@ def plot_lattice_free_energy_solo(matter, sample_count, source_data, color_famil
     lattice_sample, free_energy_sample = read_lattice_free_energy_count(source_data, sample_count)
 
     fitted_lattice, fitted_free_energy = polynomially_fit_curve(lattice_source, free_energy_source, 3, 4000)
-    if selected_data != None:
+    if selected_data is not None:
         selected_lattice, select_free_energy = specify_lattice_free_energy(selected_data)
 
     # Minimum free energy and the corresponding lattice
@@ -248,7 +306,7 @@ def plot_lattice_free_energy_solo(matter, sample_count, source_data, color_famil
     plt.plot(fitted_lattice, fitted_free_energy, c=colors[1], label="Fitted data", zorder=1)
     plt.scatter(lattice_sample, free_energy_sample, s=48, fc="#FFF", ec=colors[1], label="Source data", zorder=1)
     plt.scatter(min_lattice, min_free_energy, s=48, fc=colors[2], ec=colors[2], label="Source lowest point", zorder=1)
-    if selected_data != None:
+    if selected_data is not None:
         plt.scatter(selected_lattice,  select_free_energy, s=24, fc=colors[0], ec=colors[0], label="Selected data", zorder=2)
 
     plt.legend(loc=fig_setting[3])
@@ -275,9 +333,9 @@ def plot_lattice_free_energy_duo(title, sample_count, matter1, source_data1, col
     lattice_sample1, free_energy_sample1 = read_lattice_free_energy_count(source_data1, sample_count)
     lattice_sample2, free_energy_sample2 = read_lattice_free_energy_count(source_data2, sample_count)
 
-    if selected_data1 != None:
+    if selected_data1 is not None:
         selected_lattice1, select_free_energy1 = specify_lattice_free_energy(selected_data1)
-    if selected_data2 != None:
+    if selected_data2 is not None:
         selected_lattice2, select_free_energy2 = specify_lattice_free_energy(selected_data2)
 
     # Minimum free energy and the corresponding lattice
@@ -293,14 +351,14 @@ def plot_lattice_free_energy_duo(title, sample_count, matter1, source_data1, col
     plt.plot(fitted_lattice1, fitted_free_energy1, c=colors1[1], label=f"Fitted data of {matter1}", zorder=1)
     plt.scatter(lattice_sample1, free_energy_sample1, s=48, fc="#FFF", ec=colors1[1], label=f"Source data of {matter1}", zorder=1)
     plt.scatter(min_lattice1, min_free_energy1, s=48, ec=colors1[2], fc=colors1[2], label=f"Source lowest point of {matter1}", zorder=1)
-    if selected_data1 != None:
+    if selected_data1 is not None:
         plt.scatter(selected_lattice1,  select_free_energy1, s=24, ec=colors1[0], fc=colors1[0], label=f"Selected data of {matter1}", zorder=2)
 
     # Plotting 2
     plt.plot(fitted_lattice2, fitted_free_energy2, c=colors2[1], label=f"Fitted data of {matter2}", zorder=1)
     plt.scatter(lattice_sample2, free_energy_sample2, s=48, fc="#FFF", ec=colors2[1], label=f"Source data of {matter2}", zorder=1)
     plt.scatter(min_lattice2, min_free_energy2, s=48, ec=colors2[2], fc=colors2[2], label=f"Source lowest point of {matter2}", zorder=1)
-    if selected_data2 != None:
+    if selected_data2 is not None:
         plt.scatter(selected_lattice2,  select_free_energy2, s=24, ec=colors2[0], fc=colors2[0], label=f"Selected data of {matter2}", zorder=2)
 
     plt.legend(loc=fig_setting[3])
@@ -336,11 +394,11 @@ def plot_lattice_free_energy_tri(title, sample_count,
     lattice_sample2, free_energy_sample2 = read_lattice_free_energy_count(source_data2, sample_count)
     lattice_sample3, free_energy_sample3 = read_lattice_free_energy_count(source_data3, sample_count)
 
-    if selected_data1 != None:
+    if selected_data1 is not None:
         selected_lattice1, select_free_energy1 = specify_lattice_free_energy(selected_data1)
-    if selected_data2 != None:
+    if selected_data2 is not None:
         selected_lattice2, select_free_energy2 = specify_lattice_free_energy(selected_data2)
-    if selected_data3 != None:
+    if selected_data3 is not None:
         selected_lattice3, select_free_energy3 = specify_lattice_free_energy(selected_data3)
 
     # Minimum free energy and the corresponding lattice
@@ -360,27 +418,27 @@ def plot_lattice_free_energy_tri(title, sample_count,
     plt.plot(fitted_lattice1, fitted_free_energy1, c=colors1[1], label=f"Fitted data of {matter1}", zorder=1)
     plt.scatter(lattice_sample1, free_energy_sample1, s=48, fc="#FFF", ec=colors1[1], label=f"Source data of {matter1}", zorder=1)
     plt.scatter(min_lattice1, min_free_energy1, s=48, ec=colors1[2], fc=colors1[2], label=f"Source lowest point of {matter1}", zorder=1)
-    if selected_data1 != None:
+    if selected_data1 is not None:
         plt.scatter(selected_lattice1,  select_free_energy1, s=24, ec=colors1[0], fc=colors1[0], label=f"Selected data of {matter1}", zorder=2)
 
     # Plotting 2
     plt.plot(fitted_lattice2, fitted_free_energy2, c=colors2[1], label=f"Fitted data of {matter2}", zorder=1)
     plt.scatter(lattice_sample2, free_energy_sample2, s=48, fc="#FFF", ec=colors2[1], label=f"Source data of {matter2}", zorder=1)
     plt.scatter(min_lattice2, min_free_energy2, s=48, ec=colors2[2], fc=colors2[2], label=f"Source lowest point of {matter2}", zorder=1)
-    if selected_data2 != None:
+    if selected_data2 is not None:
         plt.scatter(selected_lattice2,  select_free_energy2, s=24, ec=colors2[0], fc=colors2[0], label=f"Selected data of {matter2}", zorder=2)
 
     # Plotting 3
     plt.plot(fitted_lattice3, fitted_free_energy3, c=colors3[1], label=f"Fitted data of {matter3}", zorder=1)
     plt.scatter(lattice_sample3, free_energy_sample3, s=48, fc="#FFF", ec=colors3[1], label=f"Source data of {matter3}", zorder=1)
     plt.scatter(min_lattice3, min_free_energy3, s=48, ec=colors3[2], fc=colors3[2], label=f"Source lowest point of {matter3}", zorder=1)
-    if selected_data3 != None:
+    if selected_data3 is not None:
         plt.scatter(selected_lattice3,  select_free_energy3, s=24, ec=colors3[0], fc=colors3[0], label=f"Selected data of {matter3}", zorder=2)
 
     plt.legend(loc=fig_setting[3])
     plt.show()
 
-def plot_lattice_free_energy_quad(title, sample_count, 
+def plot_lattice_free_energy_quad(title, sample_count,
                                  matter1, source_data1, color_family1,
                                  matter2, source_data2, color_family2,
                                  matter3, source_data3, color_family3,
@@ -415,13 +473,13 @@ def plot_lattice_free_energy_quad(title, sample_count,
     lattice_sample3, free_energy_sample3 = read_lattice_free_energy_count(source_data3, sample_count)
     lattice_sample4, free_energy_sample4 = read_lattice_free_energy_count(source_data4, sample_count)
 
-    if selected_data1 != None:
+    if selected_data1 is not None:
         selected_lattice1, select_free_energy1 = specify_lattice_free_energy(selected_data1)
-    if selected_data2 != None:
+    if selected_data2 is not None:
         selected_lattice2, select_free_energy2 = specify_lattice_free_energy(selected_data2)
-    if selected_data3 != None:
+    if selected_data3 is not None:
         selected_lattice3, select_free_energy3 = specify_lattice_free_energy(selected_data3)
-    if selected_data4 != None:
+    if selected_data4 is not None:
         selected_lattice4, select_free_energy4 = specify_lattice_free_energy(selected_data4)
 
     # Minimum free energy and the corresponding lattice
@@ -446,7 +504,7 @@ def plot_lattice_free_energy_quad(title, sample_count,
     plt.plot(fitted_lattice1, fitted_free_energy1, c=colors1[1], zorder=1)
     plt.scatter(lattice_sample1, free_energy_sample1, s=48, fc="#FFF", ec=colors1[1], label=f"Source data of {matter1}", zorder=1)
     plt.scatter(min_lattice1, min_free_energy1, s=48, ec=colors1[2], fc=colors1[2], label=f"Source lowest point of {matter1}", zorder=1)
-    if selected_data1 != None:
+    if selected_data1 is not None:
         plt.scatter(selected_lattice1,  select_free_energy1, s=24, ec=colors1[0], fc=colors1[0], label=f"Selected data of {matter1}", zorder=2)
 
     # Plotting 2
@@ -454,7 +512,7 @@ def plot_lattice_free_energy_quad(title, sample_count,
     plt.plot(fitted_lattice2, fitted_free_energy2, c=colors2[1], zorder=1)
     plt.scatter(lattice_sample2, free_energy_sample2, s=48, fc="#FFF", ec=colors2[1], label=f"Source data of {matter2}", zorder=1)
     plt.scatter(min_lattice2, min_free_energy2, s=48, ec=colors2[2], fc=colors2[2], label=f"Source lowest point of {matter2}", zorder=1)
-    if selected_data2 != None:
+    if selected_data2 is not None:
         plt.scatter(selected_lattice2,  select_free_energy2, s=24, ec=colors2[0], fc=colors2[0], label=f"Selected data of {matter2}", zorder=2)
 
     # Plotting 3
@@ -462,7 +520,7 @@ def plot_lattice_free_energy_quad(title, sample_count,
     plt.plot(fitted_lattice3, fitted_free_energy3, c=colors3[1], zorder=1)
     plt.scatter(lattice_sample3, free_energy_sample3, s=48, fc="#FFF", ec=colors3[1], label=f"Source data of {matter3}", zorder=1)
     plt.scatter(min_lattice3, min_free_energy3, s=48, ec=colors3[2], fc=colors3[2], label=f"Source lowest point of {matter3}", zorder=1)
-    if selected_data3 != None:
+    if selected_data3 is not None:
         plt.scatter(selected_lattice3,  select_free_energy3, s=24, ec=colors3[0], fc=colors3[0], label=f"Selected data of {matter3}", zorder=2)
 
     # Plotting 4
@@ -470,7 +528,7 @@ def plot_lattice_free_energy_quad(title, sample_count,
     plt.plot(fitted_lattice4, fitted_free_energy4, c=colors4[1], zorder=1)
     plt.scatter(lattice_sample4, free_energy_sample4, s=48, fc="#FFF", ec=colors4[1], label=f"Source data of {matter4}", zorder=1)
     plt.scatter(min_lattice4, min_free_energy4, s=48, ec=colors4[2], fc=colors4[2], label=f"Source lowest point of {matter4}", zorder=1)
-    if selected_data4 != None:
+    if selected_data4 is not None:
         plt.scatter(selected_lattice4,  select_free_energy4, s=24, ec=colors4[0], fc=colors4[0], label=f"Selected data of {matter4}", zorder=2)
 
     plt.legend(loc=fig_setting[3])

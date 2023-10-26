@@ -23,12 +23,12 @@
   * check_vasprun(sup_directory) - complete
   * lattice_free_energy_input(directory) - complete
   * specify_lattice_free_energy(directory) - complete
-  * specify_biolayer_lattice(directory)
+  * specify_biolayer_lattice(directory) - complete
   * summarize_lattice_free_energy(sup_directory) - complete
   * summarize_biolayer_lattice(sup_directory)
   * read_lattice_free_energy_data(data_path) - complete
   * read_lattice_free_energy_count(data_path, count) - complete
-  * read_biolayerlattice(data_path)
+  * read_biolayer_lattice(data_path)
 
 * Data processing
   * polynomially_fit_curve(lattice, free_energy, method, count) - complete
