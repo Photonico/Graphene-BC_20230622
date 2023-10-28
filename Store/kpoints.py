@@ -157,17 +157,26 @@ def summarize_kpoints_free_energy(directory=".", lattice_start = None, lattice_e
         print("Error writing to file:", e)
 
 def read_kpoints_free_energy(data_path):
-    # Initialize the lists for kpoints constant and free energy
+    help_info = "Usage: read_kpoints_free_energy(data_path)\n" + \
+                "data_path: Path to the data file containing lattice and free energy values.\n"
+
+    # Check if the user asked for help
+    if data_path == "help":
+        print(help_info)
+        return
+
+    # Initialize the returns
     kpoints, direct_kpoints, lattice, free_energy = [], [], [], []
 
     with open(data_path, "r", encoding="utf-8") as data_file:
         lines = data_file.readlines()[1:]
         for line in lines:
-            split_line = line.strip().split()
-
-            kpoints.append(float(split_line[0]))
-            direct_kpoints.append(float(split_line[1]))
+            split_line = line.strip().split('\t')
+            kpoints.append(int(split_line[0]))
+            # Extract x, y, z from the tuple format (x, y, z)
+            x, y, z = map(int, split_line[1][1:-1].split(','))
+            direct_kpoints.append((x, y, z))
             lattice.append(float(split_line[2]))
-            free_energy.append(float(split_line[-1]))
+            free_energy.append(float(split_line[3]))
 
     return kpoints, direct_kpoints, lattice, free_energy
