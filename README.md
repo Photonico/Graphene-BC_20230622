@@ -2,7 +2,7 @@
 
 ## Matter
 
-### Single-layer
+### Monolayers
 
 1. g BC3 (BC₃)
 
@@ -12,7 +12,7 @@
 
 4. B4C3 (B₄C₃)
 
-### Double-layers
+### Biolayers
 
 1. Graphene - g BC3 (BC₃)
 

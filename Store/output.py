@@ -3,6 +3,30 @@
 
 import os
 
+def vasprun_directory(directory="."):
+    """Find folders with complete vasprun.xml and print incomplete ones."""
+    complete_folders = []
+
+    for dirpath, _, filenames in os.walk(directory):
+        if "vasprun.xml" in filenames:
+            file_name_xml = os.path.join(dirpath, "vasprun.xml")
+
+            # Check if vasprun.xml is complete
+            try:
+                with open(file_name_xml, "r", encoding="utf-8") as f:
+                    # Check the last few lines for the closing tag
+                    last_lines = f.readlines()[-10:]  # read the last 10 lines
+                    for line in last_lines:
+                        if "</modeling>" in line or "</vasp>" in line:
+                            complete_folders.append(dirpath)
+                            break
+                    else:
+                        print(f"vasprun.xml in {dirpath} is incomplete.")
+            except IOError as e:
+                print(f"Error reading {file_name_xml}: {e}")
+
+    return complete_folders
+
 def canvas_setting(*args):
     help_info = "Usage: canvas_setting(length, width, dpi, font)\n" + \
                 "The default setting is length: 10, width: 6, dpi: 196, font: 'Serif'" + \
@@ -38,30 +62,6 @@ def canvas_setting(*args):
         customized_params = {"text.usetex": False, "font.family": args[3], "mathtext.fontset": "cm",
             "axes.titlesize": 18, "axes.labelsize": 14, "figure.facecolor": "w"}
         return (args[0], args[1]), args[2], customized_params, args[4]
-
-def vasprun_directory(directory="."):
-    """Find folders with complete vasprun.xml and print incomplete ones."""
-    complete_folders = []
-
-    for dirpath, _, filenames in os.walk(directory):
-        if "vasprun.xml" in filenames:
-            file_name_xml = os.path.join(dirpath, "vasprun.xml")
-
-            # Check if vasprun.xml is complete
-            try:
-                with open(file_name_xml, "r", encoding="utf-8") as f:
-                    # Check the last few lines for the closing tag
-                    last_lines = f.readlines()[-10:]  # read the last 10 lines
-                    for line in last_lines:
-                        if "</modeling>" in line or "</vasp>" in line:
-                            complete_folders.append(dirpath)
-                            break
-                    else:
-                        print(f"vasprun.xml in {dirpath} is incomplete.")
-            except IOError as e:
-                print(f"Error reading {file_name_xml}: {e}")
-
-    return complete_folders
 
 def color_sampling(color_family):
     help_info = "Usage: color_family(color_family)\n" + \

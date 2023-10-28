@@ -1,0 +1,173 @@
+#### Kpoints
+# pylint: disable = C0103, C0114, C0116, C0301, C0321, R0914
+
+import xml.etree.ElementTree as ET
+import os
+# import numpy as np
+
+from Store.lattice import check_vasprun
+
+def identify_kpoints(directory="."):
+    """Find folders with KPOINTS and print its type."""
+    # Key words
+    automatic = "Automatic k-point grid"
+    explicit = "Explicit k-points listed"
+    linear = "Linear mode"
+
+    # Check if the user asked for help
+    if directory == "help":
+        print("Please use this function on the project directory.")
+        return "Help provided."
+
+    kpoints_path = os.path.join(directory, "KPOINTS")
+    if not os.path.exists(kpoints_path):
+        return "KPOINTS file not found in the specified directory."
+
+    with open(kpoints_path, "r", encoding="utf-8") as kpoints_file:
+        lines = kpoints_file.readlines()
+        if len(lines) < 3:
+            return "Invalid file format, unable to identify"
+        second_line = lines[1].strip()
+        third_line = lines[2].strip()
+        if second_line == "0":
+            if "Gamma" in third_line or "Monkhorst" in third_line:
+                return automatic
+            else: return "Invalid file format, unable to identify"
+        elif second_line.isdigit():
+            if "Explicit" in third_line:
+                return explicit
+            elif "Line-mode" in third_line:
+                return linear
+            else: return "Invalid file format, unable to identify"
+        else: return "Invalid file format, unable to identify"
+
+def specify_kpoints_free_energy(directory):
+    if directory == "help":
+        print("Please use this function on the directory of the specific work folder.")
+        return []
+
+    xml_path = os.path.join(directory, "vasprun.xml")
+    kpoints_path = os.path.join(directory, "KPOINTS")
+
+    if os.path.isfile(xml_path) and os.path.isfile(kpoints_path):
+        try:
+            tree = ET.parse(xml_path)
+            root = tree.getroot()
+
+            # Extract free energy
+            free_energy = float(root.findall(".//calculation/energy/i[@name='e_fr_energy']")[-1].text)
+
+            # Extract lattice constant
+            # Assuming the lattice constant is the length of the "a" vector from the final structure
+            basis_vectors = root.findall(".//calculation/structure/crystal/varray[@name='basis']")[-1]
+            a_vector = basis_vectors[0].text.split()
+            lattice_constant = (float(a_vector[0])**2 + float(a_vector[1])**2 + float(a_vector[2])**2)**0.5
+
+            with open (kpoints_path, "r", encoding="utf-8") as kpoints_file:
+                lines = kpoints_file.readlines()
+                for index, line in enumerate(lines):
+                    if any(keyword in line.lower() for keyword in ["gamma","explicit","line-mode"]):
+                        kpoints_index = index + 1
+                        break
+                else: raise ValueError("Kpoints type keyword not found in KPOINTS file.")
+
+                kpoints_values = lines[kpoints_index].split()
+                x_kpoints = int(kpoints_values[0])
+                y_kpoints = int(kpoints_values[1])
+                z_kpoints = int(kpoints_values[2])
+                tot_kpoints = x_kpoints * y_kpoints * z_kpoints
+
+            return tot_kpoints, (x_kpoints,y_kpoints,z_kpoints), lattice_constant, free_energy
+
+        except (ET.ParseError, ValueError, IndexError) as e:
+            print("Error parsing vasprun.xml:", e)
+            return None
+    else:
+        print("vasprun.xml or KPOINTS is not found in the current directory")
+        return None
+
+def summarize_kpoints_free_energy(directory=".", lattice_start = None, lattice_end = None):
+    result_file = "kpoints_energy.dat"
+    result_file_path = os.path.join(directory, result_file)
+
+    if directory == "help":
+        print("Please use this function on the parent directory of the project's main folder.")
+        return []
+
+    # Use check_vasprun to get folders with complete vasprun.xml
+    dirs_to_walk = check_vasprun(directory)
+    results = []
+
+    for work_dir in dirs_to_walk:
+        xml_path = os.path.join(work_dir, "vasprun.xml")
+        kpoints_path = os.path.join(work_dir, "KPOINTS")
+
+        if os.path.isfile(xml_path) and os.path.isfile(kpoints_path):
+            try:
+                tree = ET.parse(xml_path)
+                root = tree.getroot()
+
+                # Extract free energy
+                free_energy = float(root.findall(".//calculation/energy/i[@name='e_fr_energy']")[-1].text)
+
+                # Extract lattice constant
+                # Assuming the lattice constant is the length of the "a" vector from the final structure
+                basis_vectors = root.findall(".//calculation/structure/crystal/varray[@name='basis']")[-1]
+                a_vector = basis_vectors[0].text.split()
+                lattice_constant = (float(a_vector[0])**2 + float(a_vector[1])**2 + float(a_vector[2])**2)**0.5
+
+                with open (kpoints_path, "r", encoding="utf-8") as kpoints_file:
+                    lines = kpoints_file.readlines()
+                    for index, line in enumerate(lines):
+                        if any(keyword in line.lower() for keyword in ["gamma","explicit","line-mode"]):
+                            kpoints_index = index + 1
+                            break
+                    else: raise ValueError("Kpoints type keyword not found in KPOINTS file.")
+
+                    kpoints_values = lines[kpoints_index].split()
+                    x_kpoints = int(kpoints_values[0])
+                    y_kpoints = int(kpoints_values[1])
+                    z_kpoints = int(kpoints_values[2])
+                    tot_kpoints = x_kpoints * y_kpoints * z_kpoints
+
+                # Check if lattice constant is within the specified range
+                TOLERANCE = 1e-6
+                lattice_within_start = lattice_start is None or lattice_constant >= lattice_start - TOLERANCE
+                lattice_within_end = lattice_end is None or lattice_constant <= lattice_end + TOLERANCE
+
+                if lattice_within_start and lattice_within_end:
+                    results.append((tot_kpoints, (x_kpoints, y_kpoints, z_kpoints), lattice_constant, free_energy))
+
+            except (ET.ParseError, ValueError, IndexError) as e:
+                print("Error parsing vasprun.xml:", e)
+        else:
+            print(f"vasprun.xml or KPOINTS is not found in {work_dir}.")
+
+    # Sort the results by lattice_constant (the first element of the tuple)
+    results.sort(key=lambda x: x[0])
+
+    # Now write the sorted results to the file
+    try:
+        with open(result_file_path, "w", encoding="utf-8") as f:
+            f.write("Kpoints\t Kpoints(X Y Z)\t Lattice\t Free energy\n")
+            for tot_kpoints, (x_kpoints, y_kpoints, z_kpoints), lattice_constant, free_energy in results:
+                f.write(f"{tot_kpoints}\t{x_kpoints,y_kpoints,z_kpoints}\t{lattice_constant}\t{free_energy}\n")
+
+    except IOError as e:
+        print("Error writing to file:", e)
+
+def read_kpoints_free_energy(data_path):
+    # Initialize the lists for kpoints constant and free energy
+    kpoints, direct_kpoints, lattice, free_energy = [], [], [], []
+
+    with open(data_path, "r", encoding="utf-8") as data_file:
+        lines = data_file.readlines()[1:]
+        for line in lines:
+            split_line = line.strip().split()
+
+            kpoints.append(float(split_line[0]))
+            direct_kpoints.append(float(split_line[1]))
+            lattice.append(float(split_line[2]))
+            free_energy.append(float(split_line[-1]))
+
+    return kpoints, direct_kpoints, lattice, free_energy

@@ -5,7 +5,7 @@
 import os
 import xml.etree.ElementTree as ET
 
-dest_dir_base = "Lattice_var_" # Base name for destination directories
+dest_dir_base = "lattice_a" # Base name for destination directories
 result_file = "lattice.dat"
 
 dirs_to_walk = [dir for dir in os.listdir() if dir.startswith(dest_dir_base)]

@@ -1,9 +1,8 @@
 # Read bandgap from bandstructure calculation
-
-import os
+# pylint: disable = C0103, C0114, C0116, C0301, C0321, R0914
 
 def read_bandgap(filename):
-    with open(filename, 'r') as f:
+    with open(filename, "r", encoding="utf-8") as f:
         content = f.readlines()
 
     # Get HOMO, LUMO, and NKPT
