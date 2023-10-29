@@ -85,13 +85,7 @@
   * specify_kpoints_free_energy(directory) - complete
   * summarize_kpoints_free_energy(sup_directory) - complete
   
-* DoS versus kpoints
-
-### kpoints_plotting.py: What is the impact of changing the k-points?
-
 * plot_kpoints_free_energy
-
-* plot_kpoints_DoS
 
 ### bandstructure.py: Bandstructure analysis and plotting
 
