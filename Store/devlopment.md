@@ -8,7 +8,17 @@
 
 * Keep the font: default matplotlib serif font: DejaVu Serif.
 
-## General Functions
+## algorithms.py: General algorithms
+
+* compute_average(data) - complete
+
+* birch_murnaghan_eos(...) - complete
+
+* fit_eos(...) - complete
+
+* polynomially_fit_curve(...) - complete
+
+* polynomially_fit_surface(...) - complete
 
 ### output.py: Output setting
 
@@ -96,3 +106,21 @@
 * def EIGENVAL_BSDOS_plotting(directory)
   * def EIGENVAL_BSDOS_single_plotting(directory)
   * def EIGENVAL_BSDOS_duo_plotting(directory)
+
+### DoS.py
+
+* DoS extracting
+  * extract_dos(file_path) - complete
+  
+* DoS plotting
+
+### PDoS.py
+
+* PDoS analysis
+  * analyze_dpos(file_path) - complete
+  * get_elements(file_path) - complete
+
+* PDoS extracting
+  * extract_pdos(file_path) - complete
+  * extract_element_pdos(file_path, element) - complete
+  * pdos_segment(file_path, start, end) - complete

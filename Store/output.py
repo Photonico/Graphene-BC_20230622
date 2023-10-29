@@ -83,12 +83,12 @@ def color_sampling(color_family):
         color_set.append("#787878")
         color_set.append("#B4B4B4")
         color_set.append("#FA961E")
-        color_set.append("#F096FF")
+        color_set.append("#F078FF")
         return color_set
     if color_family in ("Red", "red"):
-        color_set.append("#C81923")
-        color_set.append("#E62D2D")
-        color_set.append("#FA554B")
+        color_set.append("#C81423")
+        color_set.append("#E1322D")
+        color_set.append("#FF644B")
         color_set.append("#FA8C00")
         color_set.append("#8C64F0")
         return color_set
@@ -124,13 +124,21 @@ def color_sampling(color_family):
         color_set.append("#5A3CBE")
         color_set.append("#8C64F0")
         color_set.append("#AF96FF")
-        color_set.append("#C85AE1")
+        color_set.append("#D25ADC")
         color_set.append("#FA8C00")
         return color_set
     if color_family in ("Purple", "purple"):
-        color_set.append("#8750AF")
-        color_set.append("#C85AE1")
-        color_set.append("#F096FF")
+        color_set.append("#AA3CB9")
+        color_set.append("#D25ADC")
+        color_set.append("#F078FF")
         color_set.append("#1473E1")
         color_set.append("#FA8C00")
+        return color_set
+
+    if color_family in ("Brown", "brown"):
+        color_set.append("#966450")#
+        color_set.append("#B47D50")#
+        color_set.append("#D29650")
+        color_set.append("#1473E1")#
+        color_set.append("#FA8C00")#
         return color_set

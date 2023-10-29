@@ -8,7 +8,8 @@ import numpy as np
 
 from scipy.interpolate import griddata
 from Store.output import canvas_setting, color_sampling
-from Store.algorithms import polynomially_fit_curve
+from Store.algorithms import fit_eos
+# from Store.algorithms import polynomially_fit_curve
 from Store.lattice import read_lattice_free_energy_data, read_lattice_free_energy_count, specify_lattice_free_energy
 from Store.lattice_biolayer import read_biolayer_lattice_data, extract_minimum_biolayer_lattice
 
@@ -29,7 +30,8 @@ def plot_lattice_free_energy_solo(matter, sample_count, source_data, color_famil
     lattice_source, free_energy_source = read_lattice_free_energy_data(source_data)
     lattice_sample, free_energy_sample = read_lattice_free_energy_count(source_data, sample_count)
 
-    fitted_lattice, fitted_free_energy = polynomially_fit_curve(lattice_source, free_energy_source, 3, 4000)
+    # fitted_lattice, fitted_free_energy = polynomially_fit_curve(lattice_source, free_energy_source, 3, 4000)
+    fitted_lattice, fitted_free_energy = fit_eos(lattice_source, free_energy_source)
     if selected_data is not None:
         selected_lattice, select_free_energy = specify_lattice_free_energy(selected_data)
 
@@ -63,8 +65,10 @@ def plot_lattice_free_energy_duo(title, sample_count, matter1, source_data1, col
     lattice_source1, free_energy_source1 = read_lattice_free_energy_data(source_data1)
     lattice_source2, free_energy_source2 = read_lattice_free_energy_data(source_data2)
 
-    fitted_lattice1, fitted_free_energy1 = polynomially_fit_curve(lattice_source1, free_energy_source1, 3, 4000)
-    fitted_lattice2, fitted_free_energy2 = polynomially_fit_curve(lattice_source2, free_energy_source2, 3, 4000)
+    # fitted_lattice1, fitted_free_energy1 = polynomially_fit_curve(lattice_source1, free_energy_source1, 3, 4000)
+    # fitted_lattice2, fitted_free_energy2 = polynomially_fit_curve(lattice_source2, free_energy_source2, 3, 4000)
+    fitted_lattice1, fitted_free_energy1 = fit_eos(lattice_source1, free_energy_source1)
+    fitted_lattice2, fitted_free_energy2 = fit_eos(lattice_source2, free_energy_source2)
 
     lattice_sample1, free_energy_sample1 = read_lattice_free_energy_count(source_data1, sample_count)
     lattice_sample2, free_energy_sample2 = read_lattice_free_energy_count(source_data2, sample_count)
@@ -122,9 +126,12 @@ def plot_lattice_free_energy_tri(title, sample_count,
     lattice_source2, free_energy_source2 = read_lattice_free_energy_data(source_data2)
     lattice_source3, free_energy_source3 = read_lattice_free_energy_data(source_data3)
 
-    fitted_lattice1, fitted_free_energy1 = polynomially_fit_curve(lattice_source1, free_energy_source1, 3, 4000)
-    fitted_lattice2, fitted_free_energy2 = polynomially_fit_curve(lattice_source2, free_energy_source2, 3, 4000)
-    fitted_lattice3, fitted_free_energy3 = polynomially_fit_curve(lattice_source3, free_energy_source3, 3, 4000)
+    # fitted_lattice1, fitted_free_energy1 = polynomially_fit_curve(lattice_source1, free_energy_source1, 3, 4000)
+    # fitted_lattice2, fitted_free_energy2 = polynomially_fit_curve(lattice_source2, free_energy_source2, 3, 4000)
+    # fitted_lattice3, fitted_free_energy3 = polynomially_fit_curve(lattice_source3, free_energy_source3, 3, 4000)
+    fitted_lattice1, fitted_free_energy1 = fit_eos(lattice_source1, free_energy_source1)
+    fitted_lattice2, fitted_free_energy2 = fit_eos(lattice_source2, free_energy_source2)
+    fitted_lattice3, fitted_free_energy3 = fit_eos(lattice_source3, free_energy_source3)
 
     lattice_sample1, free_energy_sample1 = read_lattice_free_energy_count(source_data1, sample_count)
     lattice_sample2, free_energy_sample2 = read_lattice_free_energy_count(source_data2, sample_count)
@@ -199,10 +206,14 @@ def plot_lattice_free_energy_quad(title, sample_count,
     lattice_source3, free_energy_source3 = read_lattice_free_energy_data(source_data3)
     lattice_source4, free_energy_source4 = read_lattice_free_energy_data(source_data4)
 
-    fitted_lattice1, fitted_free_energy1 = polynomially_fit_curve(lattice_source1, free_energy_source1, 3, 4000)
-    fitted_lattice2, fitted_free_energy2 = polynomially_fit_curve(lattice_source2, free_energy_source2, 3, 4000)
-    fitted_lattice3, fitted_free_energy3 = polynomially_fit_curve(lattice_source3, free_energy_source3, 3, 4000)
-    fitted_lattice4, fitted_free_energy4 = polynomially_fit_curve(lattice_source4, free_energy_source4, 3, 4000)
+    # fitted_lattice1, fitted_free_energy1 = polynomially_fit_curve(lattice_source1, free_energy_source1, 3, 4000)
+    # fitted_lattice2, fitted_free_energy2 = polynomially_fit_curve(lattice_source2, free_energy_source2, 3, 4000)
+    # fitted_lattice3, fitted_free_energy3 = polynomially_fit_curve(lattice_source3, free_energy_source3, 3, 4000)
+    # fitted_lattice4, fitted_free_energy4 = polynomially_fit_curve(lattice_source4, free_energy_source4, 3, 4000)
+    fitted_lattice1, fitted_free_energy1 = fit_eos(lattice_source1, free_energy_source1)
+    fitted_lattice2, fitted_free_energy2 = fit_eos(lattice_source2, free_energy_source2)
+    fitted_lattice3, fitted_free_energy3 = fit_eos(lattice_source3, free_energy_source3)
+    fitted_lattice4, fitted_free_energy4 = fit_eos(lattice_source4, free_energy_source4)
 
     lattice_sample1, free_energy_sample1 = read_lattice_free_energy_count(source_data1, sample_count)
     lattice_sample2, free_energy_sample2 = read_lattice_free_energy_count(source_data2, sample_count)
