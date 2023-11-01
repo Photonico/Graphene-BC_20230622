@@ -11,7 +11,7 @@ from Store.output import canvas_setting, color_sampling
 from Store.algorithms import fit_eos
 # from Store.algorithms import polynomially_fit_curve
 from Store.lattice import read_lattice_free_energy_data, read_lattice_free_energy_count, specify_lattice_free_energy
-from Store.lattice_biolayer import read_biolayer_lattice_data, extract_minimum_biolayer_lattice
+from Store.lattice_bilayer import read_bilayer_lattice_data, extract_minimum_bilayer_lattice
 
 def plot_lattice_free_energy_solo(matter, sample_count, source_data, color_family, selected_data=None):
     # Settings input
@@ -322,9 +322,9 @@ def plot_lattice_free_energy(matter_count, *args):
                                                  args[12], args[13],args[14], args[15],
                                                  args[16], args[17])
 
-def plot_biolayer_lattice(matter, source_data, colormap, point_color, additional_data=None):
+def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_data=None):
     # Data input
-    lattice_source, distance_source, free_energy_source = read_biolayer_lattice_data(source_data)
+    lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data)
     lattice_source = np.array(lattice_source)
     distance_source = np.array(distance_source)
     free_energy_source = np.array(free_energy_source)
@@ -346,7 +346,7 @@ def plot_biolayer_lattice(matter, source_data, colormap, point_color, additional
     free_energy_grid_fine = griddata((lattice_source, distance_source), free_energy_source, (lattice_grid_fine, distance_grid_fine), method="linear")
 
     # Fitted data
-    Fitted_data = extract_minimum_biolayer_lattice(source_data)
+    Fitted_data = extract_minimum_bilayer_lattice(source_data)
     lattice_fitted_min = Fitted_data[0]
     distance_fitted_min = Fitted_data[1]
     # free_energy_fitted_min = Fitted_data[-1]

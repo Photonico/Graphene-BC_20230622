@@ -1,7 +1,10 @@
 #### Output settings
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914
 
+#%%
+
 import os
+import matplotlib.pyplot as plt
 
 def vasprun_directory(directory="."):
     """Find folders with complete vasprun.xml and print incomplete ones."""
@@ -66,7 +69,7 @@ def canvas_setting(*args):
 def color_sampling(color_family):
     help_info = "Usage: color_family(color_family)\n" + \
                 "Input the name of color family will return a series colors." + \
-                "Color families: Grey, Red, Orange, Yellow, Green, Blue, Violet, Purple\n" + \
+                "Color families: Grey, Red, Orange, Yellow, Green, Blue, Violet, Purple, Wine, Brown\n" + \
                 "Return values:\n" + \
                 "color[0]: deep color\n" + \
                 "color[1]: major color\n" + \
@@ -134,7 +137,13 @@ def color_sampling(color_family):
         color_set.append("#1473E1")
         color_set.append("#FA8C00")
         return color_set
-
+    if color_family in ("Wine", "wine"):
+        color_set.append("#A0145A")
+        color_set.append("#C81E64")
+        color_set.append("#EB236E")
+        color_set.append("#1473E1")
+        color_set.append("#FA8C00")
+        return color_set
     if color_family in ("Brown", "brown"):
         color_set.append("#966450")#
         color_set.append("#B47D50")#
@@ -142,3 +151,37 @@ def color_sampling(color_family):
         color_set.append("#1473E1")#
         color_set.append("#FA8C00")#
         return color_set
+    if color_family == "all_families":
+        return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown"]
+
+def plot_color_families():
+    color_families = color_sampling("all_families")
+    all_colors = [color_sampling(family) for family in color_families]
+
+    # Figure Settings
+    fig_setting = canvas_setting(10,8)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    plt.rcParams.update(params)
+
+    plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
+    plt.title("Colors of Different Families")
+
+    for row, color_row in enumerate(all_colors):
+        for col, color in enumerate(color_row):
+            plt.gca().add_patch(plt.Rectangle((col, row), 1, 1, color=color))
+            plt.text(col + 0.5, row + 0.5, color, ha="center", va="center", fontsize=8, color="white")
+
+    plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+    max_length = max([len(colors) for colors in all_colors])
+    plt.xlim(0, max_length)
+    plt.ylim(0, len(all_colors))
+    plt.xticks([])
+    plt.yticks([])
+
+    yaxis_offset = 0.5
+    for i, label in enumerate(color_families):
+        plt.text(-max_length*0.01, i + yaxis_offset, label, ha="right", va="center")
+
+    plt.show()
+
+# %%

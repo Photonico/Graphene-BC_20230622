@@ -10,6 +10,7 @@
 #PBS -l wd
 #PBS -l jobfs=10GB
 #PBS -l software=vasp
+#PBS -l storage=scratch/g46+gdata/g46
 #PBS -m ea
 #PBS -M luke.niu@sydney.edu.au
 

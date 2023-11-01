@@ -12,7 +12,7 @@
 
 4. B4C3 (B₄C₃)
 
-### Biolayers
+### bilayers
 
 1. Graphene - g BC3 (BC₃)
 

@@ -56,17 +56,17 @@
   * extract_fitted_minimum_lattice_free_energy(data_path)
   * extract_fitted_maximum_lattice_free_energy(data_path)
 
-### lattice_biolayer.py: Data extracting with the distance of biolayer
+### lattice_bilayer.py: Data extracting with the distance of bilayer
 
-* specify_biolayer_lattice(directory) - complete
+* specify_bilayer_lattice(directory) - complete
 
-* summarize_biolayer_lattice(sup_directory) - complete
+* summarize_bilayer_lattice(sup_directory) - complete
 
-* read_biolayer_lattice_data(data_path) - complete
+* read_bilayer_lattice_data(data_path) - complete
 
-* extract_extreme_biolayer_lattice(data_path) - complete
-  * extract_minimum_biolayer_lattice(data_path)
-  * extract_maximum_biolayer_lattice(data_path)
+* extract_extreme_bilayer_lattice(data_path) - complete
+  * extract_minimum_bilayer_lattice(data_path)
+  * extract_maximum_bilayer_lattice(data_path)
 
 ### lattice_plotting.py: Plotting
 
@@ -76,7 +76,7 @@
   * plot_lattice_free_energy_tri(...)
   * plot_lattice_free_energy_qua(...)
 
-* plot_biolayer_lattice(matter, ...) - complete
+* plot_bilayer_lattice(matter, ...) - complete
 
 ### kpoints.py: What is the impact of changing the k-points?
 
