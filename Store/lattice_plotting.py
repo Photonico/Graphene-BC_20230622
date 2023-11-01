@@ -11,7 +11,7 @@ from Store.output import canvas_setting, color_sampling
 from Store.algorithms import fit_eos
 # from Store.algorithms import polynomially_fit_curve
 from Store.lattice import read_lattice_free_energy_data, read_lattice_free_energy_count, specify_lattice_free_energy
-from Store.lattice_bilayer import read_bilayer_lattice_data, extract_minimum_bilayer_lattice
+from Store.lattice_bilayer import specify_bilayer_lattice, read_bilayer_lattice_data, extract_minimum_bilayer_lattice
 
 def plot_lattice_free_energy_solo(matter, sample_count, source_data, color_family, selected_data=None):
     # Settings input
@@ -322,7 +322,7 @@ def plot_lattice_free_energy(matter_count, *args):
                                                  args[12], args[13],args[14], args[15],
                                                  args[16], args[17])
 
-def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_data=None):
+def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_work=None):
     # Data input
     lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data)
     lattice_source = np.array(lattice_source)
@@ -352,10 +352,11 @@ def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_
     # free_energy_fitted_min = Fitted_data[-1]
 
     # Additional data
-    if additional_data is not None:
+    if additional_work is not None:
+        additional_data = specify_bilayer_lattice(additional_work)
         additional_lattice = additional_data[0]
         additional_distance = additional_data[1]
-        # additional_energy = additional_data[-1]
+        additional_energy = additional_data[-1]
 
     # Settings input
     fig_setting = canvas_setting()
@@ -378,7 +379,7 @@ def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_
     # Extreme of fitted data
     plt.scatter(lattice_fitted_min, distance_fitted_min, s=48, lw=1.5, facecolors="none", ec=colors[2], label="Extrema of fitted data", zorder=2)
     # Additional point
-    if additional_data is not None:
-        plt.scatter(additional_lattice, additional_distance, s=36, c=colors[3], label="Extrema of selected data", zorder=2)
+    if additional_work is not None:
+        plt.scatter(additional_lattice, additional_distance, s=36, c=colors[3], label=f"Specific data energy: {additional_energy}", zorder=3)
 
     plt.legend(loc=fig_setting[3])

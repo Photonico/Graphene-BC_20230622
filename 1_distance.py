@@ -14,7 +14,7 @@ selected_G_B4C3 = specify_bilayer_lattice("2_Self_Consistent/G_Graphene-B4C3_Top
 
 #%% Graphene - BC₃ Hollow
 
-plot_bilayer_lattice("Graphene-BC₃ (Hollow)","0_Lattice_distance/E_Graphene-BC3_Hollow/lattice_distance.dat", "Blues_r", "blue")
+plot_bilayer_lattice("Graphene-BC₃ (Hollow)","0_Lattice_distance/E_Graphene-BC3_Hollow/lattice_distance.dat", "Blues_r", "blue", "2_Self_Consistent/E_Graphene-BC3_Hollow_K41")
 
 #%% Graphene - Borophene Top
 
