@@ -103,8 +103,13 @@
 
 ### DoS.py
 
+* DoS analysis
+  * analyze_dpos(file_path) - complete
+  * get_elements(file_path) - complete
+
 * DoS extracting
   * extract_dos(file_path) - complete
+  * extract_element_pdos
   
 * DoS plotting
 
