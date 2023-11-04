@@ -16,14 +16,13 @@ matters = [["17 Kpoints", dos_BC3_K17, "grey"],
            ["33 Kpoints", dos_BC3_K33, "blue"],
            ["65 Kpoints", dos_BC3_K65, "wine"],]
 
-
 plot_dos("BC₃", 6, 10, "PBE","total", matters)
 
 #%% BC₃ total PDoS
 
 pdos_BC3 = extract_pdos("4_PDoS_PBE/A_BC3_K65/vasprun.xml")
 
-plot_total_pdos("BC₃", 6, 10, "PBE", "total", "blue", pdos_BC3)
+plot_total_pdos("BC₃", 6, 10, "PBE", "total", pdos_BC3, "blue")
 
 #%% Borophene DoS
 
@@ -41,7 +40,7 @@ plot_dos("Borophene",6, 10, "PBE","total", matters)
 
 pdos_Borophene = extract_pdos("4_PDoS_PBE/B_Borophene_K65/vasprun.xml")
 
-plot_total_pdos("Borophene", 6, 10, "PBE", "total", "blue", pdos_Borophene)
+plot_total_pdos("Borophene", 6, 10, "PBE", "total", pdos_Borophene, "blue")
 
 #%% B₄C₃ DoS
 
@@ -59,7 +58,7 @@ plot_dos("B₄C₃", 6, 10, "PBE","total", matters)
 
 pdos_B4C3 = extract_pdos("4_PDoS_PBE/C_B4C3_K65/vasprun.xml")
 
-plot_total_pdos("B₄C₃", 6, 10, "PBE", "total", "blue", pdos_B4C3)
+plot_total_pdos("B₄C₃", 6, 10, "PBE", "total", pdos_B4C3, "blue")
 
 #%% Graphene DoS
 
@@ -77,7 +76,7 @@ plot_dos("Graphene", 6, 1.25, "PBE","total", matters)
 
 pdos_Graphene = extract_pdos("4_PDoS_PBE/D_Graphene_K129/vasprun.xml")
 
-plot_total_pdos("Graphene", 6, 1.25, "PBE", "total", "blue", pdos_Graphene)
+plot_total_pdos("Graphene", 6, 1.25, "PBE", "total", pdos_Graphene, "blue")
 
 #%% Graphene - BC₃: Hollow DoS
 
@@ -95,7 +94,7 @@ plot_dos("Graphene-BC₃: Hollow", 6, 12, "PBE","total", matters)
 
 pdos_E = extract_pdos("4_PDoS_PBE/E_Graphene-BC3_Hollow_K65/vasprun.xml")
 
-plot_total_pdos("Graphene-BC₃: Hollow", 6, 12, "PBE", "total", "blue", pdos_E)
+plot_total_pdos("Graphene-BC₃: Hollow", 6, 12, "PBE", "total", pdos_E, "blue")
 
 #%% Graphene - Borophene: Top DoS
 
@@ -113,7 +112,7 @@ plot_dos("Graphene-Borophene: Top", 6, 12, "PBE","total", matters)
 
 pdos_F = extract_pdos("4_PDoS_PBE/F_Graphene-Borophene_Top_K65/vasprun.xml")
 
-plot_total_pdos("Graphene-Borophene: Top", 6, 12, "PBE", "total", "blue", pdos_F)
+plot_total_pdos("Graphene-Borophene: Top", 6, 12, "PBE", "total", pdos_F, "blue")
 
 #%% Graphene - B₄C₃: Top DoS
 
@@ -131,6 +130,6 @@ plot_dos("Graphene-B₄C₃: Top", 6, 12, "PBE","total", matters)
 
 pdos_G = extract_pdos("4_PDoS_PBE/G_Graphene-B4C3_Top_K65/vasprun.xml")
 
-plot_total_pdos("Graphene-B₄C₃: Top", 6, 12, "PBE", "total", "blue", pdos_G)
+plot_total_pdos("Graphene-B₄C₃: Top", 6, 12, "PBE", "total", pdos_G, "blue")
 
 #%%

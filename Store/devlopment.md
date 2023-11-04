@@ -105,16 +105,12 @@
 
 ### DoS.py
 
-* DoS analysis
-  * analyze_dpos(file_path) - complete
-  * get_elements(file_path) - complete
-
 * DoS extracting
   * extract_dos(file_path) - complete
-  * extract_element_pdos(file_path, element) - complete
-  * pdos_segment(file_path, start, end)  - complete
-  
-* DoS plotting
+
+* DoS Plotting
+  * plot_dos_sol(...) - complete
+  * plot_dos(...) - complete
 
 ### PDoS.py
 
@@ -125,6 +121,10 @@
 * PDoS extracting
   * extract_pdos(file_path) - complete
   * extract_element_pdos(file_path, element) - complete
-  * pdos_segment(file_path, start, end) - complete
+  * extract_segment_pdos(file_path, start, end) - complete
 
-* PDoS plotting
+* plot_pdos_element(...) - complete
+  * plot_total_pdos(...)
+  * plot_sol_element(...)
+  * plot_duo_element(...)
+  * plot_tri_element(...)

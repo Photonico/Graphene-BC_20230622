@@ -66,7 +66,7 @@ def extract_dos(file_path):
             energy_dos_shift, total_dos_list, integrated_dos_list)                      # 5 ~ 7
 
 # DoS Plotting
-def plot_dos_sol(matter, x_range=None, y_top=None, supplement=None, dos_type=None, color_family="blue", dos_data=None):
+def plot_dos_sol(matter, x_range=None, y_top=None, supplement=None, dos_type=None, dos_data=None, color_family="blue"):
     # Help information
     help_info = "Usage: plot_dos_sol" + \
                 "Use extract_dos to extract the DoS data."
