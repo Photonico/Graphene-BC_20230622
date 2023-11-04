@@ -64,7 +64,7 @@ plot_pdos_element("B₄C₃", 6, 10, "PBE", pdos_B4C3_total, "Boron", pdos_B4C3_
 pdos_Graphene_total = extract_pdos("/home/lu/Repos/Graphene-BC 2023/4_PDoS_PBE/D_Graphene_K129/vasprun.xml")
 pdos_Graphene_C = extract_element_pdos("/home/lu/Repos/Graphene-BC 2023/4_PDoS_PBE/D_Graphene_K129/vasprun.xml","C")
 
-plot_pdos_element("Graphene", 6, 10, "PBE", pdos_Graphene_total, "Carbon", pdos_Graphene_C, "blue")
+plot_pdos_element("Graphene", 6, 1.2, "PBE", pdos_Graphene_total, "Carbon", pdos_Graphene_C, "blue")
 
 #%% Graphene-BC3: Hollow
 
