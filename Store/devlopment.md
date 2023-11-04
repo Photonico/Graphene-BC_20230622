@@ -6,9 +6,9 @@
 
 * Please use the snake_case naming convention, and try to use full names for functions or variable names;
 
-* Keep the font: default matplotlib serif font: DejaVu Serif.
+* Keep the font: default Matplotlib serif font: DejaVu Serif.
 
-## algorithms.py: General algorithms
+### algorithms.py: General algorithms
 
 * compute_average(data) - complete
 
@@ -56,6 +56,12 @@
   * extract_fitted_minimum_lattice_free_energy(data_path)
   * extract_fitted_maximum_lattice_free_energy(data_path)
 
+* plot_lattice_free_energy(matter, count, ...) - complete
+  * plot_lattice_free_energy_solo(...)
+  * plot_lattice_free_energy_duo(...)
+  * plot_lattice_free_energy_tri(...)
+  * plot_lattice_free_energy_qua(...)
+
 ### lattice_bilayer.py: Data extracting with the distance of bilayer
 
 * specify_bilayer_lattice(directory) - complete
@@ -68,24 +74,18 @@
   * extract_minimum_bilayer_lattice(data_path)
   * extract_maximum_bilayer_lattice(data_path)
 
-### lattice_plotting.py: Plotting
-
-* plot_lattice_free_energy(matter, count, ...) - complete
-  * plot_lattice_free_energy_solo(...)
-  * plot_lattice_free_energy_duo(...)
-  * plot_lattice_free_energy_tri(...)
-  * plot_lattice_free_energy_qua(...)
-
 * plot_bilayer_lattice(matter, ...) - complete
 
 ### kpoints.py: What is the impact of changing the k-points?
 
-* Free energy versus kpoints
+* Free energy versus K points
   * identify_kpoints(directory) - complete
   * specify_kpoints_free_energy(directory) - complete
   * summarize_kpoints_free_energy(sup_directory) - complete
   
 * plot_kpoints_free_energy
+
+## Bandstructure
 
 ### bandstructure.py: Bandstructure analysis and plotting
 
@@ -101,6 +101,8 @@
   * def EIGENVAL_BSDOS_single_plotting(directory)
   * def EIGENVAL_BSDOS_duo_plotting(directory)
 
+## DoS/PDoS
+
 ### DoS.py
 
 * DoS analysis
@@ -109,7 +111,8 @@
 
 * DoS extracting
   * extract_dos(file_path) - complete
-  * extract_element_pdos
+  * extract_element_pdos(file_path, element) - complete
+  * pdos_segment(file_path, start, end)  - complete
   
 * DoS plotting
 
@@ -123,3 +126,5 @@
   * extract_pdos(file_path) - complete
   * extract_element_pdos(file_path, element) - complete
   * pdos_segment(file_path, start, end) - complete
+
+* PDoS plotting

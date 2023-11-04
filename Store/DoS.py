@@ -66,7 +66,14 @@ def extract_dos(file_path):
             energy_dos_shift, total_dos_list, integrated_dos_list)                      # 5 ~ 7
 
 # DoS Plotting
-def plot_dos_sol(matter, dos_data, x_range, y_top, supplement, dos_type, color_family="blue"):
+def plot_dos_sol(matter, x_range=None, y_top=None, supplement=None, dos_type=None, color_family="blue", dos_data=None):
+    # Help information
+    help_info = "Usage: plot_dos_sol" + \
+                "Use extract_dos to extract the DoS data."
+
+    if matter in ["help", "Help"]:
+        print(help_info)
+
     # Figure Settings
     fig_setting = canvas_setting()
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
@@ -84,17 +91,17 @@ def plot_dos_sol(matter, dos_data, x_range, y_top, supplement, dos_type, color_f
     # Data plotting
     colors = color_sampling(color_family)
     if dos_type in ["All", "all"]:
-        plt.plot(dos_data[5], dos_data[6], c=colors[1], label="Total DOS")
-        plt.plot(dos_data[5], dos_data[7], c=colors[2], label="Integrated DOS")
+        plt.plot(dos_data[5], dos_data[6], c=colors[1], label="Total DoS", zorder=3)
+        plt.plot(dos_data[5], dos_data[7], c=colors[2], label="Integrated DoS", zorder=2)
     if dos_type in ["Total", "total"]:
-        plt.plot(dos_data[5], dos_data[6], c=colors[1], label="Total DOS")
+        plt.plot(dos_data[5], dos_data[6], c=colors[1], label="Total DoS", zorder=2)
     if dos_type in ["Integrated", "integrated"]:
-        plt.plot(dos_data[5], dos_data[7], c=colors[2], label="Integrated DOS")
+        plt.plot(dos_data[5], dos_data[7], c=colors[2], label="Integrated DoS", zorder=2)
 
     # Plot Fermi energy as a vertical line
     efermi = dos_data[0]
     shift = efermi
-    plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[1], alpha=0.95, label="Fermi energy")
+    plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[1], alpha=0.95, label="Fermi energy", zorder=1)
     fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
     plt.text(efermi-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
@@ -104,8 +111,8 @@ def plot_dos_sol(matter, dos_data, x_range, y_top, supplement, dos_type, color_f
     plt.xlabel(r"Energy (eV)", fontsize = 1.0* 12)
 
     plt.ylim(0, y_limit)
-    plt.xlim(-x_range, x_range)
-    plt.legend(loc="best")
+    plt.xlim(x_range*(-1), x_range)
+    plt.legend(loc="upper right")
     # plt.show()
 
 # Universal DoS Plotting
@@ -129,21 +136,20 @@ def plot_dos(title, x_range = None, y_top = None, supplement = None, dos_type = 
         # Data plotting
         if dos_type in ["All", "all"]:
             for index, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DOS for {matter[0]}")
-                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DOS for {matter[0]}")
+                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DOS for {matter[0]}", zorder = 3)
+                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DOS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Total", "total"]:
             for index, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DOS for {matter[0]}")
+                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DOS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Integrated", "integrated"]:
             for index, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DOS for {matter[0]}")
+                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DOS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
-
         # Plot Fermi energy as a vertical line
         shift = efermi
-        plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[1], alpha=0.95, label="Fermi energy")
+        plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[1], alpha=0.95, label="Fermi energy", zorder = 1)
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         plt.text(efermi-shift-x_range*0.02, y_top*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
@@ -153,4 +159,5 @@ def plot_dos(title, x_range = None, y_top = None, supplement = None, dos_type = 
 
         plt.ylim(0, y_top)
         plt.xlim(x_range*(-1), x_range)
-        plt.legend(loc="best")
+        # plt.legend(loc="best")
+        plt.legend(loc="upper right")

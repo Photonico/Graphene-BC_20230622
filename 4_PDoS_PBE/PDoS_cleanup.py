@@ -5,7 +5,8 @@ import os
 
 # List of files to keep
 files_to_keep = [
-    "CHGCAR", "INCAR", "KPOINTS", "POSCAR", "POTCAR", "vasp_nci.sh", "PDoS_cleanup.py"
+    # "CHGCAR", "INCAR", "KPOINTS", "POSCAR", "POTCAR", "vasp_nci.sh", "PDoS_cleanup.py"
+    "CHGCAR", "CONTCAR", "POTCAR", "vasp_nci.sh", "PDoS_cleanup.py"
 ]
 
 def cleanup(files):
@@ -24,3 +25,5 @@ def cleanup(files):
                 except (FileNotFoundError, PermissionError) as e:
                     print(f"Error deleting {file_path}: {e}")
     print("Cleanup complete.")
+
+cleanup(files_to_keep)

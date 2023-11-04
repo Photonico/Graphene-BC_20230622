@@ -75,7 +75,11 @@ def color_sampling(color_family):
                 "color[1]: major color\n" + \
                 "color[2]: shallow color\n" + \
                 "color[3]: comparison color 1\n" + \
-                "color[4]: comparison color 2"
+                "color[4]: comparison color 2\n" + \
+                "color[5]: comparison color 3\n" + \
+                "color[6]: comparison color 4\n" + \
+                "color[7]: comparison color 5\n" + \
+                "color[8]: comparison color 6"
     # Check if the user asked for help
     if color_family == "help":
         print(help_info)
@@ -85,71 +89,123 @@ def color_sampling(color_family):
         color_set.append("#3C3C3C")
         color_set.append("#787878")
         color_set.append("#B4B4B4")
-        color_set.append("#FA961E")
-        color_set.append("#F078FF")
+
+        color_set.append("#E1322D")
+        color_set.append("#FA8C00")
+        color_set.append("#FAC81E")
+        color_set.append("#28AF3C")
+        color_set.append("#1473E1")
+        color_set.append("#8C64F0")
         return color_set
     if color_family in ("Red", "red"):
         color_set.append("#C81423")
         color_set.append("#E1322D")
         color_set.append("#FF644B")
+
         color_set.append("#FA8C00")
+        color_set.append("#FAC81E")
+        color_set.append("#28AF3C")
+        color_set.append("#1473E1")
         color_set.append("#8C64F0")
+        color_set.append("#D25ADC")
         return color_set
     if color_family in ("Orange", "orange"):
         color_set.append("#EB731E")
         color_set.append("#FA8C00")
         color_set.append("#FFA03C")
+
         color_set.append("#FAC81E")
+        color_set.append("#28AF3C")
         color_set.append("#1473E1")
+        color_set.append("#8C64F0")
+        color_set.append("#D25ADC")
+        color_set.append("#F03C78")
+
         return color_set
     if color_family in ("Yellow", "yellow"):
         color_set.append("#EBC31E")
         color_set.append("#FAC81E")
         color_set.append("#FFD71E")
-        color_set.append("#FA8C00")
+
         color_set.append("#28AF3C")
+        color_set.append("#1473E1")
+        color_set.append("#8C64F0")
+        color_set.append("#D25ADC")
+        color_set.append("#F03C78")
+        color_set.append("#FA8C00")
         return color_set
     if color_family in ("Green", "green"):
         color_set.append("#286E41")
         color_set.append("#28AF3C")
         color_set.append("#5FDC5A")
-        color_set.append("#FFD71E")
+
+        color_set.append("#1473E1")
+        color_set.append("#8C64F0")
+        color_set.append("#D25ADC")
+        color_set.append("#F03C78")
         color_set.append("#FA8C00")
+        color_set.append("#FAC81E")
         return color_set
     if color_family in ("Blue", "blue", "Azure", "azure"):
-        color_set.append("#145AAA")
-        color_set.append("#1473E1")
-        color_set.append("#1EB4FF")
-        color_set.append("#8C64F0")
-        color_set.append("#FA8C00")
+        color_set.append("#145AAA") # colors[0]
+        color_set.append("#1473E1") # colors[1]
+        color_set.append("#1EB4FF") # colors[2]
+
+        color_set.append("#8C64F0") # colors[3]
+        color_set.append("#D25ADC") # colors[4]
+        color_set.append("#F03C78") # colors[5]
+        color_set.append("#FA8C00") # colors[6]
+        color_set.append("#FAC81E") # colors[7]
+        color_set.append("#28AF3C") # colors[8]
+
         return color_set
     if color_family in ("Violet", "violet"):
         color_set.append("#5A3CBE")
         color_set.append("#8C64F0")
         color_set.append("#AF96FF")
+
         color_set.append("#D25ADC")
+        color_set.append("#F03C78")
         color_set.append("#FA8C00")
+        color_set.append("#FAC81E")
+        color_set.append("#28AF3C")
+        color_set.append("#1473E1")
         return color_set
     if color_family in ("Purple", "purple"):
         color_set.append("#AA3CB9")
         color_set.append("#D25ADC")
         color_set.append("#F078FF")
-        color_set.append("#1473E1")
+
+        color_set.append("#F03C78")
         color_set.append("#FA8C00")
+        color_set.append("#FAC81E")
+        color_set.append("#28AF3C")
+        color_set.append("#1473E1")
+        color_set.append("#8C64F0")
         return color_set
     if color_family in ("Wine", "wine"):
-        color_set.append("#A0145A")
-        color_set.append("#C81E64")
-        color_set.append("#EB236E")
-        color_set.append("#1473E1")
+        color_set.append("#AA1E64")
+        color_set.append("#C8236E")
+        color_set.append("#F03C78")
+
         color_set.append("#FA8C00")
+        color_set.append("#FAC81E")
+        color_set.append("#28AF3C")
+        color_set.append("#1473E1")
+        color_set.append("#8C64F0")
+        color_set.append("#D25ADC")
         return color_set
     if color_family in ("Brown", "brown"):
-        color_set.append("#966450")#
-        color_set.append("#B47D50")#
+        color_set.append("#966450")
+        color_set.append("#B47D50")
         color_set.append("#D29650")
-        color_set.append("#1473E1")#
-        color_set.append("#FA8C00")#
+
+        color_set.append("#FA8C00")
+        color_set.append("#FAC81E")
+        color_set.append("#28AF3C")
+        color_set.append("#1473E1")
+        color_set.append("#8C64F0")
+        color_set.append("#D25ADC")
         return color_set
     if color_family == "all_families":
         return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown"]

@@ -57,7 +57,7 @@ def pdos_total_plotting(pdos_result, matter, y_top):
     plt.axvline(x = efermi_pdos-shift, linestyle="--", color="#F5820F", alpha=0.95, label=r"Fermi energy")
 
     # fermi_energy_text = f"Fermi energy: {efermi_pdos:.3f} (eV)"
-    # plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="right")
+    # plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="right")
 
     plt.ylim(0, y_limit)
     plt.xlim(-x_range, x_range)
@@ -113,7 +113,7 @@ def pdos_element_plotting(pdos_result, matter, y_top):
     plt.axvline(x = efermi_pdos-shift, linestyle="--", color="#F5820F", alpha=0.95, label=r"Fermi energy")
 
     # fermi_energy_text = f"Fermi energy: {efermi_pdos:.3f} (eV)"
-    # plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="right")
+    # plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="right")
 
     plt.ylim(0, y_limit)
     plt.xlim(-x_range, x_range)

@@ -31,7 +31,7 @@ def dos_plotting(matter, pos_data, x_range, y_top, method):
     shift = efermi
     plt.axvline(x = efermi-shift, linestyle="--", color="#F5820F", alpha=0.95, label="Fermi energy")
     fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
-    plt.text(efermi-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
+    plt.text(efermi-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
 
     # Title
     plt.title(f"Electronic density of state for {matter} ({method})")
@@ -91,7 +91,7 @@ def pdos_total_plotting(matter, pdos_result, x_range, y_top, method):
     plt.axvline(x = efermi_pdos-shift, linestyle="--", color="#F5820F", alpha=0.95, label=r"Fermi energy")
 
     fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
-    plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
+    plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
 
     plt.ylim(0, y_limit)
     plt.xlim(-x_range, x_range)
@@ -158,7 +158,7 @@ def pdos_single_element_summary(matter, pdos_total, element, pdos_element, x_ran
         ax.set_xlim(-x_range, x_range)
 
         fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
-        ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
+        ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
 
         x_label, y_label = label_positions[i]
         if i == 0:
@@ -250,9 +250,9 @@ def pdos_duo_element_summary(matter, pdos_total, element_1, pdos_1, element_2, p
         ax.set_xlim(-x_range, x_range)
         fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
         if i == 1:
-            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="left")
+            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="left")
         else:
-            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
+            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
 
         x_label, y_label = label_positions[i]
         if i == 0:
@@ -350,10 +350,10 @@ def pdos_tri_element_summary(matter, pdos_total, element_1, pdos_1, element_2, p
         ax.set_xlim(-x_range, x_range)
         fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
         if i == 2:
-            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="left")
+            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="left")
             ax.legend(loc="upper left")
         else:
-            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
+            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, va = "top", ha="right")
             ax.legend(loc="upper right")
 
         x_label, y_label = label_positions[i]

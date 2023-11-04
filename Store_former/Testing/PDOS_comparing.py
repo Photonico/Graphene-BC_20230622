@@ -60,7 +60,7 @@ def pdos_duo_element(matter, element_1, pdos_1, element_2, pdos_2, y_top):
         ax.set_xlim(-x_range, x_range)
 
         fermi_energy_text = f"Fermi energy: {efermi_pdos:.3f} (eV)"
-        ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.95, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="right")
+        ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color="#EB731E", rotation=0, ha="right")
 
         if i == 0:
             ax.legend(loc="best")

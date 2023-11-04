@@ -4,9 +4,10 @@
 import xml.etree.ElementTree as ET
 import os
 import numpy as np
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
-# from Store.output import canvas_setting, color_sampling
+from scipy.interpolate import griddata
+from Store.output import canvas_setting, color_sampling
 from Store.lattice import check_vasprun
 from Store.algorithms import polynomially_fit_surface
 
@@ -216,3 +217,65 @@ def extract_extreme_bilayer_lattice(extract_type, source_data):
         return extract_minimum_bilayer_lattice(source_data)
     if extract_type in ("Maxium", "maxium", "MAX", "Max", "max"):
         return extract_maximum_bilayer_lattice(source_data)
+
+def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_work=None):
+    # Data input
+    lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data)
+    lattice_source = np.array(lattice_source)
+    distance_source = np.array(distance_source)
+    free_energy_source = np.array(free_energy_source)
+
+    # Extrema of source data
+    energy_min = np.min(free_energy_source)
+    energy_max = np.max(free_energy_source)
+    energy_range = energy_max - energy_min
+    energy_demo = energy_min + energy_range * 0.125
+    lattice_min = lattice_source [np.argmin(free_energy_source)]
+    distance_min = distance_source [np.argmin(free_energy_source)]
+
+    # Data grid
+    lattice_fine = np.linspace(lattice_source.min(), lattice_source.max(), 1024)
+    distance_fine = np.linspace(distance_source.min(), distance_source.max(), 1024)
+    lattice_grid_fine, distance_grid_fine = np.meshgrid(lattice_fine, distance_fine)
+
+    # Interpolate using the "cubic" method
+    free_energy_grid_fine = griddata((lattice_source, distance_source), free_energy_source, (lattice_grid_fine, distance_grid_fine), method="linear")
+
+    # Fitted data
+    Fitted_data = extract_minimum_bilayer_lattice(source_data)
+    lattice_fitted_min = Fitted_data[0]
+    distance_fitted_min = Fitted_data[1]
+    # free_energy_fitted_min = Fitted_data[-1]
+
+    # Additional data
+    if additional_work is not None:
+        additional_data = specify_bilayer_lattice(additional_work)
+        additional_lattice = additional_data[0]
+        additional_distance = additional_data[1]
+        additional_energy = additional_data[-1]
+
+    # Settings input
+    fig_setting = canvas_setting()
+    plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
+    params = fig_setting[2]; plt.rcParams.update(params)
+    plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
+    # Color calling
+    colors = color_sampling(point_color)
+
+    # Figure title
+    plt.title(f"Free energy versus lattice and distance for {matter}")
+    plt.xlabel(r"Lattice constant (Å)"); plt.ylabel(r"Interlayer spacing (Å)")
+
+    cp = plt.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap, alpha = 0.75, vmax = energy_demo, zorder=1)
+    plt.colorbar(cp)
+
+    # Extreme of source data
+    plt.scatter(lattice_min, distance_min, s=48, c=colors[2], label="Extrema of source data", zorder=2)
+    # Extreme of fitted data
+    plt.scatter(lattice_fitted_min, distance_fitted_min, s=48, lw=1.5, facecolors="none", ec=colors[2], label="Extrema of fitted data", zorder=2)
+    # Additional point
+    if additional_work is not None:
+        plt.scatter(additional_lattice, additional_distance, s=36, c=colors[3], label=f"Specific data energy: {additional_energy}", zorder=3)
+
+    plt.legend(loc=fig_setting[3])
