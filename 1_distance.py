@@ -5,8 +5,7 @@
 
 #%% Selected cases
 
-from Store.lattice_bilayer import specify_bilayer_lattice
-from Store.lattice_plotting import plot_bilayer_lattice
+from Store.lattice_bilayer import specify_bilayer_lattice, plot_bilayer_lattice
 
 selected_G_BC3 = specify_bilayer_lattice("0_Selected_Lattice/E_Graphene-BC3_Hollow")
 selected_G_Borophene = specify_bilayer_lattice("0_Selected_Lattice/F_Graphene-Borophene_Top")

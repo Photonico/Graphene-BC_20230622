@@ -11,10 +11,8 @@
 #PBS -l jobfs=10GB
 #PBS -l software=vasp
 #PBS -m ea
-#PBS -l storage=scratch/g46+gdata/g46
 #PBS -M luke.niu@sydney.edu.au
 
 module load vasp/6.3.2
-module load openmpi/4.1.4
 
 mpirun vasp_std >vasp.log

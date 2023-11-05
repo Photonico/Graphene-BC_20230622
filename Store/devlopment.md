@@ -89,17 +89,13 @@
 
 ### bandstructure.py: Bandstructure analysis and plotting
 
-* def EIGENVAL_BS_extracting(*args)
-  * def EIGENVAL_BS_single_extracting(directory)
-  * def EIGENVAL_BS_duo_extracting(directory)
-
-* def EIGENVAL_BS_plotting(directory)
-  * def EIGENVAL_BS_single_plotting(directory)
-  * def EIGENVAL_BS_duo_plotting(directory)
-
-* def EIGENVAL_BSDOS_plotting(directory)
-  * def EIGENVAL_BSDOS_single_plotting(directory)
-  * def EIGENVAL_BSDOS_duo_plotting(directory)
+* Bandstructure information
+  * extract_high_symlines(directory) - complete
+  * extract_fermi(directory) - complete
+  * extract_klist(directory) - complete
+  * rec_to_cart(...) - complete
+  * cart_to_rec(...) - complete
+  * clean_kpoints(kpoints) - complete
 
 ## DoS/PDoS
 
