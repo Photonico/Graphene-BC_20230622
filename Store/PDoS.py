@@ -3,18 +3,27 @@
 
 # Necessary packages invoking
 import xml.etree.ElementTree as ET
+import os
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
-import numpy as np
 
 from Store.output import canvas_setting, color_sampling
 
 # File analysis
-def analyze_dpos(file_path):
-    # Help information
-    if file_path == "help":
-        print("Please use this function on the file: vasprun.xml.")
+def analyze_dpos(directory_path):
+    ## Help information
+    if directory_path == "help":
+        print("Please use this function on the project folder.")
         return []
+
+    ## Construct the full path to the vasprun.xml file
+    file_path = os.path.join(directory_path, "vasprun.xml")
+    # Check if the vasprun.xml file exists in the given directory
+    if not os.path.isfile(file_path):
+        print(f"Error: The file vasprun.xml does not exist in the directory {directory_path}.")
+        return
+
     # Parse the vasprun.xml file
     tree = ET.parse(file_path)
     root = tree.getroot()
@@ -42,7 +51,14 @@ def analyze_dpos(file_path):
             break
 
 # Elements analysis for PDoS calculation
-def get_elements(file_path):
+def get_elements(directory_path):
+    ## Construct the full path to the vasprun.xml file
+    file_path = os.path.join(directory_path, "vasprun.xml")
+    # Check if the vasprun.xml file exists in the given directory
+    if not os.path.isfile(file_path):
+        print(f"Error: The file vasprun.xml does not exist in the directory {directory_path}.")
+        return
+
     # Parse the XML file
     tree = ET.parse(file_path)
     root = tree.getroot()
@@ -67,7 +83,14 @@ def get_elements(file_path):
     return element_ions
 
 # Total PDoS: univseral elements and layers
-def extract_pdos(file_path):
+def extract_pdos(directory_path):
+    ## Construct the full path to the vasprun.xml file
+    file_path = os.path.join(directory_path, "vasprun.xml")
+    # Check if the vasprun.xml file exists in the given directory
+    if not os.path.isfile(file_path):
+        print(f"Error: The file vasprun.xml does not exist in the directory {directory_path}.")
+        return
+
     ## Analysis vasprun.xml file
     tree = ET.parse(file_path)
     root = tree.getroot()
@@ -206,7 +229,14 @@ def extract_pdos(file_path):
             x2_y2_pdos_sum)
 
 # PDOS for elements
-def extract_element_pdos(file_path, element):
+def extract_element_pdos(directory_path, element):
+    ## Construct the full path to the vasprun.xml file
+    file_path = os.path.join(directory_path, "vasprun.xml")
+    # Check if the vasprun.xml file exists in the given directory
+    if not os.path.isfile(file_path):
+        print(f"Error: The file vasprun.xml does not exist in the directory {directory_path}.")
+        return
+
     ## Analysis vasprun.xml file
     tree = ET.parse(file_path)
     root = tree.getroot()
@@ -348,7 +378,14 @@ def extract_element_pdos(file_path, element):
             x2_y2_pdos_sum)
 
 # PDOS for customized range
-def extract_segment_pdos(file_path, start, end):
+def extract_segment_pdos(directory_path, start, end):
+    ## Construct the full path to the vasprun.xml file
+    file_path = os.path.join(directory_path, "vasprun.xml")
+    # Check if the vasprun.xml file exists in the given directory
+    if not os.path.isfile(file_path):
+        print(f"Error: The file vasprun.xml does not exist in the directory {directory_path}.")
+        return
+
     ## Analysis vasprun.xml file
     tree = ET.parse(file_path)
     root = tree.getroot()

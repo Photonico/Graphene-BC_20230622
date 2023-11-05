@@ -132,25 +132,18 @@ def summarize_lattice_free_energy_directory(directory=".", lattice_start = None,
     except IOError as e:
         print("Error writing to file:", e)
 
-def read_lattice_free_energy_data(directory, density=1):
-    help_info = "Usage: read_lattice_free_energy_data(directory_path, density)\n" + \
-                "directory_path: Path to the directory containing the vasprun.xml file.\n" + \
+def read_lattice_free_energy_data(lattice_path, density = 1):
+    help_info = "Usage: read_lattice_free_energy_data(lattice_path, density)\n" + \
+                "lattice_path: Path to the data file containing lattice and free energy values.\n" + \
                 "density: Sampling density. For instance, use 1 for 100% sampling (default), 0.1 for 10%, and 0.5 for 50%."
-
     # Check if the user asked for help
-    if directory == "help":
+    if lattice_path == "help":
         print(help_info)
         return
     # Initialize the lists for lattice constant and free energy
     lattice, free_energy = [], []
-    # Construct the full path to the vasprun.xml file
-    lattice_path = os.path.join(directory, "vasprun.xml")
     # Calculate the interval based on density
     interval = int(1 / density) if density != 0 else 1
-    # Check if the vasprun.xml file exists in the given directory
-    if not os.path.isfile(lattice_path):
-        print(f"Error: The file vasprun.xml does not exist in the directory {directory}")
-        return
     with open(lattice_path, "r", encoding="utf-8") as dat_file:
         lines = dat_file.readlines()[1:]
         for idx, line in enumerate(lines):

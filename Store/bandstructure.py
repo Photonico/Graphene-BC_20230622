@@ -1,9 +1,10 @@
 #### Bandstructure
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914, R0915, W0612
 
+import xml.etree.ElementTree as ET
 import os
 import numpy as np
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 def extract_high_symlines(directory):
     with open(os.path.join(directory, "KPOINTS"), "r", encoding="utf-8") as file:
@@ -21,6 +22,7 @@ def extract_high_symlines(directory):
             high_symmetry_points.add(tokens[-1])
     lines = len(high_symmetry_points)
     sets = high_symmetry_points
+    
     # print(f"The number of High Symmetry lines is {lines}")
     # Extracting non-empty lines
     non_empty_lines = []
@@ -131,8 +133,14 @@ def clean_kpoints(kpoints_list, tol=1e-10):
 #%% Testing space
 
 testing_dir = "/home/lu/Repos/Graphene-BC 2023/3_Bandstructure_PBE/G_Graphene-B4C3_Top"
+
 kpoints = extract_high_symlines(testing_dir)
 fermi = extract_fermi(testing_dir)
 klist = extract_klist(testing_dir)
 
+#%% Bandstructure workspace
+
+# def plot_bandstructure(directory):
+
+# plot_bandstructure(testing_dir)
 #%%

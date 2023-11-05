@@ -2,13 +2,21 @@
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914, R0915, W0612
 
 import xml.etree.ElementTree as ET
-import matplotlib.pyplot as plt
+import os
 import numpy as np
+import matplotlib.pyplot as plt
 
 from Store.output import canvas_setting, color_sampling
 
-def extract_dos(file_path):
-    # Analysis vasprun.xml file
+def extract_dos(directory_path):
+    ## Construct the full path to the vasprun.xml file
+    file_path = os.path.join(directory_path, "vasprun.xml")
+    # Check if the vasprun.xml file exists in the given directory
+    if not os.path.isfile(file_path):
+        print(f"Error: The file vasprun.xml does not exist in the directory {directory_path}.")
+        return
+
+    ## Analysis vasprun.xml file
     tree = ET.parse(file_path)
     root = tree.getroot()
 
@@ -29,7 +37,6 @@ def extract_dos(file_path):
     kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
     kpointlist_matrix = kpointlist_array.reshape(-1, 3)
     kpoints_number = kpointlist_matrix.shape[0]
-
     ## Extract eigen, occupancy number
     for kpoints_index in range(1, kpoints_number+1):
         xpath_expr = f".//set[@comment='kpoint {kpoints_index}']"
@@ -47,7 +54,6 @@ def extract_dos(file_path):
         else:
             eigen_matrix = np.hstack((eigen_matrix,eigen_column.reshape(-1, 1)))
             occu_matrix  = np.hstack((occu_matrix, occu_column.reshape(-1, 1)))
-
     ## Extract energy, total DOS, and integrated DOS
     # lists initialization
     energy_dos_list     = np.empty(0)
