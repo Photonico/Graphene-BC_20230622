@@ -6,7 +6,7 @@
 ## Work space
 
 #%% Elements analysis
-from Store.PDoS import get_elements, extract_pdos, extract_element_pdos, extract_segment_pdos, plot_pdos_segment
+from vmatplot.PDoS import get_elements, extract_pdos, extract_element_pdos, extract_segment_pdos, plot_pdos_segment
 
 element_BC3 = get_elements("4_PDoS_PBE/A_BC3_K65")
 print(f"The element analysis for BC₃ is \n {element_BC3} \n")

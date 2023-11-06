@@ -6,9 +6,9 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from Store.algorithms import fit_eos
-from Store.output import canvas_setting, color_sampling
-from Store.algorithms import polynomially_fit_curve
+from vmatplot.algorithms import fit_eos
+from vmatplot.output import canvas_setting, color_sampling
+from vmatplot.algorithms import polynomially_fit_curve
 
 def check_vasprun(directory="."):
     """Find folders with complete vasprun.xml and print incomplete ones."""

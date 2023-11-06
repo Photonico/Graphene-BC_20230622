@@ -6,7 +6,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from Store.output import canvas_setting, color_sampling
+from vmatplot.output import canvas_setting, color_sampling
 
 def extract_dos(directory_path):
     ## Construct the full path to the vasprun.xml file

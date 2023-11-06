@@ -7,9 +7,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from scipy.interpolate import griddata
-from Store.output import canvas_setting, color_sampling
-from Store.lattice import check_vasprun
-from Store.algorithms import polynomially_fit_surface
+from vmatplot.output import canvas_setting, color_sampling
+from vmatplot.lattice import check_vasprun
+from vmatplot.algorithms import polynomially_fit_surface
 
 def specify_bilayer_lattice(directory):
     if directory == "help":

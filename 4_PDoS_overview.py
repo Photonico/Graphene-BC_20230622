@@ -5,14 +5,14 @@
 
 #%% BC₃ DoS
 
-from Store.DoS import plot_dos
-from Store.PDoS import plot_total_pdos
+from vmatplot.DoS import plot_dos
+from vmatplot.PDoS import plot_total_pdos
 
 matters_dir = [["17 Kpoints", "4_PDoS_PBE/A_BC3_K17", "grey"],
                ["33 Kpoints", "4_PDoS_PBE/A_BC3_K33", "blue"],
                ["65 Kpoints", "4_PDoS_PBE/A_BC3_K33", "wine"],]
 
-plot_dos("BC₃", 6, 10, "PBE","total", matters_dir)
+plot_dos("BC₃", 6, 10, "PBE", "total", matters_dir)
 
 #%% BC₃ total PDoS
 

@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
-from Store.output import canvas_setting, color_sampling
+from vmatplot.output import canvas_setting, color_sampling
 
 # File analysis
 def analyze_dpos(directory_path):

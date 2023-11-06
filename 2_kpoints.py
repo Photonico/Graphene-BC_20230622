@@ -5,7 +5,7 @@
 
 #%% BC3
 
-from Store.kpoints import summarize_kpoints_free_energy, plot_kpoints_free_energy
+from vmatplot.kpoints import summarize_kpoints_free_energy, plot_kpoints_free_energy
 
 summarize_kpoints_free_energy("1_Kpoints/BC3")
 

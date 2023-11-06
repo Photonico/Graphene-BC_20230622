@@ -5,7 +5,7 @@
 
 #%% Single layer BC3
 
-from Store.bandgap import read_bandgap
+from vmatplot.bandgap import read_bandgap
 
 system_PBE = "Single layer BC3 (PBE)"
 gap_PBE = read_bandgap("3_Bandstructure_PBE/A_BC3/OUTCAR")
