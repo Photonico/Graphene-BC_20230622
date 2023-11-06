@@ -253,8 +253,8 @@ def extract_element_pdos(directory_path, element):
     ions_number = positions_matrix.shape[0]
 
     ## Analysis elements
-    index_start = get_elements(file_path)[element][0]
-    index_end = get_elements(file_path)[element][1]
+    index_start = get_elements(directory_path)[element][0]
+    index_end = get_elements(directory_path)[element][1]
 
     ## Extract the number of kpoints
     kpointlist = root.find(".//varray[@name='kpointlist']")
