@@ -1,11 +1,11 @@
-#### Bandstructure cleanup
+#### Bandstructure cleanup (PBE)
 
 #%%
 import os
 
 # List of files to keep
 files_to_keep = [
-    "CHGCAR", "INCAR", "KPOINTS", "POSCAR", "POTCAR", "vasp_nci.sh", "BS_cleanup.py"
+    "CHGCAR", "INCAR", "KPOINTS", "POSCAR", "POTCAR", "vasp_nci.sh", "BS_PBE_cleanup.py"
 ]
 
 def cleanup(files):
