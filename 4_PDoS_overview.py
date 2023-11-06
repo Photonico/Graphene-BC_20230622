@@ -45,9 +45,9 @@ plot_total_pdos("B₄C₃", 6, 10, "PBE", "total", "4_PDoS_PBE/C_B4C3_K65", "blu
 #%% Graphene DoS
 
 matters_dir = [["33 Kpoints", "4_PDoS_PBE/D_Graphene_K33", "grey"],
-               ["65 Kpoints", "4_PDoS_PBE/D_Graphene_K33", "blue"],
-               ["129 Kpoints", "4_PDoS_PBE/D_Graphene_K33", "wine"],
-               ["from BS", "4_PDoS_PBE/D_Graphene_K33", "brown"]]
+               ["65 Kpoints", "4_PDoS_PBE/D_Graphene_K65", "blue"],
+               ["129 Kpoints", "4_PDoS_PBE/D_Graphene_K129", "wine"],]
+            #    ["from BS", "4_PDoS_PBE/D_Graphene_K33", "brown"]]
 
 plot_dos("Graphene", 6, 1.25, "PBE","total", matters_dir)
 
