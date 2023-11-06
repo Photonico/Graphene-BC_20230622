@@ -47,7 +47,7 @@ def extract_fermi(directory):
 
 def extract_klist(directory):
     # Open the EIGENVAL file
-    with open(os.path.join(directory, "EIGENVAL"), 'r', encoding="utf-8") as file:
+    with open(os.path.join(directory, "EIGENVAL"), "r", encoding="utf-8") as file:
         lines = file.readlines()
     # Initialize the list for k-points
     kpoins_list = []
@@ -132,15 +132,17 @@ def clean_kpoints(kpoints_list, tol=1e-10):
 
 #%% Testing space
 
-testing_dir = "/home/lu/Repos/Graphene-BC 2023/3_Bandstructure_PBE/G_Graphene-B4C3_Top"
+bswork = "/home/lu/Repos/Graphene-BC 2023/3_Bandstructure_PBE/G_Graphene-B4C3_Top"
 
-kpoints = extract_high_symlines(testing_dir)
-fermi = extract_fermi(testing_dir)
-klist = extract_klist(testing_dir)
+kpoints = extract_high_symlines(bswork)
+fermi = extract_fermi(bswork)
+klist = extract_klist(bswork)
+hs = extract_high_symlines(bswork)
+print(hs)
 
 #%% Bandstructure workspace
 
-# def plot_bandstructure(directory):
+# def plot_bandstructure(bswork):
 
-# plot_bandstructure(testing_dir)
+# plot_bandstructure(bswork)
 #%%

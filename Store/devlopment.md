@@ -103,9 +103,11 @@
 
 * DoS extracting
   * extract_dos(directory) - complete
+  * create_matters(directory_list) - complete
 
 * DoS Plotting
   * plot_dos_sol(...) - complete
+  * plot_dos_data(...) - complete
   * plot_dos(...) - complete
 
 ### PDoS.py
@@ -119,8 +121,10 @@
   * extract_element_pdos(directory, element) - complete
   * extract_segment_pdos(directory, start, end) - complete
 
-* plot_pdos_element(...) - complete
-  * plot_total_pdos(...)
-  * plot_sol_element(...)
-  * plot_duo_element(...)
-  * plot_tri_element(...)
+* PDoS plotting
+  * plot_total_pdos(...) - complete
+  * plot_pdos_segment(...) - complete
+    * plot_total_pdos_data(...)
+    * plot_sol_segment(...)
+    * plot_duo_segment(...)
+    * plot_tri_segment(...)
