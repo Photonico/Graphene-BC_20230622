@@ -5,6 +5,9 @@ import numpy as np
 
 from scipy.optimize import leastsq
 
+def transpose_matrix(matrix):
+    return [list(row) for row in zip(*matrix)]
+
 def compute_average(data_lines):
     """Define the function to compute the average of the last value in each line."""
     total = 0

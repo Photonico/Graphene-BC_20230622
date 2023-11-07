@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from matplotlib.ticker import ScalarFormatter
-from Store.lattice import check_vasprun
-from Store.output import canvas_setting, color_sampling
+from vmatplot.lattice import check_vasprun
+from vmatplot.output import canvas_setting, color_sampling
 
 def identify_kpoints(directory="."):
     """Find folders with KPOINTS and print its type."""

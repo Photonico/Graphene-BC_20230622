@@ -10,6 +10,8 @@
 
 ### algorithms.py: General algorithms
 
+* transpose_matrix(data) - complete
+
 * compute_average(data) - complete
 
 * birch_murnaghan_eos(...) - complete
@@ -89,13 +91,28 @@
 
 ### bandstructure.py: Bandstructure analysis and plotting
 
-* Bandstructure information
+* Information extracting
   * extract_high_symlines(directory) - complete
+  * extract_fermi_outcar(directory) - complete
   * extract_fermi(directory) - complete
-  * extract_klist(directory) - complete
+  * extract_kpointlist_eigenval(directory) - complete
+  * extract_kpointlist(directory) - complete
+  * extract_kpath_distances(directory) - complete
+  * extract_weight(directory) - complete
+  * extract_kpoints_count(directory) - complete
+  * extract_bands_count(directory) - complete
+  * extract_eigenvalues_kpoints(directory) - complete
+  * extract_eigenvalues_lines(directory) - complete
+
+* Data process
   * rec_to_cart(...) - complete
   * cart_to_rec(...) - complete
-  * clean_kpoints(kpoints) - complete
+  * clean_kpoints(...) - complete
+
+* Plotting
+  * plot_bandstructure_sol(directory)
+  * plot_bandstructure(directory)
+  * plot_bandstructure_withdos(directory)
 
 ## DoS/PDoS
 

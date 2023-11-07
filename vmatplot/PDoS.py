@@ -1,4 +1,4 @@
-#### Declarations of process functions for PDOS with vectorized programming
+#### Declarations of process functions for PDoS with vectorized programming
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914, R0915, W0612
 
 # Necessary packages invoking
@@ -131,7 +131,7 @@ def extract_pdos(directory_path):
     # eigen_sum = np.sum(eigen_matrix, axis=1)
     # occu_sum  = np.sum(occu_matrix, axis=1)
 
-    ## Extract energy, total DOS, and integrated DOS
+    ## Extract energy, total DoS, and integrated DoS
     # lists initialization
     energy_dos_list         = np.empty(0)
     total_dos_list          = np.empty(0)
@@ -152,7 +152,7 @@ def extract_pdos(directory_path):
     shift = efermi
     energy_dos_shift = energy_dos_list - shift
 
-    ## Extract energy, s-PDOS, p_y-PDOS, p_z-PDOS, p_x-PDOS, d_xy-PDOS, d_yz-PDOS, d_z2-PDOS, d_xz-PDOS, x2-y2-PDOS
+    ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_xz-PDoS, x2-y2-PDoS
     # Matrices initialization
     for ions_index in range(1, ions_number + 1):
         path_ions = f".//set[@comment='ion {ions_index}']/set[@comment='spin 1']/r"
@@ -171,23 +171,23 @@ def extract_pdos(directory_path):
             pdos_values = list(map(float, pdos_element.text.split()))
             # Columns of energy
             energy_pdos_column = np.append(energy_pdos_column, pdos_values[0])
-            # Columns of s-PDOS
+            # Columns of s-PDoS
             s_pdos_column = np.append(s_pdos_column, pdos_values[1])
-            # Columns of p_y-PDOS
+            # Columns of p_y-PDoS
             p_y_pdos_column = np.append(p_y_pdos_column, pdos_values[2])
-            # Columns of p_z-PDOS
+            # Columns of p_z-PDoS
             p_z_pdos_column = np.append(p_z_pdos_column, pdos_values[3])
-            # Columns of p_x-PDOS
+            # Columns of p_x-PDoS
             p_x_pdos_column = np.append(p_x_pdos_column, pdos_values[4])
-            # Columns of d_xy-PDOS
+            # Columns of d_xy-PDoS
             d_xy_pdos_column = np.append(d_xy_pdos_column, pdos_values[5])
-            # Columns of d_yz-PDOS
+            # Columns of d_yz-PDoS
             d_yz_pdos_column = np.append(d_yz_pdos_column, pdos_values[6])
-            # Columns of d_z2-PDOS
+            # Columns of d_z2-PDoS
             d_z2_pdos_column = np.append(d_z2_pdos_column, pdos_values[7])
-            # Columns of d_xz-PDOS
+            # Columns of d_xz-PDoS
             d_xz_pdos_column = np.append(d_xz_pdos_column, pdos_values[8])
-            # Columns of x2-y2-PDOS
+            # Columns of x2-y2-PDoS
             x2_y2_pdos_column = np.append(x2_y2_pdos_column, pdos_values[9])
         if ions_index == 1:
             energy_pdos_matrix = energy_pdos_column.reshape(-1, 1)
@@ -228,7 +228,7 @@ def extract_pdos(directory_path):
             d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_xz_pdos_sum,                 # 13 ~ 16
             x2_y2_pdos_sum)
 
-# PDOS for elements
+# PDoS for elements
 def extract_element_pdos(directory_path, element):
     ## Construct the full path to the vasprun.xml file
     file_path = os.path.join(directory_path, "vasprun.xml")
@@ -281,10 +281,10 @@ def extract_element_pdos(directory_path, element):
     # eigen_sum = np.sum(eigen_matrix, axis=1)
     # occu_sum  = np.sum(occu_matrix, axis=1)
 
-    ## Extract energy, total DOS, and integrated DOS
+    ## Extract energy, total DoS, and integrated DoS
     # lists initialization
     energy_dos_list     = np.empty(0)
-    total_dos_list      = np.empty(0)
+    total_pdos_list      = np.empty(0)
     integrated_dos_list = np.empty(0)
     path_dos = ".//total/array/set/set[@comment='spin 1']/r"
     for element_dos in root.findall(path_dos):
@@ -298,42 +298,42 @@ def extract_element_pdos(directory_path, element):
     shift = efermi
     energy_dos_shift = energy_dos_list - shift
 
-    ## Extract energy, s-PDOS, p_y-PDOS, p_z-PDOS, p_x-PDOS, d_xy-PDOS, d_yz-PDOS, d_z2-PDOS, d_xz-PDOS, x2-y2-PDOS
+    ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_xz-PDoS, x2-y2-PDoS
     # Matrices initialization
     for ions_index in range(index_start, index_end + 1):
         path_ions = f".//set[@comment='ion {ions_index}']/set[@comment='spin 1']/r"
         # Columns initialization
-        energy_pdos_column  = np.empty(0)
-        s_pdos_column       = np.empty(0)
-        p_y_pdos_column     = np.empty(0)
-        p_z_pdos_column     = np.empty(0)
-        p_x_pdos_column     = np.empty(0)
-        d_xy_pdos_column    = np.empty(0)
-        d_yz_pdos_column    = np.empty(0)
-        d_z2_pdos_column    = np.empty(0)
-        d_xz_pdos_column    = np.empty(0)
-        x2_y2_pdos_column   = np.empty(0)
+        energy_pdos_column      = np.empty(0)
+        s_pdos_column           = np.empty(0)
+        p_y_pdos_column         = np.empty(0)
+        p_z_pdos_column         = np.empty(0)
+        p_x_pdos_column         = np.empty(0)
+        d_xy_pdos_column        = np.empty(0)
+        d_yz_pdos_column        = np.empty(0)
+        d_z2_pdos_column        = np.empty(0)
+        d_xz_pdos_column        = np.empty(0)
+        x2_y2_pdos_column       = np.empty(0)
         for pdos_element in root.findall(path_ions):
             pdos_values = list(map(float, pdos_element.text.split()))
             # Columns of energy
             energy_pdos_column = np.append(energy_pdos_column, pdos_values[0])
-            # Columns of s-PDOS
+            # Columns of s-PDoS
             s_pdos_column = np.append(s_pdos_column, pdos_values[1])
-            # Columns of p_y-PDOS
+            # Columns of p_y-PDoS
             p_y_pdos_column = np.append(p_y_pdos_column, pdos_values[2])
-            # Columns of p_z-PDOS
+            # Columns of p_z-PDoS
             p_z_pdos_column = np.append(p_z_pdos_column, pdos_values[3])
-            # Columns of p_x-PDOS
+            # Columns of p_x-PDoS
             p_x_pdos_column = np.append(p_x_pdos_column, pdos_values[4])
-            # Columns of d_xy-PDOS
+            # Columns of d_xy-PDoS
             d_xy_pdos_column = np.append(d_xy_pdos_column, pdos_values[5])
-            # Columns of d_yz-PDOS
+            # Columns of d_yz-PDoS
             d_yz_pdos_column = np.append(d_yz_pdos_column, pdos_values[6])
-            # Columns of d_z2-PDOS
+            # Columns of d_z2-PDoS
             d_z2_pdos_column = np.append(d_z2_pdos_column, pdos_values[7])
-            # Columns of d_xz-PDOS
+            # Columns of d_xz-PDoS
             d_xz_pdos_column = np.append(d_xz_pdos_column, pdos_values[8])
-            # Columns of x2-y2-PDOS
+            # Columns of x2-y2-PDoS
             x2_y2_pdos_column = np.append(x2_y2_pdos_column, pdos_values[9])
         if ions_index == index_start:
             energy_pdos_matrix = energy_pdos_column.reshape(-1, 1)
@@ -367,17 +367,17 @@ def extract_element_pdos(directory_path, element):
     d_z2_pdos_sum = np.sum(d_z2_pdos_matrix, axis=1)
     d_xz_pdos_sum = np.sum(d_xz_pdos_matrix, axis=1)
     x2_y2_pdos_sum = np.sum(x2_y2_pdos_matrix, axis=1)
-    total_dos_list = s_pdos_sum + p_y_pdos_sum + p_z_pdos_sum + p_x_pdos_sum + d_xy_pdos_sum + d_yz_pdos_sum + d_z2_pdos_sum + d_xz_pdos_sum + x2_y2_pdos_sum
-    integrated_dos_list = np.trapz(total_dos_list, x=energy_dos_shift)
+    total_pdos_list = s_pdos_sum + p_y_pdos_sum + p_z_pdos_sum + p_x_pdos_sum + d_xy_pdos_sum + d_yz_pdos_sum + d_z2_pdos_sum + d_xz_pdos_sum + x2_y2_pdos_sum
+    integrated_dos_list = np.trapz(total_pdos_list, x=energy_dos_shift)
 
     energy_pdos_shift = energy_pdos_sum - shift
     return (efermi, ions_number, kpoints_number, eigen_matrix, occu_matrix,             # 0 ~ 4
-            energy_dos_shift, total_dos_list, integrated_dos_list,                      # 5 ~ 7
+            energy_dos_shift, total_pdos_list, integrated_dos_list,                      # 5 ~ 7
             energy_pdos_shift, s_pdos_sum, p_y_pdos_sum, p_z_pdos_sum, p_x_pdos_sum,    # 8 ~ 12
             d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_xz_pdos_sum,                 # 13 ~ 16
             x2_y2_pdos_sum)
 
-# PDOS for customized range
+# PDoS for customized range
 def extract_segment_pdos(directory_path, start, end):
     ## Construct the full path to the vasprun.xml file
     file_path = os.path.join(directory_path, "vasprun.xml")
@@ -430,10 +430,10 @@ def extract_segment_pdos(directory_path, start, end):
     # eigen_sum = np.sum(eigen_matrix, axis=1)
     # occu_sum  = np.sum(occu_matrix, axis=1)
 
-    ## Extract energy, total DOS, and integrated DOS
+    ## Extract energy, total DoS, and integrated DoS
     # lists initialization
     energy_dos_list     = np.empty(0)
-    total_dos_list      = np.empty(0)
+    total_pdos_list      = np.empty(0)
     integrated_dos_list = np.empty(0)
     path_dos = ".//total/array/set/set[@comment='spin 1']/r"
     for element_dos in root.findall(path_dos):
@@ -447,7 +447,7 @@ def extract_segment_pdos(directory_path, start, end):
     shift = efermi
     energy_dos_shift = energy_dos_list - shift
 
-    ## Extract energy, s-PDOS, p_y-PDOS, p_z-PDOS, p_x-PDOS, d_xy-PDOS, d_yz-PDOS, d_z2-PDOS, d_xz-PDOS, x2-y2-PDOS
+    ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_xz-PDoS, x2-y2-PDoS
     # Matrices initialization
     for ions_index in range(index_start, index_end + 1):
         path_ions = f".//set[@comment='ion {ions_index}']/set[@comment='spin 1']/r"
@@ -466,23 +466,23 @@ def extract_segment_pdos(directory_path, start, end):
             pdos_values = list(map(float, pdos_element.text.split()))
             # Columns of energy
             energy_pdos_column = np.append(energy_pdos_column, pdos_values[0])
-            # Columns of s-PDOS
+            # Columns of s-PDoS
             s_pdos_column = np.append(s_pdos_column, pdos_values[1])
-            # Columns of p_y-PDOS
+            # Columns of p_y-PDoS
             p_y_pdos_column = np.append(p_y_pdos_column, pdos_values[2])
-            # Columns of p_z-PDOS
+            # Columns of p_z-PDoS
             p_z_pdos_column = np.append(p_z_pdos_column, pdos_values[3])
-            # Columns of p_x-PDOS
+            # Columns of p_x-PDoS
             p_x_pdos_column = np.append(p_x_pdos_column, pdos_values[4])
-            # Columns of d_xy-PDOS
+            # Columns of d_xy-PDoS
             d_xy_pdos_column = np.append(d_xy_pdos_column, pdos_values[5])
-            # Columns of d_yz-PDOS
+            # Columns of d_yz-PDoS
             d_yz_pdos_column = np.append(d_yz_pdos_column, pdos_values[6])
-            # Columns of d_z2-PDOS
+            # Columns of d_z2-PDoS
             d_z2_pdos_column = np.append(d_z2_pdos_column, pdos_values[7])
-            # Columns of d_xz-PDOS
+            # Columns of d_xz-PDoS
             d_xz_pdos_column = np.append(d_xz_pdos_column, pdos_values[8])
-            # Columns of x2-y2-PDOS
+            # Columns of x2-y2-PDoS
             x2_y2_pdos_column = np.append(x2_y2_pdos_column, pdos_values[9])
         if ions_index == index_start:
             energy_pdos_matrix = energy_pdos_column.reshape(-1, 1)
@@ -517,11 +517,11 @@ def extract_segment_pdos(directory_path, start, end):
     d_xz_pdos_sum = np.sum(d_xz_pdos_matrix, axis=1)
     x2_y2_pdos_sum = np.sum(x2_y2_pdos_matrix, axis=1)
     energy_pdos_shift = energy_pdos_sum - shift
-    total_dos_list = s_pdos_sum + p_y_pdos_sum + p_z_pdos_sum + p_x_pdos_sum + d_xy_pdos_sum + d_yz_pdos_sum + d_z2_pdos_sum + d_xz_pdos_sum + x2_y2_pdos_sum
-    integrated_dos_list = np.trapz(total_dos_list, x=energy_dos_shift)
+    total_pdos_list = s_pdos_sum + p_y_pdos_sum + p_z_pdos_sum + p_x_pdos_sum + d_xy_pdos_sum + d_yz_pdos_sum + d_z2_pdos_sum + d_xz_pdos_sum + x2_y2_pdos_sum
+    integrated_dos_list = np.trapz(total_pdos_list, x=energy_dos_shift)
 
     return (efermi, ions_number, kpoints_number, eigen_matrix, occu_matrix,             # 0 ~ 4
-            energy_dos_shift, total_dos_list, integrated_dos_list,                      # 5 ~ 7
+            energy_dos_shift, total_pdos_list, integrated_dos_list,                      # 5 ~ 7
             energy_pdos_shift, s_pdos_sum, p_y_pdos_sum, p_z_pdos_sum, p_x_pdos_sum,    # 8 ~ 12
             d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_xz_pdos_sum,                 # 13 ~ 16
             x2_y2_pdos_sum)
@@ -574,8 +574,8 @@ def plot_total_pdos_data(matter, x_range = None, y_top = None, supplement = None
     # Title and labels
     # plt.title(f"Projected electronic density of state for {matter} ({supplement})")
     plt.title(f"PDoS for {matter} ({supplement})")
-    plt.ylabel(r"Density of States", fontsize = 1.0* 12)
-    plt.xlabel(r"Energy (eV)", fontsize = 1.0* 12)
+    plt.ylabel(r"Density of States")
+    plt.xlabel(r"Energy (eV)")
 
     plt.ylim(0, y_top)
     plt.xlim(x_range*(-1), x_range)
@@ -632,8 +632,8 @@ def plot_total_pdos(matter, x_range = None, y_top = None, supplement = None, pdo
     # Title and labels
     # plt.title(f"Projected electronic density of state for {matter} ({supplement})")
     plt.title(f"PDoS for {matter} ({supplement})")
-    plt.ylabel(r"Density of States", fontsize = 1.0* 12)
-    plt.xlabel(r"Energy (eV)", fontsize = 1.0* 12)
+    plt.ylabel(r"Density of States")
+    plt.xlabel(r"Energy (eV)")
 
     plt.ylim(0, y_top)
     plt.xlim(x_range*(-1), x_range)
@@ -659,7 +659,8 @@ def pdos_sol_segment(matter, x_range, y_top, supplement, pdos_total, element, pd
     pdos_results = [pdos_total, pdos_element]
     label_positions = {0: (1, 0), 1: (0, 0)}
 
-    fig.suptitle(f"Projected electronic density of state for {matter} ({supplement})", fontsize =1.0*18)
+    # fig.suptitle(f"Projected electronic density of state for {matter} ({supplement})", fontsize=fig_setting[3][0])
+    fig.suptitle(f"PDoS for {matter} ({supplement})", fontsize=fig_setting[3][0])
 
     for i in range(2):
         ax = axes_element[i]
@@ -670,19 +671,21 @@ def pdos_sol_segment(matter, x_range, y_top, supplement, pdos_total, element, pd
         efermi_pdos = pdos_data[0]
 
         if i == 0:
-            ax.set_title("Total PDoS", fontsize = 1.0 * 16)
-            line_width = 1.0
+            ax.set_title("Total PDoS", fontsize=fig_setting[3][1])
+            line_width = 1.00
+            ax.plot(pdos_data[5], pdos_data[6],  c=colors[1], lw=line_width, label=r"Total DoS",  zorder=2)
         else:
-            ax.set_title(f"PDoS for {element}", fontsize = 1.0 * 16)
+            ax.set_title(f"PDoS for {element}", fontsize=fig_setting[3][1])
             line_width = 0.75
-        ax.set_ylabel(r"Density of states", fontsize =1.0* 12)
-        ax.set_xlabel(r"Energy (eV)", fontsize =1.0* 12)
+            ax.plot(pdos_data[5], pdos_data[6],  c=colors[1], lw=line_width, label=r"Total PDoS",  zorder=2)
 
-        ax.plot(pdos_data[5], pdos_data[6],  c=colors[1], lw=line_width, label=r"Total DOS",  zorder=2)
         ax.plot(pdos_data[8], pdos_data[9],  c=colors[3], lw=line_width, label=r"$s$ PDoS",   zorder=3)
         ax.plot(pdos_data[8], pdos_data[12], c=colors[4], lw=line_width, label=r"$p_x$ PDoS", zorder=4)
         ax.plot(pdos_data[8], pdos_data[10], c=colors[5], lw=line_width, label=r"$p_y$ PDoS", zorder=4)
         ax.plot(pdos_data[8], pdos_data[11], c=colors[6], lw=line_width, label=r"$p_z$ PDoS", zorder=4)
+
+        ax.set_ylabel(r"Density of states")
+        ax.set_xlabel(r"Energy (eV)")
 
         shift = efermi_pdos
 
@@ -716,7 +719,7 @@ def pdos_sol_segment(matter, x_range, y_top, supplement, pdos_total, element, pd
         ax.annotate(f"({chr(97 + i)})",
                     xy = (x_label + x_label_offset, y_label + y_label_offset),
                     xycoords = "axes fraction",
-                    fontsize = 1.0 * 18,
+                    fontsize = 1.0 * 16,
                     ha = ha, va = va,
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"}, zorder=5)
 
@@ -744,7 +747,8 @@ def pdos_duo_segment(matter, x_range, y_top, supplement, pdos_total, element_1, 
     pdos_results = [pdos_total, pdos_1, pdos_2]
     label_positions = {0: (0, 0), 1: (1, 1), 2:(0, 1)}
 
-    fig.suptitle(f"Projected electronic density of state for {matter} ({supplement})", fontsize =1.0*18)
+    # fig.suptitle(f"Projected electronic density of state for {matter} ({supplement})", fontsize=fig_setting[3][0])
+    fig.suptitle(f"PDoS for {matter} ({supplement})", fontsize=fig_setting[3][0])
 
     for i in range(3):
         ax = axes_element[i]
@@ -755,19 +759,21 @@ def pdos_duo_segment(matter, x_range, y_top, supplement, pdos_total, element_1, 
         efermi_pdos = pdos_data[0]
 
         if i == 0:
-            ax.set_title("Total PDoS", fontsize = 1.0 * 16)
+            ax.set_title("Total PDoS", fontsize=fig_setting[3][1])
             line_width = 1.00
+            ax.plot(pdos_data[5], pdos_data[6],  c=colors[1], lw=line_width, label=r"Total DoS",  zorder=2)
         else:
-            ax.set_title(f"PDoS for {element}", fontsize = 1.0 * 16)
+            ax.set_title(f"PDoS for {element}", fontsize=fig_setting[3][1])
             line_width = 0.75
-        ax.set_ylabel(r"Density of states", fontsize = 1.0 * 12)
-        ax.set_xlabel(r"Energy (eV)", fontsize = 1.0 * 12)
+            ax.plot(pdos_data[5], pdos_data[6],  c=colors[1], lw=line_width, label=r"Total PDoS",  zorder=2)
 
-        ax.plot(pdos_data[5], pdos_data[6],  c=colors[1], lw=line_width, label=r"Total DOS",  zorder=2)
         ax.plot(pdos_data[8], pdos_data[9],  c=colors[3], lw=line_width, label=r"$s$ PDoS",   zorder=3)
         ax.plot(pdos_data[8], pdos_data[12], c=colors[4], lw=line_width, label=r"$p_x$ PDoS", zorder=4)
         ax.plot(pdos_data[8], pdos_data[10], c=colors[5], lw=line_width, label=r"$p_y$ PDoS", zorder=4)
         ax.plot(pdos_data[8], pdos_data[11], c=colors[6], lw=line_width, label=r"$p_z$ PDoS", zorder=4)
+
+        ax.set_ylabel(r"Density of states")
+        ax.set_xlabel(r"Energy (eV)")
 
         shift = efermi_pdos
 
@@ -813,7 +819,7 @@ def pdos_duo_segment(matter, x_range, y_top, supplement, pdos_total, element_1, 
         ax.annotate(f"({chr(97 + i)})",
                     xy = (x_label + x_label_offset, y_label + y_label_offset),
                     xycoords = "axes fraction",
-                    fontsize = 1.0 * 18,
+                    fontsize = 1.0 * 16,
                     ha = ha, va = va,
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"}, zorder=5)
 
@@ -838,7 +844,8 @@ def pdos_tri_segment(matter, x_range, y_top, supplement, pdos_total, element_1, 
 
     label_positions = {0: (1, 0), 1: (0, 0), 2:(1, 1), 3:(0, 1)}
 
-    fig.suptitle(f"Projected electronic density of state for {matter} ({supplement})", fontsize =1.0*18)
+    # fig.suptitle(f"Projected electronic density of state for {matter} ({supplement})", fontsize=fig_setting[3][0])
+    fig.suptitle(f"PDoS for {matter} ({supplement})", fontsize=fig_setting[3][0])
 
     for i in range(4):
         ax = axes_element[i]
@@ -849,19 +856,21 @@ def pdos_tri_segment(matter, x_range, y_top, supplement, pdos_total, element_1, 
         efermi_pdos = pdos_data[0]
 
         if i == 0:
-            ax.set_title("Total PDoS", fontsize = 1.0 * 16)
+            ax.set_title("Total PDoS", fontsize=fig_setting[3][1])
             line_width = 1.00
+            ax.plot(pdos_data[5], pdos_data[6],  c=colors[1], lw=line_width, label=r"Total DoS",  zorder=2)
         else:
-            ax.set_title(f"PDoS for {element}", fontsize = 1.0 * 16)
+            ax.set_title(f"PDoS for {element}", fontsize=fig_setting[3][1])
             line_width = 0.75
-        ax.set_ylabel(r"Density of states", fontsize = 1.0 * 12)
-        ax.set_xlabel(r"Energy (eV)", fontsize = 1.0 * 12)
+            ax.plot(pdos_data[5], pdos_data[6],  c=colors[1], lw=line_width, label=r"Total PDoS",  zorder=2)
 
-        ax.plot(pdos_data[5], pdos_data[6],  c=colors[1], lw=line_width, label=r"Total DOS",  zorder=2)
         ax.plot(pdos_data[8], pdos_data[9],  c=colors[3], lw=line_width, label=r"$s$ PDoS",   zorder=3)
         ax.plot(pdos_data[8], pdos_data[12], c=colors[4], lw=line_width, label=r"$p_x$ PDoS", zorder=4)
         ax.plot(pdos_data[8], pdos_data[10], c=colors[5], lw=line_width, label=r"$p_y$ PDoS", zorder=4)
         ax.plot(pdos_data[8], pdos_data[11], c=colors[6], lw=line_width, label=r"$p_z$ PDoS", zorder=4)
+
+        ax.set_ylabel(r"Density of states")
+        ax.set_xlabel(r"Energy (eV)")
 
         shift = efermi_pdos
 
@@ -899,7 +908,7 @@ def pdos_tri_segment(matter, x_range, y_top, supplement, pdos_total, element_1, 
         ax.annotate(f"({chr(97 + i)})",
                     xy = (x_label + x_label_offset, y_label + y_label_offset),
                     xycoords = "axes fraction",
-                    fontsize = 1.0 * 18,
+                    fontsize = 1.0 * 16,
                     ha = ha, va = va,
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"}, zorder=5)
 

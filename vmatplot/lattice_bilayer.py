@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from scipy.interpolate import griddata
+from matplotlib.ticker import ScalarFormatter
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.lattice import check_vasprun
 from vmatplot.algorithms import polynomially_fit_surface
@@ -218,7 +219,7 @@ def extract_extreme_bilayer_lattice(extract_type, source_data):
     if extract_type in ("Maxium", "maxium", "MAX", "Max", "max"):
         return extract_maximum_bilayer_lattice(source_data)
 
-def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_work=None):
+def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_work=None, legend_loc="upper right"):
     # Data input
     lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data)
     lattice_source = np.array(lattice_source)
@@ -264,11 +265,17 @@ def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_
     colors = color_sampling(point_color)
 
     # Figure title
-    plt.title(f"Free energy versus lattice and distance for {matter}")
+    # plt.title(f"Free energy versus lattice and spacing for {matter}")
+    plt.title(f"Free energy for {matter}")
     plt.xlabel(r"Lattice constant (Å)"); plt.ylabel(r"Interlayer spacing (Å)")
 
+    # Colormap
     cp = plt.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap, alpha = 0.75, vmax = energy_demo, zorder=1)
-    plt.colorbar(cp)
+    cbar = plt.colorbar(cp)
+    # plt.colorbar(cp)
+    formatter = ScalarFormatter(useMathText=True, useOffset=False)
+    formatter.set_powerlimits((-3, 3))
+    cbar.ax.yaxis.set_major_formatter(formatter)
 
     # Extreme of source data
     plt.scatter(lattice_min, distance_min, s=48, c=colors[2], label="Extrema of source data", zorder=2)
@@ -276,6 +283,6 @@ def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_
     plt.scatter(lattice_fitted_min, distance_fitted_min, s=48, lw=1.5, facecolors="none", ec=colors[2], label="Extrema of fitted data", zorder=2)
     # Additional point
     if additional_work is not None:
-        plt.scatter(additional_lattice, additional_distance, s=36, c=colors[3], label=f"Specific data energy: {additional_energy}", zorder=3)
+        plt.scatter(additional_lattice, additional_distance, s=36, c=colors[3], label=f"Specific energy: {additional_energy:.3f}", zorder=3)
 
-    plt.legend(loc=fig_setting[3])
+    plt.legend(loc=legend_loc)

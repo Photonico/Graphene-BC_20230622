@@ -37,34 +37,69 @@ def canvas_setting(*args):
                 "\t[0]: size_setting"+\
                 "\t[1]: dpi"+\
                 "\t[2]: figure params (font)"+\
-                "\t[3]: legend location"
+                "\t[3]: Suptitle and subtitle fontsize"+\
+                "\t[4]: legend location"
     default_style = {"length": 10,
                      "width": 6,
-                     "dpi": 196,
+                     "dpi": 256,
                      "font_style": "serif"}
-    default_params = {"text.usetex": False, "font.family": "serif", "mathtext.fontset": "cm",
-        "axes.titlesize": 18, "axes.labelsize": 14, "figure.facecolor": "w"}
+    default_params = {"text.usetex": False,
+                      "font.family": "serif",
+                      "mathtext.fontset": "cm",
+                      "axes.titlesize": 20,
+                      "axes.labelsize": 16,
+                      "xtick.labelsize": 14,
+                      "ytick.labelsize": 14,
+                      "legend.fontsize": 12,
+                      "figure.facecolor": "w"}
+    default_suptitle = 20
+    default_subtitle = 18
     default_legend = "upper right"
     if len(args) == 0:
-        return (default_style["length"],default_style["width"]), default_style["dpi"], default_params, default_legend
+        return (default_style["length"],default_style["width"]), default_style["dpi"], default_params, (default_suptitle, default_subtitle), default_legend
     if len(args) == 1:
         if args[0] == "help":
             print(help_info)
             return
         else:
-            return (args[0], 6), 196, default_params, default_legend
+            return (args[0], 6), 196, default_params, (default_suptitle, default_subtitle), default_legend
     if len(args) == 2:
-        return (args[0], args[1]), 196, default_params, default_legend
+        return (args[0], args[1]), 196, default_params, (default_suptitle, default_subtitle), default_legend
     if len(args) == 3:
-        return (args[0], args[1]), args[2], default_params, default_legend
+        return (args[0], args[1]), args[2], default_params, (default_suptitle, default_subtitle), default_legend
     if len(args) == 4:
-        customized_params = {"text.usetex": False, "font.family": args[3], "mathtext.fontset": "cm",
-            "axes.titlesize": 18, "axes.labelsize": 14, "figure.facecolor": "w"}
-        return (args[0], args[1]), args[2], customized_params, default_legend
-    if len(args) == 5:
-        customized_params = {"text.usetex": False, "font.family": args[3], "mathtext.fontset": "cm",
-            "axes.titlesize": 18, "axes.labelsize": 14, "figure.facecolor": "w"}
-        return (args[0], args[1]), args[2], customized_params, args[4]
+        customized_params = {"text.usetex": False,
+                             "font.family": args[3],
+                             "mathtext.fontset": "cm",
+                             "axes.titlesize": 20,
+                             "axes.labelsize": 16,
+                             "xtick.labelsize": 14,
+                             "ytick.labelsize": 14,
+                             "legend.fontsize": 12,
+                             "figure.facecolor": "w"}
+        return (args[0], args[1]), args[2], customized_params, (default_suptitle, default_subtitle), default_legend
+    if len(args) == 6:
+        customized_params = {"text.usetex": False,
+                             "font.family": args[3],
+                             "mathtext.fontset": "cm",
+                             "axes.titlesize": 20,
+                             "axes.labelsize": 16,
+                             "xtick.labelsize": 14,
+                             "ytick.labelsize": 14,
+                             "legend.fontsize": 12,
+                             "figure.facecolor": "w"}
+        return (args[0],args[1]), args[2], customized_params, (args[4],args[5]), default_legend
+    if len(args) == 7:
+        customized_params = {"text.usetex": False,
+                             "font.family": args[3],
+                             "mathtext.fontset": "cm",
+                             "axes.titlesize": 20,
+                             "axes.labelsize": 16,
+                             "xtick.labelsize": 14,
+                             "ytick.labelsize": 14,
+                             "legend.fontsize": 12,
+                             "figure.facecolor": "w"}
+        return (args[0],args[1]), args[2], customized_params, (args[4],args[5]), args[6]
 
 def color_sampling(color_family):
     help_info = "Usage: color_family(color_family)\n" + \
@@ -119,7 +154,7 @@ def color_sampling(color_family):
         color_set.append("#1473E1")
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
-        color_set.append("#F03C78")
+        color_set.append("#F03C64")
 
         return color_set
     if color_family in ("Yellow", "yellow"):
@@ -131,7 +166,7 @@ def color_sampling(color_family):
         color_set.append("#1473E1")
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
-        color_set.append("#F03C78")
+        color_set.append("#F03C64")
         color_set.append("#FA8C00")
         return color_set
     if color_family in ("Green", "green"):
@@ -142,7 +177,7 @@ def color_sampling(color_family):
         color_set.append("#1473E1")
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
-        color_set.append("#F03C78")
+        color_set.append("#F03C64")
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")
         return color_set
@@ -153,7 +188,7 @@ def color_sampling(color_family):
 
         color_set.append("#8C64F0") # colors[3]
         color_set.append("#D25ADC") # colors[4]
-        color_set.append("#F03C78") # colors[5]
+        color_set.append("#F03C64") # colors[5]
         color_set.append("#FA8C00") # colors[6]
         color_set.append("#FAC81E") # colors[7]
         color_set.append("#28AF3C") # colors[8]
@@ -165,7 +200,7 @@ def color_sampling(color_family):
         color_set.append("#AF96FF")
 
         color_set.append("#D25ADC")
-        color_set.append("#F03C78")
+        color_set.append("#F03C64")
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")
         color_set.append("#28AF3C")
@@ -176,7 +211,7 @@ def color_sampling(color_family):
         color_set.append("#D25ADC")
         color_set.append("#F078FF")
 
-        color_set.append("#F03C78")
+        color_set.append("#F03C64")
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")
         color_set.append("#28AF3C")
@@ -185,8 +220,8 @@ def color_sampling(color_family):
         return color_set
     if color_family in ("Wine", "wine"):
         color_set.append("#AA1E64")
-        color_set.append("#C8236E")
-        color_set.append("#F03C78")
+        color_set.append("#C82364")
+        color_set.append("#F03C64")
 
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")

@@ -112,9 +112,10 @@ def plot_dos_sol(matter, x_range=None, y_top=None, supplement=None, dos_type=Non
     plt.text(efermi-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
     # Title
-    plt.title(f"Electronic density of state for {matter} ({supplement})")
-    plt.ylabel(r"Density of States", fontsize = 1.0* 12)
-    plt.xlabel(r"Energy (eV)", fontsize = 1.0* 12)
+    # plt.title(f"Electronic density of state for {matter} ({supplement})")
+    plt.title(f"DoS for {matter} ({supplement})")
+    plt.ylabel(r"Density of States")
+    plt.xlabel(r"Energy (eV)")
 
     plt.ylim(0, y_limit)
     plt.xlim(x_range*(-1), x_range)
@@ -167,7 +168,8 @@ def plot_dos_data(title, x_range = None, y_top = None, supplement = None, dos_ty
         plt.text(efermi-shift-x_range*0.02, y_top*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
         # Title
-        plt.title(f"Electronic density of state for {title} ({supplement})")
+        # plt.title(f"Electronic density of state for {title} ({supplement})")
+        plt.title(f"DoS for {title} ({supplement})")
         plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
 
         plt.ylim(0, y_top)
@@ -214,7 +216,8 @@ def plot_dos(title, x_range = None, y_top = None, supplement = None, dos_type = 
         plt.text(efermi-shift-x_range*0.02, y_top*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
         # Title
-        plt.title(f"Electronic density of state for {title} ({supplement})")
+        # plt.title(f"Electronic density of state for {title} ({supplement})")
+        plt.title(f"DoS for {title} ({supplement})")
         plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
 
         plt.ylim(0, y_top)
