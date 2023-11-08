@@ -1,0 +1,91 @@
+#### TIPS
+
+## Computing Tips
+
+* Directory: `/g/data/g46/ln2626`
+
+* Run this every time: module load git
+
+# Finding the stablest structure
+
+    * Top Layer: Graphene; 
+
+    * Bottom Layer: BC3, Borophene, B4C3;
+
+# Self-consistent
+
+    * Rename the CONTCAR from the former step to POSCAR.
+
+    * INCAR Settings:
+
+        # Output charge function file CHGCAR
+        LCHARG = .TRUE.         # LCHARG = .TRUE. for generating CHGCAR
+        # Output wave function file WAVECAR
+        LWAVE = .TRUE.          # LWAVE = .TRUE. for generating WAVECAR
+
+        # # Number of steps for IOM   
+        # NSW = 128
+        # # CG for ions, often 1 (RMM-DISS) is faster    
+        # IBRION = 2
+        # # Step for ionic-motion (for MD in fs)
+        # POTIM = .5
+        # # Stress tensor (2 for relaxation ions)
+        # ISIF = 2
+
+# Bandstructure
+
+    * Requirement: `CHGCAR`
+
+# PDoS Note
+
+    * Requirement: `CHGCAR`
+
+# Optical properties
+
+    * Requirment: `WAVECAR`
+
+## Server
+
+    * Check works numbers: `qstat -u $USER | wc -l`
+
+    * Check space information: `quota -v`
+
+# Git LFS
+
+* Add file type
+    **/CHG filter=lfs diff=lfs merge=lfs -text
+    **/CHGCAR filter=lfs diff=lfs merge=lfs -text
+    **/WAVECAR filter=lfs diff=lfs merge=lfs -text
+
+* Track file list
+    git add .gitattributes
+
+* LFS cache directory:
+    <.git/lfs/objects/>
+
+## Git Clean
+
+    * Purge Historical References:
+        git reflog expire --expire=now --all
+
+    * Tidy Up the Repository:
+        git gc --prune=now
+
+    * Deep cleanup:
+        git repack -ad
+        git prune
+
+    * Stage the Changes:
+        git add .
+
+    * Commit the Staged Changes:
+        git commit -m "Optimized git repository by cleaning up the history"
+
+    * Push Changes Forcefully to the Remote Repository
+        git push -f origin main
+
+## Dos2unix:
+
+    sed -i -e 's/\r$//' vasp_nci.sh
+    dos2unix INCAR
+    find . -type f -exec dos2unix {} \;
