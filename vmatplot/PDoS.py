@@ -527,7 +527,7 @@ def extract_segment_pdos(directory_path, start, end):
             x2_y2_pdos_sum)
 
 # Total PDoS Plotting
-def plot_total_pdos_data(matter, x_range = None, y_top = None, supplement = None, pdos_type = None, pdos_data = None, color_family="blue"):
+def plot_total_pdos_data(matter, x_range = None, y_top = None, pdos_type = None, pdos_data = None, color_family="blue"):
     # Help information
     help_info = "Usage: plot_pdos" + \
                 "Use extract_pdos to extract the DoS data."
@@ -573,7 +573,7 @@ def plot_total_pdos_data(matter, x_range = None, y_top = None, supplement = None
 
     # Title and labels
     # plt.title(f"Projected electronic density of state for {matter} ({supplement})")
-    plt.title(f"PDoS for {matter} ({supplement})")
+    plt.title(f"PDoS for {matter}")
     plt.ylabel(r"Density of States")
     plt.xlabel(r"Energy (eV)")
 
@@ -582,7 +582,7 @@ def plot_total_pdos_data(matter, x_range = None, y_top = None, supplement = None
     plt.legend(loc="upper right")
     # plt.show()
 
-def plot_total_pdos(matter, x_range = None, y_top = None, supplement = None, pdos_type = None, pdos_directory = None, color_family="blue"):
+def plot_total_pdos(matter, x_range = None, y_top = None, pdos_type = None, pdos_directory = None, color_family="blue"):
     # Help information
     help_info = "Usage: plot_pdos" + \
                 "Use extract_pdos to extract the DoS data."
@@ -631,7 +631,7 @@ def plot_total_pdos(matter, x_range = None, y_top = None, supplement = None, pdo
 
     # Title and labels
     # plt.title(f"Projected electronic density of state for {matter} ({supplement})")
-    plt.title(f"PDoS for {matter} ({supplement})")
+    plt.title(f"PDoS for {matter}")
     plt.ylabel(r"Density of States")
     plt.xlabel(r"Energy (eV)")
 
@@ -641,7 +641,7 @@ def plot_total_pdos(matter, x_range = None, y_top = None, supplement = None, pdo
     # plt.show()
 
 ###  PDoS Plotting for each segment
-def pdos_sol_segment(matter, x_range, y_top, supplement, pdos_total, element, pdos_element, color_family="blue"):
+def pdos_sol_segment(matter, x_range, y_top, pdos_total, element, pdos_element, color_family="blue"):
 
     # Figure setting
     fig_setting = canvas_setting(12, 6)
@@ -660,7 +660,7 @@ def pdos_sol_segment(matter, x_range, y_top, supplement, pdos_total, element, pd
     label_positions = {0: (1, 0), 1: (0, 0)}
 
     # fig.suptitle(f"Projected electronic density of state for {matter} ({supplement})", fontsize=fig_setting[3][0])
-    fig.suptitle(f"PDoS for {matter} ({supplement})", fontsize=fig_setting[3][0])
+    fig.suptitle(f"PDoS for {matter}", fontsize=fig_setting[3][0])
 
     for i in range(2):
         ax = axes_element[i]
@@ -725,7 +725,7 @@ def pdos_sol_segment(matter, x_range, y_top, supplement, pdos_total, element, pd
 
     plt.tight_layout()
 
-def pdos_duo_segment(matter, x_range, y_top, supplement, pdos_total, element_1, pdos_1, element_2, pdos_2, color_family="blue"):
+def pdos_duo_segment(matter, x_range, y_top, pdos_total, element_1, pdos_1, element_2, pdos_2, color_family="blue"):
 
     # Figure setting
     fig_setting = canvas_setting(12, 10)
@@ -748,7 +748,7 @@ def pdos_duo_segment(matter, x_range, y_top, supplement, pdos_total, element_1, 
     label_positions = {0: (0, 0), 1: (1, 1), 2:(0, 1)}
 
     # fig.suptitle(f"Projected electronic density of state for {matter} ({supplement})", fontsize=fig_setting[3][0])
-    fig.suptitle(f"PDoS for {matter} ({supplement})", fontsize=fig_setting[3][0])
+    fig.suptitle(f"PDoS for {matter}", fontsize=fig_setting[3][0])
 
     for i in range(3):
         ax = axes_element[i]
@@ -825,7 +825,7 @@ def pdos_duo_segment(matter, x_range, y_top, supplement, pdos_total, element_1, 
 
     plt.tight_layout()
 
-def pdos_tri_segment(matter, x_range, y_top, supplement, pdos_total, element_1, pdos_1, element_2, pdos_2, element_3, pdos_3, color_family="blue"):
+def pdos_tri_segment(matter, x_range, y_top, pdos_total, element_1, pdos_1, element_2, pdos_2, element_3, pdos_3, color_family="blue"):
 
     # Figure settings
     fig_setting = canvas_setting(12, 10)
@@ -845,7 +845,7 @@ def pdos_tri_segment(matter, x_range, y_top, supplement, pdos_total, element_1, 
     label_positions = {0: (1, 0), 1: (0, 0), 2:(1, 1), 3:(0, 1)}
 
     # fig.suptitle(f"Projected electronic density of state for {matter} ({supplement})", fontsize=fig_setting[3][0])
-    fig.suptitle(f"PDoS for {matter} ({supplement})", fontsize=fig_setting[3][0])
+    fig.suptitle(f"PDoS for {matter}", fontsize=fig_setting[3][0])
 
     for i in range(4):
         ax = axes_element[i]

@@ -13,6 +13,6 @@
 #PBS -m ea
 #PBS -M luke.niu@sydney.edu.au
 
-module load vasp/6.3.2
+module load vasp/6.4.2
 
-mpirun vasp_std-xy >vasp.log
+mpirun vasp_std >vasp.log

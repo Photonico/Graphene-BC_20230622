@@ -104,7 +104,7 @@ def canvas_setting(*args):
 def color_sampling(color_family):
     help_info = "Usage: color_family(color_family)\n" + \
                 "Input the name of color family will return a series colors." + \
-                "Color families: Grey, Red, Orange, Yellow, Green, Blue, Violet, Purple, Wine, Brown\n" + \
+                "Color families: Grey, Red, Orange, Yellow, Green, Blue, Violet, Purple, Wine, Brown, Warm, Cold\n" + \
                 "Return values:\n" + \
                 "color[0]: deep color\n" + \
                 "color[1]: major color\n" + \
@@ -114,11 +114,13 @@ def color_sampling(color_family):
                 "color[5]: comparison color 3\n" + \
                 "color[6]: comparison color 4\n" + \
                 "color[7]: comparison color 5\n" + \
-                "color[8]: comparison color 6"
+                "color[8]: comparison color 6\n" + \
+                "Warm and Cold color family have only 5 colors"
     # Check if the user asked for help
     if color_family == "help":
         print(help_info)
         return
+
     color_set = []
     if color_family in ("Grey", "grey"):
         color_set.append("#3C3C3C")
@@ -132,6 +134,7 @@ def color_sampling(color_family):
         color_set.append("#1473E1")
         color_set.append("#8C64F0")
         return color_set
+
     if color_family in ("Red", "red"):
         color_set.append("#C81423")
         color_set.append("#E1322D")
@@ -144,6 +147,7 @@ def color_sampling(color_family):
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
         return color_set
+
     if color_family in ("Orange", "orange"):
         color_set.append("#EB731E")
         color_set.append("#FA8C00")
@@ -155,8 +159,8 @@ def color_sampling(color_family):
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
         color_set.append("#F03C64")
-
         return color_set
+
     if color_family in ("Yellow", "yellow"):
         color_set.append("#EBC31E")
         color_set.append("#FAC81E")
@@ -169,10 +173,11 @@ def color_sampling(color_family):
         color_set.append("#F03C64")
         color_set.append("#FA8C00")
         return color_set
+
     if color_family in ("Green", "green"):
-        color_set.append("#286E41")
+        color_set.append("#238C4B")
         color_set.append("#28AF3C")
-        color_set.append("#5FDC5A")
+        color_set.append("#73C81E")
 
         color_set.append("#1473E1")
         color_set.append("#8C64F0")
@@ -181,6 +186,7 @@ def color_sampling(color_family):
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")
         return color_set
+
     if color_family in ("Blue", "blue", "Azure", "azure"):
         color_set.append("#145AAA") # colors[0]
         color_set.append("#1473E1") # colors[1]
@@ -192,11 +198,11 @@ def color_sampling(color_family):
         color_set.append("#FA8C00") # colors[6]
         color_set.append("#FAC81E") # colors[7]
         color_set.append("#28AF3C") # colors[8]
-
         return color_set
+
     if color_family in ("Violet", "violet"):
-        color_set.append("#5A3CBE")
-        color_set.append("#8C64F0")
+        color_set.append("#643CC3")
+        color_set.append("#8C64E1")
         color_set.append("#AF96FF")
 
         color_set.append("#D25ADC")
@@ -206,6 +212,7 @@ def color_sampling(color_family):
         color_set.append("#28AF3C")
         color_set.append("#1473E1")
         return color_set
+
     if color_family in ("Purple", "purple"):
         color_set.append("#AA3CB9")
         color_set.append("#D25ADC")
@@ -218,7 +225,8 @@ def color_sampling(color_family):
         color_set.append("#1473E1")
         color_set.append("#8C64F0")
         return color_set
-    if color_family in ("Wine", "wine"):
+
+    if color_family in ("Wine", "Wine"):
         color_set.append("#AA1E64")
         color_set.append("#C82364")
         color_set.append("#F03C64")
@@ -230,6 +238,7 @@ def color_sampling(color_family):
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
         return color_set
+
     if color_family in ("Brown", "brown"):
         color_set.append("#966450")
         color_set.append("#B47D50")
@@ -242,8 +251,26 @@ def color_sampling(color_family):
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
         return color_set
+
+    if color_family in ("Warm", "warm"):
+        color_set.append("#C82364")
+        color_set.append("#E1322D")
+        color_set.append("#FA8C00")
+        color_set.append("#FAC800")
+        color_set.append("#B4D20F")
+        return color_set
+
+    if color_family in ("Cold", "cold"):
+        color_set.append("#643CC3")
+        color_set.append("#785AFF")
+        color_set.append("#1473E1")
+        color_set.append("#1E96A0")
+        color_set.append("#23AF73")
+        return color_set
+
     if color_family == "all_families":
-        return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown"]
+        return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown",
+                "Warm", "Cold"]
 
 def plot_color_families():
     color_families = color_sampling("all_families")

@@ -416,3 +416,19 @@ def cart_to_rec(klist_source, directory, crystal_type):
 def clean_kpoints(kpoints_list, tol=1e-10):
     kpoints_list[np.isclose(kpoints_list, 0, atol=tol)] = 0
     return kpoints_list
+
+def create_matters_bs(matters_list):
+    # matters = create_matters_bs(matters_list)
+    # matters[0] = label
+    # matters[1] = fermi_energy
+    # matters[2] = kpoints path: x-axis
+    # matters[3] = bands
+    # matters[4] = color family
+    matters = []
+    for matter_dir in matters_list:
+        label, directory, color = matter_dir
+        fermi_energy = extract_fermi(directory)
+        kpath = extract_kpath(directory)
+        bands = extract_eigenvalues_bands(directory)
+        matters.append([label, fermi_energy, kpath, bands, color])
+    return matters

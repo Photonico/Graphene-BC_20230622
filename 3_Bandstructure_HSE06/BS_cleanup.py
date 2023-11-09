@@ -1,11 +1,12 @@
 #### BS cleanup
+# pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914, R0915, W0612
 
 #%%
 import os
 
 # List of files to keep
 files_to_keep = [
-    "INCAR", "KPOINTS", "POSCAR", "POTCAR", "vasp_nci.sh", "BS_cleanup.py"
+    "CHGCAR", "INCAR", "KPOINTS", "KPOINTS_OPT", "POSCAR", "POTCAR", "WAVECAR", "vasp_nci.sh", "BS_HSE_cleanup.py"
 ]
 
 def cleanup(files):
@@ -24,3 +25,5 @@ def cleanup(files):
                 except (FileNotFoundError, PermissionError) as e:
                     print(f"Error deleting {file_path}: {e}")
     print("Cleanup complete.")
+
+# cleanup(files_to_keep)

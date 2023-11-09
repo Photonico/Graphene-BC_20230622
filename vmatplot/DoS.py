@@ -54,7 +54,7 @@ def extract_dos(directory_path):
         else:
             eigen_matrix = np.hstack((eigen_matrix,eigen_column.reshape(-1, 1)))
             occu_matrix  = np.hstack((occu_matrix, occu_column.reshape(-1, 1)))
-    ## Extract energy, total DOS, and integrated DOS
+    ## Extract energy, Total DoS, and Integrated DoS
     # lists initialization
     energy_dos_list     = np.empty(0)
     total_dos_list      = np.empty(0)
@@ -72,7 +72,7 @@ def extract_dos(directory_path):
             energy_dos_shift, total_dos_list, integrated_dos_list)                      # 5 ~ 7
 
 # DoS Plotting
-def plot_dos_sol(matter, x_range=None, y_top=None, supplement=None, dos_type=None, dos_data=None, color_family="blue"):
+def plot_dos_sol(matter, x_range=None, y_top=None, dos_type=None, dos_data=None, color_family="blue"):
     # Help information
     help_info = "Usage: plot_dos_sol" + \
                 "Use extract_dos to extract the DoS data."
@@ -113,7 +113,7 @@ def plot_dos_sol(matter, x_range=None, y_top=None, supplement=None, dos_type=Non
 
     # Title
     # plt.title(f"Electronic density of state for {matter} ({supplement})")
-    plt.title(f"DoS for {matter} ({supplement})")
+    plt.title(f"DoS for {matter}")
     plt.ylabel(r"Density of States")
     plt.xlabel(r"Energy (eV)")
 
@@ -121,16 +121,22 @@ def plot_dos_sol(matter, x_range=None, y_top=None, supplement=None, dos_type=Non
     plt.xlim(x_range*(-1), x_range)
     plt.legend(loc="upper right")
 
-def create_matters(matters_dir):
+def create_matters_dos(matters_list):
+    # matters = create_matters_dos(matters_list)
+    # matters[0] = label
+    # matters[1][0] = energy: x-axis
+    # matters[1][6] = Total DoS
+    # matters[1][7] = integral dos
+    # matters[2] = color family
     matters = []
-    for matter_dir in matters_dir:
+    for matter_dir in matters_list:
         label, directory, color = matter_dir
         dos_data = extract_dos(directory)
         matters.append([label, dos_data, color])
     return matters
 
 # Universal DoS Plotting
-def plot_dos_data(title, x_range = None, y_top = None, supplement = None, dos_type = None, matters = None):
+def plot_dos_data(title, x_range = None, y_top = None, dos_type = None, matters = None):
     # Help information
     help_info = "Usage: plot_dos" + \
                 "Use extract_dos to extract the DoS data into a two-dimensional list firstly.\n"
@@ -150,16 +156,16 @@ def plot_dos_data(title, x_range = None, y_top = None, supplement = None, dos_ty
         # Data plotting
         if dos_type in ["All", "all"]:
             for index, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DOS for {matter[0]}", zorder = 3)
-                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DOS for {matter[0]}", zorder = 2)
+                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS for {matter[0]}", zorder = 3)
+                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Total", "total"]:
             for index, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DOS for {matter[0]}", zorder = 2)
+                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Integrated", "integrated"]:
             for index, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DOS for {matter[0]}", zorder = 2)
+                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         # Plot Fermi energy as a vertical line
         shift = efermi
@@ -169,7 +175,7 @@ def plot_dos_data(title, x_range = None, y_top = None, supplement = None, dos_ty
 
         # Title
         # plt.title(f"Electronic density of state for {title} ({supplement})")
-        plt.title(f"DoS for {title} ({supplement})")
+        plt.title(f"DoS for {title}")
         plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
 
         plt.ylim(0, y_top)
@@ -177,7 +183,7 @@ def plot_dos_data(title, x_range = None, y_top = None, supplement = None, dos_ty
         # plt.legend(loc="best")
         plt.legend(loc="upper right")
 
-def plot_dos(title, x_range = None, y_top = None, supplement = None, dos_type = None, matters_dir = None):
+def plot_dos(title, x_range = None, y_top = None, dos_type = None, matters_list = None):
     # Help information
     help_info = "Usage: plot_dos" + \
                 "Use extract_dos to extract the DoS data into a two-dimensional list firstly.\n"
@@ -193,21 +199,21 @@ def plot_dos(title, x_range = None, y_top = None, supplement = None, dos_type = 
     # Color calling
     fermi_color = color_sampling("Orange")
 
-    matters = create_matters(matters_dir)
+    matters = create_matters_dos(matters_list)
     if all(term is not None for term in [x_range, y_top]):
         # Data plotting
         if dos_type in ["All", "all"]:
             for index, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DOS for {matter[0]}", zorder = 3)
-                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DOS for {matter[0]}", zorder = 2)
+                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS for {matter[0]}", zorder = 3)
+                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Total", "total"]:
             for index, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DOS for {matter[0]}", zorder = 2)
+                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Integrated", "integrated"]:
             for index, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DOS for {matter[0]}", zorder = 2)
+                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         # Plot Fermi energy as a vertical line
         shift = efermi
@@ -217,7 +223,7 @@ def plot_dos(title, x_range = None, y_top = None, supplement = None, dos_type = 
 
         # Title
         # plt.title(f"Electronic density of state for {title} ({supplement})")
-        plt.title(f"DoS for {title} ({supplement})")
+        plt.title(f"DoS for {title} ")
         plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
 
         plt.ylim(0, y_top)
