@@ -228,7 +228,7 @@ def extract_pdos(directory_path):
             d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_xz_pdos_sum,                 # 13 ~ 16
             x2_y2_pdos_sum)
 
-# PDoS for elements
+# Extract PDoS for elements
 def extract_element_pdos(directory_path, element):
     ## Construct the full path to the vasprun.xml file
     file_path = os.path.join(directory_path, "vasprun.xml")
