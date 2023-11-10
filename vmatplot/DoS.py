@@ -87,7 +87,7 @@ def plot_dos_sol(matter, x_range=None, y_top=None, dos_type=None, dos_data=None,
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
     # Color calling
-    fermi_color = color_sampling("Orange")
+    fermi_color = color_sampling("Violet")
 
     # Data plotting range
     # y_axis_top = max(dos_data[6]); y_limit = y_axis_top * 0.6
@@ -107,7 +107,7 @@ def plot_dos_sol(matter, x_range=None, y_top=None, dos_type=None, dos_data=None,
     # Plot Fermi energy as a vertical line
     efermi = dos_data[0]
     shift = efermi
-    plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[1], alpha=0.95, label="Fermi energy", zorder=1)
+    plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
     fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
     plt.text(efermi-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
@@ -150,7 +150,7 @@ def plot_dos_data(title, x_range = None, y_top = None, dos_type = None, matters 
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
     # Color calling
-    fermi_color = color_sampling("Orange")
+    fermi_color = color_sampling("Violet")
 
     if all(term is not None for term in [x_range, y_top]):
         # Data plotting
@@ -169,7 +169,7 @@ def plot_dos_data(title, x_range = None, y_top = None, dos_type = None, matters 
                 efermi = matter[1][0]
         # Plot Fermi energy as a vertical line
         shift = efermi
-        plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[1], alpha=0.95, label="Fermi energy", zorder = 1)
+        plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder = 1)
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         plt.text(efermi-shift-x_range*0.02, y_top*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
@@ -197,27 +197,27 @@ def plot_dos(title, x_range = None, y_top = None, dos_type = None, matters_list 
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
     # Color calling
-    fermi_color = color_sampling("Orange")
+    fermi_color = color_sampling("Violet")
 
     matters = create_matters_dos(matters_list)
     if all(term is not None for term in [x_range, y_top]):
         # Data plotting
         if dos_type in ["All", "all"]:
-            for index, matter in enumerate(matters):
+            for _, matter in enumerate(matters):
                 plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS for {matter[0]}", zorder = 3)
                 plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Total", "total"]:
-            for index, matter in enumerate(matters):
+            for _, matter in enumerate(matters):
                 plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Integrated", "integrated"]:
-            for index, matter in enumerate(matters):
+            for _, matter in enumerate(matters):
                 plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS for {matter[0]}", zorder = 2)
                 efermi = matter[1][0]
         # Plot Fermi energy as a vertical line
         shift = efermi
-        plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[1], alpha=0.95, label="Fermi energy", zorder = 1)
+        plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder = 1)
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         plt.text(efermi-shift-x_range*0.02, y_top*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 

@@ -101,10 +101,13 @@ def canvas_setting(*args):
                              "figure.facecolor": "w"}
         return (args[0],args[1]), args[2], customized_params, (args[4],args[5]), args[6]
 
+# def fermi_energy_color():
+#     return "#64B4DC"
+
 def color_sampling(color_family):
     help_info = "Usage: color_family(color_family)\n" + \
                 "Input the name of color family will return a series colors." + \
-                "Color families: Grey, Red, Orange, Yellow, Green, Blue, Violet, Purple, Wine, Brown, Warm, Cold\n" + \
+                "Color families: Grey, Red, Orange, Yellow, Green, Blue, Violet, Purple, Wine, Brown, Orbit\n" + \
                 "Return values:\n" + \
                 "color[0]: deep color\n" + \
                 "color[1]: major color\n" + \
@@ -114,14 +117,26 @@ def color_sampling(color_family):
                 "color[5]: comparison color 3\n" + \
                 "color[6]: comparison color 4\n" + \
                 "color[7]: comparison color 5\n" + \
-                "color[8]: comparison color 6\n" + \
-                "Warm and Cold color family have only 5 colors"
+                "color[8]: comparison color 6\n"
     # Check if the user asked for help
     if color_family == "help":
         print(help_info)
         return
 
     color_set = []
+    if color_family in ("Orbit", "orbit"):
+        color_set.append("#145AAA") # colors[0]: Base
+        color_set.append("#1473E1") # colors[1]: total
+        color_set.append("#1EB4FF") # colors[2]: Integral
+
+        color_set.append("#8C64F0") # colors[3]: s-orbital
+        color_set.append("#D25ADC") # colors[4]: px-orbital
+        color_set.append("#F03C64") # colors[5]: py-orbital
+        color_set.append("#FA8C00") # colors[6]: pz-orbital
+        color_set.append("#96C800") # colors[7]: d-orbital
+        color_set.append("#14AFAF") # colors[8]: f-orbital
+        return color_set
+
     if color_family in ("Grey", "grey"):
         color_set.append("#3C3C3C")
         color_set.append("#787878")
@@ -252,25 +267,8 @@ def color_sampling(color_family):
         color_set.append("#D25ADC")
         return color_set
 
-    if color_family in ("Warm", "warm"):
-        color_set.append("#C82364")
-        color_set.append("#E1322D")
-        color_set.append("#FA8C00")
-        color_set.append("#FAC800")
-        color_set.append("#B4D20F")
-        return color_set
-
-    if color_family in ("Cold", "cold"):
-        color_set.append("#643CC3")
-        color_set.append("#785AFF")
-        color_set.append("#1473E1")
-        color_set.append("#1E96A0")
-        color_set.append("#23AF73")
-        return color_set
-
     if color_family == "all_families":
-        return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown",
-                "Warm", "Cold"]
+        return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown", "Orbit"]
 
 def plot_color_families():
     color_families = color_sampling("all_families")

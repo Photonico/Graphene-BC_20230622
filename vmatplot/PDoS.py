@@ -542,7 +542,7 @@ def plot_total_pdos_data(matter, x_range = None, y_top = None, pdos_type = None,
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
     # Colors calling
-    fermi_color = color_sampling("Orange")
+    fermi_color = color_sampling("Violet")
     colors = color_sampling(color_family)
 
     # Data plotting range
@@ -567,7 +567,7 @@ def plot_total_pdos_data(matter, x_range = None, y_top = None, pdos_type = None,
     # Plot Fermi energy as a vertical line
     efermi_pdos = pdos_data[0]
     shift = efermi_pdos
-    plt.axvline(x = efermi_pdos-shift, linestyle="--", c=fermi_color[1], alpha=0.95, label=r"Fermi energy", zorder=1)
+    plt.axvline(x = efermi_pdos-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
     fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
     plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
@@ -597,7 +597,7 @@ def plot_total_pdos(matter, x_range = None, y_top = None, pdos_type = None, pdos
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
     # Colors calling
-    fermi_color = color_sampling("Orange")
+    fermi_color = color_sampling("Violet")
     colors = color_sampling(color_family)
 
     # Data plotting range
@@ -625,7 +625,7 @@ def plot_total_pdos(matter, x_range = None, y_top = None, pdos_type = None, pdos
     # Plot Fermi energy as a vertical line
     efermi_pdos = pdos_data[0]
     shift = efermi_pdos
-    plt.axvline(x = efermi_pdos-shift, linestyle="--", c=fermi_color[1], alpha=0.95, label=r"Fermi energy", zorder=1)
+    plt.axvline(x = efermi_pdos-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
     fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
     plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
@@ -650,7 +650,7 @@ def pdos_sol_segment(matter, x_range, y_top, pdos_total, element, pdos_element, 
     axes_element = [axs[0], axs[1]]
 
     # Colors calling
-    fermi_color = color_sampling("Orange")
+    fermi_color = color_sampling("Violet")
     annotate_color = color_sampling("Grey")
     colors = color_sampling(color_family)
 
@@ -695,12 +695,12 @@ def pdos_sol_segment(matter, x_range, y_top, pdos_total, element, pdos_element, 
             # y_limit = y_top * 0.5
             y_limit = y_top
 
-        ax.axvline(x = efermi_pdos-shift, linestyle="--", color=fermi_color[1], alpha=0.95, label=r"Fermi energy", zorder=1)
+        ax.axvline(x = efermi_pdos-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
         ax.set_ylim(0, y_limit)
         ax.set_xlim(-x_range, x_range)
 
         fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
-        ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color=fermi_color[0], rotation=0, va = "top", ha="right")
+        ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
         x_label, y_label = label_positions[i]
         if i == 0:
@@ -737,7 +737,7 @@ def pdos_duo_segment(matter, x_range, y_top, pdos_total, element_1, pdos_1, elem
     ax2 = fig.add_subplot(gs[1, 1])
 
     # Colors calling
-    fermi_color = color_sampling("Orange")
+    fermi_color = color_sampling("Violet")
     annotate_color = color_sampling("Grey")
     colors = color_sampling(color_family)
 
@@ -784,14 +784,14 @@ def pdos_duo_segment(matter, x_range, y_top, pdos_total, element_1, pdos_1, elem
         elif i == 2:
             y_limit = y_top * 0.5
 
-        ax.axvline(x = efermi_pdos-shift, linestyle="--", color=fermi_color[1], alpha=0.95, label=r"Fermi energy", zorder=1)
+        ax.axvline(x = efermi_pdos-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
         ax.set_ylim(0, y_limit)
         ax.set_xlim(-x_range, x_range)
         fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
         if i == 1:
-            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color=fermi_color[0], rotation=0, va = "top", ha="left")
+            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="left")
         else:
-            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color=fermi_color[0], rotation=0, va = "top", ha="right")
+            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
         x_label, y_label = label_positions[i]
         if i == 0:
@@ -834,7 +834,7 @@ def pdos_tri_segment(matter, x_range, y_top, pdos_total, element_1, pdos_1, elem
     axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
 
     # Colors calling
-    fermi_color = color_sampling("Orange")
+    fermi_color = color_sampling("Violet")
     annotate_color = color_sampling("Grey")
     colors = color_sampling(color_family)
 
@@ -883,15 +883,15 @@ def pdos_tri_segment(matter, x_range, y_top, pdos_total, element_1, pdos_1, elem
         elif i == 3:
             y_limit = round(y_top * 0.3)
 
-        ax.axvline(x = efermi_pdos-shift, linestyle="--", color=fermi_color[1], alpha=0.95, label=r"Fermi energy", zorder=1)
+        ax.axvline(x = efermi_pdos-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
         ax.set_ylim(0, y_limit)
         ax.set_xlim(-x_range, x_range)
         fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
         if i == 2:
-            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color=fermi_color[0], rotation=0, va = "top", ha="left")
+            ax.text(efermi_pdos-shift+x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="left")
             ax.legend(loc="upper left")
         else:
-            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, color=fermi_color[0], rotation=0, va = "top", ha="right")
+            ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
             ax.legend(loc="upper right")
 
         x_label, y_label = label_positions[i]

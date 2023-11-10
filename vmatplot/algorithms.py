@@ -5,6 +5,11 @@ import numpy as np
 
 from scipy.optimize import leastsq
 
+def get_matrix_shape(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0]) if rows > 0 else 0
+    return (rows, cols)
+
 def transpose_matrix(matrix):
     return [list(row) for row in zip(*matrix)]
 

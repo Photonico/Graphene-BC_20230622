@@ -3,6 +3,7 @@
 
 import xml.etree.ElementTree as ET
 import os
+
 import numpy as np
 
 from vmatplot.algorithms import transpose_matrix
@@ -244,7 +245,7 @@ def kpoints_index(directory):
     # Retrieve the coordinates of the high symmetry points
     high_symmetry_points = kpoints_coordinate(directory)
     # Retrieve the list of kpoints
-    kpoint_list = extract_highsym(directory)
+    kpoints_list = extract_highsym(directory)
     # Initialize a dictionary to store the indices of the high symmetry points
     high_symmetry_indices = {}
     # For each high symmetry point, find the closest kpoint
@@ -253,7 +254,7 @@ def kpoints_index(directory):
         min_distance = float('inf')
         min_index = None
         # Iterate over the kpoint list to find the kpoint closest to the current high symmetry point coordinates
-        for index, kpoint in enumerate(kpoint_list):
+        for index, kpoint in enumerate(kpoints_list):
             # Calculate the Euclidean distance
             distance = sum((c - k) ** 2 for c, k in zip(coord, kpoint)) ** 0.5
             # If this distance is the smallest so far, update the minimum distance and index
@@ -358,6 +359,282 @@ def extract_eigenvalues_bands(directory):
     # Return the transposed matrix of eigenvalues
     return transposed_eigenvalues_matrix
 
+def extract_eigenvalues_kpoints_spinUp(directory):
+    """
+    Extracts the projected eigenvalues for different orbitals (s, p, d) for spin-up electrons from a VASP calculation.
+
+    This function parses the 'vasprun.xml' file from a VASP calculation to extract the projected eigenvalues
+    for each orbital type (s, p, and d orbitals) at each k-point for spin-up electrons. The eigenvalues are
+    organized into separate lists for each orbital type and each k-point.
+
+    Args:
+    directory (str): The directory path that contains the VASP output files, specifically 'vasprun.xml'.
+
+    Returns:
+    tuple of lists: Contains multiple lists, each representing the eigenvalues for a specific orbital type
+    across all k-points. The order is s, py, pz, px, dxy, dyz, dz2, dx2y2, total d, and total p orbitals.
+    """
+    # Construct the path to the vasprun.xml file and parse it
+    xml_file = os.path.join(directory, "vasprun.xml")
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+
+    ## Initialize matrices to store the eigenvalues every orbitals
+    # s orbital
+    eigenvalues_kpoints_s = []
+    # p orbitals
+    eigenvalues_kpoints_py = []
+    eigenvalues_kpoints_pz = []
+    eigenvalues_kpoints_px = []
+    # d orbitals
+    eigenvalues_kpoints_dxy = []
+    eigenvalues_kpoints_dyz = []
+    eigenvalues_kpoints_dz2 = []
+    eigenvalues_kpoints_dx2y2 = []
+    # summary
+    eigenvalues_kpoints_d = []
+    eigenvalues_kpoints_p = []
+
+    # Find the projected eigenvalues section in the XML tree
+    projected_section = root.find(".//projected/array")
+    if projected_section is not None:
+        # Find all k-point <set> elements within the projected section
+        kpoint_sets = projected_section.findall(".//set[@comment='spin1']/set")
+        for kpoint_set in kpoint_sets:
+            eigenvalues_s_kpoint = []
+            eigenvalues_py_kpoint = []
+            eigenvalues_pz_kpoint = []
+            eigenvalues_px_kpoint = []
+            eigenvalues_dxy_kpoint = []
+            eigenvalues_dyz_kpoint = []
+            eigenvalues_dz2_kpoint = []
+            eigenvalues_dx2y2_kpoint = []
+            for band_set in kpoint_set.findall(".//set"):
+                r_elements = band_set.findall("./r")
+                if r_elements:
+                    # Extract the value[0] as s orbital
+                    s_value = float(r_elements[0].text.split()[0])
+                    eigenvalues_s_kpoint.append(s_value)
+                    # Extract the value[1] as py orbital
+                    py_value = float(r_elements[0].text.split()[1])
+                    eigenvalues_py_kpoint.append(py_value)
+                    # Extract the value[2] as pz orbital
+                    pz_value = float(r_elements[0].text.split()[2])
+                    eigenvalues_pz_kpoint.append(pz_value)
+                    # Extract the value[3] as px orbital
+                    px_value = float(r_elements[0].text.split()[3])
+                    eigenvalues_px_kpoint.append(px_value)
+                    # Extract the value[4] as dxy orbital
+                    dxy_value = float(r_elements[0].text.split()[4])
+                    eigenvalues_dxy_kpoint.append(dxy_value)
+                    # Extract the value[5] as dyz orbital
+                    dyz_value = float(r_elements[0].text.split()[5])
+                    eigenvalues_dyz_kpoint.append(dyz_value)
+                    # Extract the value[6] as dz^2 orbital
+                    dz2_value = float(r_elements[0].text.split()[6])
+                    eigenvalues_dz2_kpoint.append(dz2_value)
+                    # Extract the value[7] as d(x2-y2) orbital
+                    dx2y2_value = float(r_elements[0].text.split()[7])
+                    eigenvalues_dx2y2_kpoint.append(dx2y2_value)
+                    # Sum of p and d orbitals
+                    eigenvalues_d_kpoint = [sum(x) for x in zip(eigenvalues_dxy_kpoint, eigenvalues_dyz_kpoint, eigenvalues_dz2_kpoint, eigenvalues_dx2y2_kpoint)]
+                    eigenvalues_p_kpoint = [sum(x) for x in zip(eigenvalues_py_kpoint, eigenvalues_pz_kpoint, eigenvalues_px_kpoint)]
+            eigenvalues_kpoints_s.append(eigenvalues_s_kpoint)
+            eigenvalues_kpoints_py.append(eigenvalues_py_kpoint)
+            eigenvalues_kpoints_pz.append(eigenvalues_pz_kpoint)
+            eigenvalues_kpoints_px.append(eigenvalues_px_kpoint)
+            eigenvalues_kpoints_dxy.append(eigenvalues_dxy_kpoint)
+            eigenvalues_kpoints_dyz.append(eigenvalues_dyz_kpoint)
+            eigenvalues_kpoints_dz2.append(eigenvalues_dz2_kpoint)
+            eigenvalues_kpoints_dx2y2.append(eigenvalues_dx2y2_kpoint)
+            eigenvalues_kpoints_d.append(eigenvalues_d_kpoint)
+            eigenvalues_kpoints_p.append(eigenvalues_p_kpoint)
+    else:
+        # Handle the case where the projected section is missing
+        print("Projected eigenvalues section not found in the XML file.")
+    # Return the matrices of eigenvalues
+    return (eigenvalues_kpoints_s,                                                                                  # 0
+            eigenvalues_kpoints_py, eigenvalues_kpoints_pz, eigenvalues_kpoints_px,                                 # 1, 2, 3
+            eigenvalues_kpoints_dxy, eigenvalues_kpoints_dyz, eigenvalues_kpoints_dz2, eigenvalues_kpoints_dx2y2,   # 4, 5, 6, 7
+            eigenvalues_kpoints_d,                                                                                  # -2
+            eigenvalues_kpoints_p                                                                                   # -1
+            )
+
+def extract_eigenvalues_bands_spinUp(directory):
+    """
+    Extracts and transposes the eigenvalues matrix for spin-up electrons from a VASP calculation for different orbitals.
+
+    This function first calls 'extract_eigenvalues_kpoints_spinUp' to extract the eigenvalues for each orbital type 
+    (s, p, and d orbitals) at each k-point for spin-up electrons. It then transposes the resulting matrices so that 
+    each row corresponds to a band and each column corresponds to a k-point. This is useful for band structure 
+    analysis where eigenvalues are typically plotted as bands across k-points.
+
+    Args:
+    directory (str): The directory path that contains the VASP output files.
+
+    Returns:
+    tuple of lists: Contains multiple lists, each representing the transposed eigenvalues for a specific orbital type
+    across all bands. The order is s, py, pz, px, dxy, dyz, dz2, dx2y2, total d, and total p orbitals.
+    """
+    eigenvalues_kpoints = extract_eigenvalues_kpoints_spinUp(directory)
+    eigenvalues_bands_s = transpose_matrix(eigenvalues_kpoints[0])
+    eigenvalues_bands_py = transpose_matrix(eigenvalues_kpoints[1])
+    eigenvalues_bands_pz = transpose_matrix(eigenvalues_kpoints[2])
+    eigenvalues_bands_px = transpose_matrix(eigenvalues_kpoints[3])
+    eigenvalues_bands_dxy = transpose_matrix(eigenvalues_kpoints[4])
+    eigenvalues_bands_dyz = transpose_matrix(eigenvalues_kpoints[5])
+    eigenvalues_bands_dz2 = transpose_matrix(eigenvalues_kpoints[6])
+    eigenvalues_bands_dx2y2 = transpose_matrix(eigenvalues_kpoints[7])
+    eigenvalues_bands_d = transpose_matrix(eigenvalues_kpoints[-2])
+    eigenvalues_bands_p = transpose_matrix(eigenvalues_kpoints[-1])
+    return (eigenvalues_bands_s,                                                                                # 0
+            eigenvalues_bands_py, eigenvalues_bands_pz, eigenvalues_bands_px,                                   # 1, 2, 3
+            eigenvalues_bands_dxy, eigenvalues_bands_dyz, eigenvalues_bands_dz2, eigenvalues_bands_dx2y2,       # 4, 5, 6, 7
+            eigenvalues_bands_d,                                                                                # -2
+            eigenvalues_bands_p                                                                                 # -1
+            )
+
+def extract_eigenvalues_kpoints_spinDown(directory):
+    """
+    Extracts the projected eigenvalues for different orbitals (s, p, d) for spin-down electrons from a VASP calculation.
+
+    This function parses the 'vasprun.xml' file from a VASP calculation to extract the projected eigenvalues
+    for each orbital type (s, p, and d orbitals) at each k-point for spin-down electrons. The eigenvalues are
+    organized into separate lists for each orbital type and each k-point.
+
+    Args:
+    directory (str): The directory path that contains the VASP output files, specifically 'vasprun.xml'.
+
+    Returns:
+    tuple of lists: Contains multiple lists, each representing the eigenvalues for a specific orbital type
+    across all k-points. The order is s, py, pz, px, dxy, dyz, dz2, dx2y2, total d, and total p orbitals.
+    """
+    # Construct the path to the vasprun.xml file and parse it
+    xml_file = os.path.join(directory, "vasprun.xml")
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+
+    ## Initialize matrices to store the eigenvalues every orbitals
+    # s orbital
+    eigenvalues_kpoints_s = []
+    # p orbitals
+    eigenvalues_kpoints_py = []
+    eigenvalues_kpoints_pz = []
+    eigenvalues_kpoints_px = []
+    # d orbitals
+    eigenvalues_kpoints_dxy = []
+    eigenvalues_kpoints_dyz = []
+    eigenvalues_kpoints_dz2 = []
+    eigenvalues_kpoints_dx2y2 = []
+    # summary
+    eigenvalues_kpoints_d = []
+    eigenvalues_kpoints_p = []
+
+    # Find the projected eigenvalues section in the XML tree
+    projected_section = root.find(".//projected/array")
+    if projected_section is not None:
+        # Find all k-point <set> elements within the projected section
+        kpoint_sets = projected_section.findall(".//set[@comment='spin1']/set")
+        for kpoint_set in kpoint_sets:
+            eigenvalues_s_kpoint = []
+            eigenvalues_py_kpoint = []
+            eigenvalues_pz_kpoint = []
+            eigenvalues_px_kpoint = []
+            eigenvalues_dxy_kpoint = []
+            eigenvalues_dyz_kpoint = []
+            eigenvalues_dz2_kpoint = []
+            eigenvalues_dx2y2_kpoint = []
+            for band_set in kpoint_set.findall(".//set"):
+                r_elements = band_set.findall("./r")
+                if r_elements:
+                    # Extract the value[0] as s orbital
+                    s_value = float(r_elements[-1].text.split()[0])
+                    eigenvalues_s_kpoint.append(s_value)
+                    # Extract the value[1] as py orbital
+                    py_value = float(r_elements[-1].text.split()[1])
+                    eigenvalues_py_kpoint.append(py_value)
+                    # Extract the value[2] as pz orbital
+                    pz_value = float(r_elements[-1].text.split()[2])
+                    eigenvalues_pz_kpoint.append(pz_value)
+                    # Extract the value[3] as px orbital
+                    px_value = float(r_elements[-1].text.split()[3])
+                    eigenvalues_px_kpoint.append(px_value)
+                    # Extract the value[4] as dxy orbital
+                    dxy_value = float(r_elements[-1].text.split()[4])
+                    eigenvalues_dxy_kpoint.append(dxy_value)
+                    # Extract the value[5] as dyz orbital
+                    dyz_value = float(r_elements[-1].text.split()[5])
+                    eigenvalues_dyz_kpoint.append(dyz_value)
+                    # Extract the value[6] as dz^2 orbital
+                    dz2_value = float(r_elements[-1].text.split()[6])
+                    eigenvalues_dz2_kpoint.append(dz2_value)
+                    # Extract the value[7] as d(x2-y2) orbital
+                    dx2y2_value = float(r_elements[-1].text.split()[7])
+                    eigenvalues_dx2y2_kpoint.append(dx2y2_value)
+                    # Sum of p and d orbitals
+                    eigenvalues_d_kpoint = [sum(x) for x in zip(eigenvalues_dxy_kpoint, eigenvalues_dyz_kpoint, eigenvalues_dz2_kpoint, eigenvalues_dx2y2_kpoint)]
+                    eigenvalues_p_kpoint = [sum(x) for x in zip(eigenvalues_py_kpoint, eigenvalues_pz_kpoint, eigenvalues_px_kpoint)]
+            eigenvalues_kpoints_s.append(eigenvalues_s_kpoint)
+            eigenvalues_kpoints_py.append(eigenvalues_py_kpoint)
+            eigenvalues_kpoints_pz.append(eigenvalues_pz_kpoint)
+            eigenvalues_kpoints_px.append(eigenvalues_px_kpoint)
+            eigenvalues_kpoints_dxy.append(eigenvalues_dxy_kpoint)
+            eigenvalues_kpoints_dyz.append(eigenvalues_dyz_kpoint)
+            eigenvalues_kpoints_dz2.append(eigenvalues_dz2_kpoint)
+            eigenvalues_kpoints_dx2y2.append(eigenvalues_dx2y2_kpoint)
+            eigenvalues_kpoints_d.append(eigenvalues_d_kpoint)
+            eigenvalues_kpoints_p.append(eigenvalues_p_kpoint)
+    else:
+        # Handle the case where the projected section is missing
+        print("Projected eigenvalues section not found in the XML file.")
+    # Return the matrices of eigenvalues
+    return (eigenvalues_kpoints_s,                                                                                  # 0
+            eigenvalues_kpoints_py, eigenvalues_kpoints_pz, eigenvalues_kpoints_px,                                 # 1, 2, 3
+            eigenvalues_kpoints_dxy, eigenvalues_kpoints_dyz, eigenvalues_kpoints_dz2, eigenvalues_kpoints_dx2y2,   # 4, 5, 6, 7
+            eigenvalues_kpoints_d,                                                                                  # -2
+            eigenvalues_kpoints_p                                                                                   # -1
+            )
+
+def extract_eigenvalues_bands_spinDown(directory):
+    """
+    Extracts and transposes the eigenvalues matrix for spin-down electrons from a VASP calculation for different orbitals.
+
+    This function first calls 'extract_eigenvalues_kpoints_spinDown' to extract the eigenvalues for each orbital type 
+    (s, p, and d orbitals) at each k-point for spin-down electrons. It then transposes the resulting matrices so that 
+    each row corresponds to a band and each column corresponds to a k-point. This is useful for band structure 
+    analysis where eigenvalues are typically plotted as bands across k-points.
+
+    Args:
+    directory (str): The directory path that contains the VASP output files.
+
+    Returns:
+    tuple of lists: Contains multiple lists, each representing the transposed eigenvalues for a specific orbital type
+    across all bands. The order is s, py, pz, px, dxy, dyz, dz2, dx2y2, total d, and total p orbitals.
+    """
+    eigenvalues_kpoints = extract_eigenvalues_kpoints_spinDown(directory)
+    eigenvalues_bands_s = transpose_matrix(eigenvalues_kpoints[0])
+    eigenvalues_bands_py = transpose_matrix(eigenvalues_kpoints[1])
+    eigenvalues_bands_pz = transpose_matrix(eigenvalues_kpoints[2])
+    eigenvalues_bands_px = transpose_matrix(eigenvalues_kpoints[3])
+    eigenvalues_bands_dxy = transpose_matrix(eigenvalues_kpoints[4])
+    eigenvalues_bands_dyz = transpose_matrix(eigenvalues_kpoints[5])
+    eigenvalues_bands_dz2 = transpose_matrix(eigenvalues_kpoints[6])
+    eigenvalues_bands_dx2y2 = transpose_matrix(eigenvalues_kpoints[7])
+    eigenvalues_bands_d = transpose_matrix(eigenvalues_kpoints[-2])
+    eigenvalues_bands_p = transpose_matrix(eigenvalues_kpoints[-1])
+    return (eigenvalues_bands_s,                                                                                # 0
+            eigenvalues_bands_py, eigenvalues_bands_pz, eigenvalues_bands_px,                                   # 1, 2, 3
+            eigenvalues_bands_dxy, eigenvalues_bands_dyz, eigenvalues_bands_dz2, eigenvalues_bands_dx2y2,       # 4, 5, 6, 7
+            eigenvalues_bands_d,                                                                                # -2
+            eigenvalues_bands_p                                                                                 # -1
+            )
+
+def extract_eigenvalues_kpoints_nonpolarized(directory):
+    return extract_eigenvalues_kpoints_spinUp(directory)
+
+def extract_eigenvalues_bands_nonpolarized(directory):
+    return extract_eigenvalues_bands_spinUp(directory)
+
 def rec_to_cart(klist_source, directory, crystal_type):
     # Define the reciprocal lattice vectors for different crystal types
     # These are the transformation matrices for converting reciprocal lattice
@@ -424,11 +701,16 @@ def create_matters_bs(matters_list):
     # matters[2] = kpoints path: x-axis
     # matters[3] = bands
     # matters[4] = color family
+    # matters[5] = alpha
     matters = []
     for matter_dir in matters_list:
-        label, directory, color = matter_dir
+        label, directory, color, alpha = matter_dir
         fermi_energy = extract_fermi(directory)
         kpath = extract_kpath(directory)
         bands = extract_eigenvalues_bands(directory)
-        matters.append([label, fermi_energy, kpath, bands, color])
+        matters.append([label, fermi_energy, kpath, bands, color, alpha])
     return matters
+
+# def create_matters_bsdos(matters_list):
+
+# def create_matters_bspdos(matters_list):
