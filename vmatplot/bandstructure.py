@@ -682,6 +682,14 @@ def extract_eigenvalues_bands_spinDown(directory):
             eigenvalues_bands_p                                                                                 # -1
             )
 
+def extract_eigenvalues_conductionBands_spinUp(directory):
+    eigenvalues_set = extract_eigenvalues_bands_spinUp(directory)
+    fermi_energy = extract_fermi(directory)
+    conduction_spinUp_bands = []
+
+
+# def extract_eigenvalues_conductionBands_spinDown(directory):
+
 def extract_eigenvalues_kpoints_nonpolarized(directory):
     return extract_eigenvalues_kpoints_spinUp(directory)
 
@@ -811,21 +819,21 @@ def create_matters_bs(matters_list):
                 fermi_energy = extract_fermi(directory)
                 kpath = extract_kpath(directory)
                 orbitals_bands_set = extract_eigenvalues_bands_nonpolarized(directory)
-                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, 1.0])
+                matters.append([bstype, label, fermi_energy, kpath, orbitals_bands_set, color, 1.0])
 
             # Bandstructure plotting style: spin up, spin up orbitals
             if bstype.lower() in ["spin up", "spin up monocolor", "spin up bands", "spin up orbitals"]:
                 fermi_energy = extract_fermi(directory)
                 kpath = extract_kpath(directory)
                 orbitals_bands_set = extract_eigenvalues_bands_spinUp(directory)
-                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, 1.0])
+                matters.append([bstype, label, fermi_energy, kpath, orbitals_bands_set, color, 1.0])
 
             # Bandstructure plotting style: spin down, spin down orbitals
             if bstype.lower() in ["spin down", "spin down monocolor", "spin down bands", "spin down orbitals"]:
                 fermi_energy = extract_fermi(directory)
                 kpath = extract_kpath(directory)
                 orbitals_bands_set = extract_eigenvalues_bands_spinDown(directory)
-                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, 1.0])
+                matters.append([bstype, label, fermi_energy, kpath, orbitals_bands_set, color, 1.0])
 
     elif len(matters_list[0]) == 5:
         for matter_dir in matters_list:
@@ -851,21 +859,21 @@ def create_matters_bs(matters_list):
                 fermi_energy = extract_fermi(directory)
                 kpath = extract_kpath(directory)
                 orbitals_bands_set = extract_eigenvalues_bands_nonpolarized(directory)
-                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, alpha])
+                matters.append([bstype, label, fermi_energy, kpath, orbitals_bands_set, color, alpha])
 
             # Bandstructure plotting style: spin up, spin up bands, spin up orbitals
             if bstype.lower() in ["spin up", "spin up monocolor", "spin up bands", "spin up orbitals"]:
                 fermi_energy = extract_fermi(directory)
                 kpath = extract_kpath(directory)
                 orbitals_bands_set = extract_eigenvalues_bands_spinUp(directory)
-                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, alpha])
+                matters.append([bstype, label, fermi_energy, kpath, orbitals_bands_set, color, alpha])
 
             # Bandstructure plotting style: spin down, spin down bands, spin down orbitals
             if bstype.lower() in ["spin down", "spin down monocolor", "spin down bands", "spin down orbitals"]:
                 fermi_energy = extract_fermi(directory)
                 kpath = extract_kpath(directory)
                 orbitals_bands_set = extract_eigenvalues_bands_spinDown(directory)
-                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, alpha])
+                matters.append([bstype, label, fermi_energy, kpath, orbitals_bands_set, color, alpha])
 
     return matters
 
