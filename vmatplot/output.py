@@ -124,10 +124,10 @@ def color_sampling(color_family):
         return
 
     color_set = []
-    if color_family in ("Orbit", "orbit"):
+    if color_family in ("Orbital", "orbital", "Orbitals", "orbitals"):
         color_set.append("#145AAA") # colors[0]: Base
-        color_set.append("#1473E1") # colors[1]: total
-        color_set.append("#1EB4FF") # colors[2]: Integral
+        color_set.append("#1478E1") # colors[1]: total
+        color_set.append("#14A0FF") # colors[2]: Integral
 
         color_set.append("#8C64F0") # colors[3]: s-orbital
         color_set.append("#D25ADC") # colors[4]: px-orbital
@@ -146,7 +146,7 @@ def color_sampling(color_family):
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")
         color_set.append("#28AF3C")
-        color_set.append("#1473E1")
+        color_set.append("#1478E1")
         color_set.append("#8C64F0")
         return color_set
 
@@ -158,7 +158,7 @@ def color_sampling(color_family):
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")
         color_set.append("#28AF3C")
-        color_set.append("#1473E1")
+        color_set.append("#1478E1")
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
         return color_set
@@ -170,7 +170,7 @@ def color_sampling(color_family):
 
         color_set.append("#FAC81E")
         color_set.append("#28AF3C")
-        color_set.append("#1473E1")
+        color_set.append("#1478E1")
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
         color_set.append("#F03C64")
@@ -182,7 +182,7 @@ def color_sampling(color_family):
         color_set.append("#FFD71E")
 
         color_set.append("#28AF3C")
-        color_set.append("#1473E1")
+        color_set.append("#1478E1")
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
         color_set.append("#F03C64")
@@ -194,7 +194,7 @@ def color_sampling(color_family):
         color_set.append("#28AF3C")
         color_set.append("#73C81E")
 
-        color_set.append("#1473E1")
+        color_set.append("#1478E1")
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
         color_set.append("#F03C64")
@@ -204,8 +204,8 @@ def color_sampling(color_family):
 
     if color_family in ("Blue", "blue", "Azure", "azure"):
         color_set.append("#145AAA") # colors[0]
-        color_set.append("#1473E1") # colors[1]
-        color_set.append("#1EB4FF") # colors[2]
+        color_set.append("#1478E1") # colors[1]
+        color_set.append("#14A0FF") # colors[2]
 
         color_set.append("#8C64F0") # colors[3]
         color_set.append("#D25ADC") # colors[4]
@@ -225,7 +225,7 @@ def color_sampling(color_family):
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")
         color_set.append("#28AF3C")
-        color_set.append("#1473E1")
+        color_set.append("#1478E1")
         return color_set
 
     if color_family in ("Purple", "purple"):
@@ -237,7 +237,7 @@ def color_sampling(color_family):
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")
         color_set.append("#28AF3C")
-        color_set.append("#1473E1")
+        color_set.append("#1478E1")
         color_set.append("#8C64F0")
         return color_set
 
@@ -249,7 +249,7 @@ def color_sampling(color_family):
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")
         color_set.append("#28AF3C")
-        color_set.append("#1473E1")
+        color_set.append("#1478E1")
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
         return color_set
@@ -262,7 +262,7 @@ def color_sampling(color_family):
         color_set.append("#FA8C00")
         color_set.append("#FAC81E")
         color_set.append("#28AF3C")
-        color_set.append("#1473E1")
+        color_set.append("#1478E1")
         color_set.append("#8C64F0")
         color_set.append("#D25ADC")
         return color_set
@@ -299,5 +299,3 @@ def plot_color_families():
         plt.text(-max_length*0.01, i + yaxis_offset, label, ha="right", va="center")
 
     plt.show()
-
-# %%

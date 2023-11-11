@@ -2,11 +2,13 @@
 
 ## Code specifications
 
-* Code comments should be written in English;
+* Code comments should be written in English
 
-* Please use the snake_case naming convention, and try to use full names for functions or variable names;
+* Keep the figure style as much as possible
+  * Here we select the default Matplotlib serif font: DejaVu Serif;
 
-* Keep the font: default Matplotlib serif font: DejaVu Serif.
+* Keep the code style as much as possible
+  * Please use the snake_case naming convention, and try to use full names for functions or variable names.
 
 ### algorithms.py: General algorithms
 

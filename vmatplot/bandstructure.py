@@ -359,6 +359,59 @@ def extract_eigenvalues_bands(directory):
     # Return the transposed matrix of eigenvalues
     return transposed_eigenvalues_matrix
 
+def extract_eigenvalues_conductionBands(directory):
+    """
+    Extracts the conduction band eigenvalues from a VASP calculation.
+
+    This function analyzes the eigenvalues for each band at every k-point and
+    identifies those bands as conduction bands whose minimum eigenvalue is
+    greater than the Fermi energy. It is assumed that the Fermi energy has
+    been calculated correctly and is representative of the material's electronic
+    structure.
+
+    Args:
+    directory (str): The directory path that contains the VASP output files, 
+    specifically the 'vasprun.xml' file.
+
+    Returns:
+    list of lists: A matrix where each sublist contains the eigenvalues of a 
+    conduction band at different k-points. Each sublist corresponds to a 
+    conduction band.
+    """
+    eigenvalues_matrix = extract_eigenvalues_bands(directory)
+    conduction_bands = []
+    fermi_energy = extract_fermi(directory)
+    for eigenvalues_bands in eigenvalues_matrix:
+        if np.min(eigenvalues_bands) > fermi_energy:
+            conduction_bands.append(eigenvalues_bands)
+    return conduction_bands
+
+def extract_eigenvalues_valenceBands(directory):
+    """
+    Extracts the valence band eigenvalues from a VASP calculation.
+
+    This function goes through the eigenvalues for each band at every k-point and
+    identifies those bands as valence bands whose maximum eigenvalue is less than
+    the Fermi energy. The Fermi energy should be accurately determined to ensure
+    correct identification of valence bands.
+
+    Args:
+    directory (str): The directory path that contains the VASP output files, 
+    specifically the 'vasprun.xml' file.
+
+    Returns:
+    list of lists: A matrix where each sublist contains the eigenvalues of a 
+    valence band at different k-points. Each sublist corresponds to a 
+    valence band.
+    """
+    eigenvalues_matrix = extract_eigenvalues_bands(directory)
+    valence_bands = []
+    fermi_energy = extract_fermi(directory)
+    for eigenvalues_bands in eigenvalues_matrix:
+        if np.max(eigenvalues_bands) < fermi_energy:
+            valence_bands.append(eigenvalues_bands)
+    return valence_bands
+
 def extract_eigenvalues_kpoints_spinUp(directory):
     """
     Extracts the projected eigenvalues for different orbitals (s, p, d) for spin-up electrons from a VASP calculation.
@@ -695,20 +748,125 @@ def clean_kpoints(kpoints_list, tol=1e-10):
     return kpoints_list
 
 def create_matters_bs(matters_list):
-    # matters = create_matters_bs(matters_list)
-    # matters[0] = label
-    # matters[1] = fermi_energy
-    # matters[2] = kpoints path: x-axis
-    # matters[3] = bands
-    # matters[4] = color family
-    # matters[5] = alpha
+    # bandstructure data type: "monocolor", "bands", "orbitals", "spin up", "spin up orbitals", "spin down", "spin down orbitals"
+    """
+    Prepares data for plotting band structures with various styles and options.
+
+    This function processes a list of band structure specifications and extracts
+    the necessary data for each specified material and plotting style. It supports
+    multiple styles including monocolor, bands, orbitals, and spin-polarized bands.
+    The function handles different data types and prepares them for visualization
+    using the plot_bandstructure function.
+
+    Args:
+        matters_list (list of matter_list)
+            A list where each sublist represents a specificband structure to be plotted. Each sublist containsthe following elements:
+            - matter_list[0]: bstype (str)
+                The plotting style. Supported styles include:
+                    "monocolor", "bands", "orbitals", 
+                    "spin up monocolor", "spin up bands", "spin up orbitals", 
+                    "spin down monocolor", "spin down bands", "spin down orbitals".
+            - matter_list[1]: label (str)
+                The label for the data set. Use an empty string ("") if no label is needed.
+            - matter_list[2]: directory (str)
+                The directory path where the VASP calculation files are located.
+            - matter_list[3]: color (str)
+                The color family name for plotting. Specifies the color used in the plot.
+            - matter_list[4]: alpha (float, optional)
+                The opacity level of the plot line. Ranges from 0 (transparent) to 1 (opaque). If not provided, defaults to 1.0.
+
+    Returns:
+        list: A list of prepared data sets, each corresponding to an entry in matters_list.
+              Each data set is a list containing the bstype, label, Fermi energy, k-path,
+              band data (and/or orbital data), color, and alpha value. This list is ready
+              to be used with the plot_bandstructure function for visualization.
+
+    Example:
+        input_list = [["bands", "Sample1", "/path/to/data1", "blue"],
+                      ["monocolor", "Sample2", "/path/to/data2", "violet", 0.5]]
+        prepared_data = create_matters_bs(input_list)
+        # Now 'prepared_data' can be used with 'plot_bandstructure' for plotting.
+    """
     matters = []
-    for matter_dir in matters_list:
-        label, directory, color, alpha = matter_dir
-        fermi_energy = extract_fermi(directory)
-        kpath = extract_kpath(directory)
-        bands = extract_eigenvalues_bands(directory)
-        matters.append([label, fermi_energy, kpath, bands, color, alpha])
+    if len(matters_list[0]) == 4:
+        for matter_dir in matters_list:
+            bstype, label, directory, color = matter_dir
+            # Bandstructure plotting style: monocolor
+            if bstype.lower() in ["monocolor"]:
+                fermi_energy = extract_fermi(directory)
+                kpath = extract_kpath(directory)
+                bands = extract_eigenvalues_bands(directory)
+                matters.append([bstype, label, fermi_energy, kpath, bands, color, 1.0])
+
+            # Bandstructure plotting style: bands
+            if bstype.lower() in ["bands"]:
+                fermi_energy = extract_fermi(directory)
+                kpath = extract_kpath(directory)
+                conduction_bands = extract_eigenvalues_conductionBands(directory)
+                valence_bands = extract_eigenvalues_valenceBands(directory)
+                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, valence_bands, color, 1.0])
+
+            # Bandstructure plotting style: orbitals
+            if bstype.lower() in ["orbitals"]:
+                fermi_energy = extract_fermi(directory)
+                kpath = extract_kpath(directory)
+                orbitals_bands_set = extract_eigenvalues_bands_nonpolarized(directory)
+                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, 1.0])
+
+            # Bandstructure plotting style: spin up, spin up orbitals
+            if bstype.lower() in ["spin up", "spin up monocolor", "spin up bands", "spin up orbitals"]:
+                fermi_energy = extract_fermi(directory)
+                kpath = extract_kpath(directory)
+                orbitals_bands_set = extract_eigenvalues_bands_spinUp(directory)
+                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, 1.0])
+
+            # Bandstructure plotting style: spin down, spin down orbitals
+            if bstype.lower() in ["spin down", "spin down monocolor", "spin down bands", "spin down orbitals"]:
+                fermi_energy = extract_fermi(directory)
+                kpath = extract_kpath(directory)
+                orbitals_bands_set = extract_eigenvalues_bands_spinDown(directory)
+                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, 1.0])
+
+    elif len(matters_list[0]) == 5:
+        for matter_dir in matters_list:
+            bstype, label, directory, color, alpha = matter_dir
+
+            # Bandstructure plotting style: monocolor
+            if bstype.lower() in ["monocolor"]:
+                fermi_energy = extract_fermi(directory)
+                kpath = extract_kpath(directory)
+                bands = extract_eigenvalues_bands(directory)
+                matters.append([bstype, label, fermi_energy, kpath, bands, color, alpha])
+
+            # Bandstructure plotting style: bands
+            if bstype.lower() in ["bands"]:
+                fermi_energy = extract_fermi(directory)
+                kpath = extract_kpath(directory)
+                conduction_bands = extract_eigenvalues_conductionBands(directory)
+                valence_bands = extract_eigenvalues_valenceBands(directory)
+                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, valence_bands, color, alpha])
+
+            # Bandstructure plotting style: orbitals
+            if bstype.lower() in ["orbitals"]:
+                fermi_energy = extract_fermi(directory)
+                kpath = extract_kpath(directory)
+                orbitals_bands_set = extract_eigenvalues_bands_nonpolarized(directory)
+                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, alpha])
+
+            # Bandstructure plotting style: spin up, spin up bands, spin up orbitals
+            if bstype.lower() in ["spin up", "spin up monocolor", "spin up bands", "spin up orbitals"]:
+                fermi_energy = extract_fermi(directory)
+                kpath = extract_kpath(directory)
+                orbitals_bands_set = extract_eigenvalues_bands_spinUp(directory)
+                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, alpha])
+
+            # Bandstructure plotting style: spin down, spin down bands, spin down orbitals
+            if bstype.lower() in ["spin down", "spin down monocolor", "spin down bands", "spin down orbitals"]:
+                fermi_energy = extract_fermi(directory)
+                kpath = extract_kpath(directory)
+                orbitals_bands_set = extract_eigenvalues_bands_spinDown(directory)
+                matters.append([bstype, label, fermi_energy, kpath, conduction_bands, orbitals_bands_set, color, alpha])
+
     return matters
 
 # def create_matters_bsdos(matters_list):
