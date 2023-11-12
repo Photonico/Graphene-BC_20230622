@@ -81,66 +81,6 @@ def extract_fermi_outcar(directory):
     # For now, we'll just return None
     return None
 
-def extract_band_edges(directory):
-    """
-    Extracts the bandgap, highest occupied molecular orbital (HOMO), and 
-    lowest unoccupied molecular orbital (LUMO) energies from a VASP vasprun.xml file.
-
-    Args:
-        directory (str): The directory path containing the VASP vasprun.xml file.
-
-    Returns:
-        tuple: A tuple containing the bandgap, HOMO energy, and LUMO energy.
-               Returns (0, None, None) if the bandgap cannot be determined.
-
-    This function parses the vasprun.xml file to find the HOMO and LUMO energies.
-    It assumes a non-spin-polarized calculation. For each k-point, it identifies
-    the highest energy band with occupancy > 0 (HOMO) and the lowest energy band
-    with occupancy = 0 (LUMO). The bandgap is calculated as the difference between
-    LUMO and HOMO energies.
-
-    Note:
-        This function does not handle spin-polarized calculations and assumes that
-        the XML file is well-formed and corresponds to a completed VASP calculation.
-    """
-    # Construct the path to the vasprun.xml file and parse it
-    xml_file = os.path.join(directory, "vasprun.xml")
-    tree = ET.parse(xml_file)
-    root = tree.getroot()
-    # Initialize HOMO and LUMO energies
-    homo_energy = None
-    lumo_energy = None
-    # Find the eigenvalues section in the XML tree
-    eigenvalues_section = root.find(".//eigenvalues/array/set/set")
-    if eigenvalues_section is None:
-        return 0, None, None
-    # Iterate over each k-point set to find HOMO and LUMO
-    for kpoint_set in eigenvalues_section:
-        for band in kpoint_set:
-            energy, occupancy = map(float, band.text.split()[:2])
-            # Determine HOMO and LUMO based on occupancy
-            if occupancy > 0.0:
-                if homo_energy is None or energy > homo_energy:
-                    homo_energy = energy
-            else:
-                if lumo_energy is None or energy < lumo_energy:
-                    lumo_energy = energy
-    # Calculate the bandgap
-    bandgap = lumo_energy - homo_energy if homo_energy is not None and lumo_energy is not None else 0
-    return bandgap, homo_energy, lumo_energy
-
-def get_bandgap(directory):
-    band_info = extract_band_edges(directory)
-    return band_info[0]
-
-def get_HOMO(directory):
-    band_info = extract_band_edges(directory)
-    return band_info[1]
-
-def get_LUMO(directory):
-    band_info = extract_band_edges(directory)
-    return band_info[2]
-
 def extract_kpoints_eigenval(directory):
     """
     Extracts k-point coordinates from a VASP EIGENVAL file.
