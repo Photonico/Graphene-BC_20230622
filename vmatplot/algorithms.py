@@ -1,6 +1,7 @@
 #### General Algoriths
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914
 
+import os
 import numpy as np
 
 from scipy.optimize import leastsq
@@ -119,3 +120,58 @@ def polynomially_fit_surface(lattice_list, distance_list = None, energy_list = N
         return lattice_samples, distance_samples, energy_samples
     else:
         return coef
+
+def rec_to_cart(klist_source, directory, crystal_type):
+    # Define the reciprocal lattice vectors for different crystal types
+    # These are the transformation matrices for converting reciprocal lattice
+    # points to Cartesian coordinates.
+    if crystal_type.lower() == "hcc":
+        transform_matrix = np.array([[-1, 1, 1], [1, -1, 1], [1, 1, -1]]) / 2
+    elif crystal_type.lower() == "bcc":
+        transform_matrix = np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]]) / 2
+    elif crystal_type.lower() == "hcp":
+        # For HCP, the transformation depends on the ratio of the lattice constants a and c.
+        # We need to read these from a file or define them here.
+        # For example, let's assume we have them in a file named 'lattice_constants.txt'
+        with open(os.path.join(directory, "lattice_constants.txt"), "r", encoding="utf-8") as file:
+            a, c = map(float, file.readline().split())
+        transform_matrix = np.array([[1, -1/np.sqrt(3), 0], [0, 2/np.sqrt(3), 0], [0, 0, a/c]])
+    elif crystal_type.lower() == "sc":
+        transform_matrix = np.identity(3)
+    elif crystal_type.lower() == "graphene":
+        a = 2.46  # Graphene's lattice constant in angstroms
+        b1 = (2 * np.pi / a) * np.array([1 / np.sqrt(3), 1, 0])
+        b2 = (2 * np.pi / a) * np.array([1 / np.sqrt(3), -1, 0])
+        transform_matrix = np.array([b1, b2, [0, 0, 1]])
+    else:
+        raise ValueError(f"Unknown crystal type: {crystal_type}")
+    # Convert the Klist from reciprocal to Cartesian coordinates
+    cartesian_kpoints = np.dot(klist_source, transform_matrix.T)
+    return cartesian_kpoints
+
+def cart_to_rec(klist_source, directory, crystal_type):
+    # Define the transformation matrices for converting Cartesian coordinates
+    # to reciprocal lattice points for different crystal types.
+    if crystal_type.lower() == "hcc":
+        transform_matrix = np.linalg.inv(np.array([[-1, 1, 1], [1, -1, 1], [1, 1, -1]]) / 2)
+    elif crystal_type.lower() == "bcc":
+        transform_matrix = np.linalg.inv(np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]]) / 2)
+    elif crystal_type.lower() == "hcp":
+        # For HCP, the transformation depends on the ratio of the lattice constants a and c.
+        # We need to read these from a file or define them here.
+        # For example, let's assume we have them in a file named 'lattice_constants.txt'
+        with open(os.path.join(directory, "lattice_constants.txt"), "r", encoding="utf-8") as file:
+            a, c = map(float, file.readline().split())
+        transform_matrix = np.linalg.inv(np.array([[1, -1/np.sqrt(3), 0], [0, 2/np.sqrt(3), 0], [0, 0, a/c]]))
+    elif crystal_type.lower() == "sc":
+        transform_matrix = np.linalg.inv(np.identity(3))
+    elif crystal_type.lower() == "graphene":
+        a = 2.46  # Graphene's lattice constant in angstroms
+        b1 = (2 * np.pi / a) * np.array([1 / np.sqrt(3), 1, 0])
+        b2 = (2 * np.pi / a) * np.array([1 / np.sqrt(3), -1, 0])
+        transform_matrix = np.linalg.inv(np.array([b1, b2, [0, 0, 1]]))
+    else:
+        raise ValueError(f"Unknown crystal type: {crystal_type}")
+    # Convert the Kpoints from Cartesian to reciprocal coordinates
+    reciprocal_kpoints = np.dot(klist_source, transform_matrix.T)
+    return reciprocal_kpoints

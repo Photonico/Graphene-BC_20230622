@@ -266,7 +266,7 @@ def color_sampling(color_family):
         return color_set
 
     if color_family == "all_families":
-        return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown", "Orbit"]
+        return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown", "Orbital"]
 
 def plot_color_families():
     color_families = color_sampling("all_families")
@@ -278,7 +278,7 @@ def plot_color_families():
     plt.rcParams.update(params)
 
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
-    plt.title("Colors of Different Families")
+    plt.title("Color families")
 
     for row, color_row in enumerate(all_colors):
         for col, color in enumerate(color_row):

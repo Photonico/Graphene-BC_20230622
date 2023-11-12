@@ -8,79 +8,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
+from vmatplot.commons import get_elements
 from vmatplot.output import canvas_setting, color_sampling
-
-# File analysis
-def analyze_dpos(directory_path):
-    ## Help information
-    if directory_path == "help":
-        print("Please use this function on the project folder.")
-        return []
-
-    ## Construct the full path to the vasprun.xml file
-    file_path = os.path.join(directory_path, "vasprun.xml")
-    # Check if the vasprun.xml file exists in the given directory
-    if not os.path.isfile(file_path):
-        print(f"Error: The file vasprun.xml does not exist in the directory {directory_path}.")
-        return
-
-    # Parse the vasprun.xml file
-    tree = ET.parse(file_path)
-    root = tree.getroot()
-    # Flags to keep track of <ion 1> and <spin 1>
-    ion_1_found = False
-    spin_1_count = 0
-    # Loop through <set> elements
-    for set_element in root.findall(".//set"):
-        comment = set_element.attrib.get("comment", "")
-        # Track when <ion 1> is found
-        if "ion 1" in comment:
-            ion_1_found = True
-        # Count <spin 1> only after <ion 1> is found
-        if ion_1_found and "spin 1" in comment:
-            spin_1_count += 1
-            # Skip the first <spin 1> after <ion 1> is found
-            if spin_1_count == 1:
-                continue
-            # Loop through the <r> elements and print the number of values and the values themselves
-            for i, r_element in enumerate(set_element.findall("r")):
-                values = list(map(float, r_element.text.split()))
-                print(f"Number of values in row {i + 1}: {len(values)}")
-                print(f"Values: {values}")
-            # Break the loop after analyzing the second occurrence of <spin 1>
-            break
-
-# Elements analysis for PDoS calculation
-def get_elements(directory_path):
-    ## Construct the full path to the vasprun.xml file
-    file_path = os.path.join(directory_path, "vasprun.xml")
-    # Check if the vasprun.xml file exists in the given directory
-    if not os.path.isfile(file_path):
-        print(f"Error: The file vasprun.xml does not exist in the directory {directory_path}.")
-        return
-
-    # Parse the XML file
-    tree = ET.parse(file_path)
-    root = tree.getroot()
-
-    # Initialize an empty dictionary to store the element-ion pairs
-    element_ions = {}
-
-    # Use XPath to locate the <rc><c> tags under the path "atominfo/array[@name="atoms"]/set"
-    for i, atom in enumerate(root.findall(".//atominfo//array[@name='atoms']//set//rc"), start=1):
-        element = atom.find("c").text.strip()
-        if element in element_ions:
-            # Update the maximum index for the element
-            element_ions[element][1] = i
-        else:
-            # Add a new entry for the element, with the minimum and maximum index being the same
-            element_ions[element] = [i, i]
-
-    # Convert the lists to tuples
-    for element in element_ions:
-        element_ions[element] = tuple(element_ions[element])
-
-    return element_ions
 
 # Total PDoS: univseral elements and layers
 def extract_pdos(directory_path):
