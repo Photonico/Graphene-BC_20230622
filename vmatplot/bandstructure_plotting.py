@@ -139,8 +139,8 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
     plt.axhline(y = 0, color=fermi_color[0], alpha=1.00, linestyle="--", label="Fermi energy", zorder=2)
     efermi = fermi_last
     kpath_range = kpath_end-kpath_start
-    fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
-    plt.text(kpath_start+kpath_range*0.98, eigen_range*0.02, fermi_energy_text, fontsize=10, c=fermi_color[0], rotation=0, va = "bottom", ha="right", zorder=5)
+    # fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
+    # plt.text(kpath_start+kpath_range*0.98, eigen_range*0.02, fermi_energy_text, fontsize=10, c=fermi_color[0], rotation=0, va = "bottom", ha="right", zorder=5)
 
     # Title
     plt.title(f"Bandstructure for {title}")

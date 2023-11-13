@@ -23,7 +23,14 @@ def extract_high_symlines(directory):
     It checks for the expected format and extracts the high symmetry points and their limits.
     """
     # Open and read the KPOINTS file
-    with open(os.path.join(directory, "KPOINTS"), "r", encoding="utf-8") as file:
+    kpoints_file_path = os.path.join(directory, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory, "KPOINTS_OPT")
+    if os.path.exists(kpoints_opt_path):
+        kpoints_file = kpoints_opt_path
+    elif os.path.exists(kpoints_file_path):
+        kpoints_file = kpoints_file_path
+
+    with open(kpoints_file, "r", encoding="utf-8") as file:
         KPOINTS = file.readlines()
     # Check if the KPOINTS file is in line-mode
     if KPOINTS[2][0] not in ("l", "L"):
@@ -213,9 +220,14 @@ def extract_bands_count(directory):
     return len(eigen_lines)
 
 def kpoints_coordinate(directory):
-    kpoints_file = os.path.join(directory, "KPOINTS")
-    high_symmetry_points = {}
+    kpoints_file_path = os.path.join(directory, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory, "KPOINTS_OPT")
+    if os.path.exists(kpoints_opt_path):
+        kpoints_file = kpoints_opt_path
+    elif os.path.exists(kpoints_file_path):
+        kpoints_file = kpoints_file_path
 
+    high_symmetry_points = {}
     with open(kpoints_file, "r", encoding="utf-8") as file:
         lines = file.readlines()
         # Assume high symmetry points start from the fifth line in the KPOINTS file
