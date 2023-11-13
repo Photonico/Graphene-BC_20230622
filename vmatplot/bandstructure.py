@@ -383,20 +383,22 @@ def extract_eigenvalues_bands_spinDown(directory):
 def extract_eigenvalues_conductionBands(directory, spin_label):
     eigenvalues_matrix = extract_eigenvalues_bands(directory, spin_label)
     conduction_bands = []
+    TOLERANCE = 1e-4
     current_LUMO = extract_bandgap_outcar(directory)[2]
     current_HOMO = extract_bandgap_outcar(directory)[1]
     for eigenvalues_bands in eigenvalues_matrix:
-        if np.min(eigenvalues_bands) >= current_LUMO:
+        if np.min(eigenvalues_bands) >= current_LUMO-TOLERANCE:
             conduction_bands.append(eigenvalues_bands)
     return conduction_bands
 
 def extract_eigenvalues_valenceBands(directory, spin_label):
     eigenvalues_matrix = extract_eigenvalues_bands(directory, spin_label)
     valence_bands = []
+    TOLERANCE = 1e-4
     current_LUMO = extract_bandgap_outcar(directory)[2]
     current_HOMO = extract_bandgap_outcar(directory)[1]
     for eigenvalues_bands in eigenvalues_matrix:
-        if np.max(eigenvalues_bands) <= current_HOMO:
+        if np.max(eigenvalues_bands) <= current_HOMO+TOLERANCE:
             valence_bands.append(eigenvalues_bands)
     return valence_bands
 
