@@ -296,7 +296,54 @@ def clean_kpoints(kpoints_list, tol=1e-10):
     kpoints_list[np.isclose(kpoints_list, 0, atol=tol)] = 0
     return kpoints_list
 
-def extract_eigenvalues_kpoints(directory, spin_label):
+# def extract_eigenvalues_kpoints(directory, spin_label):
+#     """
+#     Extracts the eigenvalues for each k-point from a VASP vasprun.xml file considering spin polarization.
+
+#     Args:
+#         directory (str): The directory path that contains the VASP vasprun.xml file.
+#         spin_label (str): The spin channel label ('spin1' or 'spin2').
+
+#     Returns:
+#         list of lists: A matrix where each sublist contains the eigenvalues for a specific k-point and spin channel.
+
+#     This function parses the vasprun.xml file to extract the electronic energy levels (eigenvalues)
+#     at each k-point in the reciprocal lattice for the material being studied, considering the specified spin channel.
+#     These eigenvalues are crucial for analyzing the material's electronic structure, such as plotting band structures.
+#     """
+#     # Construct the path to the vasprun.xml file and parse it
+#     xml_file = os.path.join(directory, "vasprun.xml")
+#     tree = ET.parse(xml_file)
+#     root = tree.getroot()
+#     # Initialize a list to store the eigenvalues for each k-point
+#     eigenvalues_matrix = []
+#     # Find the eigenvalues section in the XML tree
+#     eigenvalues_section = root.find(".//eigenvalues")
+#     if eigenvalues_section is not None:
+#         # Find all k-point <set> elements within the eigenvalues section
+#         # kpoint_sets = eigenvalues_section.findall(".//set/set/set")
+#         kpoint_sets = eigenvalues_section.findall(f".//set/set[@comment='{spin_label}']/set")
+#         if kpoint_sets:
+#             # Iterate over each k-point set to extract eigenvalues
+#             for kpoint_set in kpoint_sets:
+#                 kpoint_eigenvalues = []
+#                 # Iterate over each band's eigenvalue within the current k-point set
+#                 for r in kpoint_set.findall("./r"):
+#                     # The energy eigenvalue is the first number in the <r> tag's text
+#                     energy = float(r.text.split()[0])
+#                     kpoint_eigenvalues.append(energy)
+#                 # Append the list of eigenvalues for this k-point to the matrix
+#                 eigenvalues_matrix.append(kpoint_eigenvalues)
+#         else:
+#             # Handle the case where no k-point <set> elements are found
+#             print("No k-point <set> elements found in the eigenvalues section.")
+#     else:
+#         # Handle the case where the eigenvalues section is missing
+#         print("Eigenvalues section not found in the XML file.")
+#     # Return the matrix of eigenvalues
+#     return eigenvalues_matrix
+
+def extract_eigenvalues_kpoints_beta(directory, spin_label):
     """
     Extracts the eigenvalues for each k-point from a VASP vasprun.xml file considering spin polarization.
 
@@ -311,37 +358,49 @@ def extract_eigenvalues_kpoints(directory, spin_label):
     at each k-point in the reciprocal lattice for the material being studied, considering the specified spin channel.
     These eigenvalues are crucial for analyzing the material's electronic structure, such as plotting band structures.
     """
-    # Construct the path to the vasprun.xml file and parse it
     xml_file = os.path.join(directory, "vasprun.xml")
-    tree = ET.parse(xml_file)
-    root = tree.getroot()
-    # Initialize a list to store the eigenvalues for each k-point
-    eigenvalues_matrix = []
-    # Find the eigenvalues section in the XML tree
-    eigenvalues_section = root.find(".//eigenvalues")
-    if eigenvalues_section is not None:
-        # Find all k-point <set> elements within the eigenvalues section
-        # kpoint_sets = eigenvalues_section.findall(".//set/set/set")
-        kpoint_sets = eigenvalues_section.findall(f".//set/set[@comment='{spin_label}']/set")
-        if kpoint_sets:
-            # Iterate over each k-point set to extract eigenvalues
-            for kpoint_set in kpoint_sets:
-                kpoint_eigenvalues = []
-                # Iterate over each band's eigenvalue within the current k-point set
-                for r in kpoint_set.findall("./r"):
-                    # The energy eigenvalue is the first number in the <r> tag's text
-                    energy = float(r.text.split()[0])
-                    kpoint_eigenvalues.append(energy)
-                # Append the list of eigenvalues for this k-point to the matrix
-                eigenvalues_matrix.append(kpoint_eigenvalues)
+    kpoints_file_path = os.path.join(directory, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory, "KPOINTS_OPT")
+    # HSE06 algorithms
+    if os.path.exists(kpoints_opt_path):
+        tree = ET.parse(xml_file)
+        root = tree.getroot()
+        # Initialize a list to store the eigenvalues for each k-point
+        eigenvalues_matrix = []
+        # Find the eigenvalues section in the XML tree
+        eigenvalues_section = root.find(".//eigenvalues")
+        return 0
+    # GGA-PBE algorithms
+    elif os.path.exists(kpoints_file_path):
+        tree = ET.parse(xml_file)
+        root = tree.getroot()
+        # Initialize a list to store the eigenvalues for each k-point
+        eigenvalues_matrix = []
+        # Find the eigenvalues section in the XML tree
+        eigenvalues_section = root.find(".//eigenvalues")
+        if eigenvalues_section is not None:
+            # Find all k-point <set> elements within the eigenvalues section
+            # kpoint_sets = eigenvalues_section.findall(".//set/set/set")
+            kpoint_sets = eigenvalues_section.findall(f".//set/set[@comment='{spin_label}']/set")
+            if kpoint_sets:
+                # Iterate over each k-point set to extract eigenvalues
+                for kpoint_set in kpoint_sets:
+                    kpoint_eigenvalues = []
+                    # Iterate over each band's eigenvalue within the current k-point set
+                    for r in kpoint_set.findall("./r"):
+                        # The energy eigenvalue is the first number in the <r> tag's text
+                        energy = float(r.text.split()[0])
+                        kpoint_eigenvalues.append(energy)
+                    # Append the list of eigenvalues for this k-point to the matrix
+                    eigenvalues_matrix.append(kpoint_eigenvalues)
+            else:
+                # Handle the case where no k-point <set> elements are found
+                print("No k-point <set> elements found in the eigenvalues section.")
         else:
-            # Handle the case where no k-point <set> elements are found
-            print("No k-point <set> elements found in the eigenvalues section.")
-    else:
-        # Handle the case where the eigenvalues section is missing
-        print("Eigenvalues section not found in the XML file.")
-    # Return the matrix of eigenvalues
-    return eigenvalues_matrix
+            # Handle the case where the eigenvalues section is missing
+            print("Eigenvalues section not found in the XML file.")
+        # Return the matrix of eigenvalues
+        return eigenvalues_matrix
 
 def extract_eigenvalues_kpoints_nonpolarized(directory):
     return extract_eigenvalues_kpoints(directory, "spin 1")
