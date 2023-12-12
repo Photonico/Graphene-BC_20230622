@@ -74,7 +74,6 @@ def plot_bandstructure_PDoS
 def_plot_bandstructure_duoPDoS
 """
 
-
 def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="False"):
     # Help information
     help_info = """
