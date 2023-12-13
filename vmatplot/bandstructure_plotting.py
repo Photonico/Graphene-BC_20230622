@@ -143,7 +143,7 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
 
     # Title
     plt.title(f"Bandstructure for {title}")
-    plt.ylabel("Shifted energy (eV)")
+    plt.ylabel("Energy (eV)")
     # plt.ylabel("$E-E_\text{F}$ (eV)")
 
     # y-axis range

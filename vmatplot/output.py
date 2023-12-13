@@ -239,7 +239,7 @@ def color_sampling(color_family):
         color_set.append("#8C64F0")
         return color_set
 
-    if color_family in ("Wine", "Wine"):
+    if color_family in ("Wine", "wine"):
         color_set.append("#AA1E64")
         color_set.append("#C82364")
         color_set.append("#F03C64")
