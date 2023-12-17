@@ -57,6 +57,8 @@ def create_matters_bs(matters_list):
             matters.append([bstype, label, fermi_energy, kpath, conduction_bands, valence_bands, color, alpha])
     return matters
 
+# def create_matters_bsDos(matters_list):
+
 """
 # Plot bandstructure for a list of matters with customize style 
 def plot_bandstructure
