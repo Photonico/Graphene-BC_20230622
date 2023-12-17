@@ -415,72 +415,6 @@ def extract_eigenvalues_kpoints(directory, spin_label):
     # Return the matrix of eigenvalues
     return eigenvalues_matrix
 
-    # # HSE06 algorithms
-    # if os.path.exists(kpoints_opt_path):
-    #     tree = ET.parse(xml_file)
-    #     root = tree.getroot()
-    #     # Initialize a list to store the eigenvalues for each k-point
-    #     eigenvalues_matrix = []
-    #     # Find the eigenvalues section in the XML tree
-    #     eigenvalues_section = root.find("./calculation/eigenvalues_kpoints_opt[@comment='kpoints_opt']/eigenvalues")
-        
-        
-    #     if eigenvalues_section is not None:
-    #         # Find all k-point <set> elements within the eigenvalues section
-    #         # kpoint_sets = eigenvalues_section.findall(".//set/set/set")
-    #         kpoint_sets = eigenvalues_section.findall(f".//set/set[@comment='{spin_label}']/set")
-    #         if kpoint_sets:
-    #             # Iterate over each k-point set to extract eigenvalues
-    #             for kpoint_set in kpoint_sets:
-    #                 kpoint_eigenvalues = []
-    #                 # Iterate over each band's eigenvalue within the current k-point set
-    #                 for r in kpoint_set.findall("./r"):
-    #                     # The energy eigenvalue is the first number in the <r> tag's text
-    #                     energy = float(r.text.split()[0])
-    #                     kpoint_eigenvalues.append(energy)
-    #                 # Append the list of eigenvalues for this k-point to the matrix
-    #                 eigenvalues_matrix.append(kpoint_eigenvalues)
-    #         else:
-    #             # Handle the case where no k-point <set> elements are found
-    #             print("No k-point <set> elements found in the eigenvalues section.")
-    #     else:
-    #         # Handle the case where the eigenvalues section is missing
-    #         print("Eigenvalues section not found in the XML file.")
-    #     # Return the matrix of eigenvalues
-    #     return eigenvalues_matrix
-
-    # # GGA-PBE algorithms
-    # elif os.path.exists(kpoints_file_path):
-    #     tree = ET.parse(xml_file)
-    #     root = tree.getroot()
-    #     # Initialize a list to store the eigenvalues for each k-point
-    #     eigenvalues_matrix = []
-    #     # Find the eigenvalues section in the XML tree
-    #     eigenvalues_section = root.find("./calculation/eigenvalues")
-    #     if eigenvalues_section is not None:
-    #         # Find all k-point <set> elements within the eigenvalues section
-    #         # kpoint_sets = eigenvalues_section.findall(".//set/set/set")
-    #         kpoint_sets = eigenvalues_section.findall(f".//set/set[@comment='{spin_label}']/set")
-    #         if kpoint_sets:
-    #             # Iterate over each k-point set to extract eigenvalues
-    #             for kpoint_set in kpoint_sets:
-    #                 kpoint_eigenvalues = []
-    #                 # Iterate over each band's eigenvalue within the current k-point set
-    #                 for r in kpoint_set.findall("./r"):
-    #                     # The energy eigenvalue is the first number in the <r> tag's text
-    #                     energy = float(r.text.split()[0])
-    #                     kpoint_eigenvalues.append(energy)
-    #                 # Append the list of eigenvalues for this k-point to the matrix
-    #                 eigenvalues_matrix.append(kpoint_eigenvalues)
-    #         else:
-    #             # Handle the case where no k-point <set> elements are found
-    #             print("No k-point <set> elements found in the eigenvalues section.")
-    #     else:
-    #         # Handle the case where the eigenvalues section is missing
-    #         print("Eigenvalues section not found in the XML file.")
-    #     # Return the matrix of eigenvalues
-    #     return eigenvalues_matrix
-
 def extract_eigenvalues_kpoints_nonpolarized(directory):
     return extract_eigenvalues_kpoints(directory, "spin 1")
 
@@ -533,7 +467,7 @@ def extract_eigenvalues_bands_spinDown(directory):
 def extract_eigenvalues_conductionBands(directory, spin_label):
     eigenvalues_matrix = extract_eigenvalues_bands(directory, spin_label)
     conduction_bands = []
-    TOLERANCE = 1e-2
+    TOLERANCE = 1
     current_LUMO = extract_bandgap_outcar(directory)[2]
     current_HOMO = extract_bandgap_outcar(directory)[1]
     for eigenvalues_bands in eigenvalues_matrix:
@@ -544,7 +478,7 @@ def extract_eigenvalues_conductionBands(directory, spin_label):
 def extract_eigenvalues_valenceBands(directory, spin_label):
     eigenvalues_matrix = extract_eigenvalues_bands(directory, spin_label)
     valence_bands = []
-    TOLERANCE = 1e-2
+    TOLERANCE = 1
     current_LUMO = extract_bandgap_outcar(directory)[2]
     current_HOMO = extract_bandgap_outcar(directory)[1]
     for eigenvalues_bands in eigenvalues_matrix:
