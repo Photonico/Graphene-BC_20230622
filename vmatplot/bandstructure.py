@@ -464,10 +464,12 @@ def extract_eigenvalues_bands_spinUp(directory):
 def extract_eigenvalues_bands_spinDown(directory):
     return extract_eigenvalues_bands(directory, "spin 2")
 
+global_tolerance = 0.8
+
 def extract_eigenvalues_conductionBands(directory, spin_label):
     eigenvalues_matrix = extract_eigenvalues_bands(directory, spin_label)
     conduction_bands = []
-    TOLERANCE = 0.4
+    TOLERANCE = global_tolerance
     current_LUMO = extract_bandgap_outcar(directory)[2]
     current_HOMO = extract_bandgap_outcar(directory)[1]
     for eigenvalues_bands in eigenvalues_matrix:
@@ -478,7 +480,7 @@ def extract_eigenvalues_conductionBands(directory, spin_label):
 def extract_eigenvalues_valenceBands(directory, spin_label):
     eigenvalues_matrix = extract_eigenvalues_bands(directory, spin_label)
     valence_bands = []
-    TOLERANCE = 0.4
+    TOLERANCE = global_tolerance
     current_LUMO = extract_bandgap_outcar(directory)[2]
     current_HOMO = extract_bandgap_outcar(directory)[1]
     for eigenvalues_bands in eigenvalues_matrix:
