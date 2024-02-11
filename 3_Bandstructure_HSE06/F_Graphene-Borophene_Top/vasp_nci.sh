@@ -8,7 +8,7 @@
 #PBS -l ncpus=48
 #PBS -l walltime=47:59:59
 #PBS -l wd
-#PBS -l jobfs=10GB
+#PBS -l jobfs=16GB
 #PBS -l software=vasp
 #PBS -m ea
 #PBS -l storage=scratch/g46+gdata/g46
