@@ -8,6 +8,14 @@ import matplotlib.pyplot as plt
 
 from vmatplot.output import canvas_setting, color_sampling
 
+def  cal_type(directory_path):
+    kpoints_file_path = os.path.join(directory_path, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
+    if os.path.exists(kpoints_opt_path):
+        return "PBE"
+    elif os.path.exists(kpoints_file_path):
+        return "HSE06"
+
 def extract_dos(directory_path):
     ## Construct the full path to the vasprun.xml file
     file_path = os.path.join(directory_path, "vasprun.xml")
@@ -37,29 +45,60 @@ def extract_dos(directory_path):
     kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
     kpointlist_matrix = kpointlist_array.reshape(-1, 3)
     kpoints_number = kpointlist_matrix.shape[0]
+
     ## Extract eigen, occupancy number
-    for kpoints_index in range(1, kpoints_number+1):
-        xpath_expr = f".//set[@comment='kpoint {kpoints_index}']"
-        eigen_column = np.empty(0)
-        occu_column  = np.empty(0)
-        for eigen_occ_element in root.find(xpath_expr):
-            values_eigen = list(map(float, eigen_occ_element.text.split()))
-            eigen_var = values_eigen[0]
-            eigen_column = np.append(eigen_column, eigen_var)
-            occu_var = values_eigen[1]
-            occu_column = np.append(occu_column, occu_var)
-        if kpoints_index == 1 :
-            eigen_matrix = eigen_column.reshape(-1, 1)
-            occu_matrix = occu_column.reshape(-1, 1)
-        else:
-            eigen_matrix = np.hstack((eigen_matrix,eigen_column.reshape(-1, 1)))
-            occu_matrix  = np.hstack((occu_matrix, occu_column.reshape(-1, 1)))
+    kpoints_file_path = os.path.join(directory_path, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
+    # HSE06 algorithms
+    if os.path.exists(kpoints_opt_path):
+        for kpoints_index in range(1, kpoints_number+1):
+            xpath_expr = f"./calculation/projected_kpoints_opt/eigenvalues/array/set/set[@comment='spin 1']/set[@comment='kpoint {kpoints_index}']"
+            eigen_column = np.empty(0)
+            occu_column  = np.empty(0)
+            kpoint_set = root.find(xpath_expr)
+            for eigen_occ_element in kpoint_set:
+                values_eigen = list(map(float, eigen_occ_element.text.split()))
+                eigen_var = values_eigen[0]
+                eigen_column = np.append(eigen_column, eigen_var)
+                occu_var = values_eigen[1]
+                occu_column = np.append(occu_column, occu_var)
+            if kpoints_index == 1 :
+                eigen_matrix = eigen_column.reshape(-1, 1)
+                occu_matrix = occu_column.reshape(-1, 1)
+            else:
+                eigen_matrix = np.hstack((eigen_matrix,eigen_column.reshape(-1, 1)))
+                occu_matrix  = np.hstack((occu_matrix, occu_column.reshape(-1, 1)))
+    # GGA-PBE algorithms
+    elif os.path.exists(kpoints_file_path):
+        for kpoints_index in range(1, kpoints_number+1):
+            xpath_expr = f".//set[@comment='kpoint {kpoints_index}']"
+            eigen_column = np.empty(0)
+            occu_column  = np.empty(0)
+            kpoint_set = root.find(xpath_expr)
+            for eigen_occ_element in kpoint_set:
+                values_eigen = list(map(float, eigen_occ_element.text.split()))
+                eigen_var = values_eigen[0]
+                eigen_column = np.append(eigen_column, eigen_var)
+                occu_var = values_eigen[1]
+                occu_column = np.append(occu_column, occu_var)
+            if kpoints_index == 1 :
+                eigen_matrix = eigen_column.reshape(-1, 1)
+                occu_matrix = occu_column.reshape(-1, 1)
+            else:
+                eigen_matrix = np.hstack((eigen_matrix,eigen_column.reshape(-1, 1)))
+                occu_matrix  = np.hstack((occu_matrix, occu_column.reshape(-1, 1)))
+
     ## Extract energy, Total DoS, and Integrated DoS
     # lists initialization
-    energy_dos_list     = np.empty(0)
-    total_dos_list      = np.empty(0)
-    integrated_dos_list = np.empty(0)
-    path_dos = ".//total/array/set/set[@comment='spin 1']/r"
+    energy_dos_list     = np.array([])
+    total_dos_list      = np.array([])
+    integrated_dos_list = np.array([])
+
+    if os.path.exists(kpoints_opt_path):
+        path_dos = "./calculation/dos[@comment='kpoints_opt']/total/array/set/set[@comment='spin 1']/r"
+    elif os.path.exists(kpoints_file_path):
+        path_dos = ".//total/array/set/set[@comment='spin 1']/r"
+
     for element_dos in root.findall(path_dos):
         values_dos = list(map(float, element_dos.text.split()))
         energy_dos_list = np.append(energy_dos_list, values_dos[0])
