@@ -68,6 +68,7 @@ def extract_pdos(directory_path):
 
     path_dos_spin_1 = ".//total/array/set/set[@comment='spin 1']/r"
     path_dos_spin_2 = ".//total/array/set/set[@comment='spin 2']/r"
+
     spin2_exists = root.find(path_dos_spin_2) is not None
 
     for element_dos in root.findall(path_dos_spin_1):
@@ -456,7 +457,7 @@ def extract_segment_pdos(directory_path, start, end):
             x2_y2_pdos_sum)
 
 # Total PDoS Plotting
-def plot_total_pdos_data(matter, x_range = None, y_top = None, pdos_type = None, pdos_data = None, color_family="blue"):
+def plot_total_pdos_data(matter, x_range = None, y_top = None, pdos_type = None, data_path = None, color_family="blue"):
     # Help information
     help_info = "Usage: plot_pdos" + \
                 "Use extract_pdos to extract the DoS data."
@@ -480,6 +481,14 @@ def plot_total_pdos_data(matter, x_range = None, y_top = None, pdos_type = None,
     y_limit = y_top
 
     # Data plotting
+    pdos_data = extract_pdos(data_path)
+    # testing term
+    print(pdos_data[8])
+    print(pdos_data[6])
+
+    # if pdos_type in ["Total", "total"]:
+    #     plt.plot(pdos_data[8], pdos_data[6], c=colors[1])
+
     if pdos_type in ["All", "all"]:
         plt.plot(pdos_data[5], pdos_data[6], c=colors[1], label="Total PDoS", zorder=3)
         plt.plot(pdos_data[5], pdos_data[7], c=colors[2], label="Integrated DoS", zorder=2)
@@ -512,62 +521,7 @@ def plot_total_pdos_data(matter, x_range = None, y_top = None, pdos_type = None,
     # plt.show()
 
 def plot_total_pdos(matter, x_range = None, y_top = None, pdos_type = None, pdos_directory = None, color_family="blue"):
-    # Help information
-    help_info = "Usage: plot_pdos" + \
-                "Use extract_pdos to extract the DoS data."
-
-    if matter in ["help", "Help"]:
-        print(help_info)
-
-    # Figure setting
-    fig_setting = canvas_setting()
-    plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
-    params = fig_setting[2]; plt.rcParams.update(params)
-    plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-
-    # Colors calling
-    fermi_color = color_sampling("Violet")
-    colors = color_sampling(color_family)
-
-    # Data plotting range
-    # y_axis_top = max(dos_data[6]); y_limit = y_axis_top * 0.6
-    # y_axis_top = max(max(total_dos_list), max(integrated_dos_list))
-    y_limit = y_top
-
-    # Data process
-    pdos_data = extract_pdos(pdos_directory)
-
-    # Data plotting
-    if pdos_type in ["All", "all"]:
-        plt.plot(pdos_data[5], pdos_data[6], c=colors[1], label="Total PDoS", zorder=3)
-        plt.plot(pdos_data[5], pdos_data[7], c=colors[2], label="Integrated DoS", zorder=2)
-    if pdos_type in ["Total", "total"]:
-        plt.plot(pdos_data[8], pdos_data[6], c=colors[1], label="Total DoS", zorder=2)
-    if pdos_type in ["Integrated", "integrated"]:
-        plt.plot(pdos_data[8], pdos_data[7], c=colors[2], label="Integrated DoS", zorder=2)
-
-    plt.plot(pdos_data[8], pdos_data[9],  c=colors[3], label=r"$s$ PDoS",  zorder=4)
-    plt.plot(pdos_data[8], pdos_data[12], c=colors[4], label=r"$p_x$ PDoS",zorder=5)
-    plt.plot(pdos_data[8], pdos_data[10], c=colors[5], label=r"$p_y$ PDoS",zorder=5)
-    plt.plot(pdos_data[8], pdos_data[11], c=colors[6], label=r"$p_z$ PDoS",zorder=5)
-
-    # Plot Fermi energy as a vertical line
-    efermi_pdos = pdos_data[0]
-    shift = efermi_pdos
-    plt.axvline(x = efermi_pdos-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
-    fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
-    plt.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
-
-    # Title and labels
-    # plt.title(f"Projected electronic density of state for {matter} ({supplement})")
-    plt.title(f"PDoS for {matter}")
-    plt.ylabel(r"Density of States")
-    plt.xlabel(r"Energy (eV)")
-
-    plt.ylim(0, y_top)
-    plt.xlim(x_range*(-1), x_range)
-    plt.legend(loc="upper right")
-    # plt.show()
+    return 0
 
 ###  PDoS Plotting for each segment
 def pdos_sol_segment(matter, x_range, y_top, pdos_total, element, pdos_element, color_family="blue"):
