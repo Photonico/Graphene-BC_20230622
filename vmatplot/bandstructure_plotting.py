@@ -60,44 +60,8 @@ def create_matters_bs(matters_list):
 def create_matters_bsDos(matters_list):
     matters = []
     for current_matter in matters_list:
-        bstype, label, directory, color, *optional = current_matter
+        bstype, label, bs_dir, dos_dir, color, *optional = current_matter
         alpha = optional[0] if optional else 1.0
-        # Bandstructure plotting style: monocolor
-        if bstype.lower() in ["monocolor", "monocolor nonpolarized"]:
-            fermi_energy = extract_fermi(directory)
-            kpath = extract_kpath(directory)
-            bands = extract_eigenvalues_bands_nonpolarized(directory)
-            matters.append([bstype, label, fermi_energy, kpath, bands, color, alpha])
-        elif bstype.lower() in ["monocolor spin up", "spin up monocolor"]:
-            fermi_energy = extract_fermi(directory)
-            kpath = extract_kpath(directory)
-            bands = extract_eigenvalues_bands_spinUp(directory)
-            matters.append([bstype, label, fermi_energy, kpath, bands, color, alpha])
-        elif bstype.lower() in ["monocolor spin down", "spin down monocolor"]:
-            fermi_energy = extract_fermi(directory)
-            kpath = extract_kpath(directory)
-            bands = extract_eigenvalues_bands_spinDown(directory)
-            matters.append([bstype, label, fermi_energy, kpath, bands, color, alpha])
-        # Bandstructure plotting style: bands
-        elif bstype.lower() in ["bands", "bands nonpolarized"]:
-            fermi_energy = extract_fermi(directory)
-            kpath = extract_kpath(directory)
-            conduction_bands = extract_eigenvalues_conductionBands_nonpolarized(directory)
-            valence_bands = extract_eigenvalues_valenceBands_nonpolarized(directory)
-            matters.append([bstype, label, fermi_energy, kpath, conduction_bands, valence_bands, color, alpha])
-        elif bstype.lower() in ["bands spin up", "spin up bands"]:
-            fermi_energy = extract_fermi(directory)
-            kpath = extract_kpath(directory)
-            conduction_bands = extract_eigenvalues_conductionBands_spinUp(directory)
-            valence_bands = extract_eigenvalues_valenceBands_spinUp(directory)
-            matters.append([bstype, label, fermi_energy, kpath, conduction_bands, valence_bands, color, alpha])
-        elif bstype.lower() in ["bands spin down", "spin down bands"]:
-            fermi_energy = extract_fermi(directory)
-            kpath = extract_kpath(directory)
-            conduction_bands = extract_eigenvalues_conductionBands_spinDown(directory)
-            valence_bands = extract_eigenvalues_valenceBands_spinDown(directory)
-            matters.append([bstype, label, fermi_energy, kpath, conduction_bands, valence_bands, color, alpha])
-    return matters
 
 """
 # Plot bandstructure for a list of matters with customize style 

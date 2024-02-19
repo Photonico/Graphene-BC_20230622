@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 from vmatplot.output import canvas_setting, color_sampling
 
-def  cal_type(directory_path):
+def cal_type(directory_path):
     kpoints_file_path = os.path.join(directory_path, "KPOINTS")
     kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
     if os.path.exists(kpoints_opt_path):
