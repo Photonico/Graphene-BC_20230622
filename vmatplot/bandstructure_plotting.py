@@ -243,7 +243,7 @@ def plot_bsDoS(title, eigen_range=None, matters_list=None, legend_loc="False"):
     ax2 = fig.add_subplot(gs[1])
 
     # Colors calling
-    fermi_color = color_sampling("Violet")
+    bs_fermi_color = color_sampling("Violet")
     annotate_color = color_sampling("Grey")
 
     # Data calling and plotting
@@ -258,9 +258,9 @@ def plot_bsDoS(title, eigen_range=None, matters_list=None, legend_loc="False"):
 
     for matter in matters:
         if matter[0].lower() in ["monocolor"]:
-            fermi = matter[2]
+            bs_fermi = matter[2]
             for bands_index in range(0, len(matter[4])):
-                current_band = [eigenvalue - fermi for eigenvalue in matter[4][bands_index]]
+                current_band = [eigenvalue - bs_fermi for eigenvalue in matter[4][bands_index]]
                 if bands_index == 0:
                     if matter[1] != "":
                         ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], alpha=matter[7], label=f"Bandstructure for {matter[1]}", zorder=4)
@@ -269,9 +269,9 @@ def plot_bsDoS(title, eigen_range=None, matters_list=None, legend_loc="False"):
                 else:
                     ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], alpha=matter[7], zorder=4)
         elif matter[0] in ["bands"]:
-            fermi = matter[2]
+            bs_fermi = matter[2]
             for bands_index in range(0, len(matter[4])):
-                current_conduction_band = [eigenvalue - fermi for eigenvalue in matter[4][bands_index]]
+                current_conduction_band = [eigenvalue - bs_fermi for eigenvalue in matter[4][bands_index]]
                 if bands_index == 0:
                     if matter[1] != "":
                         ax1.plot(matter[3], current_conduction_band, c=color_sampling(matter[7])[2], linestyle=matter[8], alpha=matter[9], label=f"Conduction bands for {matter[1]}", zorder=4)
@@ -280,7 +280,7 @@ def plot_bsDoS(title, eigen_range=None, matters_list=None, legend_loc="False"):
                 else:
                     ax1.plot(matter[3], current_conduction_band, c=color_sampling(matter[7])[2], linestyle=matter[8], alpha=matter[9], zorder=4)
             for bands_index in range(0, len(matter[5])):
-                current_valence_band = [eigenvalue - fermi for eigenvalue in matter[5][bands_index]]
+                current_valence_band = [eigenvalue - bs_fermi for eigenvalue in matter[5][bands_index]]
                 if bands_index == 0:
                     if matter[1] != "":
                         ax1.plot(matter[3], current_valence_band, c=color_sampling(matter[7])[0], linestyle=matter[8], alpha=matter[9], label=f"Valence bands for {matter[1]}", zorder=4)
@@ -290,14 +290,14 @@ def plot_bsDoS(title, eigen_range=None, matters_list=None, legend_loc="False"):
                     ax1.plot(matter[3], current_valence_band, c=color_sampling(matter[7])[0], linestyle=matter[8], alpha=matter[9], zorder=4)
         kpath_start = matter[3][0]
         kpath_end = matter[3][-1]
-        fermi_last = matter[2]
+        bs_fermi_last = matter[2]
 
     # Fermi energy as a horizon line
-    ax1.axhline(y = 0, color=fermi_color[0], alpha=1.00, linestyle="--", label="Fermi energy", zorder=2)
-    efermi = fermi_last
+    ax1.axhline(y = 0, color=bs_fermi_color[0], alpha=1.00, linestyle="--", label="Fermi energy", zorder=2)
+    bs_efermi = bs_fermi_last
     kpath_range = kpath_end-kpath_start
-    # fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
-    # ax1.text(kpath_start+kpath_range*0.98, eigen_range*0.02, fermi_energy_text, fontsize=10, c=fermi_color[0], rotation=0, va = "bottom", ha="right", zorder=5)
+    bs_fermi_energy_text = f"Fermi energy\n{bs_efermi:.3f} (eV)"
+    ax1.text(kpath_start+kpath_range*0.98, eigen_range*0.02, bs_fermi_energy_text, fontsize=10, c=bs_fermi_color[0], rotation=0, va = "bottom", ha="right", zorder=5)
 
     # y-axis
     ax1.set_ylabel("Energy (eV)")
@@ -324,6 +324,12 @@ def plot_bsDoS(title, eigen_range=None, matters_list=None, legend_loc="False"):
     # ax2 DoS
     ax2.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
     ax2.set_title("DoS", fontsize=fig_setting[3][1])
+    # for matter in matters:
+    #     if matter[0].lower() in ["monocolor"]:
+
+    #     elif matter[0] in ["bands"]:
+
+
 
     if legend_loc not in [None, "False", False]:
         ax1.legend(loc=legend_loc)
