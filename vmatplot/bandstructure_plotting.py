@@ -296,8 +296,8 @@ def plot_bsDoS(title, eigen_range=None, matters_list=None, legend_loc="False"):
     ax1.axhline(y = 0, color=bs_fermi_color[0], alpha=1.00, linestyle="--", label="Fermi energy", zorder=2)
     bs_efermi = bs_fermi_last
     kpath_range = kpath_end-kpath_start
-    bs_fermi_energy_text = f"Fermi energy\n{bs_efermi:.3f} (eV)"
-    ax1.text(kpath_start+kpath_range*0.98, eigen_range*0.02, bs_fermi_energy_text, fontsize=10, c=bs_fermi_color[0], rotation=0, va = "bottom", ha="right", zorder=5)
+    # bs_fermi_energy_text = f"Fermi energy\n{bs_efermi:.3f} (eV)"
+    # ax1.text(kpath_start+kpath_range*0.98, eigen_range*0.02, bs_fermi_energy_text, fontsize=10, c=bs_fermi_color[0], rotation=0, va = "bottom", ha="right", zorder=5)
 
     # y-axis
     ax1.set_ylabel("Energy (eV)")
@@ -324,12 +324,16 @@ def plot_bsDoS(title, eigen_range=None, matters_list=None, legend_loc="False"):
     # ax2 DoS
     ax2.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
     ax2.set_title("DoS", fontsize=fig_setting[3][1])
-    # for matter in matters:
-    #     if matter[0].lower() in ["monocolor"]:
+    for matter in matters:
+        if matter[0].lower() in ["monocolor"]:
+            plt.plot(matter[5][6], matter[5][5])
+            dos_efermi = matter[5][0]
 
-    #     elif matter[0] in ["bands"]:
+        elif matter[0] in ["bands"]:
+            plt.plot(matter[6][6], matter[6][5])
+            dos_efermi = matter[6][0]
 
-
+    ax2.set_ylim(eigen_range*(-1), eigen_range)
 
     if legend_loc not in [None, "False", False]:
         ax1.legend(loc=legend_loc)
