@@ -232,7 +232,7 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
     else:
         legend = plt.legend(loc=legend_loc)
 
-def plot_bsDoS(title, eigen_range=None, matters_list=None, legend_loc="False"):
+def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legend_loc="False"):
     # Figure setting
     fig_setting = canvas_setting(12, 6)
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -326,14 +326,15 @@ def plot_bsDoS(title, eigen_range=None, matters_list=None, legend_loc="False"):
     ax2.set_title("DoS", fontsize=fig_setting[3][1])
     for matter in matters:
         if matter[0].lower() in ["monocolor"]:
-            plt.plot(matter[5][6], matter[5][5])
+            plt.plot(matter[5][6], matter[5][5], c=color_sampling(matter[6])[1])
             dos_efermi = matter[5][0]
 
         elif matter[0] in ["bands"]:
-            plt.plot(matter[6][6], matter[6][5])
+            plt.plot(matter[6][6], matter[6][5], c=color_sampling(matter[7])[1])
             dos_efermi = matter[6][0]
 
     ax2.set_ylim(eigen_range*(-1), eigen_range)
+    ax2.set_xlim(0, dos_range)
 
     if legend_loc not in [None, "False", False]:
         ax1.legend(loc=legend_loc)
