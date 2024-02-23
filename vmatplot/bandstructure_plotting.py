@@ -234,11 +234,11 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
 
 def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legend_loc="False"):
     # Figure setting
-    fig_setting = canvas_setting(15, 6)
+    fig_setting = canvas_setting(12, 6)
     params = fig_setting[2]; plt.rcParams.update(params)
 
     fig = plt.figure(figsize=fig_setting[0], dpi=fig_setting[1])
-    gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1])
+    gs = gridspec.GridSpec(1, 2, width_ratios=[3, 1])
     ax1 = fig.add_subplot(gs[0])
     ax2 = fig.add_subplot(gs[1])
 
@@ -268,7 +268,7 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
                         ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], alpha=matter[7], label="Bandstructure", zorder=4)
                 else:
                     ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], alpha=matter[7], zorder=4)
-        elif matter[0] in ["bands"]:
+        elif matter[0].lower() in ["bands"]:
             bs_fermi = matter[2]
             for bands_index in range(0, len(matter[4])):
                 current_conduction_band = [eigenvalue - bs_fermi for eigenvalue in matter[4][bands_index]]
@@ -326,19 +326,33 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
     ax2.set_title("DoS", fontsize=fig_setting[3][1])
     for matter in matters:
         if matter[0].lower() in ["monocolor"]:
-            plt.plot(matter[5][6], matter[5][5], c=color_sampling(matter[6])[1], label=f"Total DoS for {matter[1]}", zorder = 2)
             dos_efermi = matter[5][0]
+            plt.plot(matter[5][6], matter[5][5], c=color_sampling(matter[6])[1], label=f"Total DoS for {matter[1]}", zorder = 2)
 
-        elif matter[0] in ["bands"]:
-            plt.plot(matter[6][6], matter[6][5], c=color_sampling(matter[7])[1], label=f"Total DoS for {matter[1]}", zorder = 2)
+        elif matter[0].lower() in ["bands"]:
             dos_efermi = matter[6][0]
+
+            # plt.plot(matter[6][6], matter[6][5], c=color_sampling(matter[7])[1], label=f"Total DoS for {matter[1]}", zorder = 2)
+
+            dos_data = matter[6][6]
+            energy_data = matter[6][5]
+
+            conduction_dos = [dos for dos, energy in zip(dos_data, energy_data) if energy > 0]
+            conduction_energy = [energy for energy in energy_data if energy > 0]
+            valence_dos = [dos for dos, energy in zip(dos_data, energy_data) if energy < 0]
+            valence_energy = [energy for energy in energy_data if energy < 0]
+
+            if conduction_dos and conduction_energy:
+                ax2.plot(conduction_dos, conduction_energy, c=color_sampling(matter[7])[2])
+            if valence_dos and valence_energy: 
+                ax2.plot(valence_dos, valence_energy, c=color_sampling(matter[7])[0])
 
     ax2.set_ylim(eigen_range*(-1), eigen_range)
     ax2.set_xlim(0, dos_range)
 
-    ax2.axhline(y = 0, color=bs_fermi_color[0], alpha=1.00, linestyle="--", label="Fermi energy", zorder=2)
+    shift = dos_efermi
+    ax2.axhline(y = dos_efermi-shift, color=bs_fermi_color[0], alpha=1.00, linestyle="--", label="Fermi energy", zorder=2)
 
     if legend_loc not in [None, "False", False]:
         ax1.legend(loc=legend_loc)
-        ax2.legend(loc=legend_loc)
-    
+        # ax2.legend(loc=legend_loc)
