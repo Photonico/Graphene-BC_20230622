@@ -234,11 +234,11 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
 
 def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legend_loc="False"):
     # Figure setting
-    fig_setting = canvas_setting(12, 6)
+    fig_setting = canvas_setting(15, 6)
     params = fig_setting[2]; plt.rcParams.update(params)
 
     fig = plt.figure(figsize=fig_setting[0], dpi=fig_setting[1])
-    gs = gridspec.GridSpec(1, 2, width_ratios=[3, 1])
+    gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1])
     ax1 = fig.add_subplot(gs[0])
     ax2 = fig.add_subplot(gs[1])
 
@@ -326,16 +326,19 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
     ax2.set_title("DoS", fontsize=fig_setting[3][1])
     for matter in matters:
         if matter[0].lower() in ["monocolor"]:
-            plt.plot(matter[5][6], matter[5][5], c=color_sampling(matter[6])[1])
+            plt.plot(matter[5][6], matter[5][5], c=color_sampling(matter[6])[1], label=f"Total DoS for {matter[1]}", zorder = 2)
             dos_efermi = matter[5][0]
 
         elif matter[0] in ["bands"]:
-            plt.plot(matter[6][6], matter[6][5], c=color_sampling(matter[7])[1])
+            plt.plot(matter[6][6], matter[6][5], c=color_sampling(matter[7])[1], label=f"Total DoS for {matter[1]}", zorder = 2)
             dos_efermi = matter[6][0]
 
     ax2.set_ylim(eigen_range*(-1), eigen_range)
     ax2.set_xlim(0, dos_range)
 
+    ax2.axhline(y = 0, color=bs_fermi_color[0], alpha=1.00, linestyle="--", label="Fermi energy", zorder=2)
+
     if legend_loc not in [None, "False", False]:
         ax1.legend(loc=legend_loc)
         ax2.legend(loc=legend_loc)
+    
