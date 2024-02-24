@@ -524,7 +524,7 @@ def plot_total_pdos(matter, x_range = None, y_top = None, pdos_type = None, pdos
     return 0
 
 ###  PDoS Plotting for each segment
-def pdos_sol_segment(matter, x_range, y_top, pdos_total, element, pdos_element, color_family="blue"):
+def pdos_sol_segment_data(matter, x_range, y_top, pdos_total, element, pdos_element, color_family="blue"):
 
     # Figure setting
     fig_setting = canvas_setting(12, 6)
@@ -608,7 +608,7 @@ def pdos_sol_segment(matter, x_range, y_top, pdos_total, element, pdos_element, 
 
     plt.tight_layout()
 
-def pdos_duo_segment(matter, x_range, y_top, pdos_total, element_1, pdos_1, element_2, pdos_2, color_family="blue"):
+def pdos_duo_segment_data(matter, x_range, y_top, pdos_total, element_1, pdos_1, element_2, pdos_2, color_family="blue"):
 
     # Figure setting
     fig_setting = canvas_setting(12, 10)
@@ -708,7 +708,7 @@ def pdos_duo_segment(matter, x_range, y_top, pdos_total, element_1, pdos_1, elem
 
     plt.tight_layout()
 
-def pdos_tri_segment(matter, x_range, y_top, pdos_total, element_1, pdos_1, element_2, pdos_2, element_3, pdos_3, color_family="blue"):
+def pdos_tri_segment_data(matter, x_range, y_top, pdos_total, element_1, pdos_1, element_2, pdos_2, element_3, pdos_3, color_family="blue"):
 
     # Figure settings
     fig_setting = canvas_setting(12, 10)
@@ -799,15 +799,15 @@ def pdos_tri_segment(matter, x_range, y_top, pdos_total, element_1, pdos_1, elem
 
 # General usage for PDoS plotting
 helo_info = "help information"
-def plot_pdos_segment(*args):
+def plot_pdos_segment_data(*args):
     if args[0] == "help":
         print("helo_info")
         return
     if len(args) in [5,6]:
         return plot_total_pdos_data(args[0], args[1], args[2], args[3], args[4])
     if len(args) in [7,8]:
-        return pdos_sol_segment(args[0], args[1], args[2], args[3], args[4], args[5], args[6])
+        return pdos_sol_segment_data(args[0], args[1], args[2], args[3], args[4], args[5], args[6])
     if len(args) in [9,10]:
-        return pdos_duo_segment(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8])
+        return pdos_duo_segment_data(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8])
     if len(args) in [11,12]:
-        return pdos_tri_segment(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10])
+        return pdos_tri_segment_data(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10])
