@@ -101,9 +101,24 @@ def extract_fermi(directory):
     xml_file = os.path.join(directory, "vasprun.xml")
     tree = ET.parse(xml_file)
     root = tree.getroot()
-    for i in root.iter("i"):
-        if "name" in i.attrib:
-            if i.attrib["name"] == "efermi":
-                fermi_energy = float(i.text)
-                return fermi_energy
+    kpoints_file_path = os.path.join(directory, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory, "KPOINTS_OPT")
+    ## Extract eigen, occupancy number
+    # HSE06 algorithms
+    if os.path.exists(kpoints_opt_path):
+        for dos in root.findall("./calculation/dos"):
+            comment = dos.get("comment")
+            if comment == "kpoints_opt":
+                for i in dos.findall("i"):
+                    if "name" in i.attrib:
+                        if i.attrib["name"] == "efermi":
+                            fermi_energy = float(i.text)
+                            return fermi_energy
+    # GGA-PBE algorithms
+    elif os.path.exists(kpoints_file_path):
+        for i in root.iter("i"):
+            if "name" in i.attrib:
+                if i.attrib["name"] == "efermi":
+                    fermi_energy = float(i.text)
+                    return fermi_energy
     raise ValueError("Fermi energy not found in vasprun.xml")

@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from vmatplot.output import canvas_setting, color_sampling
+from vmatplot.commons import extract_fermi
 
 def cal_type(directory_path):
     kpoints_file_path = os.path.join(directory_path, "KPOINTS")
@@ -27,10 +28,13 @@ def extract_dos(directory_path):
     ## Analysis vasprun.xml file
     tree = ET.parse(file_path)
     root = tree.getroot()
+    kpoints_file_path = os.path.join(directory_path, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
 
     ## Extract Fermi energy
-    efermi_element = root.find(".//dos/i[@name='efermi']")
-    efermi = float(efermi_element.text.strip())
+    # efermi_element = root.find(".//dos/i[@name='efermi']")
+    # efermi = float(efermi_element.text.strip())
+    efermi = extract_fermi(directory_path)
 
     ## Extract the number of ions
     first_positions = root.find(".//varray[@name='positions'][1]")
@@ -40,15 +44,23 @@ def extract_dos(directory_path):
     ions_number = positions_matrix.shape[0]
 
     ## Extract the number of kpoints
-    kpointlist = root.find(".//varray[@name='kpointlist']")
-    kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
-    kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
-    kpointlist_matrix = kpointlist_array.reshape(-1, 3)
-    kpoints_number = kpointlist_matrix.shape[0]
+    # PBE algorithms
+    if os.path.exists(kpoints_opt_path):
+        kpointlist = root.find(".//eigenvalues_kpoints_opt[@comment='kpoints_opt']/kpoints/varray[@name='kpointlist']")
+        kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
+        kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
+        kpointlist_matrix = kpointlist_array.reshape(-1, 3)
+        kpoints_number = kpointlist_matrix.shape[0]
+
+    # HSE06 algorithms
+    elif os.path.exists(kpoints_file_path):
+        kpointlist = root.find(".//varray[@name='kpointlist']")
+        kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
+        kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
+        kpointlist_matrix = kpointlist_array.reshape(-1, 3)
+        kpoints_number = kpointlist_matrix.shape[0]
 
     ## Extract eigen, occupancy number
-    kpoints_file_path = os.path.join(directory_path, "KPOINTS")
-    kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
     # HSE06 algorithms
     if os.path.exists(kpoints_opt_path):
         for kpoints_index in range(1, kpoints_number+1):

@@ -207,9 +207,18 @@ def extract_weight(directory):
     xml_file = os.path.join(directory, "vasprun.xml")
     tree = ET.parse(xml_file)
     root = tree.getroot()
+    kpoints_file_path = os.path.join(directory, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory, "KPOINTS_OPT")
+
     weight_list = []
-    for weight in root.findall(".//varray[@name='weights']/v"): # <varray name="weights" >
-        weight_list.append(float(weight.text))
+    # HSE06 algorithms
+    if os.path.exists(kpoints_opt_path):
+        for weight in root.findall(".//eigenvalues_kpoints_opt[@comment='kpoints_opt']/kpoints/varray[@name='weights']/v"): # <varray name="weights" >
+            weight_list.append(float(weight.text))
+    # GGA-PBE algorithms
+    elif os.path.exists(kpoints_file_path):
+        for weight in root.findall(".//varray[@name='weights']/v"): # <varray name="weights" >
+            weight_list.append(float(weight.text))
     return weight_list
 
 def extract_kpoints_count(directory):
@@ -270,7 +279,7 @@ def kpoints_index(directory):
     # For each high symmetry point, find the closest kpoint
     for label, coord in high_symmetry_points.items():
         # Initialize a minimum distance to a very large number so any actual distance will be smaller
-        min_distance = float('inf')
+        min_distance = float("inf")
         min_index = None
         # Iterate over the kpoint list to find the kpoint closest to the current high symmetry point coordinates
         for index, kpoint in enumerate(kpoints_list):

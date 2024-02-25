@@ -8,8 +8,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
-from vmatplot.commons import get_elements
+from vmatplot.commons import extract_fermi, get_elements
 from vmatplot.output import canvas_setting, color_sampling
+
+def cal_type_pdos(directory_path):
+    kpoints_file_path = os.path.join(directory_path, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
+    if os.path.exists(kpoints_opt_path):
+        return "PBE"
+    elif os.path.exists(kpoints_file_path):
+        return "HSE06"
 
 # Total PDoS: univseral elements and layers
 def extract_pdos(directory_path):
@@ -25,8 +33,9 @@ def extract_pdos(directory_path):
     root = tree.getroot()
 
     ## Extract Fermi energy
-    efermi_element = root.find(".//dos/i[@name='efermi']")
-    efermi = float(efermi_element.text.strip())
+    # efermi_element = root.find(".//dos/i[@name='efermi']")
+    # efermi = float(efermi_element.text.strip())
+    efermi = extract_fermi(directory_path)
 
     ## Extract the number of ions
     first_positions = root.find(".//varray[@name='positions'][1]")
