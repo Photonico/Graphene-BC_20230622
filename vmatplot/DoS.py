@@ -51,7 +51,6 @@ def extract_dos(directory_path):
         kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
         kpointlist_matrix = kpointlist_array.reshape(-1, 3)
         kpoints_number = kpointlist_matrix.shape[0]
-
     # HSE06 algorithms
     elif os.path.exists(kpoints_file_path):
         kpointlist = root.find(".//varray[@name='kpointlist']")
