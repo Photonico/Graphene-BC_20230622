@@ -47,14 +47,14 @@ def extract_pdos(directory_path):
     ions_number = positions_matrix.shape[0]
 
     ## Extract the number of kpoints
-    # PBE algorithms
+    # HSE06 algorithms
     if os.path.exists(kpoints_opt_path):
         kpointlist = root.find(".//eigenvalues_kpoints_opt[@comment='kpoints_opt']/kpoints/varray[@name='kpointlist']")
         kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
         kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
         kpointlist_matrix = kpointlist_array.reshape(-1, 3)
         kpoints_number = kpointlist_matrix.shape[0]
-    # HSE06 algorithms
+    # PBE algorithms
     elif os.path.exists(kpoints_file_path):
         kpointlist = root.find(".//varray[@name='kpointlist']")
         kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
@@ -63,22 +63,44 @@ def extract_pdos(directory_path):
         kpoints_number = kpointlist_matrix.shape[0]
 
     ## Extract eigen, occupancy number
-    for kpoints_index in range(1, kpoints_number + 1):
-        xpath_expr = f".//set[@comment='kpoint {kpoints_index}']"
-        eigen_column = np.empty(0)
-        occu_column  = np.empty(0)
-        for eigen_occ_element in root.find(xpath_expr):
-            eigen_values = list(map(float, eigen_occ_element.text.split()))
-            eigen_column = np.append(eigen_column, eigen_values[0])
-            occu_column = np.append(occu_column, eigen_values[1])
-        if kpoints_index == 1 :
-            eigen_matrix = eigen_column.reshape(-1, 1)
-            occu_matrix = occu_column.reshape(-1, 1)
-        else:
-            eigen_matrix = np.hstack((eigen_matrix,eigen_column.reshape(-1, 1)))
-            occu_matrix  = np.hstack((occu_matrix, occu_column.reshape(-1, 1)))
-    # eigen_sum = np.sum(eigen_matrix, axis=1)
-    # occu_sum  = np.sum(occu_matrix, axis=1)
+    # HSE06 algorithms
+    if os.path.exists(kpoints_opt_path):
+        for kpoints_index in range(1, kpoints_number+1):
+            xpath_expr = f"./calculation/projected_kpoints_opt/eigenvalues/array/set/set[@comment='spin 1']/set[@comment='kpoint {kpoints_index}']"
+            eigen_column = np.empty(0)
+            occu_column  = np.empty(0)
+            kpoint_set = root.find(xpath_expr)
+            for eigen_occ_element in kpoint_set:
+                values_eigen = list(map(float, eigen_occ_element.text.split()))
+                eigen_var = values_eigen[0]
+                eigen_column = np.append(eigen_column, eigen_var)
+                occu_var = values_eigen[1]
+                occu_column = np.append(occu_column, occu_var)
+            if kpoints_index == 1 :
+                eigen_matrix = eigen_column.reshape(-1, 1)
+                occu_matrix = occu_column.reshape(-1, 1)
+            else:
+                eigen_matrix = np.hstack((eigen_matrix,eigen_column.reshape(-1, 1)))
+                occu_matrix  = np.hstack((occu_matrix, occu_column.reshape(-1, 1)))
+    # GGA-PBE algorithms
+    elif os.path.exists(kpoints_file_path):
+        for kpoints_index in range(1, kpoints_number+1):
+            xpath_expr = f".//set[@comment='kpoint {kpoints_index}']"
+            eigen_column = np.empty(0)
+            occu_column  = np.empty(0)
+            kpoint_set = root.find(xpath_expr)
+            for eigen_occ_element in kpoint_set:
+                values_eigen = list(map(float, eigen_occ_element.text.split()))
+                eigen_var = values_eigen[0]
+                eigen_column = np.append(eigen_column, eigen_var)
+                occu_var = values_eigen[1]
+                occu_column = np.append(occu_column, occu_var)
+            if kpoints_index == 1 :
+                eigen_matrix = eigen_column.reshape(-1, 1)
+                occu_matrix = occu_column.reshape(-1, 1)
+            else:
+                eigen_matrix = np.hstack((eigen_matrix,eigen_column.reshape(-1, 1)))
+                occu_matrix  = np.hstack((occu_matrix, occu_column.reshape(-1, 1)))
 
     ## Extract energy, total DoS, and integrated DoS
     # lists initialization

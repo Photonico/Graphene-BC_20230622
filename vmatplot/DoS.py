@@ -44,14 +44,14 @@ def extract_dos(directory_path):
     ions_number = positions_matrix.shape[0]
 
     ## Extract the number of kpoints
-    # PBE algorithms
+    # HSE06 algorithms
     if os.path.exists(kpoints_opt_path):
         kpointlist = root.find(".//eigenvalues_kpoints_opt[@comment='kpoints_opt']/kpoints/varray[@name='kpointlist']")
         kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
         kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
         kpointlist_matrix = kpointlist_array.reshape(-1, 3)
         kpoints_number = kpointlist_matrix.shape[0]
-    # HSE06 algorithms
+    # PBE algorithms
     elif os.path.exists(kpoints_file_path):
         kpointlist = root.find(".//varray[@name='kpointlist']")
         kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
