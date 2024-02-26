@@ -19,6 +19,31 @@ def cal_type_pdos(directory_path):
     elif os.path.exists(kpoints_file_path):
         return "HSE06"
 
+# Extract Kpoints number
+def extract_kpoints_number(directory_path):
+    ## Construct the full path to the vasprun.xml file
+    file_path = os.path.join(directory_path, "vasprun.xml")
+    tree = ET.parse(file_path)
+    root = tree.getroot()
+    kpoints_file_path = os.path.join(directory_path, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
+    ## Extract the number of kpoints
+    # HSE06 algorithms
+    if os.path.exists(kpoints_opt_path):
+        kpointlist = root.find(".//eigenvalues_kpoints_opt[@comment='kpoints_opt']/kpoints/varray[@name='kpointlist']")
+        kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
+        kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
+        kpointlist_matrix = kpointlist_array.reshape(-1, 3)
+        kpoints_number = kpointlist_matrix.shape[0]
+    # GGA-PBE algorithms
+    elif os.path.exists(kpoints_file_path):
+        kpointlist = root.find(".//varray[@name='kpointlist']")
+        kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
+        kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
+        kpointlist_matrix = kpointlist_array.reshape(-1, 3)
+        kpoints_number = kpointlist_matrix.shape[0]
+    return kpoints_number
+
 # Total PDoS: univseral elements and layers
 def extract_pdos(directory_path):
     ## Construct the full path to the vasprun.xml file
@@ -104,12 +129,16 @@ def extract_pdos(directory_path):
 
     ## Extract energy, total DoS, and integrated DoS
     # lists initialization
-    energy_dos_list         = np.empty(0)
-    total_dos_list          = np.empty(0)
-    integrated_dos_list     = np.empty(0)
+    energy_dos_list     = np.array([])
+    total_dos_list      = np.array([])
+    integrated_dos_list = np.array([])
 
-    path_dos_spin_1 = ".//total/array/set/set[@comment='spin 1']/r"
-    path_dos_spin_2 = ".//total/array/set/set[@comment='spin 2']/r"
+    if os.path.exists(kpoints_opt_path):
+        path_dos_spin_1 = "./calculation/dos[@comment='kpoints_opt']/total/array/set/set[@comment='spin 1']/r"
+        path_dos_spin_2 = "./calculation/dos[@comment='kpoints_opt']/total/array/set/set[@comment='spin 2']/r"
+    elif os.path.exists(kpoints_file_path):
+        path_dos_spin_1 = ".//total/array/set/set[@comment='spin 1']/r"
+        path_dos_spin_2 = ".//total/array/set/set[@comment='spin 2']/r"
 
     spin2_exists = root.find(path_dos_spin_2) is not None
 
@@ -212,10 +241,13 @@ def extract_element_pdos(directory_path, element):
     ## Analysis vasprun.xml file
     tree = ET.parse(file_path)
     root = tree.getroot()
+    kpoints_file_path = os.path.join(directory_path, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
 
     ## Extract Fermi energy
-    efermi_element = root.find(".//dos/i[@name='efermi']")
-    efermi = float(efermi_element.text.strip())
+    # efermi_element = root.find(".//dos/i[@name='efermi']")
+    # efermi = float(efermi_element.text.strip())
+    efermi = extract_fermi(directory_path)
 
     ## Extract the number of ions
     first_positions = root.find(".//varray[@name='positions'][1]")
@@ -228,12 +260,13 @@ def extract_element_pdos(directory_path, element):
     index_start = get_elements(directory_path)[element][0]
     index_end = get_elements(directory_path)[element][1]
 
-    ## Extract the number of kpoints
-    kpointlist = root.find(".//varray[@name='kpointlist']")
-    kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
-    kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
-    kpointlist_matrix = kpointlist_array.reshape(-1, 3)
-    kpoints_number = kpointlist_matrix.shape[0]
+    # kpointlist = root.find(".//varray[@name='kpointlist']")
+    # kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
+    # kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
+    # kpointlist_matrix = kpointlist_array.reshape(-1, 3)
+    # kpoints_number = kpointlist_matrix.shape[0]
+
+    kpoints_number =extract_kpoints_number(directory_path)
 
     ## Extract eigen, occupancy number
     for kpoints_index in range(1, kpoints_number + 1):
