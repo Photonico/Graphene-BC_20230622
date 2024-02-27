@@ -108,6 +108,11 @@ def extract_energy_list(directory_path):
         values_dos = list(map(float, element_dos.text.split()))
         energy_dos_list = np.append(energy_dos_list, values_dos[0])
     shift = efermi
+    return energy_dos_list
+
+def extract_energy_shift(directory_path):
+    energy_dos_list = extract_energy_list(directory_path)
+    shift = extract_fermi(directory_path)
     energy_dos_shift = energy_dos_list - shift
     return energy_dos_shift
 
@@ -308,8 +313,8 @@ def extract_element_pdos(directory_path, element):
     ## Analysis vasprun.xml file
     tree = ET.parse(file_path)
     root = tree.getroot()
-    kpoints_file_path = os.path.join(directory_path, "KPOINTS")
-    kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
+    # kpoints_file_path = os.path.join(directory_path, "KPOINTS")
+    # kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
 
     ## Extract Fermi energy
     # efermi_element = root.find(".//dos/i[@name='efermi']")
@@ -327,6 +332,7 @@ def extract_element_pdos(directory_path, element):
     index_start = get_elements(directory_path)[element][0]
     index_end = get_elements(directory_path)[element][1]
 
+    ## Extract the number of kpoints
     kpoints_number =extract_kpoints_number(directory_path)
 
     ## Extract eigen, occupancy number
@@ -339,7 +345,7 @@ def extract_element_pdos(directory_path, element):
     integrated_dos_list = np.array([])
 
     shift = extract_fermi(directory_path)
-    energy_dos_shift = extract_energy_list(directory_path)
+    energy_dos_shift = extract_energy_shift(directory_path)
 
     ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_xz-PDoS, x2-y2-PDoS
     # Matrices initialization
@@ -438,8 +444,7 @@ def extract_segment_pdos(directory_path, start, end):
     index_end = end
 
     ## Extract Fermi energy
-    efermi_element = root.find(".//dos/i[@name='efermi']")
-    efermi = float(efermi_element.text.strip())
+    efermi = extract_fermi(directory_path)
 
     ## Extract the number of ions
     first_positions = root.find(".//varray[@name='positions'][1]")
@@ -449,46 +454,22 @@ def extract_segment_pdos(directory_path, start, end):
     ions_number = positions_matrix.shape[0]
 
     ## Extract the number of kpoints
-    kpointlist = root.find(".//varray[@name='kpointlist']")
-    kpointlist_concatenated_text = " ".join([kpointlist.text for kpointlist in kpointlist.findall("v")])
-    kpointlist_array = np.fromstring(kpointlist_concatenated_text, sep=" ")
-    kpointlist_matrix = kpointlist_array.reshape(-1, 3)
-    kpoints_number = kpointlist_matrix.shape[0]
+    kpoints_number =extract_kpoints_number(directory_path)
 
     ## Extract eigen, occupancy number
-    for kpoints_index in range(1, kpoints_number + 1):
-        xpath_expr = f".//set[@comment='kpoint {kpoints_index}']"
-        eigen_column = np.empty(0)
-        occu_column  = np.empty(0)
-        for eigen_occ_element in root.find(xpath_expr):
-            eigen_values = list(map(float, eigen_occ_element.text.split()))
-            eigen_column = np.append(eigen_column, eigen_values[0])
-            occu_column = np.append(occu_column, eigen_values[1])
-        if kpoints_index == 1 :
-            eigen_matrix = eigen_column.reshape(-1, 1)
-            occu_matrix = occu_column.reshape(-1, 1)
-        else:
-            eigen_matrix = np.hstack((eigen_matrix,eigen_column.reshape(-1, 1)))
-            occu_matrix  = np.hstack((occu_matrix, occu_column.reshape(-1, 1)))
+    ## Extract eigen, occupancy number
+    eigen_matrix = extract_eigen_occupancy(directory_path)[0]
+    occu_matrix  = extract_eigen_occupancy(directory_path)[1]
     # eigen_sum = np.sum(eigen_matrix, axis=1)
     # occu_sum  = np.sum(occu_matrix, axis=1)
 
-    ## Extract energy, total DoS, and integrated DoS
+    ## Extract energy list
     # lists initialization
-    energy_dos_list     = np.empty(0)
-    total_pdos_list      = np.empty(0)
-    integrated_dos_list = np.empty(0)
-    path_dos = ".//total/array/set/set[@comment='spin 1']/r"
-    for element_dos in root.findall(path_dos):
-        dos_values = list(map(float, element_dos.text.split()))
-        energy_var = dos_values[0]
-        energy_dos_list = np.append(energy_dos_list, energy_var)
-        # total_dos_var = dos_values[1]
-        # total_dos_list = np.append(total_dos_list, total_dos_var)
-        # integrated_dos_var = dos_values[2]
-        # integrated_dos_list = np.append(integrated_dos_list, integrated_dos_var)
-    shift = efermi
-    energy_dos_shift = energy_dos_list - shift
+    total_pdos_list     = np.array([])
+    integrated_dos_list = np.array([])
+
+    shift = extract_fermi(directory_path)
+    energy_dos_shift = extract_energy_shift(directory_path)
 
     ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_xz-PDoS, x2-y2-PDoS
     # Matrices initialization
