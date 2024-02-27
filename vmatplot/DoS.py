@@ -179,19 +179,25 @@ def create_matters_dos(matters_list):
     # matters[1][7] = integral dos
     # matters[2] = color family
     # matters[3] = alpha
+    # matters[4] = linestyle
     matters = []
     for matter_dir in matters_list:
         if len(matter_dir) == 2:
             label, directory = matter_dir
             color = "blue"
             alpha = 1.0
+            linestyle = "solid"
         elif len(matter_dir) == 3:
             label, directory, color = matter_dir
             alpha = 1.0
-        else:
+            linestyle = "solid"
+        elif len(matter_dir) == 4:
             label, directory, color, alpha = matter_dir
+            linestyle = "solid"
+        else:
+            label, directory, color, alpha, linestyle = matter_dir
         dos_data = extract_dos(directory)
-        matters.append([label, dos_data, color, alpha])
+        matters.append([label, dos_data, color, alpha, linestyle])
     return matters
 
 # Universal DoS Plotting
@@ -263,16 +269,16 @@ def plot_dos(title, x_range = None, y_top = None, dos_type = None, matters_list 
         # Data plotting
         if dos_type in ["All", "all"]:
             for _, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS for {matter[0]}", alpha=matter[3] ,zorder = 3)
-                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS for {matter[0]}", alpha=matter[3], zorder = 2)
+                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 3)
+                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Total", "total"]:
             for _, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS for {matter[0]}", alpha=matter[3], zorder = 2)
+                plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Integrated", "integrated"]:
             for _, matter in enumerate(matters):
-                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS for {matter[0]}", alpha=matter[3], zorder = 2)
+                plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 2)
                 efermi = matter[1][0]
         # Plot Fermi energy as a vertical line
         shift = efermi
