@@ -58,10 +58,10 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
     # Matter list
     matters = create_matters_totpdos(matters_list)
     for _, matter in enumerate(matters):
-        plt.plot(matter[1][8], matter[1][9],  c=color_sampling(matter[2])[3], alpha=matter[3], linestyle=matter[4], label=r"$s$ PDoS",  zorder=4)
-        plt.plot(matter[1][8], matter[1][12], c=color_sampling(matter[2])[4], alpha=matter[3], linestyle=matter[4], label=r"$p_x$ PDoS",zorder=3)
-        plt.plot(matter[1][8], matter[1][10], c=color_sampling(matter[2])[5], alpha=matter[3], linestyle=matter[4], label=r"$p_y$ PDoS",zorder=2)
-        plt.plot(matter[1][8], matter[1][11], c=color_sampling(matter[2])[6], alpha=matter[3], linestyle=matter[4], label=r"$p_z$ PDoS",zorder=1)
+        plt.plot(matter[1][8], matter[1][9],  c=color_sampling(matter[2])[3], alpha=matter[3], linestyle=matter[4], label=f"$s$ PDoS for {matter[0]}",  zorder=4)
+        plt.plot(matter[1][8], matter[1][12], c=color_sampling(matter[2])[4], alpha=matter[3], linestyle=matter[4], label=f"$p_x$ PDoS for {matter[0]}",zorder=3)
+        plt.plot(matter[1][8], matter[1][10], c=color_sampling(matter[2])[5], alpha=matter[3], linestyle=matter[4], label=f"$p_y$ PDoS for {matter[0]}",zorder=2)
+        plt.plot(matter[1][8], matter[1][11], c=color_sampling(matter[2])[6], alpha=matter[3], linestyle=matter[4], label=f"$p_z$ PDoS for {matter[0]}",zorder=1)
         if pdos_type in ["All", "all"]:
             # for _, matter in enumerate(matters):
             plt.plot(matter[1][8], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total PDoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 6)
