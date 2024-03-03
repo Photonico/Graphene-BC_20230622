@@ -895,7 +895,7 @@ def pdos_tri_segment_data(matter, x_range, y_top, pdos_total, element_1, pdos_1,
 helo_info = "help information"
 def plot_pdos_segment_data(*args):
     if args[0] == "help":
-        print("helo_info")
+        print(helo_info)
         return
     if len(args) in [5,6]:
         return plot_total_pdos_data(args[0], args[1], args[2], args[3], args[4])

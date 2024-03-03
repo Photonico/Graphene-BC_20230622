@@ -92,8 +92,6 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
     # plt.legend(loc="best")
     plt.legend(loc="upper right")
 
-# def create_matters_elepdos(matters_list):
+# def plot_pdos_segment
 
-# def create_matters_segpdos(matters_list):
-
-# plot_pdos_segment
+# def pdos_segment_total
