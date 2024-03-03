@@ -92,6 +92,13 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
     # plt.legend(loc="best")
     plt.legend(loc="upper right")
 
-# def plot_pdos_segment
+# def plot_total_segment
+
+# def pdos_sol_segment
+
+# def pdos_duo_segment
+
+# def pdos_tri_segment
 
 # def pdos_segment_total
+
