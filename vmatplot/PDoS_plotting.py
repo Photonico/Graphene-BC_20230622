@@ -92,7 +92,54 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
     # plt.legend(loc="best")
     plt.legend(loc="upper right")
 
-# def plot_total_segment
+def plot_total_segment(matters_list = None):
+    # Help information
+    help_info = "help information"
+    if matters_list in ["help", "Help"]:
+        print(help_info)
+    # Figure Settings
+    fig_setting = canvas_setting()
+    plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
+    params = fig_setting[2]; plt.rcParams.update(params)
+    plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
+    # Color calling
+    fermi_color = color_sampling("Violet")
+
+    # Ranges
+    x_range = matters_list[0][1]
+    y_top = matters_list[0][2]
+
+    # Matter
+    matter = matters_list
+    num_elements = (len(matter[0]) - 3) // 2
+    # Plot PDoS
+    for index in range(num_elements):
+        i_0 = 2 * index
+        i_1 = 3 * index
+        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][9],  c=color_sampling(matter[1][0+i_1])[3], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$s$ PDoS for {matter[0][3+i_0]}", zorder=4)
+        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][12], c=color_sampling(matter[1][0+i_1])[4], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$p_x$ PDoS for {matter[0][3+i_0]}", zorder=3)
+        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][10], c=color_sampling(matter[1][0+i_1])[5], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$p_y$ PDoS for {matter[0][3+i_0]}", zorder=2)
+        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][11], c=color_sampling(matter[1][0+i_1])[6], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$p_z$ PDoS for {matter[0][3+i_0]}", zorder=1)
+        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][6],  c=color_sampling(matter[1][0+i_1])[1], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"Total PDoS for {matter[0][3+i_0]}", zorder=5)
+    efermi = matter[0][4][0]
+
+    # Plot Fermi energy as a vertical line
+    shift = efermi
+    plt.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder = 1)
+    fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
+    plt.text(efermi-shift-x_range*0.02, y_top*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+
+    # Title
+    # plt.title(f"Electronic density of state for {title} ({supplement})")
+    plt.title(f"Total PDoS for {matter[0][0]} ")
+    plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
+
+    plt.ylim(0, y_top)
+    plt.xlim(x_range*(-1), x_range)
+    # plt.legend(loc="best")
+    plt.legend(loc="upper right")
+
 
 # def plot_sol_segment_pdos
 
