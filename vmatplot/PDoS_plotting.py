@@ -94,11 +94,11 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
 
 # def plot_total_segment
 
-# def pdos_sol_segment
+# def plot_sol_segment_pdos
 
-# def pdos_duo_segment
+# def plot_duo_segment_pdos
 
-# def pdos_tri_segment
+# def plot_tri_segment_pdos
 
-# def pdos_segment_total
+# def plot_segment_pdos
 
