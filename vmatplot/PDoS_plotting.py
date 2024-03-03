@@ -1,13 +1,13 @@
 #### Declarations of process functions for PDoS plotting
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914, R0915, W0612
 
-import xml.etree.ElementTree as ET
-import os
-import numpy as np
+# import xml.etree.ElementTree as ET
+# import os
+# import numpy as np
 import matplotlib.pyplot as plt
 
 from vmatplot.output import canvas_setting, color_sampling
-from vmatplot.commons import extract_fermi
+# from vmatplot.commons import extract_fermi
 from vmatplot.PDoS import extract_pdos
 
 def create_matters_totpdos(matters_list):
