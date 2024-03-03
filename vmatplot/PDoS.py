@@ -614,7 +614,7 @@ def plot_total_pdos_data(matter, x_range = None, y_top = None, pdos_type = None,
     plt.legend(loc="upper right")
     # plt.show()
 
-def plot_total_pdos(matter, x_range = None, y_top = None, pdos_type = None, pdos_directory = None, color_family="blue"):
+def plot_total_pdos_data(matter, x_range = None, y_top = None, pdos_type = None, pdos_directory = None, color_family="blue"):
     return 0
 
 ###  PDoS Plotting for each segment
