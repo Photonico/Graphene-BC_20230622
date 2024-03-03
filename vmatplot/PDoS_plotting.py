@@ -92,11 +92,7 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
     # plt.legend(loc="best")
     plt.legend(loc="upper right")
 
-def plot_total_segment(matters_list = None):
-    # Help information
-    help_info = "help information"
-    if matters_list in ["help", "Help"]:
-        print(help_info)
+def plot_total_segment(title, matters_list):
     # Figure Settings
     fig_setting = canvas_setting()
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
@@ -132,7 +128,7 @@ def plot_total_segment(matters_list = None):
 
     # Title
     # plt.title(f"Electronic density of state for {title} ({supplement})")
-    plt.title(f"Total PDoS for {matter[0][0]} ")
+    plt.title(f"Total PDoS for {title} ")
     plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
 
     plt.ylim(0, y_top)
