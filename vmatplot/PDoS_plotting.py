@@ -95,3 +95,5 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
 # def create_matters_elepdos(matters_list):
 
 # def create_matters_segpdos(matters_list):
+
+# plot_pdos_segment
