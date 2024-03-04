@@ -144,4 +144,3 @@ def plot_total_segment(title, matters_list):
 # def plot_tri_segment_pdos
 
 # def plot_segment_pdos
-
