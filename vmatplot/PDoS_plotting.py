@@ -141,6 +141,101 @@ def plot_total_segment(title, matters_list):
 
 # def plot_duo_segment_pdos
 
-# def plot_tri_segment_pdos
+def plot_tri_segment_pdos(title, matters_list):
+
+    # Figure settings
+    fig_setting = canvas_setting(16, 12)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
+
+    # Colors calling
+    fermi_color = color_sampling("Violet")
+    annotate_color = color_sampling("Grey")
+    order_labels = ["a","b","c","d"]
+
+    # Materials information
+    num_elements = len(matters_list[-1])//3
+    matter = matters_list
+    efermi = matter[0][4][0]
+
+    # Ranges
+    x_range = []
+    y_top   = []
+    for subplot_index in range(4):
+        x_range.append(matter[subplot_index][1])
+        y_top.append(matter[subplot_index][2])
+
+    # Data process
+    titles = []
+    labels = [[], []]
+    pdoses = [[], []]
+    for subplot_index in range(4):
+        titles.append(matter[subplot_index][0])
+        for matter_index in range(num_elements):
+            labels[matter_index].append(matter[subplot_index][3+2*matter_index])
+            pdoses[matter_index].append(matter[subplot_index][4+2*matter_index])
+
+    # Style parameters
+    color = []
+    alpha = []
+    lines = []
+    for matter_index in range(num_elements):
+        color.append(matter[-1][0+3*matter_index])
+        alpha.append(matter[-1][1+3*matter_index])
+        lines.append(matter[-1][2+3*matter_index])
+
+    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0])
+
+    for supplot_index in range(4):
+        ax = axes_element[supplot_index]
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
+        # Data ploting
+        ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
+        for matter_index in range(num_elements):
+            current_label = labels[matter_index][supplot_index]
+            current_pdos  = pdoses[matter_index][supplot_index]
+            ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS for {current_label}",zorder=2)
+            ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS for {current_label}",zorder=2)
+            ax.plot(current_pdos[8], current_pdos[12],c=color_sampling(color[matter_index])[4],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_x$ PDoS for {current_label}",zorder=2)
+            ax.plot(current_pdos[8], current_pdos[10],c=color_sampling(color[matter_index])[5],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_y$ PDoS for {current_label}",zorder=2)
+            ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS for {current_label}",zorder=2)
+        ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
+        ax.set_ylim(0, y_top[supplot_index])
+        ax.set_ylabel(r"Density of states")
+        ax.set_xlabel(r"Energy (eV)")
+        shift = efermi
+        fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
+        ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
+        if supplot_index == 2:
+            ax.text(efermi-shift+x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="left")
+            ax.legend(loc="upper left")
+        else:
+            ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+            ax.legend(loc="upper right")
+
+        orderlab_shift = 0.05
+        if supplot_index == 0:
+            x_loc = 1-orderlab_shift*0.75
+            y_loc = 0+orderlab_shift
+        elif supplot_index == 1:
+            x_loc = 0+orderlab_shift*0.75
+            y_loc = 0+orderlab_shift
+        elif supplot_index == 2:
+            x_loc = 1-orderlab_shift*0.75
+            y_loc = 1-orderlab_shift
+        elif supplot_index == 3:
+            x_loc = 0+orderlab_shift*0.75
+            y_loc = 1-orderlab_shift
+
+        ax.annotate(f"({order_labels[supplot_index]})",
+                    xy=(x_loc,y_loc),
+                    xycoords="axes fraction",
+                    fontsize=1.0 * 16,
+                    ha="center", va="center",
+                    bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+    plt.tight_layout()
+
 
 # def plot_segment_pdos
