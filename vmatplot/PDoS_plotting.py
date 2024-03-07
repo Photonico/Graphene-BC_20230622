@@ -58,23 +58,23 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
     # Matter list
     matters = create_matters_totpdos(matters_list)
     for _, matter in enumerate(matters):
-        plt.plot(matter[1][8], matter[1][9],  c=color_sampling(matter[2])[3], alpha=matter[3], linestyle=matter[4], label=f"$s$ PDoS for {matter[0]}",  zorder=4)
-        plt.plot(matter[1][8], matter[1][12], c=color_sampling(matter[2])[4], alpha=matter[3], linestyle=matter[4], label=f"$p_x$ PDoS for {matter[0]}",zorder=3)
-        plt.plot(matter[1][8], matter[1][10], c=color_sampling(matter[2])[5], alpha=matter[3], linestyle=matter[4], label=f"$p_y$ PDoS for {matter[0]}",zorder=2)
-        plt.plot(matter[1][8], matter[1][11], c=color_sampling(matter[2])[6], alpha=matter[3], linestyle=matter[4], label=f"$p_z$ PDoS for {matter[0]}",zorder=1)
         if pdos_type in ["All", "all"]:
             # for _, matter in enumerate(matters):
-            plt.plot(matter[1][8], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total PDoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 6)
-            plt.plot(matter[1][8], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated PDoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 5)
-            efermi = matter[1][0]  
+            plt.plot(matter[1][8], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total PDoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 2)
+            plt.plot(matter[1][8], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated PDoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 3)
+            efermi = matter[1][0]
         if pdos_type in ["Total", "total"]:
             # for _, matter in enumerate(matters):
-            plt.plot(matter[1][8], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total PDoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 5)
+            plt.plot(matter[1][8], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total PDoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 2)
             efermi = matter[1][0]
         if pdos_type in ["Integrated", "integrated"]:
             # for _, matter in enumerate(matters):
-            plt.plot(matter[1][8], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated PDoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 5)
+            plt.plot(matter[1][8], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated PDoS for {matter[0]}", alpha=matter[3], linestyle=matter[4], zorder = 3)
             efermi = matter[1][0]
+        plt.plot(matter[1][8], matter[1][9],  c=color_sampling(matter[2])[3], alpha=matter[3], linestyle=matter[4], label=f"$s$ PDoS for {matter[0]}",  zorder=4)
+        plt.plot(matter[1][8], matter[1][12], c=color_sampling(matter[2])[4], alpha=matter[3], linestyle=matter[4], label=f"$p_x$ PDoS for {matter[0]}",zorder=5)
+        plt.plot(matter[1][8], matter[1][10], c=color_sampling(matter[2])[5], alpha=matter[3], linestyle=matter[4], label=f"$p_y$ PDoS for {matter[0]}",zorder=6)
+        plt.plot(matter[1][8], matter[1][11], c=color_sampling(matter[2])[6], alpha=matter[3], linestyle=matter[4], label=f"$p_z$ PDoS for {matter[0]}",zorder=7)
 
     # Plot Fermi energy as a vertical line
     shift = efermi
@@ -113,11 +113,11 @@ def plot_total_segment(title, matters_list):
     for index in range(num_elements):
         i_0 = 2 * index
         i_1 = 3 * index
-        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][9],  c=color_sampling(matter[1][0+i_1])[3], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$s$ PDoS for {matter[0][3+i_0]}", zorder=4)
-        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][12], c=color_sampling(matter[1][0+i_1])[4], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$p_x$ PDoS for {matter[0][3+i_0]}", zorder=3)
-        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][10], c=color_sampling(matter[1][0+i_1])[5], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$p_y$ PDoS for {matter[0][3+i_0]}", zorder=2)
-        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][11], c=color_sampling(matter[1][0+i_1])[6], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$p_z$ PDoS for {matter[0][3+i_0]}", zorder=1)
-        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][6],  c=color_sampling(matter[1][0+i_1])[1], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"Total PDoS for {matter[0][3+i_0]}", zorder=5)
+        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][6],  c=color_sampling(matter[1][0+i_1])[1], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"Total PDoS for {matter[0][3+i_0]}", zorder=2)
+        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][9],  c=color_sampling(matter[1][0+i_1])[3], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$s$ PDoS for {matter[0][3+i_0]}", zorder=3)
+        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][12], c=color_sampling(matter[1][0+i_1])[4], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$p_x$ PDoS for {matter[0][3+i_0]}", zorder=4)
+        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][10], c=color_sampling(matter[1][0+i_1])[5], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$p_y$ PDoS for {matter[0][3+i_0]}", zorder=5)
+        plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][11], c=color_sampling(matter[1][0+i_1])[6], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$p_z$ PDoS for {matter[0][3+i_0]}", zorder=6)
     efermi = matter[0][4][0]
 
     # Plot Fermi energy as a vertical line
