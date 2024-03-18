@@ -486,4 +486,20 @@ def plot_tri_segment_pdos_block(title, matters_list):
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
     plt.tight_layout()
 
-# def plot_segment_pdos
+plot_seg_helo_info = "help information"
+plot_seg_usage = plot_seg_helo_info
+def plot_segment_pdos(*args):
+    if len(args) == 1:
+        print(plot_seg_helo_info)
+    if len(args) == 2:
+        if len(args[1]) == 1:
+            print("Format error")
+            print(plot_seg_usage)
+        if len(args[1]) == 2:
+            return plot_total_segment(args[0], args[1])
+        if len(args[1]) == 3:
+            return plot_sol_segment_pdos(args[0], args[1])
+        if len(args[1]) == 4:
+            return plot_duo_segment_pdos(args[0], args[1])
+        if len(args[1]) == 5:
+            return plot_tri_segment_pdos(args[0], args[1])
