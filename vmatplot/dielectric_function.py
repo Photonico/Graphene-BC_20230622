@@ -3,6 +3,7 @@
 
 ### Necessary packages invoking
 import xml.etree.ElementTree as ET
+import os
 import numpy as np
 
 ### Physical constants
@@ -10,7 +11,13 @@ hbar = 4.135667662e-15
 c_vacuum = 2.99792458e8
 
 ### Extract dielectric function from vasprun.xml
-def extract_dielectric_function(file_path):
+def extract_dielectric_function(directory_path):
+    ## Construct the full path to the vasprun.xml file
+    file_path = os.path.join(directory_path, "vasprun.xml")
+    # Check if the vasprun.xml file exists in the given directory
+    if not os.path.isfile(file_path):
+        print(f"Error: The file vasprun.xml does not exist in the directory {directory_path}.")
+        return
     ## Analysis vasprun.xml file
     tree = ET.parse(file_path)
     root = tree.getroot()
