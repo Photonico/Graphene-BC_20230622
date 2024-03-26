@@ -4,8 +4,8 @@
 #PBS -q defaultQ
 #PBS -o output.txt
 #PBS -j oe
-#PBS -l select=3:ncpus=32:mem=100GB
-#PBS -l walltime=168:00:00
+#PBS -l select=3:ncpus=32:mem=64GB
+#PBS -l walltime=196:00:00
 #PBS -m ea
 #PBS -M lniu6305@uni.sydney.edu.au
 
