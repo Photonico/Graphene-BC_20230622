@@ -6,26 +6,35 @@ import xml.etree.ElementTree as ET
 import os
 import numpy as np
 
+from vmatplot.commons import extract_fermi
+
 ### Physical constants
 hbar = 4.135667662e-15
 c_vacuum = 2.99792458e8
 
-### Extract dielectric function from vasprun.xml
-def extract_dielectric_function(directory_path):
+def extract_dielectric_function(directory):
     ## Construct the full path to the vasprun.xml file
-    file_path = os.path.join(directory_path, "vasprun.xml")
+    vasprun_path = os.path.join(directory, "vasprun.xml")
     # Check if the vasprun.xml file exists in the given directory
-    if not os.path.isfile(file_path):
-        print(f"Error: The file vasprun.xml does not exist in the directory {directory_path}.")
+    if not os.path.isfile(vasprun_path):
+        print(f"Error: The file vasprun.xml does not exist in the directory {directory}.")
         return
+
     ## Analysis vasprun.xml file
-    tree = ET.parse(file_path)
+    tree = ET.parse(vasprun_path)
     root = tree.getroot()
+    kpoints_file_path = os.path.join(directory, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory, "KPOINTS_OPT")
+
     data_label = "dielectricfunction"
 
     ## Extract NEDOS
     nedos_element = root.find(".//i[@name='NEDOS']")
     nedos = int(nedos_element.text.strip())
+
+    ## Extract NBANDS
+    nbands_element = root.find(".//i[@name='NBANDS']")
+    nbands = int(nbands_element.text.strip())
 
     ## Loop variables
     # Define prefixes:
@@ -76,8 +85,9 @@ def extract_dielectric_function(directory_path):
             data[prefix + col] = np.array(data[prefix + col])
 
     ## Extract Fermi energy
-    efermi_element = root.find(".//dos/i[@name='efermi']")
-    fermi_energy = float(efermi_element.text.strip())
+    # efermi_element = root.find(".//dos/i[@name='efermi']")
+    # fermi_energy = float(efermi_element.text.strip())
+    fermi_energy = extract_fermi(directory)
 
     ## Extract Conductivity
     conductivity_path = ".//conductivity[@comment='spin=1']/array/set"
@@ -111,7 +121,7 @@ def extract_dielectric_function(directory_path):
         dos_data["integrated_dos"].append(values[2])
 
     return {
-        "nedos": nedos,                                                     # [0]: NEDOS
+        "nedos and nbands": (nedos, nbands),                                # [0]: NEDOS and NBANDS
         "density_energy_imag": data["e_energy_imag_col"],                   # [1]: Imaginary part of energy of Density-Density
         "density_xx_imag": data["e_xx_imag_col"],                           # [2]: Imaginary part of xx direction of Density-Density
         "density_yy_imag": data["e_yy_imag_col"],                           # [3]: Imaginary part of yy direction of Density-Density
@@ -152,4 +162,4 @@ def extract_dielectric_function(directory_path):
         "dos_energy": dos_data["dos_energy"],                               # [38]: Energy list of DOS
         "total_dos": dos_data["total_dos"],                                 # [39]: Total DOS
         "integrated_dos": dos_data["integrated_dos"],                       # [40]: Integrated DOS
-}
+    }
