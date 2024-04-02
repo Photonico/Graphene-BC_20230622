@@ -121,7 +121,7 @@ def extract_dielectric_function(directory):
         dos_data["integrated_dos"].append(values[2])
 
     return {
-        "nedos and nbands": (nedos, nbands),                                # [0]: NEDOS and NBANDS
+        "nedos and nbands": (nedos, nbands),                                # [0]: Current NEDOS and NBANDS
         "density_energy_imag": data["e_energy_imag_col"],                   # [1]: Imaginary part of energy of Density-Density
         "density_xx_imag": data["e_xx_imag_col"],                           # [2]: Imaginary part of xx direction of Density-Density
         "density_yy_imag": data["e_yy_imag_col"],                           # [3]: Imaginary part of yy direction of Density-Density
