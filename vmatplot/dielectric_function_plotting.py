@@ -47,7 +47,7 @@ def plot_dielectric_function_XZ(title, dielectric_list, energy_max = None):
 
     # Materials information
     dataset = create_matters_dielectric_function(dielectric_list)
-    subtitles = ["Inplane","Outplane"]
+    subtitles = ["Inplane", "Outplane"]
 
     fig.suptitle(f"Dielectric function for {title}", fontsize=fig_setting[3][0])
     # Data plotting
@@ -77,9 +77,9 @@ def plot_dielectric_function_XZ(title, dielectric_list, energy_max = None):
 
         if energy_max is not None:
             ax.set_xlim(0, energy_max)
-        ax.set_ylabel(r"Density")
+        ax.set_ylabel(r"Dielectric function")
         if supplot_index == 1:
-            ax.set_xlabel(r"Energy (eV)")
+            ax.set_xlabel(r"Photon energy (eV)")
         ax.legend(loc="upper right")
 
         # Subplots label
