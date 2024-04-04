@@ -4,6 +4,33 @@
 import xml.etree.ElementTree as ET
 import os
 
+def identify_INCAR_algorithm(directory):
+    """
+    Identify and print the algorithm used in all INCAR files within the specified folder,
+    ignoring spaces and checking if settings are commented out.
+    :param directory: Path to the target folder
+    """
+    file_name.upper() = "INCAR"
+    file_path = os.path.join(directory, file_name)
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        algorithm = "Uncertain or other algorithms"
+        for line in lines:
+            # Remove spaces and convert to upper case for case-insensitive matching
+            clean_line = line.replace(" ", "").upper()
+            # Check for HSE06 functional use without being commented out
+            if "LHFCALC=.TRUE." in clean_line and not clean_line.startswith("#"):
+                # Check all lines for HFSCREEN without initial spaces
+                if any("HFSCREEN" in line.replace(" ", "").upper() for line in lines):
+                    algorithm = "HSE06"
+                else:
+                    algorithm = "Hybrid functional (specific type unclear)"
+                break
+            elif "GGA=PE" in clean_line and not clean_line.startswith("#"):
+                algorithm = "GGAPBE"
+                break
+    return algorithm
+
 def analyze_vasprun(directory_path):
     ## Help information
     if directory_path == "help":
