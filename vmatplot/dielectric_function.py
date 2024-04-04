@@ -13,7 +13,7 @@ hbar = 4.135667662e-15
 c_vacuum = 2.99792458e8
 
 def extract_dielectric_function(directory):
-    ## Construct the full path to the vasprun.xml file
+    # Construct the full path to the vasprun.xml file
     vasprun_path = os.path.join(directory, "vasprun.xml")
     # Check if the vasprun.xml file exists in the given directory
     if not os.path.isfile(vasprun_path):
@@ -68,6 +68,7 @@ def extract_dielectric_function(directory):
     ## Extract real part of Density-Density and Current-Current
     real_path = f".//{data_label}/real/array/set"
     real_elements = root.findall(real_path)
+
     for loop_index, real_element in enumerate(real_elements[0:2]):
         # Select prefix based on the loop index
         prefix = prefixes[loop_index]
