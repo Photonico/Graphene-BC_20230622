@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 import os
 import numpy as np
 
-from vmatplot.commons import extract_fermi
+from vmatplot.commons import extract_fermi, identify_algorithm
 
 ### Physical constants
 hbar = 4.135667662e-15

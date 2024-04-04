@@ -4,31 +4,34 @@
 import xml.etree.ElementTree as ET
 import os
 
-def identify_INCAR_algorithm(directory):
+def identify_algorithm(directory):
     """
     Identify and print the algorithm used in all INCAR files within the specified folder,
     ignoring spaces and checking if settings are commented out.
     :param directory: Path to the target folder
     """
-    file_name.upper() = "INCAR"
+    file_name = "INCAR"
     file_path = os.path.join(directory, file_name)
-    with open(file_path, 'r') as file:
-        lines = file.readlines()
-        algorithm = "Uncertain or other algorithms"
-        for line in lines:
-            # Remove spaces and convert to upper case for case-insensitive matching
-            clean_line = line.replace(" ", "").upper()
-            # Check for HSE06 functional use without being commented out
-            if "LHFCALC=.TRUE." in clean_line and not clean_line.startswith("#"):
-                # Check all lines for HFSCREEN without initial spaces
-                if any("HFSCREEN" in line.replace(" ", "").upper() for line in lines):
-                    algorithm = "HSE06"
-                else:
-                    algorithm = "Hybrid functional (specific type unclear)"
-                break
-            elif "GGA=PE" in clean_line and not clean_line.startswith("#"):
-                algorithm = "GGAPBE"
-                break
+    with open(file_path, "r", encoding="utf-8") as file:
+        # Extract all active lines considering lines that start with space followed by "#"
+        active_lines = [line.upper().replace(" ", "") for line in file if not line.lstrip().startswith('#')]
+
+        # Initialize flags for detected algorithms
+        hse06_flag = any("LHFCALC=.TRUE." in line for line in active_lines)
+        hf_screen_flag = any("HFSCREEN" in line for line in active_lines)
+        gga_pe_flag = any("GGA=PE" in line for line in active_lines)
+
+        # Determine the algorithm based on detected flags
+        if hse06_flag and hf_screen_flag:
+            algorithm = "HSE06"
+        elif gga_pe_flag:
+            algorithm = "GGA-PBE"
+        elif not gga_pe_flag and not hse06_flag and not hf_screen_flag:
+            # Default to GGA-PBE if no specific flags are detected
+            algorithm = "GGA-PBE"
+        else:
+            algorithm = "Uncertain or other algorithms"
+
     return algorithm
 
 def analyze_vasprun(directory_path):
