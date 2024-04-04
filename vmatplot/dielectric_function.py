@@ -85,6 +85,30 @@ def extract_dielectric_function(directory):
         for col in columns:
             data[prefix + col] = np.array(data[prefix + col])
 
+    ## Extract imaginary part of Density-Density
+    density_imag_path = f".//{data_label}[@comment='density-density']/imag/array/set"
+    columns = ["e_energy_imag_col",
+               "e_xx_imag_col", "e_yy_imag_col", "e_zz_imag_col",
+               "e_xy_imag_col", "e_yz_imag_col", "e_zx_imag_col"]
+
+    ## Extract real part of Density-Density
+    density_real_path = f".//{data_label}[@comment='density-density']/real/array/set"
+    columns = ["e_energy_real_col",
+               "e_xx_real_col", "e_yy_real_col", "e_zz_real_col",
+               "e_xy_real_col", "e_yz_real_col", "e_zx_real_col"]
+
+    ## Extract imaginary part of Current-Current
+    current_imag_path = f".//{data_label}[@comment='current-current']/imag/array/set"
+    columns = ["c_energy_imag_col",
+               "c_xx_imag_col", "c_yy_imag_col", "c_zz_imag_col",
+               "c_xy_imag_col", "c_yz_imag_col", "c_zx_imag_col"]
+
+    ## Extract real part of Current-Current
+    current_real_path = f".//{data_label}[@comment='current-current']/real/array/set"
+    columns = ["c_energy_real_col",
+               "c_xx_real_col", "c_yy_real_col", "c_zz_real_col",
+               "c_xy_real_col", "c_yz_real_col", "c_zx_real_col"]
+
     ## Extract Fermi energy
     # efermi_element = root.find(".//dos/i[@name='efermi']")
     # fermi_energy = float(efermi_element.text.strip())
