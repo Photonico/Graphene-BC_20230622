@@ -85,29 +85,41 @@ def extract_dielectric_function(directory):
         for col in columns:
             data[prefix + col] = np.array(data[prefix + col])
 
-    ## Extract imaginary part of Density-Density
-    density_imag_path = f".//{data_label}[@comment='density-density']/imag/array/set"
-    density_imag_elements = root.findall(density_imag_path)
-    density_imag_columns = ["e_energy_imag_col",
-                            "e_xx_imag_col", "e_yy_imag_col", "e_zz_imag_col",
-                            "e_xy_imag_col", "e_yz_imag_col", "e_zx_imag_col"]
-    for _, element in enumerate(density_imag_elements[0:2]):
-        for column in density_imag_columns:
-            data[column] = []
-        # Append data to lists
-        for index in element.findall("r"):
-            values = list(map(float, real_index.text.split()))
-            for value_index, column in enumerate(density_imag_columns):
+    # ## Extract imaginary part of Density-Density
+    # density_imag_path = f".//{data_label}[@comment='density-density']/imag/array/set"
+    # density_imag_elements = root.findall(density_imag_path)
+    # density_imag_columns = ["e_energy_imag_col",
+    #                         "e_xx_imag_col", "e_yy_imag_col", "e_zz_imag_col",
+    #                         "e_xy_imag_col", "e_yz_imag_col", "e_zx_imag_col"]
+    # for _, element in enumerate(density_imag_elements[0:2]):
+    #     for column in density_imag_columns:
+    #         data[column] = []
+    #     # Append data to lists
+    #     for index in element.findall("r"):
+    #         values = list(map(float, index.text.split()))
+    #         for value_index, column in enumerate(density_imag_columns):
+    #             data[column].append(values[value_index])
+    #     # Convert lists to numpy arrays
+    #     for column in density_imag_columns:
+    #         data[column]=np.array(data[column])
 
-    ## Extract real part of Density-Density
-    density_real_path = f".//{data_label}[@comment='density-density']/real/array/set"
-    density_real_elements = root.findall(density_real_path)
-    density_real_columns = ["e_energy_real_col",
-                            "e_xx_real_col", "e_yy_real_col", "e_zz_real_col",
-                            "e_xy_real_col", "e_yz_real_col", "e_zx_real_col"]
-    for _, element in enumerate(density_real_elements[0:2]):
-        for column in density_real_columns:
-            data[column] = []
+    # ## Extract real part of Density-Density
+    # density_real_path = f".//{data_label}[@comment='density-density']/real/array/set"
+    # density_real_elements = root.findall(density_real_path)
+    # density_real_columns = ["e_energy_real_col",
+    #                         "e_xx_real_col", "e_yy_real_col", "e_zz_real_col",
+    #                         "e_xy_real_col", "e_yz_real_col", "e_zx_real_col"]
+    # for _, element in enumerate(density_real_elements[0:2]):
+    #     for column in density_real_columns:
+    #         data[column] = []
+    #     # Append data to lists
+    #     for index in element.findall("r"):
+    #         values = list(map(float, index.text.split()))
+    #         for value_index, column in enumerate(density_real_columns):
+    #             data[column].append(values[value_index])
+    #     # Convert lists to numpy arrays
+    #     for column in density_real_columns:
+    #         data[column]=np.array(data[column])
 
     ## Extract imaginary part of Current-Current
     current_imag_path = f".//{data_label}[@comment='current-current']/imag/array/set"
@@ -118,6 +130,14 @@ def extract_dielectric_function(directory):
     for _, element in enumerate(current_imag_elements[0:2]):
         for column in current_imag_columns:
             data[column] = []
+        # Append data to lists
+        for index in element.findall("r"):
+            values = list(map(float, index.text.split()))
+            for value_index, column in enumerate(current_imag_columns):
+                data[column].append(values[value_index])
+        # Convert lists to numpy arrays
+        for column in current_imag_columns:
+            data[column]=np.array(data[column])
 
     ## Extract real part of Current-Current
     current_real_path = f".//{data_label}[@comment='current-current']/real/array/set"
@@ -128,6 +148,14 @@ def extract_dielectric_function(directory):
     for _, element in enumerate(current_real_elements[0:2]):
         for column in current_real_columns :
             data[column] = []
+        # Append data to lists
+        for index in element.findall("r"):
+            values = list(map(float, index.text.split()))
+            for value_index, column in enumerate(current_real_columns):
+                data[column].append(values[value_index])
+        # Convert lists to numpy arrays
+        for column in current_real_columns:
+            data[column]=np.array(data[column])
 
     ## Extract Fermi energy
     # efermi_element = root.find(".//dos/i[@name='efermi']")
