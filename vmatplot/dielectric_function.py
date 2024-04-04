@@ -23,8 +23,9 @@ def extract_dielectric_function(directory):
     ## Analysis vasprun.xml file
     tree = ET.parse(vasprun_path)
     root = tree.getroot()
-    kpoints_file_path = os.path.join(directory, "KPOINTS")
-    kpoints_opt_path = os.path.join(directory, "KPOINTS_OPT")
+
+    ## Algorithm type
+    algorithm_type = identify_algorithm(directory)
 
     data_label = "dielectricfunction"
 

@@ -22,13 +22,15 @@ def identify_algorithm(directory):
         gga_pe_flag = any("GGA=PE" in line for line in active_lines)
 
         # Determine the algorithm based on detected flags
-        if hse06_flag and hf_screen_flag:
-            algorithm = "HSE06"
-        elif gga_pe_flag:
-            algorithm = "GGA-PBE"
-        elif not gga_pe_flag and not hse06_flag and not hf_screen_flag:
+        if all(not flag for flag in [gga_pe_flag, hse06_flag, hf_screen_flag]):
+            # Equals to `if not gga_pe_flag and not hse06_flag and not hf_screen_flag`
+            # Equals to `if not (gga_pe_flag or hse06_flag or hf_screen_flag)`
             # Default to GGA-PBE if no specific flags are detected
             algorithm = "GGA-PBE"
+        elif gga_pe_flag:
+            algorithm = "GGA-PBE"
+        elif hse06_flag and hf_screen_flag:
+            algorithm = "HSE06"
         else:
             algorithm = "Uncertain or other algorithms"
 
