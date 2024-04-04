@@ -27,10 +27,13 @@ def identify_algorithm(directory):
             # Equals to `if not (gga_pe_flag or hse06_flag or hf_screen_flag)`
             # Default to GGA-PBE if no specific flags are detected
             algorithm = "GGA-PBE"
-        elif gga_pe_flag:
+            print("0")
+        elif gga_pe_flag and not (hse06_flag and hf_screen_flag):
             algorithm = "GGA-PBE"
+            print("1")
         elif hse06_flag and hf_screen_flag:
             algorithm = "HSE06"
+            print("2")
         else:
             algorithm = "Uncertain or other algorithms"
 
