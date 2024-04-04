@@ -87,27 +87,47 @@ def extract_dielectric_function(directory):
 
     ## Extract imaginary part of Density-Density
     density_imag_path = f".//{data_label}[@comment='density-density']/imag/array/set"
-    columns = ["e_energy_imag_col",
-               "e_xx_imag_col", "e_yy_imag_col", "e_zz_imag_col",
-               "e_xy_imag_col", "e_yz_imag_col", "e_zx_imag_col"]
+    density_imag_elements = root.findall(density_imag_path)
+    density_imag_columns = ["e_energy_imag_col",
+                            "e_xx_imag_col", "e_yy_imag_col", "e_zz_imag_col",
+                            "e_xy_imag_col", "e_yz_imag_col", "e_zx_imag_col"]
+    for _, element in enumerate(density_imag_elements[0:2]):
+        for column in density_imag_columns:
+            data[column] = []
+        # Append data to lists
+        for index in element.findall("r"):
+            values = list(map(float, real_index.text.split()))
+            for value_index, column in enumerate(density_imag_columns):
 
     ## Extract real part of Density-Density
     density_real_path = f".//{data_label}[@comment='density-density']/real/array/set"
-    columns = ["e_energy_real_col",
-               "e_xx_real_col", "e_yy_real_col", "e_zz_real_col",
-               "e_xy_real_col", "e_yz_real_col", "e_zx_real_col"]
+    density_real_elements = root.findall(density_real_path)
+    density_real_columns = ["e_energy_real_col",
+                            "e_xx_real_col", "e_yy_real_col", "e_zz_real_col",
+                            "e_xy_real_col", "e_yz_real_col", "e_zx_real_col"]
+    for _, element in enumerate(density_real_elements[0:2]):
+        for column in density_real_columns:
+            data[column] = []
 
     ## Extract imaginary part of Current-Current
     current_imag_path = f".//{data_label}[@comment='current-current']/imag/array/set"
-    columns = ["c_energy_imag_col",
-               "c_xx_imag_col", "c_yy_imag_col", "c_zz_imag_col",
-               "c_xy_imag_col", "c_yz_imag_col", "c_zx_imag_col"]
+    current_imag_elements = root.findall(current_imag_path)
+    current_imag_columns = ["c_energy_imag_col",
+                            "c_xx_imag_col", "c_yy_imag_col", "c_zz_imag_col",
+                            "c_xy_imag_col", "c_yz_imag_col", "c_zx_imag_col"]
+    for _, element in enumerate(current_imag_elements[0:2]):
+        for column in current_imag_columns:
+            data[column] = []
 
     ## Extract real part of Current-Current
     current_real_path = f".//{data_label}[@comment='current-current']/real/array/set"
-    columns = ["c_energy_real_col",
-               "c_xx_real_col", "c_yy_real_col", "c_zz_real_col",
-               "c_xy_real_col", "c_yz_real_col", "c_zx_real_col"]
+    current_real_elements = root.findall(current_real_path)
+    current_real_columns = ["c_energy_real_col",
+                            "c_xx_real_col", "c_yy_real_col", "c_zz_real_col",
+                            "c_xy_real_col", "c_yz_real_col", "c_zx_real_col"]
+    for _, element in enumerate(current_real_elements[0:2]):
+        for column in current_real_columns :
+            data[column] = []
 
     ## Extract Fermi energy
     # efermi_element = root.find(".//dos/i[@name='efermi']")
