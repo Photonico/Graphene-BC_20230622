@@ -36,6 +36,7 @@ def create_matters_dielectric_function(dielectric_list):
 def plot_dielectric_function_XZ(title, dielectric_list, energy_max = None):
     # Coding reference: plot_sol_segment_pdos(title, matters_list)
     fig_setting = canvas_setting(8, 11)
+    # fig_setting = canvas_setting(8, 21)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(2, 1, figsize=fig_setting[0], dpi=fig_setting[1])
     axes_element = [axs[0], axs[1]]
