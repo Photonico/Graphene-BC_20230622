@@ -28,7 +28,7 @@ a_end = 4.858
 for a_var in [4.805, 4.815, 4.825, 4.875]:
     dest_dir = f"Lattice_a{a_var:.3f}_d{z_var:.3f}"
     os.makedirs(dest_dir, exist_ok = True)
-    for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_nci.sh", "vasp_usyd.sh"]:
+    for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_gad.sh", "vasp_usyd.sh"]:
         shutil.copy(os.path.join(source_dir, file_name), dest_dir)
     a_1 = np.sqrt(3) * 0.5 * a_var
     a_2 = 0.5 * a_var
@@ -63,5 +63,5 @@ time.sleep(2)
 for dest_dir in dirs_to_walk:
     if "vasp_usyd.sh" in os.listdir(dest_dir):
         print(dest_dir)
-        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_nci.sh"])
+        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_gad.sh"])
         time.sleep(4)

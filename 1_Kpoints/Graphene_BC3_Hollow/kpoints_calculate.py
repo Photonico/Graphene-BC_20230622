@@ -22,7 +22,7 @@ step = 2
 for k_var in np.arange(start, end+step, step):
     dest_dir = f"{dest_dir_base}{k_var}"
     os.makedirs(dest_dir, exist_ok = True)
-    for file_name in ["INCAR", "POSCAR", "vasp_nci.sh", "POTCAR"]:
+    for file_name in ["INCAR", "POSCAR", "vasp_gad.sh", "POTCAR"]:
         shutil.copy(os.path.join(source_dir, file_name), dest_dir)
     with open(os.path.join(dest_dir, "KPOINTS"), "w") as f:
         f.write(textwrap.dedent(f"""
@@ -38,7 +38,7 @@ for k_var in np.arange(start, end+step, step):
 time.sleep(2)
 
 for dest_dir in dirs_to_walk:
-    if "vasp_nci.sh" in os.listdir(dest_dir):
+    if "vasp_gad.sh" in os.listdir(dest_dir):
         print(dest_dir)
-        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_nci.sh"])
+        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_gad.sh"])
         time.sleep(4)

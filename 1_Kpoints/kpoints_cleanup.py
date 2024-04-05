@@ -5,7 +5,7 @@ import os
 
 # List of files to keep
 files_to_keep = [
-    "INCAR", "KPOINTS", "POSCAR", "POTCAR", "vasp_nci.sh", "Kpoints_cleanup.py"
+    "INCAR", "KPOINTS", "POSCAR", "POTCAR", "vasp_gad.sh", "Kpoints_cleanup.py"
 ]
 
 def cleanup(files):
