@@ -493,11 +493,13 @@ lattice_free_energy_ploting_help_info = "help information"
 def plot_lattice_free_energy(matter_count, *args):
     if matter_count == "help":
         print(lattice_free_energy_ploting_help_info)
+
     if matter_count == 1:
         if len(args) == 4:
             return plot_lattice_free_energy_solo(args[0], args[1], args[2], args[3])
         elif len(args) == 5:
             return plot_lattice_free_energy_solo(args[0], args[1], args[2], args[3], args[4])
+
     if matter_count == 2:
         if len(args) == 8:
             return plot_lattice_free_energy_duo(args[0], args[1], args[2], args[3],
