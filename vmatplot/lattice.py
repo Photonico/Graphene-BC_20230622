@@ -37,6 +37,55 @@ def check_vasprun(directory="."):
                 print(f"Error reading {xml_path}: {e}")
     return complete_folders
 
+def lattice_constant(directory):
+    if directory == "help":
+        print("Please use this function on the directory of the specific work folder.")
+        return []
+
+    xml_path = os.path.join(directory, "vasprun.xml")
+    if os.path.isfile(xml_path):
+        try:
+            tree = ET.parse(xml_path)
+            root = tree.getroot()
+
+            # Extract lattice constant
+            # Assuming the lattice constant is the length of the "a" vector from the final structure
+            basis_vectors = root.findall(".//calculation/structure/crystal/varray[@name='basis']")[-1]
+            a_vector = basis_vectors[0].text.split()
+            a_length = (float(a_vector[0])**2 + float(a_vector[1])**2 + float(a_vector[2])**2)**0.5
+
+            return a_length
+
+        except ET.ParseError as e:
+            print("Error parsing vasprun.xml:", e)
+            return None
+    else:
+        print("vasprun.xml not found in the specified directory.")
+        return None
+
+def lattice_free_energy(directory):
+    if directory == "help":
+        print("Please use this function on the directory of the specific work folder.")
+        return []
+
+    xml_path = os.path.join(directory, "vasprun.xml")
+    if os.path.isfile(xml_path):
+        try:
+            tree = ET.parse(xml_path)
+            root = tree.getroot()
+
+            # Extract free energy
+            free_energy = float(root.findall(".//calculation/energy/i[@name='e_fr_energy']")[-1].text)
+
+            return free_energy
+
+        except ET.ParseError as e:
+            print("Error parsing vasprun.xml:", e)
+            return None
+    else:
+        print("vasprun.xml not found in the specified directory.")
+        return None
+
 def lattice_free_energy_input():
     while True:
         free_energy_directory = input("Please input the directory of free energy calculation: ")
