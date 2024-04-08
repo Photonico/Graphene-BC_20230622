@@ -8,7 +8,7 @@ from vmatplot.dielectric_function import extract_dielectric_function
 
 def create_matters_dielectric_function(dielectric_list):
     # data = create_matters_dielectric_function(dielectric_list)
-    # data[0] = label
+    # data[0] = current curve label
     # data[1] = dielectric data
     # data[2] = color family
     # data[3] = alpha
