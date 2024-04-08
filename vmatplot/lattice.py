@@ -1,4 +1,4 @@
-#### Free energy extracting
+#### lattice information extracting
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0914
 
 import xml.etree.ElementTree as ET
