@@ -61,7 +61,7 @@ def plot_dielectric_function_XZ(title, dielectric_list, energy_max = None):
             # Labels
             if data[0] != "":
                 current_label = f"({data[0]})"
-            if data[0] == "":
+            elif data[0] == "":
                 current_label = ""
             # Inplane
             if supplot_index == 0:
@@ -70,7 +70,7 @@ def plot_dielectric_function_XZ(title, dielectric_list, energy_max = None):
                 lines_imag = ax.plot(data[1]["density_energy_imag"], data[1]["density_xx_imag"], color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
                 lines_imag[0].set_dashes([2, 1])
             # Outplane
-            if supplot_index == 1:
+            elif supplot_index == 1:
                 lines_real = ax.plot(data[1]["density_energy_real"], data[1]["density_zz_real"], color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
                 lines_real[0].set_dashes([2, 0])
                 lines_imag = ax.plot(data[1]["density_energy_imag"], data[1]["density_zz_imag"], color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
