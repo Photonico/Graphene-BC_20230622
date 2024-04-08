@@ -153,15 +153,15 @@ def summarize_lattice_free_energy_directory(directory=".", lattice_start = None,
                 basis_vectors = root.findall(".//calculation/structure/crystal/varray[@name='basis']")[-1]
                 a_vector = basis_vectors[0].text.split()
                 a_length = (float(a_vector[0])**2 + float(a_vector[1])**2 + float(a_vector[2])**2)**0.5
-                lattice_constant = a_length
+                lattice_const = a_length
 
                 # Check if lattice constant is within the specified range
                 TOLERANCE = 1e-6
-                within_start = lattice_start is None or lattice_constant >= lattice_start - TOLERANCE
-                within_end = lattice_end is None or lattice_constant <= lattice_end + TOLERANCE
+                within_start = lattice_start is None or lattice_const >= lattice_start - TOLERANCE
+                within_end = lattice_end is None or lattice_const <= lattice_end + TOLERANCE
 
                 if within_start and within_end:
-                    results.append((lattice_constant, free_energy))
+                    results.append((lattice_const, free_energy))
 
             except (ET.ParseError, ValueError, IndexError) as e:
                 print(f"Error processing {work_dir}/vasprun.xml:", e)
@@ -176,8 +176,8 @@ def summarize_lattice_free_energy_directory(directory=".", lattice_start = None,
     try:
         with open(result_file_path, "w", encoding="utf-8") as xml_file:
             xml_file.write("Lattice\t Free energy\n")
-            for lattice_constant, free_energy in results:
-                xml_file.write(f"{lattice_constant}\t{free_energy}\n")
+            for lattice_const, free_energy in results:
+                xml_file.write(f"{lattice_const}\t{free_energy}\n")
     except IOError as e:
         print("Error writing to file:", e)
 
