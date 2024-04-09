@@ -189,7 +189,8 @@ def plot_sol_segment_pdos(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
+    # fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
+    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=1.00)
 
     for supplot_index in range(2):
         ax = axes_element[supplot_index]
@@ -233,6 +234,8 @@ def plot_sol_segment_pdos(title, matters_list):
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
     plt.tight_layout()
+    # print(fig.get_size_inches())
+    # print(fig.dpi)
 
 def plot_duo_segment_pdos(title, matters_list):
     # Figure settings
@@ -277,7 +280,8 @@ def plot_duo_segment_pdos(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
+    # fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
+    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0])
 
     for supplot_index in range(3):
         ax = axes_element[supplot_index]
@@ -366,7 +370,8 @@ def plot_tri_segment_pdos(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
+    # fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
+    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0])
 
     for supplot_index in range(4):
         ax = axes_element[supplot_index]
@@ -455,6 +460,7 @@ def plot_tri_segment_pdos_block(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
+    # fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
     fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0])
 
     for supplot_index in range(4):

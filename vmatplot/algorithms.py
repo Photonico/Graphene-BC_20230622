@@ -52,6 +52,24 @@ def extract_part(ind_values, dep_values, start_value=None, end_value=None):
     dep_values_filtered = dep_values[condition]
     return (ind_values_filtered, dep_values_filtered)
 
+def process_boundary(boundary, default=(None, None)):
+    # Enhanced to handle single values as well as tuples/lists
+    # If boundary is None or empty, return the default
+    if not boundary:
+        return default
+    # If boundary is a single value (not a container), treat it as the end value
+    if isinstance(boundary, (int, float)):
+        return (None, boundary)
+    # If boundary is a container with a single item, unpack it
+    if isinstance(boundary, (list, tuple)) and len(boundary) == 1:
+        return (None, boundary[0])
+    # If boundary is a container with two items, return them as start and end
+    elif isinstance(boundary, (list, tuple)) and len(boundary) == 2:
+        return (boundary[0], boundary[1])
+    # In case boundary doesn't match any expected pattern, return default
+    else:
+        return default
+
 def birch_murnaghan_eos(params, vol):
     """Birch-Murnaghan equation of state."""
     E0, B0, Bp, V0 = params

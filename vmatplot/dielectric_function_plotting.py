@@ -4,6 +4,7 @@
 import matplotlib.pyplot as plt
 
 from vmatplot.output import canvas_setting, color_sampling
+from vmatplot.algorithms import process_boundary, extract_part
 from vmatplot.dielectric_function import extract_dielectric_function
 
 def create_matters_dielectric_function(dielectric_list):
@@ -33,8 +34,7 @@ def create_matters_dielectric_function(dielectric_list):
         data.append([label,dielectric_data,color,alpha,linewidth])
     return data
 
-def plot_dielectric_function_XZ(title, dielectric_list=None, *args):
-    # XX_energy_boundary=None, ZZ_energy_boundary=None, Dielectric_boundary=None
+def plot_dielectric_function_XZ(title, dielectric_list=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
     # Help information
     help_info = "Usage: plot_dielectric_function_XZ" + \
                 "The independent value includes \n" +\
@@ -44,9 +44,8 @@ def plot_dielectric_function_XZ(title, dielectric_list=None, *args):
                 "\t Outplane photon energy range (Optional). \n"
     if title in ["help", "Help"]:
         print(help_info)
-    # Coding reference: plot_sol_segment_pdos(title, matters_list)
+    # Figure settings
     fig_setting = canvas_setting(8, 11)
-    # fig_setting = canvas_setting(8, 21)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(2, 1, figsize=fig_setting[0], dpi=fig_setting[1])
     axes_element = [axs[0], axs[1]]
@@ -59,21 +58,13 @@ def plot_dielectric_function_XZ(title, dielectric_list=None, *args):
     dataset = create_matters_dielectric_function(dielectric_list)
     subtitles = ["Inplane", "Outplane"]
 
-    fig.suptitle(f"Dielectric function for {title}", fontsize=fig_setting[3][0])
-    #  Boundary
-    if len(args) == 0:
-        inplane_energy_boundary = (None,None)
-        inplane_start = inplane_energy_boundary[0]
-        inplane_end = inplane_energy_boundary[1]
-        outplane_energy_boundary = (None,None)
-        outplane_start = outplane_energy_boundary[0]
-        outplane_end = outplane_energy_boundary[1]
-    elif len(args) == 1:
-        inplane_energy_boundary = args[0]
-        outplane_energy_boundary = (None,None)
-    elif len(args) == 2:
-        inplane_energy_boundary = args[0]
-        outplane_energy_boundary = args[1]
+    # Suptitle
+    # fig.suptitle(f"Dielectric function for {title}", fontsize=fig_setting[3][0], y=0.95)
+    fig.suptitle(f"Dielectric function for {title}", fontsize=fig_setting[3][0], y=1.00)
+
+    # Boundary
+    inplane_start, inplane_end = process_boundary(inplane_energy_boundary)
+    outplane_start, outplane_end = process_boundary(outplane_energy_boundary)
     # Data plotting
     for supplot_index in range(2):
         ax = axes_element[supplot_index]
@@ -88,22 +79,25 @@ def plot_dielectric_function_XZ(title, dielectric_list=None, *args):
                 current_label = ""
             # Inplane
             if supplot_index == 0:
-                lines_real = ax.plot(data[1]["density_energy_real"], data[1]["density_xx_real"], color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
+                inplane_energy_real, inplane_density_xx_real = extract_part(data[1]["density_energy_real"],data[1]["density_xx_real"],inplane_start,inplane_end)
+                inplane_energy_imag, inplane_density_xx_imag = extract_part(data[1]["density_energy_imag"],data[1]["density_xx_imag"],inplane_start,inplane_end)
+
+                lines_real = ax.plot(inplane_energy_real, inplane_density_xx_real, color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
                 lines_real[0].set_dashes([2, 0])
-                lines_imag = ax.plot(data[1]["density_energy_imag"], data[1]["density_xx_imag"], color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
+                lines_imag = ax.plot(inplane_energy_imag, inplane_density_xx_imag, color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
                 lines_imag[0].set_dashes([2, 1])
             # Outplane
             elif supplot_index == 1:
-                lines_real = ax.plot(data[1]["density_energy_real"], data[1]["density_zz_real"], color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
+                outplane_energy_real, outplane_density_xx_real = extract_part(data[1]["density_energy_real"],data[1]["density_zz_real"],outplane_start,outplane_end)
+                outplane_energy_imag, outplane_density_xx_imag = extract_part(data[1]["density_energy_imag"],data[1]["density_zz_imag"],outplane_start,outplane_end)
+
+                lines_real = ax.plot(outplane_energy_real, outplane_density_xx_real, color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
                 lines_real[0].set_dashes([2, 0])
-                lines_imag = ax.plot(data[1]["density_energy_imag"], data[1]["density_zz_imag"], color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
+                lines_imag = ax.plot(outplane_energy_imag, outplane_density_xx_imag, color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
                 lines_imag[0].set_dashes([2, 1])
 
-        # Photon energy boundary and axis label
-        if supplot_index == 0:
-            ax.set_xlim(inplane_start,inplane_end)
-        elif supplot_index == 1:
-            ax.set_xlim(outplane_start,outplane_end)
+        # axis label
+        if supplot_index == 1:
             ax.set_xlabel(r"Photon energy (eV)")
         ax.set_ylabel(r"Dielectric function")
         ax.legend(loc="upper right")
@@ -118,3 +112,5 @@ def plot_dielectric_function_XZ(title, dielectric_list=None, *args):
                     fontsize=1.0 * 16,
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+    # print(fig.get_size_inches())
+    # print(fig.dpi)
