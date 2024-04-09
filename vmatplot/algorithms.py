@@ -23,12 +23,24 @@ def compute_average(data_lines):
         print(line)
     return total / len(data_lines)  # Return the average
 
-def extract_part(ind_values, dep_values, start_value, end_value=None):
-    # If end_value is not provided, use the maximum value in ind_values
-    if end_value is None:
-        end_value = np.max(ind_values)
-    # Filtering data based on condition
-    condition = (ind_values >= start_value) & (ind_values <= end_value)
+def extract_part(ind_values, dep_values, start_value=None, end_value=None):
+    # Ensure ind_values and dep_values are numpy arrays
+    ind_values = np.asarray(ind_values)
+    dep_values = np.asarray(dep_values)
+    # Condition handling:
+    # If both start_value and end_value are None, return the original data without processing.
+    if start_value is None and end_value is None:
+        return (ind_values, dep_values)
+    # If only start_value is provided (not None), slice from start_value to the end.
+    elif start_value is not None and end_value is None:
+        condition = (ind_values >= start_value)
+    # If only end_value is provided (not None), slice from the beginning to end_value.
+    elif start_value is None and end_value is not None:
+        condition = (ind_values <= end_value)
+    # If both start_value and end_value are provided, slice between start_value and end_value.
+    else:
+        condition = (ind_values >= start_value) & (ind_values <= end_value)
+    # Filtering data based on the condition
     ind_values_filtered = ind_values[condition]
     dep_values_filtered = dep_values[condition]
     return (ind_values_filtered, dep_values_filtered)
