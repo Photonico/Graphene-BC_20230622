@@ -215,7 +215,7 @@ def read_free_energy_lattice_count(lattice_path, count=None):
     # Initialize the lists for lattice constant and free energy
     lattice_value, free_energy_value = [], []
     lattice_sample_init, lattice_sample, free_energy_sample = [], [], []
-    if (count is not None) or (count not in ("ALL","All","all")):
+    if (count is not None) and (count not in ("ALL","All","all")):
         with open(lattice_path, "r", encoding="utf-8") as data_file:
             lines = data_file.readlines()[1:]
             for line in lines:
