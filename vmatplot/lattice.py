@@ -581,7 +581,7 @@ def plot_free_energy_lattice_quad(title, sample_count,
 
 lattice_free_energy_ploting_help_info = "help information"
 
-def plot_free_energy_lattice(matter_count, *args):
+def plot_free_energy_lattice_direct(matter_count, *args):
     if matter_count == "help":
         print(lattice_free_energy_ploting_help_info)
 
