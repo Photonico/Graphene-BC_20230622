@@ -303,7 +303,7 @@ def plot_free_energy_lattice_solo(matter, sample_count, source_data, color_famil
     if selected_data is not None:
         plt.scatter(selected_lattice,  select_free_energy, s=24, fc=colors[0], ec=colors[0], label="Selected data", zorder=2)
 
-    plt.legend(loc=fig_setting[3])
+    plt.legend(loc=fig_setting[4])
     plt.show()
 
 def plot_free_energy_lattice_duo(title, sample_count, matter1, source_data1, color_family1, matter2, source_data2, color_family2, selected_data1=None, selected_data2=None):
@@ -367,7 +367,7 @@ def plot_free_energy_lattice_duo(title, sample_count, matter1, source_data1, col
     if selected_data2 is not None:
         plt.scatter(selected_lattice2,  select_free_energy2, s=24, ec=colors2[0], fc=colors2[0], label=f"Selected data {label_matter2}", zorder=2)
 
-    plt.legend(loc=fig_setting[3])
+    plt.legend(loc=fig_setting[4])
     plt.show()
 
 def plot_free_energy_lattice_tri(title, sample_count,
@@ -458,7 +458,7 @@ def plot_free_energy_lattice_tri(title, sample_count,
     if selected_data3 is not None:
         plt.scatter(selected_lattice3,  select_free_energy3, s=24, ec=colors3[0], fc=colors3[0], label=f"Selected data {label_matter3}", zorder=2)
 
-    plt.legend(loc=fig_setting[3])
+    plt.legend(loc=fig_setting[4])
     plt.show()
 
 def plot_free_energy_lattice_quad(title, sample_count,
@@ -576,7 +576,7 @@ def plot_free_energy_lattice_quad(title, sample_count,
     if selected_data4 is not None:
         plt.scatter(selected_lattice4,  select_free_energy4, s=24, ec=colors4[0], fc=colors4[0], label=f"Selected data {label_matter4}", zorder=2)
 
-    plt.legend(loc=fig_setting[3])
+    plt.legend(loc=fig_setting[4])
     plt.show()
 
 lattice_free_energy_ploting_help_info = "help information"
