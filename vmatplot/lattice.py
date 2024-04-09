@@ -125,7 +125,7 @@ def specify_free_energy_lattice(directory):
         return None
 
 def summarize_free_energy_lattice_directory(directory=".", lattice_start = None, lattice_end = None):
-    result_file = "lattice_free_energy.dat"
+    result_file = "free_energy_lattice.dat"
     result_file_path = os.path.join(directory, result_file)
 
     if directory == "help":
