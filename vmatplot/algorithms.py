@@ -23,6 +23,16 @@ def compute_average(data_lines):
         print(line)
     return total / len(data_lines)  # Return the average
 
+def extract_part(ind_values, dep_values, start_value, end_value=None):
+    # If end_value is not provided, use the maximum value in ind_values
+    if end_value is None:
+        end_value = np.max(ind_values)
+    # Filtering data based on condition
+    condition = (ind_values >= start_value) & (ind_values <= end_value)
+    ind_values_filtered = ind_values[condition]
+    dep_values_filtered = dep_values[condition]
+    return (ind_values_filtered, dep_values_filtered)
+
 def birch_murnaghan_eos(params, vol):
     """Birch-Murnaghan equation of state."""
     E0, B0, Bp, V0 = params
