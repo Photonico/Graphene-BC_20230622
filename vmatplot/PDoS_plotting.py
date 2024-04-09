@@ -189,9 +189,9 @@ def plot_sol_segment_pdos(title, matters_list):
         # Data ploting
         ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            if labels[matter_index][supplot_index] != "":
+            if labels[matter_index][supplot_index] not in [None, ""]:
                 current_label = f"({labels[matter_index][supplot_index]})"
-            if labels[matter_index][supplot_index] == "":
+            else:
                 current_label = ""
             current_pdos  = pdoses[matter_index][supplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)

@@ -90,7 +90,7 @@ def specify_kpoints_free_energy(directory):
         print("vasprun.xml or KPOINTS is not found in the current directory")
         return None
 
-def summarize_kpoints_free_energy(directory=".", lattice_start = None, lattice_end = None):
+def summarize_kpoints_free_energy(directory=".", lattice_boundary = None):
     result_file = "kpoints_energy.dat"
     result_file_path = os.path.join(directory, result_file)
 
@@ -136,8 +136,11 @@ def summarize_kpoints_free_energy(directory=".", lattice_start = None, lattice_e
 
                 # Check if lattice constant is within the specified range
                 TOLERANCE = 1e-6
-                lattice_within_start = lattice_start is None or lattice_constant >= lattice_start - TOLERANCE
-                lattice_within_end = lattice_end is None or lattice_constant <= lattice_end + TOLERANCE
+
+                lattice_start = lattice_boundary[0]
+                lattice_end = lattice_boundary[1]
+                lattice_within_start = lattice_start in [None,""] or lattice_constant >= lattice_start - TOLERANCE
+                lattice_within_end = lattice_end in [None,""] or lattice_constant <= lattice_end + TOLERANCE
 
                 if lattice_within_start and lattice_within_end:
                     results.append((tot_kpoints, (x_kpoints, y_kpoints, z_kpoints), lattice_constant, free_energy))
@@ -185,7 +188,7 @@ def read_kpoints_free_energy(data_path):
 
     return kpoints, direct_kpoints, lattice, free_energy
 
-def plot_kpoints_free_energy(matter, source_data=None, direction="Total", kpoints_start=None, kpoints_end=None, color_family="blue"):
+def plot_kpoints_free_energy_data(matter, source_data=None, direction="Total", kpoints_boundary=None, color_family="blue"):
     help_info = "Usage: read_kpoints_free_energy(data_path)\n" + \
                 "data_path: Path to the data file containing lattice and free energy values.\n"
 
@@ -238,9 +241,14 @@ def plot_kpoints_free_energy(matter, source_data=None, direction="Total", kpoint
 
     # Axis style
     plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3))
-    if kpoints_end is None:
+
+    # Boundary
+    kpoints_start = kpoints_boundary[0]
+    kpoints_end = kpoints_boundary[1]
+
+    if kpoints_end in ["", None]:
         kpoints_end = np.max(kpoints)
-    if kpoints_start is None:
+    if kpoints_start in ["", None]:
         kpoints_start = 1
 
     start_index = kpoints.index(kpoints_start)

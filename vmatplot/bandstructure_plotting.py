@@ -158,15 +158,16 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
     # Data calling and plotting
     matters = create_matters_bs(matters_list)
     for matter in matters:
+        if matter[1] not in [None, ""]:
+            current_label = f"({matter[1]})"
+        else:
+            current_label = ""
         if matter[0].lower() in ["monocolor"]:
             fermi = matter[2]
             for bands_index in range(0, len(matter[4])):
                 current_band = [eigenvalue - fermi for eigenvalue in matter[4][bands_index]]
                 if bands_index == 0:
-                    if matter[1] != "":
-                        plt.plot(matter[3], current_band, c=color_sampling(matter[5])[1], alpha=matter[6], label=f"Bandstructure for {matter[1]}", zorder=4)
-                    else:
-                        plt.plot(matter[3], current_band, c=color_sampling(matter[5])[1], alpha=matter[6], label="Bandstructure", zorder=4)
+                    plt.plot(matter[3], current_band, c=color_sampling(matter[5])[1], alpha=matter[6], label=f"Bandstructure {current_label}", zorder=4)
                 else:
                     plt.plot(matter[3], current_band, c=color_sampling(matter[5])[1], alpha=matter[6], zorder=4)
         elif matter[0] in ["bands"]:
@@ -174,19 +175,13 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
             for bands_index in range(0, len(matter[4])):
                 current_conduction_band = [eigenvalue - fermi for eigenvalue in matter[4][bands_index]]
                 if bands_index == 0:
-                    if matter[1] != "":
-                        plt.plot(matter[3], current_conduction_band, c=color_sampling(matter[6])[2], linestyle=matter[7], alpha=matter[8], label=f"Conduction bands for {matter[1]}", zorder=4)
-                    else:
-                        plt.plot(matter[3], current_conduction_band, c=color_sampling(matter[6])[2], linestyle=matter[7], alpha=matter[8], label="Conduction bands", zorder=4)
+                    plt.plot(matter[3], current_conduction_band, c=color_sampling(matter[6])[2], linestyle=matter[7], alpha=matter[8], label=f"Conduction bands {current_label}", zorder=4)
                 else:
                     plt.plot(matter[3], current_conduction_band, c=color_sampling(matter[6])[2], linestyle=matter[7], alpha=matter[8], zorder=4)
             for bands_index in range(0, len(matter[5])):
                 current_valence_band = [eigenvalue - fermi for eigenvalue in matter[5][bands_index]]
                 if bands_index == 0:
-                    if matter[1] != "":
-                        plt.plot(matter[3], current_valence_band, c=color_sampling(matter[6])[0], linestyle=matter[7], alpha=matter[8], label=f"Valence bands for {matter[1]}", zorder=4)
-                    else:
-                        plt.plot(matter[3], current_valence_band, c=color_sampling(matter[6])[0], linestyle=matter[7], alpha=matter[8], label="Valence bands", zorder=4)
+                        plt.plot(matter[3], current_valence_band, c=color_sampling(matter[6])[0], linestyle=matter[7], alpha=matter[8], label=f"Valence bands {current_label}", zorder=4)
                 else:
                     plt.plot(matter[3], current_valence_band, c=color_sampling(matter[6])[0], linestyle=matter[7], alpha=matter[8], zorder=4)
         kpath_start = matter[3][0]
@@ -257,15 +252,16 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
     ax1.set_title("Bandstructure", fontsize=fig_setting[3][1])
 
     for matter in matters:
+        if matter[1] not in [None, ""]:
+            bs_current_label = f"({matter[1]})"
+        else:
+            bs_current_label = ""
         if matter[0].lower() in ["monocolor"]:
             bs_fermi = matter[2]
             for bands_index in range(0, len(matter[4])):
                 current_band = [eigenvalue - bs_fermi for eigenvalue in matter[4][bands_index]]
                 if bands_index == 0:
-                    if matter[1] != "":
-                        ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], alpha=matter[7], label=f"Bandstructure for {matter[1]}", zorder=4)
-                    else:
-                        ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], alpha=matter[7], label="Bandstructure", zorder=4)
+                    ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], alpha=matter[7], label=f"Bandstructure {bs_current_label}", zorder=4)
                 else:
                     ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], alpha=matter[7], zorder=4)
         elif matter[0].lower() in ["bands"]:
@@ -273,19 +269,13 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
             for bands_index in range(0, len(matter[4])):
                 current_conduction_band = [eigenvalue - bs_fermi for eigenvalue in matter[4][bands_index]]
                 if bands_index == 0:
-                    if matter[1] != "":
-                        ax1.plot(matter[3], current_conduction_band, c=color_sampling(matter[7])[2], linestyle=matter[8], alpha=matter[9], label=f"Conduction bands for {matter[1]}", zorder=4)
-                    else:
-                        ax1.plot(matter[3], current_conduction_band, c=color_sampling(matter[7])[2], linestyle=matter[8], alpha=matter[9], label="Conduction bands", zorder=4)
+                    ax1.plot(matter[3], current_conduction_band, c=color_sampling(matter[7])[2], linestyle=matter[8], alpha=matter[9], label=f"Conduction bands {bs_current_label}", zorder=4)
                 else:
                     ax1.plot(matter[3], current_conduction_band, c=color_sampling(matter[7])[2], linestyle=matter[8], alpha=matter[9], zorder=4)
             for bands_index in range(0, len(matter[5])):
                 current_valence_band = [eigenvalue - bs_fermi for eigenvalue in matter[5][bands_index]]
                 if bands_index == 0:
-                    if matter[1] != "":
-                        ax1.plot(matter[3], current_valence_band, c=color_sampling(matter[7])[0], linestyle=matter[8], alpha=matter[9], label=f"Valence bands for {matter[1]}", zorder=4)
-                    else:
-                        ax1.plot(matter[3], current_valence_band, c=color_sampling(matter[7])[0], linestyle=matter[8], alpha=matter[9], label="Valence bands", zorder=4)
+                    ax1.plot(matter[3], current_valence_band, c=color_sampling(matter[7])[0], linestyle=matter[8], alpha=matter[9], label=f"Valence bands {bs_current_label}", zorder=4)
                 else:
                     ax1.plot(matter[3], current_valence_band, c=color_sampling(matter[7])[0], linestyle=matter[8], alpha=matter[9], zorder=4)
         kpath_start = matter[3][0]
@@ -325,15 +315,17 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
     ax2.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
     ax2.set_title("DoS", fontsize=fig_setting[3][1])
     for matter in matters:
+        if matter[1] not in [None, ""]:
+            DoS_current_label = f"({matter[1]})"
+        else:
+            DoS_current_label = ""
         if matter[0].lower() in ["monocolor"]:
             dos_efermi = matter[5][0]
-            plt.plot(matter[5][6], matter[5][5], c=color_sampling(matter[6])[1], label=f"Total DoS for {matter[1]}", zorder = 2)
+            plt.plot(matter[5][6], matter[5][5], c=color_sampling(matter[6])[1], label=f"Total DoS {DoS_current_label}", zorder = 2)
 
         elif matter[0].lower() in ["bands"]:
             dos_efermi = matter[6][0]
-
-            # plt.plot(matter[6][6], matter[6][5], c=color_sampling(matter[7])[1], label=f"Total DoS for {matter[1]}", zorder = 2)
-
+            # plt.plot(matter[6][6], matter[6][5], c=color_sampling(matter[7])[1], label=f"Total DoS {current_label}", zorder = 2)
             dos_data = matter[6][6]
             energy_data = matter[6][5]
 
@@ -344,7 +336,7 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
 
             if conduction_dos and conduction_energy:
                 ax2.plot(conduction_dos, conduction_energy, c=color_sampling(matter[7])[2])
-            if valence_dos and valence_energy: 
+            if valence_dos and valence_energy:
                 ax2.plot(valence_dos, valence_energy, c=color_sampling(matter[7])[0])
 
     ax2.set_ylim(eigen_range*(-1), eigen_range)

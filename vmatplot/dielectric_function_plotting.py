@@ -59,9 +59,9 @@ def plot_dielectric_function_XZ(title, dielectric_list, energy_max = None):
 
         for _, data in enumerate(dataset):
             # Labels
-            if data[0] != "":
+            if data[0] not in ["", None]:
                 current_label = f"({data[0]})"
-            elif data[0] == "":
+            else:
                 current_label = ""
             # Inplane
             if supplot_index == 0:
