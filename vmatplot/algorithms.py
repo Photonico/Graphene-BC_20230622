@@ -23,6 +23,13 @@ def compute_average(data_lines):
         print(line)
     return total / len(data_lines)  # Return the average
 
+def extract_midpoint(inde_values, dep_values):
+    ind_avg = (inde_values[0] + inde_values[-1]) / 2.0
+    ind_mid_index = np.abs(np.asarray(inde_values) - ind_avg).argmin()
+    ind_mid = inde_values[ind_mid_index]
+    dep_mid = dep_values[ind_mid_index]
+    return ind_mid, dep_mid
+
 def extract_part(ind_values, dep_values, start_value=None, end_value=None):
     # Ensure ind_values and dep_values are numpy arrays
     ind_values = np.asarray(ind_values)
@@ -33,10 +40,10 @@ def extract_part(ind_values, dep_values, start_value=None, end_value=None):
         return (ind_values, dep_values)
     # If only start_value is provided (not None), slice from start_value to the end.
     elif start_value is not None and end_value is None:
-        condition = (ind_values >= start_value)
+        condition = ind_values >= start_value
     # If only end_value is provided (not None), slice from the beginning to end_value.
     elif start_value is None and end_value is not None:
-        condition = (ind_values <= end_value)
+        condition = ind_values <= end_value
     # If both start_value and end_value are provided, slice between start_value and end_value.
     else:
         condition = (ind_values >= start_value) & (ind_values <= end_value)

@@ -6,7 +6,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from vmatplot.algorithms import fit_eos
+from vmatplot.algorithms import fit_eos, extract_midpoint
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import polynomially_fit_curve
 
@@ -215,7 +215,14 @@ def read_free_energy_lattice_count(lattice_path, count=None):
     # Initialize the lists for lattice constant and free energy
     lattice_value, free_energy_value = [], []
     lattice_sample_init, lattice_sample, free_energy_sample = [], [], []
-    if (count is not None) and (count not in ("ALL","All","all")):
+    if count in [None, "ALL", "All", "all"]:
+        return read_free_energy_lattice_data(lattice_path)
+    elif count in [0, "NONE", "None", "none"]:
+        return None
+    elif count == 1:
+        lattice_mid, energy_mid = extract_midpoint(read_free_energy_lattice_data(lattice_path)[0], read_free_energy_lattice_data(lattice_path)[1])
+        return lattice_mid, energy_mid
+    elif (count is not None) and (count not in ("ALL","All","all")):
         with open(lattice_path, "r", encoding="utf-8") as data_file:
             lines = data_file.readlines()[1:]
             for line in lines:
@@ -234,8 +241,6 @@ def read_free_energy_lattice_count(lattice_path, count=None):
                 # Append the actual lattice value to lattice_sample
                 lattice_sample.append(lattice_value[closest_index])
             return lattice_sample, free_energy_sample
-    else:
-        return read_free_energy_lattice_data(lattice_path)
 
 def extract_fitted_minimum_free_energy_lattice(source_data):
     lattice_source, free_energy_source = read_free_energy_lattice_data(source_data)
