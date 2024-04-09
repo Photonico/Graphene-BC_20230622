@@ -59,8 +59,8 @@ def plot_dielectric_function_XZ(title, dielectric_list=None, inplane_energy_boun
     subtitles = ["Inplane", "Outplane"]
 
     # Suptitle
-    # fig.suptitle(f"Dielectric function for {title}", fontsize=fig_setting[3][0], y=0.95)
-    fig.suptitle(f"Dielectric function for {title}", fontsize=fig_setting[3][0], y=1.00)
+    fig.suptitle(f"Dielectric function for {title}", fontsize=fig_setting[3][0], y=0.96)
+    # fig.suptitle(f"Dielectric function for {title}", fontsize=fig_setting[3][0], y=1.00)
 
     # Boundary
     inplane_start, inplane_end = process_boundary(inplane_energy_boundary)
