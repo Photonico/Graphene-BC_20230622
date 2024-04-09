@@ -4,10 +4,8 @@
 import xml.etree.ElementTree as ET
 import os
 import numpy as np
-import matplotlib.pyplot as plt
 
-from vmatplot.algorithms import fit_eos, extract_midpoint
-from vmatplot.output import canvas_setting, color_sampling
+from vmatplot.algorithms import extract_midpoint
 from vmatplot.algorithms import polynomially_fit_curve
 
 def check_vasprun(directory="."):
@@ -124,7 +122,8 @@ def specify_free_energy_lattice(directory):
         print("vasprun.xml not found in the specified directory.")
         return None
 
-def summarize_free_energy_lattice_directory(directory=".", lattice_boundary = None):
+def summarize_free_energy_lattice_directory(directory=".", lattice_boundary=None):
+
     result_file = "free_energy_lattice.dat"
     result_file_path = os.path.join(directory, result_file)
 
@@ -141,30 +140,25 @@ def summarize_free_energy_lattice_directory(directory=".", lattice_boundary = No
 
         if os.path.isfile(xml_path):
             try:
-                # Extract free_energy from vasprun.xml
                 tree = ET.parse(xml_path)
                 root = tree.getroot()
 
-                # Extract free energy
                 free_energy = float(root.findall(".//calculation/energy/i[@name='e_fr_energy']")[-1].text)
 
-                # Extract lattice constant
-                # Assuming the lattice constant is the length of the 'a' vector from the final structure
                 basis_vectors = root.findall(".//calculation/structure/crystal/varray[@name='basis']")[-1]
                 a_vector = basis_vectors[0].text.split()
                 a_length = (float(a_vector[0])**2 + float(a_vector[1])**2 + float(a_vector[2])**2)**0.5
-                lattice_const = a_length
 
-                # Check if lattice constant is within the specified range
-                TOLERANCE = 1e-6
-
-                lattice_start = lattice_boundary[0]
-                lattice_end = lattice_boundary[1]
-                within_start = lattice_start is None or lattice_const >= lattice_start - TOLERANCE
-                within_end = lattice_end is None or lattice_const <= lattice_end + TOLERANCE
+                within_start = True
+                within_end = True
+                if lattice_boundary is not None:
+                    lattice_start, lattice_end = lattice_boundary
+                    TOLERANCE = 1e-6
+                    within_start = lattice_start is None or a_length >= lattice_start - TOLERANCE
+                    within_end = lattice_end is None or a_length <= lattice_end + TOLERANCE
 
                 if within_start and within_end:
-                    results.append((lattice_const, free_energy))
+                    results.append((a_length, free_energy))
 
             except (ET.ParseError, ValueError, IndexError) as e:
                 print(f"Error processing {work_dir}/vasprun.xml:", e)
@@ -172,17 +166,18 @@ def summarize_free_energy_lattice_directory(directory=".", lattice_boundary = No
         else:
             print(f"vasprun.xml not found in {work_dir}.")
 
-    # Sort the results by lattice_constant (the first element of the tuple)
     results.sort(key=lambda x: x[0])
 
-    # Now write the sorted results to the file
-    try:
-        with open(result_file_path, "w", encoding="utf-8") as xml_file:
-            xml_file.write("Lattice\t Free energy\n")
-            for lattice_const, free_energy in results:
-                xml_file.write(f"{lattice_const}\t{free_energy}\n")
-    except IOError as e:
-        print("Error writing to file:", e)
+    if results:
+        try:
+            with open(result_file_path, "w", encoding="utf-8") as xml_file:
+                xml_file.write("Lattice\t Free energy\n")
+                for lattice_const, free_energy in results:
+                    xml_file.write(f"{lattice_const}\t{free_energy}\n")
+        except IOError as e:
+            print("Error writing to file:", e)
+    else:
+        print("No suitable data found to write.")
 
 def read_free_energy_lattice_data(lattice_path, density = 1):
     help_info = "Usage: read_free_energy_lattice_data(lattice_path, density)\n" + \

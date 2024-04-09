@@ -91,16 +91,18 @@ def specify_kpoints_free_energy(directory):
         return None
 
 def summarize_kpoints_free_energy(directory=".", lattice_boundary = None):
-    result_file = "kpoints_energy.dat"
+    result_file = "energy_kpoint.dat"
     result_file_path = os.path.join(directory, result_file)
 
     if directory == "help":
         print("Please use this function on the parent directory of the project's main folder.")
         return []
 
-    # Use check_vasprun to get folders with complete vasprun.xml
     dirs_to_walk = check_vasprun(directory)
     results = []
+
+    lattice_within_start = True
+    lattice_within_end = True
 
     for work_dir in dirs_to_walk:
         xml_path = os.path.join(work_dir, "vasprun.xml")
@@ -111,22 +113,19 @@ def summarize_kpoints_free_energy(directory=".", lattice_boundary = None):
                 tree = ET.parse(xml_path)
                 root = tree.getroot()
 
-                # Extract free energy
                 free_energy = float(root.findall(".//calculation/energy/i[@name='e_fr_energy']")[-1].text)
-
-                # Extract lattice constant
-                # Assuming the lattice constant is the length of the "a" vector from the final structure
                 basis_vectors = root.findall(".//calculation/structure/crystal/varray[@name='basis']")[-1]
                 a_vector = basis_vectors[0].text.split()
                 lattice_constant = (float(a_vector[0])**2 + float(a_vector[1])**2 + float(a_vector[2])**2)**0.5
 
-                with open (kpoints_path, "r", encoding="utf-8") as kpoints_file:
+                with open(kpoints_path, "r", encoding="utf-8") as kpoints_file:
                     lines = kpoints_file.readlines()
                     for index, line in enumerate(lines):
-                        if any(keyword in line.lower() for keyword in ["gamma","explicit","line-mode"]):
+                        if any(keyword in line.lower() for keyword in ["gamma", "explicit", "line-mode"]):
                             kpoints_index = index + 1
                             break
-                    else: raise ValueError("Kpoints type keyword not found in KPOINTS file.")
+                    else:
+                        raise ValueError("Kpoints type keyword not found in KPOINTS file.")
 
                     kpoints_values = lines[kpoints_index].split()
                     x_kpoints = int(kpoints_values[0])
@@ -134,34 +133,32 @@ def summarize_kpoints_free_energy(directory=".", lattice_boundary = None):
                     z_kpoints = int(kpoints_values[2])
                     tot_kpoints = x_kpoints * y_kpoints * z_kpoints
 
-                # Check if lattice constant is within the specified range
                 TOLERANCE = 1e-6
-
-                lattice_start = lattice_boundary[0]
-                lattice_end = lattice_boundary[1]
-                lattice_within_start = lattice_start in [None,""] or lattice_constant >= lattice_start - TOLERANCE
-                lattice_within_end = lattice_end in [None,""] or lattice_constant <= lattice_end + TOLERANCE
+                if lattice_boundary is not None:
+                    lattice_start, lattice_end = lattice_boundary
+                    lattice_within_start = lattice_start in [None, ""] or lattice_constant >= lattice_start - TOLERANCE
+                    lattice_within_end = lattice_end in [None, ""] or lattice_constant <= lattice_end + TOLERANCE
 
                 if lattice_within_start and lattice_within_end:
                     results.append((tot_kpoints, (x_kpoints, y_kpoints, z_kpoints), lattice_constant, free_energy))
 
             except (ET.ParseError, ValueError, IndexError) as e:
-                print("Error parsing vasprun.xml:", e)
+                print(f"Error parsing vasprun.xml or KPOINTS in {work_dir}:", e)
+
         else:
             print(f"vasprun.xml or KPOINTS is not found in {work_dir}.")
 
-    # Sort the results by lattice_constant (the first element of the tuple)
+    # Sort the results by total kpoints, then by lattice constant if you prefer
     results.sort(key=lambda x: x[0])
 
     # Now write the sorted results to the file
     try:
         with open(result_file_path, "w", encoding="utf-8") as f:
-            f.write("Kpoints\t Kpoints(X Y Z)\t Lattice\t Free energy\n")
-            for tot_kpoints, (x_kpoints, y_kpoints, z_kpoints), lattice_constant, free_energy in results:
-                f.write(f"{tot_kpoints}\t{x_kpoints,y_kpoints,z_kpoints}\t{lattice_constant}\t{free_energy}\n")
-
+            f.write("Total Kpoints\tKpoints(X Y Z)\tLattice Constant\tFree Energy\n")
+            for tot_kpoints, kpoints_xyz, lattice_constant, free_energy in results:
+                f.write(f"{tot_kpoints}\t{kpoints_xyz}\t{lattice_constant}\t{free_energy}\n")
     except IOError as e:
-        print("Error writing to file:", e)
+        print(f"Error writing to file at {result_file_path}:", e)
 
 def read_kpoints_free_energy(data_path):
     help_info = "Usage: read_kpoints_free_energy(data_path)\n" + \
