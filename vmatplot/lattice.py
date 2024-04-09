@@ -95,7 +95,7 @@ def lattice_free_energy_input():
         else:
             print("The directory does not exist. Please try again.")
 
-def specify_lattice_free_energy(directory):
+def specify_free_energy_lattice(directory):
     if directory == "help":
         print("Please use this function on the directory of the specific work folder.")
         return []
@@ -124,7 +124,7 @@ def specify_lattice_free_energy(directory):
         print("vasprun.xml not found in the specified directory.")
         return None
 
-def summarize_lattice_free_energy_directory(directory=".", lattice_start = None, lattice_end = None):
+def summarize_free_energy_lattice_directory(directory=".", lattice_start = None, lattice_end = None):
     result_file = "lattice_free_energy.dat"
     result_file_path = os.path.join(directory, result_file)
 
@@ -181,8 +181,8 @@ def summarize_lattice_free_energy_directory(directory=".", lattice_start = None,
     except IOError as e:
         print("Error writing to file:", e)
 
-def read_lattice_free_energy_data(lattice_path, density = 1):
-    help_info = "Usage: read_lattice_free_energy_data(lattice_path, density)\n" + \
+def read_free_energy_lattice_data(lattice_path, density = 1):
+    help_info = "Usage: read_free_energy_lattice_data(lattice_path, density)\n" + \
                 "lattice_path: Path to the data file containing lattice and free energy values.\n" + \
                 "density: Sampling density. For instance, use 1 for 100% sampling (default), 0.1 for 10%, and 0.5 for 50%."
     # Check if the user asked for help
@@ -204,8 +204,8 @@ def read_lattice_free_energy_data(lattice_path, density = 1):
                 free_energy.append(float(split_line[-1]))
     return lattice, free_energy
 
-def read_lattice_free_energy_count(lattice_path, count=None):
-    help_info = "Usage: read_lattice_free_energy_count(lattice_path, count)\n" + \
+def read_free_energy_lattice_count(lattice_path, count=None):
+    help_info = "Usage: read_free_energy_lattice_count(lattice_path, count)\n" + \
                 "lattice_path: Path to the data file containing lattice and free energy values.\n" + \
                 "count: The number of samples, you can also enter 'all' for all the data."
     # Check if the user asked for help
@@ -235,10 +235,10 @@ def read_lattice_free_energy_count(lattice_path, count=None):
                 lattice_sample.append(lattice_value[closest_index])
             return lattice_sample, free_energy_sample
     else:
-        return read_lattice_free_energy_data(lattice_path)
+        return read_free_energy_lattice_data(lattice_path)
 
-def extract_fitted_minimum_lattice_free_energy(source_data):
-    lattice_source, free_energy_source = read_lattice_free_energy_data(source_data)
+def extract_fitted_minimum_free_energy_lattice(source_data):
+    lattice_source, free_energy_source = read_free_energy_lattice_data(source_data)
     fitted_lattice, fitted_free_energy = polynomially_fit_curve(lattice_source, free_energy_source, 3, 4000)
 
     # Find the index of the minimum value in fitted_free_energy
@@ -250,8 +250,8 @@ def extract_fitted_minimum_lattice_free_energy(source_data):
 
     return fitted_lattice_min, fitted_free_energy_min
 
-def extract_fitted_maximum_lattice_free_energy(source_data):
-    lattice_source, free_energy_source = read_lattice_free_energy_data(source_data)
+def extract_fitted_maximum_free_energy_lattice(source_data):
+    lattice_source, free_energy_source = read_free_energy_lattice_data(source_data)
     fitted_lattice, fitted_free_energy = polynomially_fit_curve(lattice_source, free_energy_source, 3, 4000)
 
     # Find the index of the maximum value in fitted_free_energy
@@ -263,13 +263,13 @@ def extract_fitted_maximum_lattice_free_energy(source_data):
 
     return fitted_lattice_max, fitted_free_energy_max
 
-def extract_fitted_extreme_lattice_free_energy(extract_type, source_data):
+def extract_fitted_extreme_free_energy_lattice(extract_type, source_data):
     if extract_type in ("Minium", "minium", "MIN", "Min", "min"):
-        return extract_fitted_minimum_lattice_free_energy(source_data)
+        return extract_fitted_minimum_free_energy_lattice(source_data)
     if extract_type in ("Maxium", "maxium", "MAX", "Max", "max"):
-        return extract_fitted_maximum_lattice_free_energy(source_data)
+        return extract_fitted_maximum_free_energy_lattice(source_data)
 
-def plot_lattice_free_energy_solo(matter, sample_count, source_data, color_family, selected_data=None):
+def plot_free_energy_lattice_solo(matter, sample_count, source_data, color_family, selected_data=None):
     # Settings input
     fig_setting = canvas_setting()
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
@@ -283,13 +283,13 @@ def plot_lattice_free_energy_solo(matter, sample_count, source_data, color_famil
     colors = color_sampling(color_family)
 
     # Data input
-    lattice_source, free_energy_source = read_lattice_free_energy_data(source_data)
-    lattice_sample, free_energy_sample = read_lattice_free_energy_count(source_data, sample_count)
+    lattice_source, free_energy_source = read_free_energy_lattice_data(source_data)
+    lattice_sample, free_energy_sample = read_free_energy_lattice_count(source_data, sample_count)
 
     # fitted_lattice, fitted_free_energy = polynomially_fit_curve(lattice_source, free_energy_source, 3, 4000)
     fitted_lattice, fitted_free_energy = fit_eos(lattice_source, free_energy_source)
     if selected_data is not None:
-        selected_lattice, select_free_energy = specify_lattice_free_energy(selected_data)
+        selected_lattice, select_free_energy = specify_free_energy_lattice(selected_data)
 
     # Minimum free energy and the corresponding lattice
     min_energy_index = free_energy_source.index(min(free_energy_source))
@@ -306,7 +306,7 @@ def plot_lattice_free_energy_solo(matter, sample_count, source_data, color_famil
     plt.legend(loc=fig_setting[3])
     plt.show()
 
-def plot_lattice_free_energy_duo(title, sample_count, matter1, source_data1, color_family1, matter2, source_data2, color_family2, selected_data1=None, selected_data2=None):
+def plot_free_energy_lattice_duo(title, sample_count, matter1, source_data1, color_family1, matter2, source_data2, color_family2, selected_data1=None, selected_data2=None):
     fig_setting = canvas_setting()
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -318,21 +318,21 @@ def plot_lattice_free_energy_duo(title, sample_count, matter1, source_data1, col
     colors2 = color_sampling(color_family2)
 
     # Data input
-    lattice_source1, free_energy_source1 = read_lattice_free_energy_data(source_data1)
-    lattice_source2, free_energy_source2 = read_lattice_free_energy_data(source_data2)
+    lattice_source1, free_energy_source1 = read_free_energy_lattice_data(source_data1)
+    lattice_source2, free_energy_source2 = read_free_energy_lattice_data(source_data2)
 
     # fitted_lattice1, fitted_free_energy1 = polynomially_fit_curve(lattice_source1, free_energy_source1, 3, 4000)
     # fitted_lattice2, fitted_free_energy2 = polynomially_fit_curve(lattice_source2, free_energy_source2, 3, 4000)
     fitted_lattice1, fitted_free_energy1 = fit_eos(lattice_source1, free_energy_source1)
     fitted_lattice2, fitted_free_energy2 = fit_eos(lattice_source2, free_energy_source2)
 
-    lattice_sample1, free_energy_sample1 = read_lattice_free_energy_count(source_data1, sample_count)
-    lattice_sample2, free_energy_sample2 = read_lattice_free_energy_count(source_data2, sample_count)
+    lattice_sample1, free_energy_sample1 = read_free_energy_lattice_count(source_data1, sample_count)
+    lattice_sample2, free_energy_sample2 = read_free_energy_lattice_count(source_data2, sample_count)
 
     if selected_data1 is not None:
-        selected_lattice1, select_free_energy1 = specify_lattice_free_energy(selected_data1)
+        selected_lattice1, select_free_energy1 = specify_free_energy_lattice(selected_data1)
     if selected_data2 is not None:
-        selected_lattice2, select_free_energy2 = specify_lattice_free_energy(selected_data2)
+        selected_lattice2, select_free_energy2 = specify_free_energy_lattice(selected_data2)
 
     # Minimum free energy and the corresponding lattice
     min_energy_index1 = free_energy_source1.index(min(free_energy_source1))
@@ -370,7 +370,7 @@ def plot_lattice_free_energy_duo(title, sample_count, matter1, source_data1, col
     plt.legend(loc=fig_setting[3])
     plt.show()
 
-def plot_lattice_free_energy_tri(title, sample_count,
+def plot_free_energy_lattice_tri(title, sample_count,
                                  matter1, source_data1, color_family1,
                                  matter2, source_data2, color_family2,
                                  matter3, source_data3, color_family3,
@@ -388,9 +388,9 @@ def plot_lattice_free_energy_tri(title, sample_count,
     colors3 = color_sampling(color_family3)
 
     # Data input
-    lattice_source1, free_energy_source1 = read_lattice_free_energy_data(source_data1)
-    lattice_source2, free_energy_source2 = read_lattice_free_energy_data(source_data2)
-    lattice_source3, free_energy_source3 = read_lattice_free_energy_data(source_data3)
+    lattice_source1, free_energy_source1 = read_free_energy_lattice_data(source_data1)
+    lattice_source2, free_energy_source2 = read_free_energy_lattice_data(source_data2)
+    lattice_source3, free_energy_source3 = read_free_energy_lattice_data(source_data3)
 
     # fitted_lattice1, fitted_free_energy1 = polynomially_fit_curve(lattice_source1, free_energy_source1, 3, 4000)
     # fitted_lattice2, fitted_free_energy2 = polynomially_fit_curve(lattice_source2, free_energy_source2, 3, 4000)
@@ -399,16 +399,16 @@ def plot_lattice_free_energy_tri(title, sample_count,
     fitted_lattice2, fitted_free_energy2 = fit_eos(lattice_source2, free_energy_source2)
     fitted_lattice3, fitted_free_energy3 = fit_eos(lattice_source3, free_energy_source3)
 
-    lattice_sample1, free_energy_sample1 = read_lattice_free_energy_count(source_data1, sample_count)
-    lattice_sample2, free_energy_sample2 = read_lattice_free_energy_count(source_data2, sample_count)
-    lattice_sample3, free_energy_sample3 = read_lattice_free_energy_count(source_data3, sample_count)
+    lattice_sample1, free_energy_sample1 = read_free_energy_lattice_count(source_data1, sample_count)
+    lattice_sample2, free_energy_sample2 = read_free_energy_lattice_count(source_data2, sample_count)
+    lattice_sample3, free_energy_sample3 = read_free_energy_lattice_count(source_data3, sample_count)
 
     if selected_data1 is not None:
-        selected_lattice1, select_free_energy1 = specify_lattice_free_energy(selected_data1)
+        selected_lattice1, select_free_energy1 = specify_free_energy_lattice(selected_data1)
     if selected_data2 is not None:
-        selected_lattice2, select_free_energy2 = specify_lattice_free_energy(selected_data2)
+        selected_lattice2, select_free_energy2 = specify_free_energy_lattice(selected_data2)
     if selected_data3 is not None:
-        selected_lattice3, select_free_energy3 = specify_lattice_free_energy(selected_data3)
+        selected_lattice3, select_free_energy3 = specify_free_energy_lattice(selected_data3)
 
     # Minimum free energy and the corresponding lattice
     min_energy_index1 = free_energy_source1.index(min(free_energy_source1))
@@ -461,7 +461,7 @@ def plot_lattice_free_energy_tri(title, sample_count,
     plt.legend(loc=fig_setting[3])
     plt.show()
 
-def plot_lattice_free_energy_quad(title, sample_count,
+def plot_free_energy_lattice_quad(title, sample_count,
                                  matter1, source_data1, color_family1,
                                  matter2, source_data2, color_family2,
                                  matter3, source_data3, color_family3,
@@ -481,10 +481,10 @@ def plot_lattice_free_energy_quad(title, sample_count,
     colors4 = color_sampling(color_family4)
 
     # Data input
-    lattice_source1, free_energy_source1 = read_lattice_free_energy_data(source_data1)
-    lattice_source2, free_energy_source2 = read_lattice_free_energy_data(source_data2)
-    lattice_source3, free_energy_source3 = read_lattice_free_energy_data(source_data3)
-    lattice_source4, free_energy_source4 = read_lattice_free_energy_data(source_data4)
+    lattice_source1, free_energy_source1 = read_free_energy_lattice_data(source_data1)
+    lattice_source2, free_energy_source2 = read_free_energy_lattice_data(source_data2)
+    lattice_source3, free_energy_source3 = read_free_energy_lattice_data(source_data3)
+    lattice_source4, free_energy_source4 = read_free_energy_lattice_data(source_data4)
 
     # fitted_lattice1, fitted_free_energy1 = polynomially_fit_curve(lattice_source1, free_energy_source1, 3, 4000)
     # fitted_lattice2, fitted_free_energy2 = polynomially_fit_curve(lattice_source2, free_energy_source2, 3, 4000)
@@ -495,19 +495,19 @@ def plot_lattice_free_energy_quad(title, sample_count,
     fitted_lattice3, fitted_free_energy3 = fit_eos(lattice_source3, free_energy_source3)
     fitted_lattice4, fitted_free_energy4 = fit_eos(lattice_source4, free_energy_source4)
 
-    lattice_sample1, free_energy_sample1 = read_lattice_free_energy_count(source_data1, sample_count)
-    lattice_sample2, free_energy_sample2 = read_lattice_free_energy_count(source_data2, sample_count)
-    lattice_sample3, free_energy_sample3 = read_lattice_free_energy_count(source_data3, sample_count)
-    lattice_sample4, free_energy_sample4 = read_lattice_free_energy_count(source_data4, sample_count)
+    lattice_sample1, free_energy_sample1 = read_free_energy_lattice_count(source_data1, sample_count)
+    lattice_sample2, free_energy_sample2 = read_free_energy_lattice_count(source_data2, sample_count)
+    lattice_sample3, free_energy_sample3 = read_free_energy_lattice_count(source_data3, sample_count)
+    lattice_sample4, free_energy_sample4 = read_free_energy_lattice_count(source_data4, sample_count)
 
     if selected_data1 is not None:
-        selected_lattice1, select_free_energy1 = specify_lattice_free_energy(selected_data1)
+        selected_lattice1, select_free_energy1 = specify_free_energy_lattice(selected_data1)
     if selected_data2 is not None:
-        selected_lattice2, select_free_energy2 = specify_lattice_free_energy(selected_data2)
+        selected_lattice2, select_free_energy2 = specify_free_energy_lattice(selected_data2)
     if selected_data3 is not None:
-        selected_lattice3, select_free_energy3 = specify_lattice_free_energy(selected_data3)
+        selected_lattice3, select_free_energy3 = specify_free_energy_lattice(selected_data3)
     if selected_data4 is not None:
-        selected_lattice4, select_free_energy4 = specify_lattice_free_energy(selected_data4)
+        selected_lattice4, select_free_energy4 = specify_free_energy_lattice(selected_data4)
 
     # Minimum free energy and the corresponding lattice
     min_energy_index1 = free_energy_source1.index(min(free_energy_source1))
@@ -581,42 +581,42 @@ def plot_lattice_free_energy_quad(title, sample_count,
 
 lattice_free_energy_ploting_help_info = "help information"
 
-def plot_lattice_free_energy(matter_count, *args):
+def plot_free_energy_lattice(matter_count, *args):
     if matter_count == "help":
         print(lattice_free_energy_ploting_help_info)
 
     if matter_count == 1:
         if len(args) == 4:
-            return plot_lattice_free_energy_solo(args[0], args[1], args[2], args[3])
+            return plot_free_energy_lattice_solo(args[0], args[1], args[2], args[3])
         elif len(args) == 5:
-            return plot_lattice_free_energy_solo(args[0], args[1], args[2], args[3], args[4])
+            return plot_free_energy_lattice_solo(args[0], args[1], args[2], args[3], args[4])
 
     if matter_count == 2:
         if len(args) == 8:
-            return plot_lattice_free_energy_duo(args[0], args[1], args[2], args[3],
+            return plot_free_energy_lattice_duo(args[0], args[1], args[2], args[3],
                                                 args[4], args[5], args[6], args[7])
         elif len(args) == 10:
-            return plot_lattice_free_energy_duo(args[0], args[1], args[2], args[3],
+            return plot_free_energy_lattice_duo(args[0], args[1], args[2], args[3],
                                                 args[4], args[5], args[6], args[7],
                                                 args[8], args[9])
     if matter_count == 3:
         if len(args) == 11:
-            return plot_lattice_free_energy_tri(args[0], args[1], args[2], args[3],
+            return plot_free_energy_lattice_tri(args[0], args[1], args[2], args[3],
                                                 args[4], args[5], args[6], args[7],
                                                 args[8], args[9], args[10])
         elif len(args) == 14:
-            return plot_lattice_free_energy_tri(args[0], args[1], args[2], args[3],
+            return plot_free_energy_lattice_tri(args[0], args[1], args[2], args[3],
                                                 args[4], args[5], args[6], args[7],
                                                 args[8], args[9], args[10],args[11],
                                                 args[12], args[13])
     if matter_count == 4:
         if len(args) == 14:
-            return plot_lattice_free_energy_quad(args[0], args[1], args[2], args[3],
+            return plot_free_energy_lattice_quad(args[0], args[1], args[2], args[3],
                                                  args[4], args[5], args[6], args[7],
                                                  args[8], args[9], args[10],args[11],
                                                  args[12], args[13])
         elif len(args) == 18:
-            return plot_lattice_free_energy_quad(args[0], args[1], args[2], args[3],
+            return plot_free_energy_lattice_quad(args[0], args[1], args[2], args[3],
                                                  args[4], args[5], args[6], args[7],
                                                  args[8], args[9], args[10],args[11],
                                                  args[12], args[13],args[14], args[15],
