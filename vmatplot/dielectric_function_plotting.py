@@ -33,7 +33,17 @@ def create_matters_dielectric_function(dielectric_list):
         data.append([label,dielectric_data,color,alpha,linewidth])
     return data
 
-def plot_dielectric_function_XZ(title, dielectric_list, energy_max = None):
+def plot_dielectric_function_XZ(title, dielectric_list=None, *args):
+    # XX_energy_boundary=None, ZZ_energy_boundary=None, Dielectric_boundary=None
+    # Help information
+    help_info = "Usage: plot_dielectric_function_XZ" + \
+                "The independent value includes \n" +\
+                "\t title, \n" +\
+                "\t dielectric function data list, \n" +\
+                "\t Inplane photon energy range (Optional), \n" +\
+                "\t Outplane photon energy range (Optional). \n"
+    if title in ["help", "Help"]:
+        print(help_info)
     # Coding reference: plot_sol_segment_pdos(title, matters_list)
     fig_setting = canvas_setting(8, 11)
     # fig_setting = canvas_setting(8, 21)
@@ -42,7 +52,6 @@ def plot_dielectric_function_XZ(title, dielectric_list, energy_max = None):
     axes_element = [axs[0], axs[1]]
 
     # Colors calling
-    fermi_color = color_sampling("Violet")
     annotate_color = color_sampling("Grey")
     order_labels = ["a","b"]
 
@@ -51,6 +60,20 @@ def plot_dielectric_function_XZ(title, dielectric_list, energy_max = None):
     subtitles = ["Inplane", "Outplane"]
 
     fig.suptitle(f"Dielectric function for {title}", fontsize=fig_setting[3][0])
+    #  Boundary
+    if len(args) == 0:
+        inplane_energy_boundary = (None,None)
+        inplane_start = inplane_energy_boundary[0]
+        inplane_end = inplane_energy_boundary[1]
+        outplane_energy_boundary = (None,None)
+        outplane_start = outplane_energy_boundary[0]
+        outplane_end = outplane_energy_boundary[1]
+    elif len(args) == 1:
+        inplane_energy_boundary = args[0]
+        outplane_energy_boundary = (None,None)
+    elif len(args) == 2:
+        inplane_energy_boundary = args[0]
+        outplane_energy_boundary = args[1]
     # Data plotting
     for supplot_index in range(2):
         ax = axes_element[supplot_index]
@@ -76,11 +99,13 @@ def plot_dielectric_function_XZ(title, dielectric_list, energy_max = None):
                 lines_imag = ax.plot(data[1]["density_energy_imag"], data[1]["density_zz_imag"], color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
                 lines_imag[0].set_dashes([2, 1])
 
-        if energy_max is not None:
-            ax.set_xlim(0, energy_max)
-        ax.set_ylabel(r"Dielectric function")
-        if supplot_index == 1:
+        # Photon energy boundary and axis label
+        if supplot_index == 0:
+            ax.set_xlim(inplane_start,inplane_end)
+        elif supplot_index == 1:
+            ax.set_xlim(outplane_start,outplane_end)
             ax.set_xlabel(r"Photon energy (eV)")
+        ax.set_ylabel(r"Dielectric function")
         ax.legend(loc="upper right")
 
         # Subplots label
