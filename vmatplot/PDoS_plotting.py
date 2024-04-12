@@ -281,7 +281,7 @@ def plot_duo_segment_pdos(title, matters_list):
         lines.append(matter[-1][2+3*matter_index])
 
     # fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
-    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0])
+    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=1.00)
 
     for supplot_index in range(3):
         ax = axes_element[supplot_index]
@@ -371,7 +371,7 @@ def plot_tri_segment_pdos(title, matters_list):
         lines.append(matter[-1][2+3*matter_index])
 
     # fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
-    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0])
+    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=1.0)
 
     for supplot_index in range(4):
         ax = axes_element[supplot_index]
