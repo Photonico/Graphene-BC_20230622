@@ -222,3 +222,44 @@ def cart_to_rec(klist_source, directory, crystal_type):
     # Convert the Kpoints from Cartesian to reciprocal coordinates
     reciprocal_kpoints = np.dot(klist_source, transform_matrix.T)
     return reciprocal_kpoints
+
+# Mathematical constants
+pi = 3.141592654
+
+# Physical constants
+h_ev = 4.135667662e-15      # Planck constant in eV·s
+hbar_ev = h_ev/(2*pi)       # reduced Planck in eV·s
+c_vacuum = 2.99792458e8     # light speed in meter/s
+c_vacuum_nm = c_vacuum*1e9  # light speed in nm/s
+
+def energy_to_wavelength(energy_array):
+    # The unit of energy is eV
+    # The unit of wavelength is nm
+    energy_array = np.array(energy_array)
+    wavelengths_nm = np.full(energy_array.shape, np.inf)    # Initialize with inf
+    nonzero_indices = energy_array != 0                     # Find non-zero energy entries
+    wavelengths_nm[nonzero_indices] = (h_ev * c_vacuum_nm) / energy_array[nonzero_indices]
+    return wavelengths_nm
+
+def wavelength_to_energy(wavelength_array):
+    # The unit of energy is eV
+    # The unit of wavelength is nm
+    wavelength_array = np.array(wavelength_array)
+    energy = np.full(wavelength_array.shape, np.inf)        # Initialize with inf
+    nonzero_indices = wavelength_array != 0                 # Find non-zero wavelength entries
+    energy[nonzero_indices] = (h_ev * c_vacuum_nm) / wavelength_array[nonzero_indices]
+    return energy
+
+def energy_to_frequency(energy_array):
+    # The unit of energy is eV
+    # The unit of wavelength is nm
+    energy_array = np.array(energy_array)
+    frequency = energy_array/h_ev
+    return frequency
+
+def frequency_to_energy(frequency_array):
+    # The unit of energy is eV
+    # The unit of wavelength is nm
+    frequency_array = np.array(frequency_array)
+    energy = frequency_array/h_ev
+    return energy

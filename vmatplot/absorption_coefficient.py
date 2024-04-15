@@ -1,17 +1,16 @@
 #### Absorption coefficient plotting
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914, W0612
 
+import numpy as np
 import matplotlib.pyplot as plt
 
 from vmatplot.output import canvas_setting, color_sampling
-from vmatplot.algorithms import process_boundary, extract_part
+from vmatplot.algorithms import process_boundary, extract_part, energy_to_wavelength, energy_to_frequency
 from vmatplot.dielectric_function_plotting import create_matters_dielectric_function
 
-# Physical constants
-hbar_ev = 4.135667662e-15
-c_vacuum = 2.99792458e8
-c_vacuum_nm = 2.99792458e17
-pi = 3.141592654
+def cal_absorption_coefficient(frequency, density_energy_real,density_energy_imag):
+    absorption = np.sqrt(2)*frequency*(np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))-density_energy_real)
+    return absorption
 
 def create_matters_absorption(*args):
     # data = create_matters_dielectric_function(dielectric_list)
@@ -42,7 +41,7 @@ def plot_absorption_XZ_col(title, absorption_list=None, inplane_boundary=(None, 
     order_labels = ["a","b"]
 
     # Materials information
-    dataset_source = create_matters_absorption(absorption_list)
+    dataset = create_matters_absorption(absorption_list)
     subtitles = ["In-plane", "Out-of-plane"]
 
     # Suptitle
@@ -51,3 +50,31 @@ def plot_absorption_XZ_col(title, absorption_list=None, inplane_boundary=(None, 
     # Boundary
     inplane_start, inplane_end = process_boundary(inplane_boundary)
     outplane_start, outplane_end = process_boundary(outplane_boundary)
+
+    # Data plotting
+    for supplot_index in range(2):
+        ax = axes_element[supplot_index]
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+        ax.set_title(subtitles[supplot_index])
+
+        for _, data in enumerate(dataset):
+            # Labels
+            if data[0] not in ["", None]:
+                current_label = f"({data[0]})"
+            else:
+                current_label = ""
+            # Inplane
+            if supplot_index == 0:
+                inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
+                inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
+                inplane_absorption_full = cal_absorption_coefficient(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
+                lines_real = ax.plot(inplane_wavelength,inplane_absorption)
+
+            # Outplane
+            elif supplot_index == 1:
+                outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
+                outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
+                outplane_absorption_full = cal_absorption_coefficient(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start,outplane_end)
+                lines_real = ax.plot(outplane_wavelength,outplane_absorption)
