@@ -1,5 +1,5 @@
 #### Absorption coefficient plotting
-# pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914
+# pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914, W0612
 
 import matplotlib.pyplot as plt
 
@@ -42,5 +42,12 @@ def plot_absorption_XZ_col(title, absorption_list=None, inplane_boundary=(None, 
     order_labels = ["a","b"]
 
     # Materials information
-    dataset = create_matters_dielectric_function(dielectric_list)
+    dataset_source = create_matters_absorption(absorption_list)
     subtitles = ["In-plane", "Out-of-plane"]
+
+    # Suptitle
+    fig.suptitle(f"Dielectric function for {title}", fontsize=fig_setting[3][0], y=0.96)
+
+    # Boundary
+    inplane_start, inplane_end = process_boundary(inplane_boundary)
+    outplane_start, outplane_end = process_boundary(outplane_boundary)
