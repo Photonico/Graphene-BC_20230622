@@ -112,8 +112,6 @@ def plot_dielectric_function_XZ_col(title, dielectric_list=None, inplane_energy_
                     fontsize=1.0 * 16,
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
-    # print(fig.get_size_inches())
-    # print(fig.dpi)
 
 def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
     # Help information
@@ -185,16 +183,18 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
 
         # Subplots label
         orderlab_shift = 0.05
-        x_loc = 0+orderlab_shift*0.75
-        y_loc = 1-orderlab_shift
+        if supplot_index == 0:
+            x_loc = 1-orderlab_shift
+            y_loc = 0+orderlab_shift
+        if supplot_index == 1:
+            x_loc = 0+orderlab_shift
+            y_loc = 0+orderlab_shift
         ax.annotate(f"({order_labels[supplot_index]})",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
-    # print(fig.get_size_inches())
-    # print(fig.dpi)
 
 def plot_dielectric_function_XZ(*args):
     return plot_dielectric_function_XZ_row(*args)
