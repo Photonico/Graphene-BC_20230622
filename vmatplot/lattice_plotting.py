@@ -4,6 +4,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+from matplotlib.ticker import FuncFormatter
+from matplotlib.ticker import ScalarFormatter
+
 from vmatplot.algorithms import fit_eos, extract_part
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.lattice import read_free_energy_lattice_count
@@ -60,17 +63,14 @@ def plot_free_energy_lattice(suptitle, lattice_list = None, lattice_range = (Non
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
     params = fig_setting[2]; plt.rcParams.update(params)
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-    plt.title(f"Free energy versus lattice for {suptitle}"); plt.xlabel(r"Lattice constant (Å)"); plt.ylabel(r"Energy (eV)")
+    plt.title(f"Free energy versus lattice {suptitle}")
 
     # plot data
     lattice_info_set = create_matters_lattice(lattice_list)
 
     for _, lattice_info in enumerate(lattice_info_set):
         # current label
-        if lattice_info[0] not in [None, ""]:
-            current_label = f"({lattice_info[0]})"
-        else:
-            current_label = ""
+        current_label = lattice_info[0]
         # fitted curve
         selection_fitted = extract_part(lattice_info[2][0],lattice_info[2][1],lattice_range[0],lattice_range[1])
         fitted_lattice, fitted_free_energy = fit_eos(selection_fitted[0], selection_fitted[1])
@@ -83,6 +83,7 @@ def plot_free_energy_lattice(suptitle, lattice_list = None, lattice_range = (Non
         if lattice_info[1] is not None:
             samples_scatter=extract_part(lattice_info[1][0],lattice_info[1][1],lattice_range[0],lattice_range[1])
             plt.scatter(samples_scatter[0], samples_scatter[1], s=48, fc="#FFFFFF", ec=colors[1], label=f"Source data {current_label}", zorder=1)
+
         # demonstrate the minimum free energy and the corresponding lattice
         selection_source=extract_part(lattice_info[2][0],lattice_info[2][1],lattice_range[0],lattice_range[1])
         energy_min_index = np.argmin(selection_source[1])       # Find the index of the minimum energy
@@ -93,5 +94,8 @@ def plot_free_energy_lattice(suptitle, lattice_list = None, lattice_range = (Non
         if lattice_info[3] not in [None, ""]:
             selected_lattice, selected_energy = specify_free_energy_lattice(lattice_info[3])
             plt.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
+        # axis
+        plt.xlabel(r"Lattice constant (Å)"); plt.ylabel(r"Energy (eV)")
+        plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
     plt.legend(loc=fig_setting[4])

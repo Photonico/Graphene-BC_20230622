@@ -87,7 +87,7 @@ def plot_absorption_XZ_col(title, absorption_list=None, inplane_boundary=(None, 
             ax.set_xlabel(r"Photon wavelength (nm)")
         ax.set_ylabel(r"Absorption coefficient")
         ax.legend(loc="upper right")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
 
         # Subplots label
         orderlab_shift = 0.05
@@ -166,7 +166,7 @@ def plot_absorption_XZ_row(title, absorption_list=None, inplane_boundary=(None, 
             ax.set_ylabel(r"Absorption coefficient")
         ax.set_xlabel(r"Photon wavelength (nm)")
         ax.legend(loc="upper right")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
 
         # Subplots label
         orderlab_shift = 0.05
