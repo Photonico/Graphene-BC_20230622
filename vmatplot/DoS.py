@@ -163,7 +163,7 @@ def plot_dos_sol(matter, x_range=None, y_top=None, dos_type=None, dos_data=None,
 
     # Title
     # plt.title(f"Electronic density of state for {matter} ({supplement})")
-    plt.title(f"DoS for {matter}")
+    plt.title(f"DoS {matter}")
     plt.ylabel(r"Density of States")
     plt.xlabel(r"Energy (eV)")
 
@@ -222,27 +222,20 @@ def plot_dos_data(title, x_range = None, y_top = None, dos_type = None, matters 
         if dos_type in ["All", "all"]:
             for index, matter in enumerate(matters):
                 # Labels
-                if matter[0] not in ["", None]:
-                    current_label = f"({matter[0]})"
-                else:
-                    current_label = ""
+                current_label = matter[0]
                 plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS {current_label}", zorder = 3)
                 plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS {current_label}", zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Total", "total"]:
             for index, matter in enumerate(matters):
-                if matter[0] not in ["", None]:
-                    current_label = f"({matter[0]})"
-                else:
-                    current_label = ""
+                # Labels
+                current_label = matter[0]
                 plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS {current_label}", zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Integrated", "integrated"]:
             for index, matter in enumerate(matters):
-                if matter[0] not in ["", None]:
-                    current_label = f"({matter[0]})"
-                else:
-                    current_label = ""
+                # Labels
+                current_label = matter[0]
                 plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS {current_label}", zorder = 2)
                 efermi = matter[1][0]
         # Plot Fermi energy as a vertical line
@@ -253,7 +246,7 @@ def plot_dos_data(title, x_range = None, y_top = None, dos_type = None, matters 
 
         # Title
         # plt.title(f"Electronic density of state for {title} ({supplement})")
-        plt.title(f"DoS for {title}")
+        plt.title(f"DoS {title}")
         plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
 
         plt.ylim(0, y_top)
@@ -282,27 +275,21 @@ def plot_dos(title, x_range = None, y_top = None, dos_type = None, matters_list 
         # Data plotting
         if dos_type in ["All", "all"]:
             for _, matter in enumerate(matters):
-                if matter[0] not in ["", None]:
-                    current_label = f"({matter[0]})"
-                else:
-                    current_label = ""
+                # Labels
+                current_label = matter[0]
                 plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS {current_label}", alpha=matter[3], linestyle=matter[4], zorder = 3)
                 plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS {current_label}", alpha=matter[3], linestyle=matter[4], zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Total", "total"]:
             for _, matter in enumerate(matters):
-                if matter[0] not in ["", None]:
-                    current_label = f"({matter[0]})"
-                else:
-                    current_label = ""
+                # Labels
+                current_label = matter[0]
                 plt.plot(matter[1][5], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total DoS {current_label}", alpha=matter[3], linestyle=matter[4], zorder = 2)
                 efermi = matter[1][0]
         if dos_type in ["Integrated", "integrated"]:
             for _, matter in enumerate(matters):
-                if matter[0] not in ["", None]:
-                    current_label = f"({matter[0]})"
-                else:
-                    current_label = ""
+                # Labels
+                current_label = matter[0]
                 plt.plot(matter[1][5], matter[1][7], c=color_sampling(matter[2])[2], label=f"Integrated DoS {current_label}", alpha=matter[3], linestyle=matter[4], zorder = 2)
                 efermi = matter[1][0]
         # Plot Fermi energy as a vertical line
@@ -313,7 +300,7 @@ def plot_dos(title, x_range = None, y_top = None, dos_type = None, matters_list 
 
         # Title
         # plt.title(f"Electronic density of state for {title} ({supplement})")
-        plt.title(f"DoS for {title} ")
+        plt.title(f"DoS {title} ")
         plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
 
         plt.ylim(0, y_top)
