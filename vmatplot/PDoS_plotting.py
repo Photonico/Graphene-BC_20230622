@@ -59,10 +59,7 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
     matters = create_matters_totpdos(matters_list)
     for _, matter in enumerate(matters):
         # label
-        if matter[0] not in ["", None]:
-            current_label = f"({matter[0]})"
-        else:
-            current_label = ""
+        current_label = matter[0]
         if pdos_type in ["All", "all"]:
             # for _, matter in enumerate(matters):
             plt.plot(matter[1][8], matter[1][6], c=color_sampling(matter[2])[1], label=f"Total PDoS {current_label}", alpha=matter[3], linestyle=matter[4], zorder = 2)
@@ -88,8 +85,8 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
     plt.text(efermi-shift-x_range*0.02, y_top*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
     # Title
-    # plt.title(f"Electronic density of state for {title} ({supplement})")
-    plt.title(f"{pdos_type} PDoS for {title} ")
+    # plt.title(f"Electronic density of state {title} ({supplement})")
+    plt.title(f"{pdos_type} PDoS {title} ")
     plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
 
     plt.ylim(0, y_top)
@@ -118,10 +115,7 @@ def plot_total_segment(title, matters_list):
     for index in range(num_elements):
         i_0 = 2 * index
         i_1 = 3 * index
-        if matter[0][3+i_0] not in ["", None]:
-            current_label = f"({matter[0][3+i_0]})"
-        else:
-            current_label = ""
+        current_label = matter[0][3+i_0]
         plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][6],  c=color_sampling(matter[1][0+i_1])[1], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"Total PDoS {current_label}", zorder=2)
         plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][9],  c=color_sampling(matter[1][0+i_1])[3], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$s$ PDoS {current_label}", zorder=3)
         plt.plot(matter[0][4+i_0][8], matter[0][4+i_0][12], c=color_sampling(matter[1][0+i_1])[4], alpha=matter[1][1+i_1], linestyle=matter[1][2+i_1], label=f"$p_x$ PDoS {current_label}", zorder=4)
@@ -136,8 +130,8 @@ def plot_total_segment(title, matters_list):
     plt.text(efermi-shift-x_range*0.02, y_top*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
     # Title
-    # plt.title(f"Electronic density of state for {title} ({supplement})")
-    plt.title(f"Total PDoS for {title} ")
+    # plt.title(f"Electronic density of state {title} ({supplement})")
+    plt.title(f"Total PDoS {title} ")
     plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
 
     plt.ylim(0, y_top)
@@ -189,8 +183,8 @@ def plot_sol_segment_pdos(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    # fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
-    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=1.00)
+    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.99)
+    fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
 
     for supplot_index in range(2):
         ax = axes_element[supplot_index]
@@ -199,10 +193,7 @@ def plot_sol_segment_pdos(title, matters_list):
         # Data ploting
         ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            if labels[matter_index][supplot_index] not in [None, ""]:
-                current_label = f"({labels[matter_index][supplot_index]})"
-            else:
-                current_label = ""
+            current_label = labels[matter_index][supplot_index]
             current_pdos  = pdoses[matter_index][supplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
@@ -280,8 +271,8 @@ def plot_duo_segment_pdos(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    # fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
-    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=1.00)
+    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.99)
+    fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
 
     for supplot_index in range(3):
         ax = axes_element[supplot_index]
@@ -290,10 +281,7 @@ def plot_duo_segment_pdos(title, matters_list):
         # Data ploting
         ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            if labels[matter_index][supplot_index] != "":
-                current_label = f"({labels[matter_index][supplot_index]})"
-            if labels[matter_index][supplot_index] == "":
-                current_label = ""
+            current_label = labels[matter_index][supplot_index]
             current_pdos  = pdoses[matter_index][supplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
@@ -370,8 +358,8 @@ def plot_tri_segment_pdos(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    # fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
-    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=1.0)
+    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.99)
+    fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.0)
 
     for supplot_index in range(4):
         ax = axes_element[supplot_index]
@@ -380,10 +368,7 @@ def plot_tri_segment_pdos(title, matters_list):
         # Data ploting
         ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            if labels[matter_index][supplot_index] != "":
-                current_label = f"({labels[matter_index][supplot_index]})"
-            if labels[matter_index][supplot_index] == "":
-                current_label = ""
+            current_label = labels[matter_index][supplot_index]
             current_pdos  = pdoses[matter_index][supplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
@@ -460,8 +445,8 @@ def plot_tri_segment_pdos_block(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    # fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0], y=0.99)
-    fig.suptitle(f"PDoS for {title}", fontsize=fig_setting[3][0])
+    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.99)
+    fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0])
 
     for supplot_index in range(4):
         ax = axes_element[supplot_index]
@@ -470,10 +455,7 @@ def plot_tri_segment_pdos_block(title, matters_list):
         # Data ploting
         ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            if labels[matter_index][supplot_index] != "":
-                current_label = f"({labels[matter_index][supplot_index]})"
-            if labels[matter_index][supplot_index] == "":
-                current_label = ""
+            current_label = labels[matter_index][supplot_index]
             current_pdos  = pdoses[matter_index][supplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
