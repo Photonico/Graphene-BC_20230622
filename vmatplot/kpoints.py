@@ -233,7 +233,7 @@ def plot_kpoints_free_energy_data(matter, source_data=None, direction="Total", k
         kpoints = tot_kpoints
 
     # Figure title
-    plt.title(f"Free energy versus {kpoints_type} for {matter}")
+    plt.title(f"Free energy versus {kpoints_type} {matter}")
     plt.xlabel(f"{kpoints_type}"); plt.ylabel(r"Energy (eV)")
 
     # Axis style
