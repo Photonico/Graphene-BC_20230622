@@ -219,7 +219,7 @@ def extract_extreme_bilayer_lattice(extract_type, source_data):
     if extract_type in ("Maxium", "maxium", "MAX", "Max", "max"):
         return extract_maximum_bilayer_lattice(source_data)
 
-def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_work=None, legend_loc="upper right"):
+def plot_bilayer_lattice(system, source_data, colormap, point_color, additional_work=None, legend_loc="upper right"):
     # Data input
     lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data)
     lattice_source = np.array(lattice_source)
@@ -266,7 +266,7 @@ def plot_bilayer_lattice(matter, source_data, colormap, point_color, additional_
 
     # Figure title
     # plt.title(f"Free energy versus lattice and spacing for {matter}")
-    plt.title(f"Free energy for {matter}")
+    plt.title(f"Free energy {system}")
     plt.xlabel(r"Lattice constant (Å)"); plt.ylabel(r"Interlayer spacing (Å)")
 
     # Colormap
