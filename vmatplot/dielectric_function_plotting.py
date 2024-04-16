@@ -73,10 +73,7 @@ def plot_dielectric_function_XZ_col(title, dielectric_list=None, inplane_energy_
 
         for _, data in enumerate(dataset):
             # Labels
-            if data[0] not in ["", None]:
-                current_label = f"({data[0]})"
-            else:
-                current_label = ""
+            current_label = data[0]
             # Inplane
             if supplot_index == 0:
                 inplane_energy_real, inplane_density_real = extract_part(data[1]["density_energy_real"],data[1]["density_xx_real"],inplane_start,inplane_end)
@@ -152,10 +149,7 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
 
         for _, data in enumerate(dataset):
             # Labels
-            if data[0] not in ["", None]:
-                current_label = f"({data[0]})"
-            else:
-                current_label = ""
+            current_label = data[0]
             # Inplane
             if supplot_index == 0:
                 inplane_energy_real, inplane_density_xx_real = extract_part(data[1]["density_energy_real"],data[1]["density_xx_real"],inplane_start,inplane_end)
@@ -197,4 +191,5 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
 def plot_dielectric_function_XZ(*args):
+    # return plot_dielectric_function_XZ_col(*args)
     return plot_dielectric_function_XZ_row(*args)
