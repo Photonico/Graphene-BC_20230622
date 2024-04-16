@@ -158,10 +158,7 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
     # Data calling and plotting
     matters = create_matters_bs(matters_list)
     for matter in matters:
-        if matter[1] not in [None, ""]:
-            current_label = f"({matter[1]})"
-        else:
-            current_label = ""
+        current_label = matter[1]
         if matter[0].lower() in ["monocolor"]:
             fermi = matter[2]
             for bands_index in range(0, len(matter[4])):
@@ -181,7 +178,7 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
             for bands_index in range(0, len(matter[5])):
                 current_valence_band = [eigenvalue - fermi for eigenvalue in matter[5][bands_index]]
                 if bands_index == 0:
-                        plt.plot(matter[3], current_valence_band, c=color_sampling(matter[6])[0], linestyle=matter[7], alpha=matter[8], label=f"Valence bands {current_label}", zorder=4)
+                    plt.plot(matter[3], current_valence_band, c=color_sampling(matter[6])[0], linestyle=matter[7], alpha=matter[8], label=f"Valence bands {current_label}", zorder=4)
                 else:
                     plt.plot(matter[3], current_valence_band, c=color_sampling(matter[6])[0], linestyle=matter[7], alpha=matter[8], zorder=4)
         kpath_start = matter[3][0]
@@ -196,7 +193,7 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
     # plt.text(kpath_start+kpath_range*0.98, eigen_range*0.02, fermi_energy_text, fontsize=10, c=fermi_color[0], rotation=0, va = "bottom", ha="right", zorder=5)
 
     # Title
-    plt.title(f"Bandstructure for {title}")
+    plt.title(f"Bandstructure {title}")
     plt.ylabel("Energy (eV)")
     # plt.ylabel("$E-E_\text{F}$ (eV)")
 
@@ -252,10 +249,7 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
     ax1.set_title("Bandstructure", fontsize=fig_setting[3][1])
 
     for matter in matters:
-        if matter[1] not in [None, ""]:
-            bs_current_label = f"({matter[1]})"
-        else:
-            bs_current_label = ""
+        bs_current_label = matter[1]
         if matter[0].lower() in ["monocolor"]:
             bs_fermi = matter[2]
             for bands_index in range(0, len(matter[4])):
@@ -315,10 +309,7 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
     ax2.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
     ax2.set_title("DoS", fontsize=fig_setting[3][1])
     for matter in matters:
-        if matter[1] not in [None, ""]:
-            DoS_current_label = f"({matter[1]})"
-        else:
-            DoS_current_label = ""
+        DoS_current_label = matter[1]
         if matter[0].lower() in ["monocolor"]:
             dos_efermi = matter[5][0]
             plt.plot(matter[5][6], matter[5][5], c=color_sampling(matter[6])[1], label=f"Total DoS {DoS_current_label}", zorder = 2)
