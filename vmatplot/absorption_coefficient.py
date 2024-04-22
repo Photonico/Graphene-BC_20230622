@@ -130,7 +130,7 @@ def plot_absorption_XZ_row(title, absorption_list=None, inplane_boundary=(None, 
     else:
         current_title = ""
     # Suptitle
-    fig.suptitle(f"Absorption coefficient {current_title}", fontsize=fig_setting[3][0], y=0.96)
+    fig.suptitle(f"Absorption coefficient {current_title}", fontsize=fig_setting[3][0], y=1.00)
 
     # Boundary
     inplane_start, inplane_end = process_boundary(inplane_boundary)
