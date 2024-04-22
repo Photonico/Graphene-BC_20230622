@@ -45,12 +45,8 @@ def plot_absorption_XZ_col(title, absorption_list=None, inplane_boundary=(None, 
     subtitles = ["In-plane", "Out-of-plane"]
 
     # Title
-    # Labels
-    if title not in ["", None]:
-        current_title = f"for {title}"
-    else:
-        current_title = ""
     # Suptitle
+    current_title = title
     fig.suptitle(f"Absorption coefficient {current_title}", fontsize=fig_setting[3][0], y=0.96)
 
     # Boundary
@@ -124,12 +120,8 @@ def plot_absorption_XZ_row(title, absorption_list=None, inplane_boundary=(None, 
     subtitles = ["In-plane", "Out-of-plane"]
 
     # Title
-    # Labels
-    if title not in ["", None]:
-        current_title = f"for {title}"
-    else:
-        current_title = ""
     # Suptitle
+    current_title = title
     fig.suptitle(f"Absorption coefficient {current_title}", fontsize=fig_setting[3][0], y=1.00)
 
     # Boundary
