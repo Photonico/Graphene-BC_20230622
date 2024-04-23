@@ -219,6 +219,12 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energ
     # Suptitle
     fig.suptitle(f"Dielectric function {title}", fontsize=fig_setting[3][0], y=1.00)
 
+    # Data plotting
+    for supplot_index in range(4):
+        ax = axes_element[supplot_index]
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+        ax.set_title(subtitles[supplot_index])
+
 def plot_dielectric_function_XZ(*args):
     # return plot_dielectric_function_XZ_col(*args)
     # return plot_dielectric_function_XZ_block(*args)
