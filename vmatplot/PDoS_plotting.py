@@ -402,7 +402,6 @@ def plot_tri_segment_pdos(title, matters_list):
     plt.tight_layout()
 
 def plot_tri_segment_pdos_block(title, matters_list):
-
     # Figure settings
     fig_setting = canvas_setting(16, 12)
     params = fig_setting[2]; plt.rcParams.update(params)

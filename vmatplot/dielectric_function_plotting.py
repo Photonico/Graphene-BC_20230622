@@ -191,11 +191,31 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
 def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
+    # Help information
+    help_info = "Usage: plot_dielectric_function_XZ_block" + \
+                "The independent value includes \n" +\
+                "\t title, \n" +\
+                "\t dielectric function data list, \n" +\
+                "\t Inplane photon energy range (Optional), \n" +\
+                "\t Outplane photon energy range (Optional). \n"
+    if title in ["help", "Help"]:
+        print(help_info)
     # Figure settings
     fig_setting = canvas_setting(16, 12)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
     axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
+
+    # Colors calling
+    annotate_color = color_sampling("Grey")
+    order_labels = ["a","b","c","d"]
+
+    # Materials information
+    dataset = create_matters_dielectric_function(dielectric_list)
+    subtitles = ["In-plane real part", "Out-of-plane real part", "In-plane imaginary part", "Out-of-plane imaginary part"]
+
+    # Suptitle
+    fig.suptitle(f"Dielectric function {title}", fontsize=fig_setting[3][0], y=1.00)
 
 def plot_dielectric_function_XZ(*args):
     # return plot_dielectric_function_XZ_col(*args)
