@@ -64,6 +64,7 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, inplane_bound
             current_label = data[0]
             # Inplane
             if supplot_index == 0:
+                inplane_energy_full = data[1]["density_energy_real"]
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
                 inplane_absorption_full = cal_absorption_coefficient(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
@@ -74,6 +75,7 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, inplane_bound
 
             # Outplane
             elif supplot_index == 1:
+                outplane_energy_full = data[1]["density_energy_real"]
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
                 outplane_absorption_full = cal_absorption_coefficient(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
@@ -143,6 +145,7 @@ def plot_absorption_XZ_row(title, absorption_list=None, unit=None, inplane_bound
             current_label = data[0]
             # Inplane
             if supplot_index == 0:
+                inplane_energy_full = data[1]["density_energy_real"]
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
                 inplane_absorption_full = cal_absorption_coefficient(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
@@ -150,9 +153,12 @@ def plot_absorption_XZ_row(title, absorption_list=None, unit=None, inplane_bound
                 if unit in ["nm", "NM"]:
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
                     ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                else:
+                    inplane_energy, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
 
             # Outplane
             elif supplot_index == 1:
+                outplane_energy_full = data[1]["density_energy_real"]
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
                 outplane_absorption_full = cal_absorption_coefficient(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
