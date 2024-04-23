@@ -135,7 +135,7 @@ def color_sampling(color_family):
         color_set.append("#14AFAF") # colors[8]: f-orbital
         return color_set
 
-    if color_family in ("Grey", "grey"):
+    if color_family in ("Grey", "grey", "Gray", "grey"):
         color_set.append("#3C3C3C")
         color_set.append("#787878")
         color_set.append("#B4B4B4")
