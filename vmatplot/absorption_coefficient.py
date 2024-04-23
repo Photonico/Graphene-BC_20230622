@@ -72,6 +72,9 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, inplane_bound
                 if unit in ["nm", "NM"]:
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
                     ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                else:
+                    inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_absorption_full,inplane_start,inplane_end)
+                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
             # Outplane
             elif supplot_index == 1:
@@ -83,10 +86,16 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, inplane_bound
                 if unit in ["nm", "NM"]:
                     outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start,outplane_end)
                     ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                else:
+                    outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_absorption_full,outplane_start,outplane_end)
+                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
         # axis label
         if supplot_index == 1:
-            ax.set_xlabel(r"Photon wavelength (nm)")
+            if unit in ["nm", "NM"]:
+                ax.set_xlabel(r"Photon wavelength (nm)")
+            else:
+                ax.set_xlabel(r"Photon energy (eV)")
         ax.set_ylabel(r"Absorption coefficient")
         ax.legend(loc="upper right")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
@@ -154,7 +163,8 @@ def plot_absorption_XZ_row(title, absorption_list=None, unit=None, inplane_bound
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
                     ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
                 else:
-                    inplane_energy, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
+                    inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_absorption_full,inplane_start,inplane_end)
+                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
             # Outplane
             elif supplot_index == 1:
@@ -166,11 +176,18 @@ def plot_absorption_XZ_row(title, absorption_list=None, unit=None, inplane_bound
                 if unit in ["nm", "NM"]:
                     outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start,outplane_end)
                     ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                else:
+                    outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_absorption_full,outplane_start,outplane_end)
+                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
         # axis label
         if supplot_index == 0:
             ax.set_ylabel(r"Absorption coefficient")
-        ax.set_xlabel(r"Photon wavelength (nm)")
+        if unit in ["nm", "NM"]:
+            ax.set_xlabel(r"Photon wavelength (nm)")
+        else:
+            ax.set_xlabel(r"Photon energy (eV)")
+
         ax.legend(loc="upper right")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
 
