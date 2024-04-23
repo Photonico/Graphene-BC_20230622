@@ -122,7 +122,7 @@ def color_sampling(color_family):
         return
 
     color_set = []
-    if color_family in ("Orbital", "orbital", "Orbitals", "orbitals"):
+    if color_family in ("Default", "default", "Orbital", "orbital", "Orbitals", "orbitals"):
         color_set.append("#145AAA") # colors[0]: Base
         color_set.append("#1478E1") # colors[1]: total
         color_set.append("#14A0FF") # colors[2]: Integral
@@ -266,7 +266,7 @@ def color_sampling(color_family):
         return color_set
 
     if color_family == "all_families":
-        return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown", "Orbital"]
+        return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown", "Default"]
 
 def plot_color_families():
     color_families = color_sampling("all_families")
