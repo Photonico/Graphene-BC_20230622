@@ -403,7 +403,7 @@ def plot_tri_segment_pdos(title, matters_list):
 
 def plot_tri_segment_pdos_block(title, matters_list):
     # Figure settings
-    fig_setting = canvas_setting(16, 12)
+    fig_setting = canvas_setting(16, 11)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
     axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
@@ -477,18 +477,20 @@ def plot_tri_segment_pdos_block(title, matters_list):
             ax.legend(loc="upper right")
 
         orderlab_shift = 0.05
-        if supplot_index == 0:
-            x_loc = 1-orderlab_shift*0.75
-            y_loc = 0+orderlab_shift
-        elif supplot_index == 1:
-            x_loc = 0+orderlab_shift*0.75
-            y_loc = 0+orderlab_shift
-        elif supplot_index == 2:
-            x_loc = 1-orderlab_shift*0.75
-            y_loc = 1-orderlab_shift
-        elif supplot_index == 3:
-            x_loc = 0+orderlab_shift*0.75
-            y_loc = 1-orderlab_shift
+        # if supplot_index == 0:
+        #     x_loc = 1-orderlab_shift*0.75
+        #     y_loc = 0+orderlab_shift
+        # elif supplot_index == 1:
+        #     x_loc = 0+orderlab_shift*0.75
+        #     y_loc = 0+orderlab_shift
+        # elif supplot_index == 2:
+        #     x_loc = 1-orderlab_shift*0.75
+        #     y_loc = 1-orderlab_shift
+        # elif supplot_index == 3:
+        #     x_loc = 0+orderlab_shift*0.75
+        #     y_loc = 1-orderlab_shift
+        x_loc = 0+orderlab_shift
+        y_loc = 0+orderlab_shift
 
         ax.annotate(f"({order_labels[supplot_index]})",
                     xy=(x_loc,y_loc),
