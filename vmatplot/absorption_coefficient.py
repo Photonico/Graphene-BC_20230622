@@ -21,7 +21,7 @@ def create_matters_absorption(*args):
     # data[4] = linewidth
     return create_matters_dielectric_function(*args)
 
-def plot_absorption_XZ_col(title, absorption_list=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
+def plot_absorption_XZ_col(title, absorption_list=None, x_unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
     help_info = "Usage: absorption_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
@@ -96,7 +96,7 @@ def plot_absorption_XZ_col(title, absorption_list=None, inplane_boundary=(None, 
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
-def plot_absorption_XZ_row(title, absorption_list=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
+def plot_absorption_XZ_row(title, absorption_list=None, x_unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
     help_info = "Usage: absorption_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
