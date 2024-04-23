@@ -174,20 +174,7 @@ def color_sampling(color_family):
         color_set.append("#F03C64")
         return color_set
 
-    if color_family in ("Gold", "gold"):
-        color_set.append("#EB731E")
-        color_set.append("#FA8C00")
-        color_set.append("#FFA03C")
-
-        color_set.append("#FAC81E")
-        color_set.append("#28AF3C")
-        color_set.append("#1478E1")
-        color_set.append("#8C64F0")
-        color_set.append("#D25ADC")
-        color_set.append("#F03C64")
-        return color_set
-
-    if color_family in ("Yellow", "yellow"):
+    if color_family in ("Yellow", "yellow", "Gold", "gold"):
         color_set.append("#EBC31E")
         color_set.append("#FAC81E")
         color_set.append("#FFD71E")
