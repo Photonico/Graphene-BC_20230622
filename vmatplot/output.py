@@ -148,6 +148,19 @@ def color_sampling(color_family):
         color_set.append("#8C64F0")
         return color_set
 
+    if color_family in ("Silver", "silver"):
+        color_set.append("#3C3C3C")
+        color_set.append("#787878")
+        color_set.append("#B4B4B4")
+
+        color_set.append("#E1322D")
+        color_set.append("#FA8C00")
+        color_set.append("#FAC828")
+        color_set.append("#28AF3C")
+        color_set.append("#1478E1")
+        color_set.append("#8C64F0")
+        return color_set
+
     if color_family in ("Red", "red"):
         color_set.append("#C81423")
         color_set.append("#E1322D")
