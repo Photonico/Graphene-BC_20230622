@@ -62,9 +62,10 @@ def plot_dielectric_function_XZ_col(title, dielectric_list=None, inplane_energy_
     fig.suptitle(f"Dielectric function {title}", fontsize=fig_setting[3][0], y=0.96)
     # fig.suptitle(f"Dielectric function {title}", fontsize=fig_setting[3][0], y=1.00)
 
-    # Boundary
+    # Data boundary
     inplane_start, inplane_end = process_boundary(inplane_energy_boundary)
     outplane_start, outplane_end = process_boundary(outplane_energy_boundary)
+
     # Data plotting
     for supplot_index in range(2):
         ax = axes_element[supplot_index]
@@ -138,9 +139,10 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
     # fig.suptitle(f"Dielectric function {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"Dielectric function {title}", fontsize=fig_setting[3][0], y=1.00)
 
-    # Boundary
+    # Data boundary
     inplane_start, inplane_end = process_boundary(inplane_energy_boundary)
     outplane_start, outplane_end = process_boundary(outplane_energy_boundary)
+
     # Data plotting
     for supplot_index in range(2):
         ax = axes_element[supplot_index]
