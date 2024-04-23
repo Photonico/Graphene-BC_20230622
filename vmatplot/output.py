@@ -279,7 +279,7 @@ def color_sampling(color_family):
         return color_set
 
     if color_family == "all_families":
-        return ["Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown", "Default"]
+        return ["Silver", "Grey", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Purple", "Wine", "Brown", "Default"]
 
 def plot_color_families():
     color_families = color_sampling("all_families")
