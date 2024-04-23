@@ -190,13 +190,14 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
-def plot_dielectric_function_XZ(*args):
-    # return plot_dielectric_function_XZ_col(*args)
-    return plot_dielectric_function_XZ_row(*args)
-
 def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
     # Figure settings
     fig_setting = canvas_setting(16, 12)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
     axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
+
+def plot_dielectric_function_XZ(*args):
+    # return plot_dielectric_function_XZ_col(*args)
+    # return plot_dielectric_function_XZ_block(*args)
+    return plot_dielectric_function_XZ_row(*args)
