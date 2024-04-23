@@ -444,7 +444,7 @@ def plot_tri_segment_pdos_block(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.99)
+    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0])
 
     for supplot_index in range(4):
@@ -489,7 +489,7 @@ def plot_tri_segment_pdos_block(title, matters_list):
         # elif supplot_index == 3:
         #     x_loc = 0+orderlab_shift*0.75
         #     y_loc = 1-orderlab_shift
-        x_loc = 0+orderlab_shift
+        x_loc = 0+orderlab_shift*0.75
         y_loc = 0+orderlab_shift
 
         ax.annotate(f"({order_labels[supplot_index]})",
