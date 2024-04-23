@@ -193,3 +193,5 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
 def plot_dielectric_function_XZ(*args):
     # return plot_dielectric_function_XZ_col(*args)
     return plot_dielectric_function_XZ_row(*args)
+
+def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
