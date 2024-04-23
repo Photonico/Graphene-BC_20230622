@@ -149,9 +149,9 @@ def color_sampling(color_family):
         return color_set
 
     if color_family in ("Silver", "silver"):
-        color_set.append("#3C3C3C")
-        color_set.append("#787878")
-        color_set.append("#B4B4B4")
+        color_set.append("#878C9B")
+        color_set.append("#AFB4C3")
+        color_set.append("#C8CDD7")
 
         color_set.append("#E1322D")
         color_set.append("#FA8C00")
