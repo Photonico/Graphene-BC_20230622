@@ -8,6 +8,6 @@ c_mps = 299792458
 # Speed of light in vacuum nanometers per second
 c_nm = c_mps * 1e9  # 1e9 is equivalent to 10^9
 
-def cal_dielectric_function_coefficient_full(frequency,density_energy_real,density_energy_imag):
+def cal_dielectric_function_coefficient(frequency,density_energy_real,density_energy_imag):
     coe = (np.sqrt(2)*frequency/c_nm)*(np.sqrt(np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))-density_energy_real))
     return coe
