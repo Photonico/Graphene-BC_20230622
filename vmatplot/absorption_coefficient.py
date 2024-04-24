@@ -8,7 +8,7 @@ from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import process_boundary, extract_part, energy_to_wavelength, energy_to_frequency
 from vmatplot.dielectric_function_plotting import create_matters_dielectric_function
 
-def cal_absorption_coefficient(frequency, density_energy_real,density_energy_imag):
+def cal_absorption_coefficient(frequency,density_energy_real,density_energy_imag):
     absorption = np.sqrt(2)*frequency*(np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))-density_energy_real)
     return absorption
 
