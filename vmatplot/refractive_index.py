@@ -95,7 +95,7 @@ def plot_refractive_XZ_row(title, refractive_list=None, unit=None, inplane_bound
 
         # axis label
         if supplot_index == 0:
-            ax.set_ylabel(r"Refractive index ($\omega$)")
+            ax.set_ylabel(r"Refractive index")
         if unit in ["nm", "NM"]:
             ax.set_xlabel(r"Photon wavelength (nm)")
         else:
@@ -197,7 +197,7 @@ def plot_refractive_XZ_col(title, refractive_list=None, unit=None, inplane_bound
                 ax.set_xlabel(r"Photon wavelength (nm)")
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
-        ax.set_ylabel(r"Refractive index ($\omega$)")
+        ax.set_ylabel(r"Refractive index")
         ax.legend(loc="upper right")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
 

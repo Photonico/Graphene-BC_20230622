@@ -97,7 +97,7 @@ def plot_dielectric_function_XZ_col(title, dielectric_list=None, inplane_energy_
         # axis label
         if supplot_index == 1:
             ax.set_xlabel(r"Photon energy (eV)")
-        ax.set_ylabel(r"Dielectric function ($\omega$)")
+        ax.set_ylabel(r"Dielectric function")
         ax.legend(loc="upper right")
 
         # Subplots label
@@ -173,7 +173,7 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
 
         # axis label
         if supplot_index == 0:
-            ax.set_ylabel(r"Dielectric function ($\omega$)")
+            ax.set_ylabel(r"Dielectric function")
         ax.set_xlabel(r"Photon energy (eV)")
         ax.legend(loc="upper right")
 
@@ -263,7 +263,7 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energ
 
         # axis label
         if supplot_index in [0,2]:
-            ax.set_ylabel(r"Dielectric function ($\omega$)")
+            ax.set_ylabel(r"Dielectric function")
         if supplot_index in [2,3]:
             ax.set_xlabel(r"Photon energy (eV)")
         ax.legend(loc="upper right")
