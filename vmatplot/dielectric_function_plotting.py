@@ -244,22 +244,22 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energ
             elif supplot_index == 1:
                 outplane_energy_real, outplane_density_xx_real = extract_part(data[1]["density_energy_real"],data[1]["density_zz_real"],outplane_start,outplane_end)
 
-                lines_real = ax.plot(outplane_energy_real, outplane_density_xx_real, color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
+                lines_real = ax.plot(outplane_energy_real, outplane_density_xx_real, color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
                 lines_real[0].set_dashes([2, 0])
 
             # Inplane imag part
             elif supplot_index == 2:
                 inplane_energy_imag, inplane_density_xx_imag = extract_part(data[1]["density_energy_imag"],data[1]["density_xx_imag"],inplane_start,inplane_end)
 
-                lines_imag = ax.plot(inplane_energy_imag, inplane_density_xx_imag, color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
-                lines_imag[0].set_dashes([2, 1])
+                lines_imag = ax.plot(inplane_energy_imag, inplane_density_xx_imag, color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
+                lines_imag[0].set_dashes([2, 0])
 
             # Outplane imag part
             elif supplot_index == 3:
                 outplane_energy_imag, outplane_density_xx_imag = extract_part(data[1]["density_energy_imag"],data[1]["density_zz_imag"],outplane_start,outplane_end)
 
                 lines_imag = ax.plot(outplane_energy_imag, outplane_density_xx_imag, color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
-                lines_imag[0].set_dashes([2, 1])
+                lines_imag[0].set_dashes([2, 0])
 
         # axis label
         if supplot_index in [0,2]:
