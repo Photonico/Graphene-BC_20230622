@@ -1,4 +1,4 @@
-#### Refractive index calculation and plotting
+#### Reflectivity calculation and plotting
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914, W0612
 
 import numpy as np
@@ -7,12 +7,16 @@ import matplotlib.pyplot as plt
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import process_boundary, extract_part, energy_to_wavelength, energy_to_frequency
 from vmatplot.dielectric_function_plotting import create_matters_dielectric_function
+from vmatplot.refractive_index import com_refractive
+from vmatplot.extinction_coefficient import com_extinction
 
-def com_refractive(density_energy_real,density_energy_imag):
-    index = np.sqrt((np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))+density_energy_real)/2)
-    return index
+def com_reflectivity(density_energy_real,density_energy_imag):
+    n = com_refractive(density_energy_real,density_energy_imag)
+    k = com_extinction(density_energy_real,density_energy_imag)
+    R = (np.square(n-1)+np.square(k))/(np.square(n+1)+np.square(k))
+    return R
 
-def create_matters_refractive(*args):
+def create_matters_reflectivity(*args):
     # data = create_matters_dielectric_function(dielectric_list)
     # data[0] = current curve label
     # data[1] = dielectric data
@@ -21,8 +25,8 @@ def create_matters_refractive(*args):
     # data[4] = linewidth
     return create_matters_dielectric_function(*args)
 
-def plot_refractive_XZ_row(title, refractive_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: refractive_XZ" + \
+def plot_reflectivity_XZ_row(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
+    help_info = "Usage: reflectivity_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -42,13 +46,13 @@ def plot_refractive_XZ_row(title, refractive_list=None, unit=None, inplane_bound
     order_labels = ["a","b"]
 
     # Materials information
-    dataset = create_matters_refractive(refractive_list)
+    dataset = create_matters_reflectivity(matters_list)
     subtitles = ["In-plane", "Out-of-plane"]
 
     # Title
     # Suptitle
     current_title = title
-    fig.suptitle(f"Refractive index {current_title}", fontsize=fig_setting[3][0], y=1.00)
+    fig.suptitle(f"Reflectivity {current_title}", fontsize=fig_setting[3][0], y=1.00)
 
     # Boundary
     inplane_start, inplane_end = process_boundary(inplane_boundary)
@@ -69,7 +73,7 @@ def plot_refractive_XZ_row(title, refractive_list=None, unit=None, inplane_bound
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
 
-                inplane_variables_full = com_refractive(data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                inplane_variables_full = com_reflectivity(data[1]["density_xx_real"],data[1]["density_xx_imag"])
 
                 if unit in ["nm", "NM"]:
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_variables_full,inplane_start,inplane_end)
@@ -84,7 +88,7 @@ def plot_refractive_XZ_row(title, refractive_list=None, unit=None, inplane_bound
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
 
-                outplane_variables_full = com_refractive(data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                outplane_variables_full = com_reflectivity(data[1]["density_zz_real"],data[1]["density_zz_imag"])
 
                 if unit in ["nm", "NM"]:
                     outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_variables_full,outplane_start,outplane_end)
@@ -95,14 +99,14 @@ def plot_refractive_XZ_row(title, refractive_list=None, unit=None, inplane_bound
 
         # axis label
         if supplot_index == 0:
-            ax.set_ylabel(r"Refractive index")
+            ax.set_ylabel(r"Reflectivity")
         if unit in ["nm", "NM"]:
             ax.set_xlabel(r"Photon wavelength (nm)")
         else:
             ax.set_xlabel(r"Photon energy (eV)")
 
         ax.legend(loc="upper right")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # Subplots label
         orderlab_shift = 0.05
@@ -119,8 +123,8 @@ def plot_refractive_XZ_row(title, refractive_list=None, unit=None, inplane_bound
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
-def plot_refractive_XZ_col(title, refractive_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: refractive_XZ" + \
+def plot_reflectivity_XZ_col(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
+    help_info = "Usage: reflectivity_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -140,13 +144,13 @@ def plot_refractive_XZ_col(title, refractive_list=None, unit=None, inplane_bound
     order_labels = ["a","b"]
 
     # Materials information
-    dataset = create_matters_refractive(refractive_list)
+    dataset = create_matters_reflectivity(matters_list)
     subtitles = ["In-plane", "Out-of-plane"]
 
     # Title
     # Suptitle
     current_title = title
-    fig.suptitle(f"Refractive index {current_title}", fontsize=fig_setting[3][0], y=1.00)
+    fig.suptitle(f"Reflectivity {current_title}", fontsize=fig_setting[3][0], y=1.00)
 
     # Boundary
     inplane_start, inplane_end = process_boundary(inplane_boundary)
@@ -167,7 +171,7 @@ def plot_refractive_XZ_col(title, refractive_list=None, unit=None, inplane_bound
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
 
-                inplane_variables_full = com_refractive(data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                inplane_variables_full = com_reflectivity(data[1]["density_xx_real"],data[1]["density_xx_imag"])
 
                 if unit in ["nm", "NM"]:
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_variables_full,inplane_start,inplane_end)
@@ -182,7 +186,7 @@ def plot_refractive_XZ_col(title, refractive_list=None, unit=None, inplane_bound
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
 
-                outplane_variables_full = com_refractive(data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                outplane_variables_full = com_reflectivity(data[1]["density_zz_real"],data[1]["density_zz_imag"])
 
                 if unit in ["nm", "NM"]:
                     outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_variables_full,outplane_start,outplane_end)
@@ -197,9 +201,9 @@ def plot_refractive_XZ_col(title, refractive_list=None, unit=None, inplane_bound
                 ax.set_xlabel(r"Photon wavelength (nm)")
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
-        ax.set_ylabel(r"Refractive index")
+        ax.set_ylabel(r"Reflectivity")
         ax.legend(loc="upper right")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # Subplots label
         orderlab_shift = 0.05
@@ -212,6 +216,6 @@ def plot_refractive_XZ_col(title, refractive_list=None, unit=None, inplane_bound
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
-def plot_refractive_XZ(*args):
-    # return plot_refractive_XZ_col(*args)
-    return plot_refractive_XZ_row(*args)
+def plot_reflectivity_XZ(*args):
+    # return plot_reflectivity_XZ_col(*args)
+    return plot_reflectivity_XZ_row(*args)

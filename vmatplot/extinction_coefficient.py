@@ -69,13 +69,13 @@ def plot_extinction_XZ_row(title, matters_list=None, unit=None, inplane_boundary
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
 
-                inplane_absorption_full = com_extinction(data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                inplane_variables_full = com_extinction(data[1]["density_xx_real"],data[1]["density_xx_imag"])
 
                 if unit in ["nm", "NM"]:
-                    inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
+                    inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_variables_full,inplane_start,inplane_end)
                     ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
                 else:
-                    inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_absorption_full,inplane_start,inplane_end)
+                    inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_variables_full,inplane_start,inplane_end)
                     ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
             # Outplane
@@ -84,13 +84,13 @@ def plot_extinction_XZ_row(title, matters_list=None, unit=None, inplane_boundary
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
 
-                outplane_absorption_full = com_extinction(data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                outplane_variables_full = com_extinction(data[1]["density_zz_real"],data[1]["density_zz_imag"])
 
                 if unit in ["nm", "NM"]:
-                    outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start,outplane_end)
+                    outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_variables_full,outplane_start,outplane_end)
                     ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
                 else:
-                    outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_absorption_full,outplane_start,outplane_end)
+                    outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_variables_full,outplane_start,outplane_end)
                     ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
         # axis label
@@ -167,13 +167,13 @@ def plot_extinction_XZ_col(title, matters_list=None, unit=None, inplane_boundary
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
 
-                inplane_absorption_full = com_extinction(data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                inplane_variables_full = com_extinction(data[1]["density_xx_real"],data[1]["density_xx_imag"])
 
                 if unit in ["nm", "NM"]:
-                    inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
+                    inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_variables_full,inplane_start,inplane_end)
                     ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
                 else:
-                    inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_absorption_full,inplane_start,inplane_end)
+                    inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_variables_full,inplane_start,inplane_end)
                     ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
             # Outplane
@@ -182,13 +182,13 @@ def plot_extinction_XZ_col(title, matters_list=None, unit=None, inplane_boundary
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
 
-                outplane_absorption_full = com_extinction(data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                outplane_variables_full = com_extinction(data[1]["density_zz_real"],data[1]["density_zz_imag"])
 
                 if unit in ["nm", "NM"]:
-                    outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start,outplane_end)
+                    outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_variables_full,outplane_start,outplane_end)
                     ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
                 else:
-                    outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_absorption_full,outplane_start,outplane_end)
+                    outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_variables_full,outplane_start,outplane_end)
                     ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
         # axis label
