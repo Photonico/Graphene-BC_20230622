@@ -109,7 +109,7 @@ def plot_absorption_XZ_row(title, absorption_list=None, unit=None, abs_type=None
 
         # axis label
         if supplot_index == 0:
-            ax.set_ylabel(r"Absorption coefficient")
+            ax.set_ylabel(r"Absorption coefficient ($\omega$)")
         if unit in ["nm", "NM"]:
             ax.set_xlabel(r"Photon wavelength (nm)")
         else:
@@ -217,7 +217,7 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, abs_type=None
                 ax.set_xlabel(r"Photon wavelength (nm)")
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
-        ax.set_ylabel(r"Absorption coefficient")
+        ax.set_ylabel(r"Absorption coefficient ($\omega$)")
         ax.legend(loc="upper right")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
 
