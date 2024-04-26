@@ -8,9 +8,18 @@ from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import process_boundary, extract_part, energy_to_wavelength, energy_to_frequency
 from vmatplot.dielectric_function_plotting import create_matters_dielectric_function
 
-def cal_absorption_coefficient(frequency,density_energy_real,density_energy_imag):
-    absorption = np.sqrt(2)*frequency*(np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))-density_energy_real)
-    return absorption
+# Speed of light in vacuum in meters per second
+c_ms = 299792458
+# Speed of light in vacuum nanometers per second
+c_nm = c_ms * 1e9  # 1e9 is equivalent to 10^9
+
+def comp_absorption_coefficient(frequency,density_energy_real,density_energy_imag):
+    coe = (np.sqrt(2)*frequency/c_nm)*(np.sqrt(np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))-density_energy_real))
+    return coe
+
+def comp_absorption_coefficient_custom(frequency,density_energy_real,density_energy_imag):
+    coe = np.sqrt(2)*frequency*(np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))-density_energy_real)
+    return coe
 
 def create_matters_absorption(*args):
     # data = create_matters_dielectric_function(dielectric_list)
@@ -21,11 +30,13 @@ def create_matters_absorption(*args):
     # data[4] = linewidth
     return create_matters_dielectric_function(*args)
 
-def plot_absorption_XZ_col(title, absorption_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
+def plot_absorption_XZ_col(title, absorption_list=None, unit=None, type=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
     help_info = "Usage: absorption_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
+                "\t x-axis unit, \n" +\
+                "\t formula type, \n" +\
                 "\t Inplane photon wavelenght range (Optional), \n" +\
                 "\t Outplane photon wavelenght range (Optional). \n"
     if title in ["help", "Help"]:
@@ -67,7 +78,10 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, inplane_bound
                 inplane_energy_full = data[1]["density_energy_real"]
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
-                inplane_absorption_full = cal_absorption_coefficient(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                if type in ["CUSTOM", "Custom", "custom"]:
+                    inplane_absorption_full = comp_absorption_coefficient_custom(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                else:
+                    inplane_absorption_full = comp_absorption_coefficient(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
 
                 if unit in ["nm", "NM"]:
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
@@ -81,7 +95,10 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, inplane_bound
                 outplane_energy_full = data[1]["density_energy_real"]
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
-                outplane_absorption_full = cal_absorption_coefficient(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                if type in ["CUSTOM", "Custom", "custom"]:
+                    outplane_absorption_full = comp_absorption_coefficient_custom(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                else:
+                    outplane_absorption_full = comp_absorption_coefficient(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
 
                 if unit in ["nm", "NM"]:
                     outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start,outplane_end)
@@ -111,11 +128,13 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, inplane_bound
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
-def plot_absorption_XZ_row(title, absorption_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
+def plot_absorption_XZ_row(title, absorption_list=None, unit=None, type=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
     help_info = "Usage: absorption_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
+                "\t x-axis unit, \n" +\
+                "\t formula type, \n" +\
                 "\t Inplane photon wavelenght range (Optional), \n" +\
                 "\t Outplane photon wavelenght range (Optional). \n"
     if title in ["help", "Help"]:
@@ -157,7 +176,10 @@ def plot_absorption_XZ_row(title, absorption_list=None, unit=None, inplane_bound
                 inplane_energy_full = data[1]["density_energy_real"]
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
-                inplane_absorption_full = cal_absorption_coefficient(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                if type in ["CUSTOM", "Custom", "custom"]:
+                    inplane_absorption_full = comp_absorption_coefficient_custom(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                else:
+                    inplane_absorption_full = comp_absorption_coefficient(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
 
                 if unit in ["nm", "NM"]:
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
@@ -171,7 +193,10 @@ def plot_absorption_XZ_row(title, absorption_list=None, unit=None, inplane_bound
                 outplane_energy_full = data[1]["density_energy_real"]
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
-                outplane_absorption_full = cal_absorption_coefficient(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                if type in ["CUSTOM", "Custom", "custom"]:
+                    outplane_absorption_full = comp_absorption_coefficient_custom(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                else:
+                    outplane_absorption_full = comp_absorption_coefficient(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
 
                 if unit in ["nm", "NM"]:
                     outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start,outplane_end)
