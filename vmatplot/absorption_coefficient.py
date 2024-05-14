@@ -232,44 +232,44 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, abs_type=None
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
-# def plot_absorption_XZ_ranges(title, matters_list=None, unit=None, abs_type=None,
-#                               inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
-#                               inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
-#     help_info = "Usage:" + \
-#                 "The independent value includes \n" +\
-#                 "\t title, \n" +\
-#                 "\t dielectric function data list, \n" +\
-#                 "\t x-axis unit, \n" +\
-#                 "\t formula type, \n" +\
-#                 "\t Inplane photon wavelenght range 1 (Optional), \n" +\
-#                 "\t Outplane photon wavelenght range 1 (Optional). \n" +\
-#                 "\t Inplane photon wavelenght range 2 (Optional), \n" +\
-#                 "\t Outplane photon wavelenght range 2 (Optional). \n"
-#     if title in ["help", "Help"]:
-#         print(help_info)
-#     # General information
-#     prop = "Absorption coefficient"
-#     comp_function = create_matters_absorption
+def plot_absorption_XZ_ranges(title, matters_list=None, unit=None, abs_type=None,
+                              inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
+                              inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
+    help_info = "Usage:" + \
+                "The independent value includes \n" +\
+                "\t title, \n" +\
+                "\t dielectric function data list, \n" +\
+                "\t x-axis unit, \n" +\
+                "\t formula type, \n" +\
+                "\t Inplane photon wavelenght range 1 (Optional), \n" +\
+                "\t Outplane photon wavelenght range 1 (Optional). \n" +\
+                "\t Inplane photon wavelenght range 2 (Optional), \n" +\
+                "\t Outplane photon wavelenght range 2 (Optional). \n"
+    if title in ["help", "Help"]:
+        print(help_info)
+    # General information
+    prop = "Absorption coefficient"
+    comp_function = create_matters_absorption
 
-#     # Figure settings
-#     fig_setting = canvas_setting(16, 11)
-#     params = fig_setting[2]; plt.rcParams.update(params)
-#     fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
-#     axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
+    # Figure settings
+    fig_setting = canvas_setting(16, 11)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
 
-#     # Colors calling
-#     annotate_color = color_sampling("Grey")
-#     order_labels = ["a","b","c","d"]
+    # Colors calling
+    annotate_color = color_sampling("Grey")
+    order_labels = ["a","b","c","d"]
 
-#     # Materials information
-#     dataset = comp_function(matters_list)
-#     subtitles = ["In-plane", "Out-of-plane"]
+    # Materials information
+    dataset = comp_function(matters_list)
+    subtitles = ["In-plane", "Out-of-plane"]
 
-#     # Data plotting
-#     for supplot_index in range(4):
-#         ax = axes_element[supplot_index]
-#         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-#         ax.set_title(subtitles[supplot_index])
+    # Data plotting
+    for supplot_index in range(4):
+        ax = axes_element[supplot_index]
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+        ax.set_title(subtitles[supplot_index])
 
     # Title
     # Suptitle
