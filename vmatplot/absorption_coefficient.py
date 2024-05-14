@@ -232,6 +232,53 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, abs_type=None
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
+def plot_absorption_XZ_ranges(title, matters_list=None, unit=None, abs_type=None,
+                              inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
+                              inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
+    help_info = "Usage:" + \
+                "The independent value includes \n" +\
+                "\t title, \n" +\
+                "\t dielectric function data list, \n" +\
+                "\t x-axis unit, \n" +\
+                "\t formula type, \n" +\
+                "\t Inplane photon wavelenght range 1 (Optional), \n" +\
+                "\t Outplane photon wavelenght range 1 (Optional). \n" +\
+                "\t Inplane photon wavelenght range 2 (Optional), \n" +\
+                "\t Outplane photon wavelenght range 2 (Optional). \n"
+    if title in ["help", "Help"]:
+        print(help_info)
+    # General information
+    prop = "Absorption coefficient"
+    comp_function = create_matters_absorption
+
+    # Figure settings
+    fig_setting = canvas_setting(16, 11)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
+
+    # Colors calling
+    annotate_color = color_sampling("Grey")
+    order_labels = ["a","b","c","d"]
+
+    # Materials information
+    dataset = comp_function(matters_list)
+    subtitles = ["In-plane", "Out-of-plane"]
+
+    # Title
+    # Suptitle
+    current_title = title
+    fig.suptitle(f"{prop} {current_title}", fontsize=fig_setting[3][0], y=0.96)
+
+    # Boundary
+    inplane_start_1, inplane_end_1   = process_boundary(inplane_boundary_1)
+    outplane_start_1, outplane_end_1 = process_boundary(outplane_boundary_1)
+    inplane_start_2, inplane_end_2   = process_boundary(inplane_boundary_2)
+    outplane_start_2, outplane_end_2 = process_boundary(outplane_boundary_2)
+
 def plot_absorption_XZ(*args):
-    # return plot_absorption_XZ_col(*args)
-    return plot_absorption_XZ_row(*args)
+    if len(args) <= 6:
+        # return plot_absorption_XZ_col(*args)
+        return plot_absorption_XZ_row(*args)
+    if len(args) > 6:
+        return plot_absorption_XZ_ranges(*args)
