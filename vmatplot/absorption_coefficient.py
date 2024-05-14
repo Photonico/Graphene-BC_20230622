@@ -282,6 +282,12 @@ def plot_absorption_XZ_ranges(title, matters_list=None, unit=None, abs_type=None
     inplane_start_2, inplane_end_2   = process_boundary(inplane_boundary_2)
     outplane_start_2, outplane_end_2 = process_boundary(outplane_boundary_2)
 
+    # Data plotting
+    for supplot_index in range(4):
+        ax = axes_element[supplot_index]
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+        ax.set_title(subtitles[supplot_index])
+
 def plot_absorption_XZ(*args):
     if len(args) <= 6:
         # return plot_absorption_XZ_col(*args)
