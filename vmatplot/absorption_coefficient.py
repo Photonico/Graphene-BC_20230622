@@ -327,7 +327,7 @@ def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
                     ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
             # Inplane (zoom)
-            if supplot_index == 2:
+            elif supplot_index == 2:
                 inplane_energy_full = data[1]["density_energy_real"]
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
