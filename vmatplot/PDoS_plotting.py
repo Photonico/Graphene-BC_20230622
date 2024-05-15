@@ -140,7 +140,7 @@ def plot_total_segment(title, matters_list):
     plt.legend(loc="upper right")
 
 
-def plot_sol_segment_pdos(title, matters_list):
+def plot_sol_segment_pdos_col(title, matters_list):
     # Figure settings
     fig_setting = canvas_setting(8, 11)    # 2 * 5 + 1
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -228,7 +228,95 @@ def plot_sol_segment_pdos(title, matters_list):
     # print(fig.get_size_inches())
     # print(fig.dpi)
 
-def plot_duo_segment_pdos(title, matters_list):
+def plot_sol_segment_pdos_row(title, matters_list):
+    # Figure settings
+    fig_setting = canvas_setting(16, 6)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(1, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0], axs[1]]
+
+    # Colors calling
+    fermi_color = color_sampling("Violet")
+    annotate_color = color_sampling("Grey")
+    order_labels = ["a","b"]
+
+    # Materials information
+    num_elements = len(matters_list[-1])//3
+    matter = matters_list
+    efermi = matter[0][4][0]
+
+    # Ranges
+    x_range = []
+    y_top   = []
+    for subplot_index in range(3):
+        x_range.append(matter[subplot_index][1])
+        y_top.append(matter[subplot_index][2])
+
+    # Data process
+    titles = []
+    labels = [[], []]
+    pdoses = [[], []]
+    for subplot_index in range(2):
+        titles.append(matter[subplot_index][0])
+        for matter_index in range(num_elements):
+            labels[matter_index].append(matter[subplot_index][3+2*matter_index])
+            pdoses[matter_index].append(matter[subplot_index][4+2*matter_index])
+
+    # Style parameters
+    color = []
+    alpha = []
+    lines = []
+    for matter_index in range(num_elements):
+        color.append(matter[-1][0+3*matter_index])
+        alpha.append(matter[-1][1+3*matter_index])
+        lines.append(matter[-1][2+3*matter_index])
+
+    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.99)
+    fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
+
+    for supplot_index in range(2):
+        ax = axes_element[supplot_index]
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
+        # Data ploting
+        ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
+        for matter_index in range(num_elements):
+            current_label = labels[matter_index][supplot_index]
+            current_pdos  = pdoses[matter_index][supplot_index]
+            ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
+            ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
+            ax.plot(current_pdos[8], current_pdos[12],c=color_sampling(color[matter_index])[4],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_x$ PDoS {current_label}",zorder=2)
+            ax.plot(current_pdos[8], current_pdos[10],c=color_sampling(color[matter_index])[5],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_y$ PDoS {current_label}",zorder=2)
+            ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS {current_label}",zorder=2)
+        ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
+        ax.set_ylim(0, y_top[supplot_index])
+        ax.set_ylabel(r"Density of states")
+        if supplot_index == 1:
+            ax.set_xlabel(r"Energy (eV)")
+        shift = efermi
+        fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
+        ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
+
+        # Fermi energy
+        ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+        ax.legend(loc="upper right")
+
+        # Subplots label
+        orderlab_shift = 0.05
+        x_loc = 0+orderlab_shift*0.75
+        y_loc = 0+orderlab_shift
+
+        ax.annotate(f"({order_labels[supplot_index]})",
+                    xy=(x_loc,y_loc),
+                    xycoords="axes fraction",
+                    fontsize=1.0 * 16,
+                    ha="center", va="center",
+                    bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+    plt.tight_layout()
+    # print(fig.get_size_inches())
+    # print(fig.dpi)
+
+def plot_duo_segment_pdos_col(title, matters_list):
     # Figure settings
     fig_setting = canvas_setting(8, 16)    # 3 * 5 + 1
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -314,7 +402,7 @@ def plot_duo_segment_pdos(title, matters_list):
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
     plt.tight_layout()
 
-def plot_tri_segment_pdos(title, matters_list):
+def plot_tri_segment_pdos_col(title, matters_list):
 
     # Figure settings
     fig_setting = canvas_setting(8, 21)    # 4 * 5 + 1
@@ -512,8 +600,25 @@ def plot_segment_pdos(*args):
         if len(args[1]) == 2:
             return plot_total_segment(args[0], args[1])
         if len(args[1]) == 3:
-            return plot_sol_segment_pdos(args[0], args[1])
+            return plot_sol_segment_pdos_col(args[0], args[1])
         if len(args[1]) == 4:
-            return plot_duo_segment_pdos(args[0], args[1])
+            return plot_duo_segment_pdos_col(args[0], args[1])
         if len(args[1]) == 5:
-            return plot_tri_segment_pdos(args[0], args[1])
+            return plot_tri_segment_pdos_col(args[0], args[1])
+
+def plot_segment_pdos_fit(*args):
+    if len(args) == 1:
+        print(plot_seg_helo_info)
+    if len(args) == 2:
+        if len(args[1]) == 1:
+            print("Format error")
+            print(plot_seg_usage)
+        if len(args[1]) == 2:
+            return plot_total_segment(args[0], args[1])
+        if len(args[1]) == 3:
+            return plot_sol_segment_pdos_row(args[0], args[1])
+        if len(args[1]) == 4:
+            # return plot_duo_segment_pdos_row(args[0], args[1])
+            return plot_duo_segment_pdos_col(args[0], args[1])
+        if len(args[1]) == 5:
+            return plot_tri_segment_pdos_block(args[0], args[1])
