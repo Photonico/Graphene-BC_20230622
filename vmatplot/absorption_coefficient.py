@@ -287,6 +287,44 @@ def plot_absorption_XZ_ranges(title, matters_list=None, unit=None, abs_type=None
         ax = axes_element[supplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
         ax.set_title(subtitles[supplot_index])
+    
+        for _, data in enumerate(dataset):
+            # Labels
+            current_label = data[0]
+            # Inplane
+            if supplot_index == 0:
+                inplane_energy_full = data[1]["density_energy_real"]
+                inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
+                inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
+                if abs_type in ["CUSTOM", "Custom", "custom"]:
+                    inplane_absorption_full = comp_absorption_coefficient_custom(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                else:
+                    inplane_absorption_full = comp_absorption_coefficient(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
+
+                if unit in ["nm", "NM"]:
+                    inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
+                    ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                else:
+                    inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_absorption_full,inplane_start,inplane_end)
+                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+
+            # Outplane
+            elif supplot_index == 1:
+                outplane_energy_full = data[1]["density_energy_real"]
+                outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
+                outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
+                if abs_type in ["CUSTOM", "Custom", "custom"]:
+                    outplane_absorption_full = comp_absorption_coefficient_custom(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                else:
+                    outplane_absorption_full = comp_absorption_coefficient(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
+
+                if unit in ["nm", "NM"]:
+                    outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start,outplane_end)
+                    ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                else:
+                    outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_absorption_full,outplane_start,outplane_end)
+                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+
 
 def plot_absorption_XZ(*args):
     if len(args) <= 6:
