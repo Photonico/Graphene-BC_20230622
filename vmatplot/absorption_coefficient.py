@@ -232,7 +232,7 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, abs_type=None
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
-def plot_absorption_XZ_ranges(title, matters_list=None, unit=None, abs_type=None,
+def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
                               inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
                               inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
     help_info = "Usage:" + \
@@ -263,7 +263,7 @@ def plot_absorption_XZ_ranges(title, matters_list=None, unit=None, abs_type=None
 
     # Materials information
     dataset = comp_function(matters_list)
-    subtitles = ["In-plane", "Out-of-plane"]
+    subtitles = ["In-plane", "Out-of-plane", "In-plane (zoom)", "Out-of-plane (zoom)"]
 
     # Data plotting
     for supplot_index in range(4):
@@ -287,10 +287,11 @@ def plot_absorption_XZ_ranges(title, matters_list=None, unit=None, abs_type=None
         ax = axes_element[supplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
         ax.set_title(subtitles[supplot_index])
-    
+
         for _, data in enumerate(dataset):
             # Labels
             current_label = data[0]
+
             # Inplane
             if supplot_index == 0:
                 inplane_energy_full = data[1]["density_energy_real"]
@@ -302,10 +303,10 @@ def plot_absorption_XZ_ranges(title, matters_list=None, unit=None, abs_type=None
                     inplane_absorption_full = comp_absorption_coefficient(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
 
                 if unit in ["nm", "NM"]:
-                    inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start,inplane_end)
+                    inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start_1,inplane_end_1)
                     ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
                 else:
-                    inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_absorption_full,inplane_start,inplane_end)
+                    inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_absorption_full,inplane_start_1,inplane_end_1)
                     ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
             # Outplane
@@ -319,16 +320,84 @@ def plot_absorption_XZ_ranges(title, matters_list=None, unit=None, abs_type=None
                     outplane_absorption_full = comp_absorption_coefficient(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
 
                 if unit in ["nm", "NM"]:
-                    outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start,outplane_end)
+                    outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start_1,outplane_end_1)
                     ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
                 else:
-                    outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_absorption_full,outplane_start,outplane_end)
+                    outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_absorption_full,outplane_start_1,outplane_end_1)
                     ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
+            # Inplane (zoom)
+            if supplot_index == 2:
+                inplane_energy_full = data[1]["density_energy_real"]
+                inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
+                inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
+                if abs_type in ["CUSTOM", "Custom", "custom"]:
+                    inplane_absorption_full = comp_absorption_coefficient_custom(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
+                else:
+                    inplane_absorption_full = comp_absorption_coefficient(inplane_frequency_full,data[1]["density_xx_real"],data[1]["density_xx_imag"])
+
+                if unit in ["nm", "NM"]:
+                    inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_absorption_full,inplane_start_2,inplane_end_2)
+                    ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                else:
+                    inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_absorption_full,inplane_start_2,inplane_end_2)
+                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+
+            # Outplane (zoom)
+            elif supplot_index == 3:
+                outplane_energy_full = data[1]["density_energy_real"]
+                outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
+                outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
+                if abs_type in ["CUSTOM", "Custom", "custom"]:
+                    outplane_absorption_full = comp_absorption_coefficient_custom(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
+                else:
+                    outplane_absorption_full = comp_absorption_coefficient(outplane_frequency_full,data[1]["density_zz_real"],data[1]["density_zz_imag"])
+
+                if unit in ["nm", "NM"]:
+                    outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_absorption_full,outplane_start_2,outplane_end_2)
+                    ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                else:
+                    outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_absorption_full,outplane_start_2,outplane_end_2)
+                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+
+        # axis label
+        if supplot_index in [0,2]:
+            ax.set_ylabel(f"{prop}")
+        if supplot_index in [2,3]:
+            if unit in ["nm", "NM"]:
+                ax.set_xlabel(r"Photon wavelength (nm)")
+            else:
+                ax.set_xlabel(r"Photon energy (eV)")
+        ax.legend(loc="upper right")
+
+        # Subplots label
+        orderlab_shift = 0.05
+        # if supplot_index == 0:
+        #     x_loc = 1-orderlab_shift*0.75
+        #     y_loc = 0+orderlab_shift
+        # elif supplot_index == 1:
+        #     x_loc = 0+orderlab_shift*0.75
+        #     y_loc = 0+orderlab_shift
+        # elif supplot_index == 2:
+        #     x_loc = 1-orderlab_shift*0.75
+        #     y_loc = 1-orderlab_shift
+        # elif supplot_index == 3:
+        #     x_loc = 0+orderlab_shift*0.75
+        #     y_loc = 1-orderlab_shift
+        x_loc = 0+orderlab_shift*0.75
+        y_loc = 0+orderlab_shift
+
+        ax.annotate(f"({order_labels[supplot_index]})",
+                        xy=(x_loc,y_loc),
+                        xycoords="axes fraction",
+                        fontsize=1.0 * 16,
+                        ha="center", va="center",
+                        bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+    plt.tight_layout()
 
 def plot_absorption_XZ(*args):
     if len(args) <= 6:
         # return plot_absorption_XZ_col(*args)
         return plot_absorption_XZ_row(*args)
     if len(args) > 6:
-        return plot_absorption_XZ_ranges(*args)
+        return plot_absorption_XZ_zoom(*args)
