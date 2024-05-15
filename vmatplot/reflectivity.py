@@ -26,7 +26,7 @@ def create_matters_reflectivity(*args):
     return create_matters_dielectric_function(*args)
 
 def plot_reflectivity_XZ_row(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: reflectivity_XZ" + \
+    help_info = "Usage: plot_reflectivity_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -124,7 +124,7 @@ def plot_reflectivity_XZ_row(title, matters_list=None, unit=None, inplane_bounda
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
 def plot_reflectivity_XZ_col(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: reflectivity_XZ" + \
+    help_info = "Usage: plot_reflectivity_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -216,6 +216,11 @@ def plot_reflectivity_XZ_col(title, matters_list=None, unit=None, inplane_bounda
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
+def plot_reflectivity_XZ_zoom
+
 def plot_reflectivity_XZ(*args):
-    # return plot_reflectivity_XZ_col(*args)
-    return plot_reflectivity_XZ_row(*args)
+    if len(args) <= 5:
+        # return plot_reflectivity_XZ_col(*args)
+        return plot_reflectivity_XZ_row(*args)
+    elif len(args) > 5:
+        return plot_reflectivity_XZ_zoom(*args)

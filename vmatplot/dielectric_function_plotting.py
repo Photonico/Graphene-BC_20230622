@@ -203,7 +203,7 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energ
     if title in ["help", "Help"]:
         print(help_info)
     # Figure settings
-    fig_setting = canvas_setting(16, 11)
+    fig_setting = canvas_setting(16, 12)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
     axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]

@@ -31,7 +31,7 @@ def create_matters_absorption(*args):
     return create_matters_dielectric_function(*args)
 
 def plot_absorption_XZ_row(title, absorption_list=None, unit=None, abs_type=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: absorption_XZ" + \
+    help_info = "Usage: plot_absorption_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -135,7 +135,7 @@ def plot_absorption_XZ_row(title, absorption_list=None, unit=None, abs_type=None
 
 
 def plot_absorption_XZ_col(title, absorption_list=None, unit=None, abs_type=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: absorption_XZ" + \
+    help_info = "Usage: plot_absorption_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -235,7 +235,7 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, abs_type=None
 def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
                               inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
                               inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
-    help_info = "Usage:" + \
+    help_info = "Usage: plot_absorption_XZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -252,7 +252,7 @@ def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
     comp_function = create_matters_absorption
 
     # Figure settings
-    fig_setting = canvas_setting(16, 11)
+    fig_setting = canvas_setting(16, 12)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
     axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
@@ -274,7 +274,7 @@ def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
     # Title
     # Suptitle
     current_title = title
-    fig.suptitle(f"{prop} {current_title}", fontsize=fig_setting[3][0], y=0.96)
+    fig.suptitle(f"{prop} {current_title}", fontsize=fig_setting[3][0], y=1.00)
 
     # Boundary
     inplane_start_1, inplane_end_1   = process_boundary(inplane_boundary_1)
@@ -369,6 +369,7 @@ def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
         ax.legend(loc="upper right")
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # Subplots label
         orderlab_shift = 0.05
@@ -399,5 +400,5 @@ def plot_absorption_XZ(*args):
     if len(args) <= 6:
         # return plot_absorption_XZ_col(*args)
         return plot_absorption_XZ_row(*args)
-    if len(args) > 6:
+    elif len(args) > 6:
         return plot_absorption_XZ_zoom(*args)
