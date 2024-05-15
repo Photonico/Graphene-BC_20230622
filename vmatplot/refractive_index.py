@@ -212,6 +212,13 @@ def plot_refractive_XZ_col(title, refractive_list=None, unit=None, inplane_bound
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
+def plot_refractive_XZ_zoom(title, refractive_list=None, unit=None, 
+                            inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
+                            inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
+
 def plot_refractive_XZ(*args):
-    # return plot_refractive_XZ_col(*args)
-    return plot_refractive_XZ_row(*args)
+    if len(args) <= 5:
+        # return plot_refractive_XZ_col(*args)
+        return plot_refractive_XZ_row(*args)
+    if len(args) > 5:
+        return plot_refractive_XZ_zoom(*args)
