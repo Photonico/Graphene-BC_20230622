@@ -183,7 +183,7 @@ def plot_sol_segment_pdos_col(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.99)
+    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
 
     for supplot_index in range(2):
@@ -271,7 +271,7 @@ def plot_sol_segment_pdos_row(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.99)
+    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
 
     for supplot_index in range(2):
@@ -361,7 +361,7 @@ def plot_duo_segment_pdos_col(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.99)
+    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
 
     for supplot_index in range(3):
@@ -448,7 +448,7 @@ def plot_tri_segment_pdos_col(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
-    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.99)
+    # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.0)
 
     for supplot_index in range(4):

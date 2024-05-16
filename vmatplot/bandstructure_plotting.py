@@ -243,7 +243,7 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
     matters = create_matters_bsDos(matters_list)
 
     # Title
-    fig.suptitle(f"Bandstructure and DoS {title}", fontsize=fig_setting[3][0])
+    fig.suptitle(f"Bandstructure and DoS {title}", fontsize=fig_setting[3][0], y=1.00)
 
     # ax1 Bandstructure
     ax1.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
