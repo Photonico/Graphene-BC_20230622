@@ -709,7 +709,8 @@ def pdos_sol_segment_data(matter, x_range, y_top, pdos_total, element, pdos_elem
         # if supplot_index == 1:
         #     x_loc = 0+orderlab_shift
         #     y_loc = 0+orderlab_shift
-        x_loc = 1-orderlab_shift*0.75
+        # x_loc = 1-orderlab_shift*0.75
+        x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
         ax.annotate(f"({chr(97 + i)})",
                     xy=(x_loc,y_loc),

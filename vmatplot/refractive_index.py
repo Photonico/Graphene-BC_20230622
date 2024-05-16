@@ -112,7 +112,8 @@ def plot_refractive_XZ_row(title, refractive_list=None, unit=None, inplane_bound
         # if supplot_index == 1:
         #     x_loc = 0+orderlab_shift
         #     y_loc = 0+orderlab_shift
-        x_loc = 1-orderlab_shift*0.75
+        # x_loc = 1-orderlab_shift*0.75
+        x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
         ax.annotate(f"({order_labels[supplot_index]})",
                     xy=(x_loc,y_loc),
