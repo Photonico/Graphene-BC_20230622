@@ -692,6 +692,7 @@ def plot_tri_segment_pdos_block(title, matters_list):
                     fontsize=1.0 * 16,
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+
     plt.tight_layout()
 
 plot_seg_helo_info = "help information"
