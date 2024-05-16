@@ -404,69 +404,12 @@ def plot_duo_segment_pdos_col(title, matters_list):
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
     plt.tight_layout()
 
-def plot_duo_segment_pdos_block(title, matters_list):
+def plot_duo_segment_pdos_row(title, matters_list):
     # Figure settings
-    fig_setting = canvas_setting(16, 12)
+    fig_setting = canvas_setting(24, 6)    # 3 * 5 + 1
     params = fig_setting[2]; plt.rcParams.update(params)
-    fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
-    axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
-
-    # Colors calling
-    fermi_color = color_sampling("Violet")
-    annotate_color = color_sampling("Grey")
-    order_labels = ["a","b","c","d"]
-
-    # Materials information
-    num_elements = len(matters_list[-1])//3
-    matter = matters_list
-    efermi = matter[0][4][0]
-
-    # Ranges
-    x_range = []
-    y_top   = []
-    for subplot_index in range(4):
-        x_range.append(matter[subplot_index][1])
-        y_top.append(matter[subplot_index][2])
-
-    # Data process
-    titles = []
-    labels = [[], []]
-    pdoses = [[], []]
-    for subplot_index in range(4):
-        if subplot_index == 0:
-            titles.append(matter[subplot_index][0])
-            for matter_index in range(num_elements):
-                labels[matter_index].append(matter[subplot_index][3+2*matter_index])
-                pdoses[matter_index].append(matter[subplot_index][4+2*matter_index])
-        elif subplot_index == 1:
-            continue
-        else:
-            titles.append(matter[subplot_index-1][0])
-            for matter_index in range(num_elements):
-                labels[matter_index].append(matter[subplot_index-1][3+2*matter_index])
-                pdoses[matter_index].append(matter[subplot_index-1][4+2*matter_index])
-
-    # Style parameters
-    color = []
-    alpha = []
-    lines = []
-    for matter_index in range(num_elements):
-        color.append(matter[-1][0+3*matter_index])
-        alpha.append(matter[-1][1+3*matter_index])
-        lines.append(matter[-1][2+3*matter_index])
-
-    fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
-
-    for supplot_index in range(4):
-        if supplot_index == 1:
-            axes_element[supplot_index].axis("off")
-            continue
-        else:
-            print("inner", supplot_index)
-        print("outer", supplot_index)
-
-            # ax = axes_element[supplot_index]
-            # ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+    fig, axs = plt.subplots(1, 3, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0], axs[1], axs[2]]
 
     # tight figure
     plt.tight_layout()
@@ -692,7 +635,7 @@ def plot_segment_pdos_fit(*args):
         if len(args[1]) == 3:
             return plot_sol_segment_pdos_row(args[0], args[1])
         if len(args[1]) == 4:
-            return plot_duo_segment_pdos_block(args[0], args[1])
+            return plot_duo_segment_pdos_row(args[0], args[1])
             # return plot_duo_segment_pdos_col(args[0], args[1])
         if len(args[1]) == 5:
             return plot_tri_segment_pdos_block(args[0], args[1])
