@@ -660,12 +660,14 @@ def plot_tri_segment_pdos_block(title, matters_list):
         shift = efermi
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
-        if supplot_index == 2:
-            ax.text(efermi-shift+x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="left")
-            ax.legend(loc="upper left")
-        else:
-            ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
-            ax.legend(loc="upper right")
+        # if supplot_index == 2:
+        #     ax.text(efermi-shift+x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="left")
+        #     ax.legend(loc="upper left")
+        # else:
+        #     ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+        #     ax.legend(loc="upper right")
+        ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+        ax.legend(loc="upper right")
 
         orderlab_shift = 0.05
         # if supplot_index == 0:
