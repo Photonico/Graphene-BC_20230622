@@ -409,7 +409,7 @@ def plot_duo_segment_pdos_block(title, matters_list):
     fig_setting = canvas_setting(16, 12)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
-    axes_element = [axs[0, 0], axs[1, 0], axs[1, 1]]
+    axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
 
     # Colors calling
     fermi_color = color_sampling("Violet")
@@ -455,6 +455,20 @@ def plot_duo_segment_pdos_block(title, matters_list):
         alpha.append(matter[-1][1+3*matter_index])
         lines.append(matter[-1][2+3*matter_index])
 
+    fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
+
+    for supplot_index in range(4):
+        if supplot_index == 1:
+            axes_element[supplot_index].axis("off")
+            continue
+        else:
+            print("inner", supplot_index)
+        print("outer", supplot_index)
+
+            # ax = axes_element[supplot_index]
+            # ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
+    # tight figure
     plt.tight_layout()
 
 def plot_tri_segment_pdos_col(title, matters_list):
