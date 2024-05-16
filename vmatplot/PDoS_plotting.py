@@ -405,6 +405,12 @@ def plot_duo_segment_pdos_col(title, matters_list):
     plt.tight_layout()
 
 def plot_duo_segment_pdos_block(title, matters_list):
+    # Figure settings
+    fig_setting = canvas_setting(16, 12)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
+
     plt.tight_layout()
 
 def plot_tri_segment_pdos_col(title, matters_list):
