@@ -99,3 +99,4 @@ def plot_free_energy_lattice(suptitle, lattice_list = None, lattice_range = (Non
         plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
     plt.legend(loc=fig_setting[4])
+    plt.tight_layout()

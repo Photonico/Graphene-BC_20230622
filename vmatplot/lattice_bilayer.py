@@ -286,3 +286,4 @@ def plot_bilayer_lattice(system, source_data, colormap, point_color, additional_
         plt.scatter(additional_lattice, additional_distance, s=36, c=colors[3], label=f"Specific energy: {additional_energy:.3f}", zorder=3)
 
     plt.legend(loc=legend_loc)
+    plt.tight_layout()

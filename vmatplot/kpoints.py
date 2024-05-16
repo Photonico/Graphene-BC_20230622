@@ -257,3 +257,4 @@ def plot_kpoints_free_energy_data(matter, source_data=None, direction="Total", k
     # Plotting
     plt.scatter(kpoints_plotting, energy_plotting, c=colors[1], zorder =1)
     plt.xticks(kpoints_plotting)
+    plt.tight_layout()

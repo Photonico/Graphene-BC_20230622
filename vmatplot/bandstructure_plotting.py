@@ -223,6 +223,7 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
         legend.set_visible(False)
     else:
         legend = plt.legend(loc=legend_loc)
+    plt.tight_layout()
 
 def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legend_loc="False"):
     # Figure setting
@@ -339,3 +340,4 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
     if legend_loc not in [None, "False", False]:
         ax1.legend(loc=legend_loc)
         # ax2.legend(loc=legend_loc)
+    plt.tight_layout()

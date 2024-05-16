@@ -310,3 +310,4 @@ def plot_color_families():
         plt.text(-max_length*0.01, i + yaxis_offset, label, ha="right", va="center")
 
     plt.show()
+    plt.tight_layout()

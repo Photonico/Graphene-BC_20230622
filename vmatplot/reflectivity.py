@@ -110,18 +110,21 @@ def plot_reflectivity_XZ_row(title, matters_list=None, unit=None, inplane_bounda
 
         # Subplots label
         orderlab_shift = 0.05
-        if supplot_index == 0:
-            x_loc = 1-orderlab_shift
-            y_loc = 0+orderlab_shift
-        if supplot_index == 1:
-            x_loc = 0+orderlab_shift
-            y_loc = 0+orderlab_shift
+        # if supplot_index == 0:
+        #     x_loc = 1-orderlab_shift
+        #     y_loc = 0+orderlab_shift
+        # if supplot_index == 1:
+        #     x_loc = 0+orderlab_shift
+        #     y_loc = 0+orderlab_shift
+        x_loc = 1-orderlab_shift*0.75
+        y_loc = 1-orderlab_shift
         ax.annotate(f"({order_labels[supplot_index]})",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+    plt.tight_layout()
 
 def plot_reflectivity_XZ_col(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
     help_info = "Usage: plot_reflectivity_XZ" + \
@@ -215,6 +218,7 @@ def plot_reflectivity_XZ_col(title, matters_list=None, unit=None, inplane_bounda
                     fontsize=1.0 * 16,
                     ha="center", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+    plt.tight_layout()
 
 def plot_reflectivity_XZ_zoom(title, matters_list=None, unit=None,
                               inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),

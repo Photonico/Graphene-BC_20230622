@@ -170,6 +170,7 @@ def plot_dos_sol(matter, x_range=None, y_top=None, dos_type=None, dos_data=None,
     plt.ylim(0, y_limit)
     plt.xlim(x_range*(-1), x_range)
     plt.legend(loc="upper right")
+    plt.tight_layout()
 
 def create_matters_dos(matters_list):
     # matters = create_matters_dos(matters_list)
@@ -307,3 +308,4 @@ def plot_dos(title, x_range = None, y_top = None, dos_type = None, matters_list 
         plt.xlim(x_range*(-1), x_range)
         # plt.legend(loc="best")
         plt.legend(loc="upper right")
+        plt.tight_layout()

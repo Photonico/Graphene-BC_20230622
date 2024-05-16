@@ -138,7 +138,7 @@ def plot_total_segment(title, matters_list):
     plt.xlim(x_range*(-1), x_range)
     # plt.legend(loc="best")
     plt.legend(loc="upper right")
-
+    plt.tight_layout()
 
 def plot_sol_segment_pdos_col(title, matters_list):
     # Figure settings
@@ -303,8 +303,10 @@ def plot_sol_segment_pdos_row(title, matters_list):
 
         # Subplots label
         orderlab_shift = 0.05
-        x_loc = 0+orderlab_shift*0.75
-        y_loc = 0+orderlab_shift
+        # x_loc = 0+orderlab_shift*0.75
+        # y_loc = 0+orderlab_shift
+        x_loc = 1-orderlab_shift*0.75
+        y_loc = 1-orderlab_shift
 
         ax.annotate(f"({order_labels[supplot_index]})",
                     xy=(x_loc,y_loc),

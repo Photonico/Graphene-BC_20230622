@@ -612,6 +612,7 @@ def plot_total_pdos_data(matter, x_range = None, y_top = None, pdos_type = None,
     plt.ylim(0, y_top)
     plt.xlim(x_range*(-1), x_range)
     plt.legend(loc="upper right")
+    plt.tight_layout()
     # plt.show()
 
 def plot_total_pdos_test(matter, x_range = None, y_top = None, pdos_type = None, pdos_directory = None, color_family="blue"):
@@ -679,27 +680,43 @@ def pdos_sol_segment_data(matter, x_range, y_top, pdos_total, element, pdos_elem
         fermi_energy_text = f"Fermi energy\n{efermi_pdos:.3f} (eV)"
         ax.text(efermi_pdos-shift-x_range*0.02, y_limit*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
 
-        x_label, y_label = label_positions[i]
-        if i == 0:
-            ax.legend(loc="upper right")
-        elif i == 1:
-            ax.legend(loc="upper right")
-        relative_offset = 0.025  # adjust this value as needed
-        if x_label == 0:
-            ha = "left"; x_label_offset = relative_offset
-        else:
-            ha = "right"; x_label_offset = -relative_offset
-        if y_label == 0:
-            va = "bottom"; y_label_offset = relative_offset
-        else:
-            va = "top"; y_label_offset = -relative_offset
-        ax.annotate(f"({chr(97 + i)})",
-                    xy = (x_label + x_label_offset, y_label + y_label_offset),
-                    xycoords = "axes fraction",
-                    fontsize = 1.0 * 16,
-                    ha = ha, va = va,
-                    bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"}, zorder=5)
+        # x_label, y_label = label_positions[i]
+        # if i == 0:
+        #     ax.legend(loc="upper right")
+        # elif i == 1:
+        #     ax.legend(loc="upper right")
+        # relative_offset = 0.025  # adjust this value as needed
+        # if x_label == 0:
+        #     ha = "left"; x_label_offset = relative_offset
+        # else:
+        #     ha = "right"; x_label_offset = -relative_offset
+        # if y_label == 0:
+        #     va = "bottom"; y_label_offset = relative_offset
+        # else:
+        #     va = "top"; y_label_offset = -relative_offset
+        # ax.annotate(f"({chr(97 + i)})",
+        #             xy = (x_label + x_label_offset, y_label + y_label_offset),
+        #             xycoords = "axes fraction",
+        #             fontsize = 1.0 * 16,
+        #             ha = ha, va = va,
+        #             bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"}, zorder=5)
 
+        # Subplots label
+        orderlab_shift = 0.05
+        # if supplot_index == 0:
+        #     x_loc = 1-orderlab_shift
+        #     y_loc = 0+orderlab_shift
+        # if supplot_index == 1:
+        #     x_loc = 0+orderlab_shift
+        #     y_loc = 0+orderlab_shift
+        x_loc = 1-orderlab_shift*0.75
+        y_loc = 1-orderlab_shift
+        ax.annotate(f"({chr(97 + i)})",
+                    xy=(x_loc,y_loc),
+                    xycoords="axes fraction",
+                    fontsize=1.0 * 16,
+                    ha="center", va="center",
+                    bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
     plt.tight_layout()
 
 def pdos_duo_segment_data(matter, x_range, y_top, pdos_total, element_1, pdos_1, element_2, pdos_2, color_family="blue"):
@@ -799,7 +816,6 @@ def pdos_duo_segment_data(matter, x_range, y_top, pdos_total, element_1, pdos_1,
                     fontsize = 1.0 * 16,
                     ha = ha, va = va,
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"}, zorder=5)
-
     plt.tight_layout()
 
 def pdos_tri_segment_data(matter, x_range, y_top, pdos_total, element_1, pdos_1, element_2, pdos_2, element_3, pdos_3, color_family="blue"):
