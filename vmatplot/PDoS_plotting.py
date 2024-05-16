@@ -409,7 +409,51 @@ def plot_duo_segment_pdos_block(title, matters_list):
     fig_setting = canvas_setting(16, 12)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
-    axes_element = [axs[0, 0], axs[0, 1], axs[1, 0], axs[1, 1]]
+    axes_element = [axs[0, 0], axs[1, 0], axs[1, 1]]
+
+    # Colors calling
+    fermi_color = color_sampling("Violet")
+    annotate_color = color_sampling("Grey")
+    order_labels = ["a","b","c","d"]
+
+    # Materials information
+    num_elements = len(matters_list[-1])//3
+    matter = matters_list
+    efermi = matter[0][4][0]
+
+    # Ranges
+    x_range = []
+    y_top   = []
+    for subplot_index in range(4):
+        x_range.append(matter[subplot_index][1])
+        y_top.append(matter[subplot_index][2])
+
+    # Data process
+    titles = []
+    labels = [[], []]
+    pdoses = [[], []]
+    for subplot_index in range(4):
+        if subplot_index == 0:
+            titles.append(matter[subplot_index][0])
+            for matter_index in range(num_elements):
+                labels[matter_index].append(matter[subplot_index][3+2*matter_index])
+                pdoses[matter_index].append(matter[subplot_index][4+2*matter_index])
+        elif subplot_index == 1:
+            continue
+        else:
+            titles.append(matter[subplot_index-1][0])
+            for matter_index in range(num_elements):
+                labels[matter_index].append(matter[subplot_index-1][3+2*matter_index])
+                pdoses[matter_index].append(matter[subplot_index-1][4+2*matter_index])
+
+    # Style parameters
+    color = []
+    alpha = []
+    lines = []
+    for matter_index in range(num_elements):
+        color.append(matter[-1][0+3*matter_index])
+        alpha.append(matter[-1][1+3*matter_index])
+        lines.append(matter[-1][2+3*matter_index])
 
     plt.tight_layout()
 
@@ -549,6 +593,11 @@ def plot_tri_segment_pdos_block(title, matters_list):
     for supplot_index in range(4):
         ax = axes_element[supplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
+        # testing area
+        # if supplot_index == 1:
+        #     axes_element[supplot_index].axis("off")
+        #     continue
 
         # Data ploting
         ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
