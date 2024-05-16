@@ -404,6 +404,9 @@ def plot_duo_segment_pdos_col(title, matters_list):
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
     plt.tight_layout()
 
+def plot_duo_segment_pdos_block(title, matters_list):
+    plt.tight_layout()
+
 def plot_tri_segment_pdos_col(title, matters_list):
 
     # Figure settings
@@ -620,7 +623,7 @@ def plot_segment_pdos_fit(*args):
         if len(args[1]) == 3:
             return plot_sol_segment_pdos_row(args[0], args[1])
         if len(args[1]) == 4:
-            # return plot_duo_segment_pdos_row(args[0], args[1])
-            return plot_duo_segment_pdos_col(args[0], args[1])
+            return plot_duo_segment_pdos_block(args[0], args[1])
+            # return plot_duo_segment_pdos_col(args[0], args[1])
         if len(args[1]) == 5:
             return plot_tri_segment_pdos_block(args[0], args[1])
