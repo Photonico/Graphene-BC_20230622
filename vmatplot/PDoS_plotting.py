@@ -291,9 +291,11 @@ def plot_sol_segment_pdos_row(title, matters_list):
             ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS {current_label}",zorder=2)
         ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
         ax.set_ylim(0, y_top[supplot_index])
-        ax.set_ylabel(r"Density of states")
-        if supplot_index == 1:
-            ax.set_xlabel(r"Energy (eV)")
+
+        ax.set_xlabel(r"Energy (eV)")
+        if supplot_index == 0:
+            ax.set_ylabel(r"Density of states")
+
         shift = efermi
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
@@ -470,9 +472,9 @@ def plot_duo_segment_pdos_row(title, matters_list):
             ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS {current_label}",zorder=2)
         ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
         ax.set_ylim(0, y_top[supplot_index])
-        ax.set_ylabel(r"Density of states")
-        if supplot_index == 2:
-            ax.set_xlabel(r"Energy (eV)")
+        ax.set_xlabel(r"Energy (eV)")
+        if supplot_index == 0:
+            ax.set_ylabel(r"Density of states")
         shift = efermi
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
@@ -654,8 +656,9 @@ def plot_tri_segment_pdos_block(title, matters_list):
             ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS {current_label}",zorder=2)
         ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
         ax.set_ylim(0, y_top[supplot_index])
-        ax.set_ylabel(r"Density of states")
-        if supplot_index == 3:
+        if supplot_index in [0,2]:
+            ax.set_ylabel(r"Density of states")
+        if supplot_index in [2,3]:
             ax.set_xlabel(r"Energy (eV)")
         shift = efermi
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
@@ -728,6 +731,5 @@ def plot_segment_pdos_fit(*args):
             return plot_sol_segment_pdos_row(args[0], args[1])
         if len(args[1]) == 4:
             return plot_duo_segment_pdos_row(args[0], args[1])
-            # return plot_duo_segment_pdos_col(args[0], args[1])
         if len(args[1]) == 5:
             return plot_tri_segment_pdos_block(args[0], args[1])
