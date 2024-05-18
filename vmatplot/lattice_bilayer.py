@@ -283,7 +283,7 @@ def plot_bilayer_lattice(system, source_data, colormap, point_color, additional_
     plt.scatter(lattice_fitted_min, distance_fitted_min, s=48, lw=1.5, facecolors="none", ec=colors[2], label="Extrema of fitted data", zorder=2)
     # Additional point
     if additional_work is not None:
-        plt.scatter(additional_lattice, additional_distance, s=36, c=colors[3], label=f"Specific energy: {additional_energy:.3f}", zorder=3)
+        plt.scatter(additional_lattice, additional_distance, s=36, c=colors[3], label=f"Specific energy: {additional_energy:.3f} (eV)", zorder=3)
 
     plt.legend(loc=legend_loc)
     plt.tight_layout()
