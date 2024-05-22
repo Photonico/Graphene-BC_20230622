@@ -2,44 +2,56 @@
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0914
 
 import os
+from pymatgen.io.vasp import Vasprun
 
-def extract_bandgap_outcar(directory):
-    # Check if the user asked for help
-    if directory == "help":
-        print("Please use this function to OUTCAR of the bandstructure calculation.")
-        return "Help provided."
+def extract_bandgap(directory):
+    # Construct the full path to the vasprun.xml file
+    vasprun_path = os.path.join(directory, "vasprun.xml")
 
-    outcar_path = os.path.join(directory, "OUTCAR")
-    if not os.path.isfile(outcar_path):
-        print("OUTCAR file not found in the provided directory.")
-        return None
+    # Check if the file exists
+    if not os.path.isfile(vasprun_path):
+        print(f"vasprun.xml file not found in directory: {directory}")
+        return None, None
 
-    with open(outcar_path, "r", encoding="utf-8") as outcar_file:
-        content = outcar_file.readlines()
-    # Get HOMO, LUMO, and NKPT
-    homo = None
-    lumo = None
-    nkpt = None
+    # Load the vasprun.xml file
+    try:
+        vasprun = Vasprun(vasprun_path, parse_projected_eigen=True)
+    except Exception as e:
+        print(f"Error reading vasprun.xml: {e}")
+        return None, None
 
-    for line in content:
-        if "NELECT" in line:
-            homo = int(float(line.split()[2]) / 2)
-            lumo = homo + 1
-        if "NKPTS" in line:
-            nkpt = int(line.split()[3])
+    # Get the band structure
+    try:
+        band_structure = vasprun.get_band_structure()
+    except Exception as e:
+        print(f"Error extracting band structure: {e}")
+        return None, None
 
-    # Extract energies for HOMO and LUMO
-    homo_energies = [float(line.split()[1]) for i, line in enumerate(content) if f"     {homo}     " in line]
-    lumo_energies = [float(line.split()[1]) for i, line in enumerate(content) if f"     {lumo}     " in line]
+    # Get the band gap
+    try:
+        band_gap_details = band_structure.get_band_gap()
+        material_is_metallic = band_structure.is_metal()
+    except Exception as e:
+        print(f"Error extracting band gap: {e}")
+        return None, None
 
-    # Get maximum HOMO and minimum LUMO energy considering nkpt values
-    homo = sorted(homo_energies[:nkpt])[-1]
-    lumo = sorted(lumo_energies[:nkpt])[0]
-    bandgap =  lumo - homo
+    if material_is_metallic:
+        print("The material is metallic.")
+        print(f"Band gap: {band_gap_details['energy']} eV")
+    else:
+        print(f"Band gap: {band_gap_details['energy']} eV")
+        print(f"Direct gap: {band_gap_details['direct']}")
+        print(f"Transition: {band_gap_details['transition']}")
 
-    # print(f"File: {directory}")
-    # print(f"HOMO: band: {homo} E= {e1}")
-    # print(f"LUMO: band: {lumo} E= {e2}")
-    # print(f"Bandgap: {bandgap}")
+    return band_gap_details, material_is_metallic
 
-    return bandgap, homo, lumo
+# Example usage
+directory_path = "path/to/your/calculation/directory"
+band_gap_info, is_metal = extract_bandgap(directory_path)
+if band_gap_info is not None:
+    if is_metal:
+        print("The material is metallic.")
+    else:
+        print(f"Band gap: {band_gap_info['energy']} eV, Direct: {band_gap_info['direct']}, Transition: {band_gap_info['transition']}")
+else:
+    print("Failed to extract band gap information.")
