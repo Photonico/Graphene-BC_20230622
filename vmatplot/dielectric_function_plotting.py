@@ -56,6 +56,7 @@ def plot_dielectric_function_XZ_col(title, dielectric_list=None, inplane_energy_
 
     # Materials information
     dataset = create_matters_dielectric_function(dielectric_list)
+    # data_length = len(dataset)
     subtitles = ["In-plane", "Out-of-plane"]
 
     # Suptitle
@@ -72,7 +73,7 @@ def plot_dielectric_function_XZ_col(title, dielectric_list=None, inplane_energy_
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
         ax.set_title(subtitles[supplot_index])
 
-        for _, data in enumerate(dataset):
+        for index, data in enumerate(dataset):
             # Labels
             current_label = data[0]
             # Inplane
@@ -80,14 +81,27 @@ def plot_dielectric_function_XZ_col(title, dielectric_list=None, inplane_energy_
                 inplane_energy_real, inplane_density_real = extract_part(data[1]["density_energy_real"],data[1]["density_xx_real"],inplane_start,inplane_end)
                 inplane_energy_imag, inplane_density_imag = extract_part(data[1]["density_energy_imag"],data[1]["density_xx_imag"],inplane_start,inplane_end)
 
+                # plasmon resonance line
+                plas_start = min(inplane_energy_real[0],inplane_energy_imag[0])
+                plas_end = max(inplane_energy_real[-1],inplane_energy_imag[-1])
+                if index == 0:
+                    plas_line, = ax.plot([plas_start,plas_end],[0,0],color=color_sampling("grey")[0],linestyle="--",lw=data[4],label="Plasmon resonance line")
+
                 lines_real = ax.plot(inplane_energy_real, inplane_density_real, color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
                 lines_real[0].set_dashes([2, 0])
                 lines_imag = ax.plot(inplane_energy_imag, inplane_density_imag, color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
                 lines_imag[0].set_dashes([2, 1])
+
             # Outplane
             elif supplot_index == 1:
                 outplane_energy_real, outplane_density_real = extract_part(data[1]["density_energy_real"],data[1]["density_zz_real"],outplane_start,outplane_end)
                 outplane_energy_imag, outplane_density_imag = extract_part(data[1]["density_energy_imag"],data[1]["density_zz_imag"],outplane_start,outplane_end)
+
+                # plasmon resonance line
+                plas_start = min(outplane_energy_real[0],outplane_energy_imag[0])
+                plas_end = max(outplane_energy_real[-1],outplane_energy_imag[-1])
+                if index == 0:
+                    plas_line, = ax.plot([plas_start,plas_end],[0,0],color=color_sampling("grey")[0],linestyle="--",lw=data[4],label="Plasmon resonance line")
 
                 lines_real = ax.plot(outplane_energy_real, outplane_density_real, color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
                 lines_real[0].set_dashes([2, 0])
@@ -98,7 +112,12 @@ def plot_dielectric_function_XZ_col(title, dielectric_list=None, inplane_energy_
         if supplot_index == 1:
             ax.set_xlabel(r"Photon energy (eV)")
         ax.set_ylabel(r"Dielectric function")
-        ax.legend(loc="upper right")
+
+        # Legend
+        handles, labels = ax.get_legend_handles_labels()
+        plas_index = handles.index(plas_line)
+        legend_order = [i for i in range(len(handles)) if i != plas_index] + [plas_index]
+        ax.legend([handles[idx] for idx in legend_order], [labels[idx] for idx in legend_order], loc="upper right")
 
         # Subplots label
         orderlab_shift = 0.05
@@ -134,6 +153,7 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
 
     # Materials information
     dataset = create_matters_dielectric_function(dielectric_list)
+    # data_length = len(dataset)
     subtitles = ["In-plane", "Out-of-plane"]
 
     # Suptitle
@@ -150,13 +170,19 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
         ax.set_title(subtitles[supplot_index])
 
-        for _, data in enumerate(dataset):
+        for index, data in enumerate(dataset):
             # Labels
             current_label = data[0]
             # Inplane
             if supplot_index == 0:
                 inplane_energy_real, inplane_density_xx_real = extract_part(data[1]["density_energy_real"],data[1]["density_xx_real"],inplane_start,inplane_end)
                 inplane_energy_imag, inplane_density_xx_imag = extract_part(data[1]["density_energy_imag"],data[1]["density_xx_imag"],inplane_start,inplane_end)
+
+                # plasmon resonance line
+                plas_start = min(inplane_energy_real[0],inplane_energy_imag[0])
+                plas_end = max(inplane_energy_real[-1],inplane_energy_imag[-1])
+                if index == 0:
+                    plas_line, = ax.plot([plas_start,plas_end],[0,0],color=color_sampling("grey")[0],linestyle="--",lw=data[4],label="Plasmon resonance line")
 
                 lines_real = ax.plot(inplane_energy_real, inplane_density_xx_real, color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
                 lines_real[0].set_dashes([2, 0])
@@ -167,6 +193,12 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
                 outplane_energy_real, outplane_density_xx_real = extract_part(data[1]["density_energy_real"],data[1]["density_zz_real"],outplane_start,outplane_end)
                 outplane_energy_imag, outplane_density_xx_imag = extract_part(data[1]["density_energy_imag"],data[1]["density_zz_imag"],outplane_start,outplane_end)
 
+                # plasmon resonance line
+                plas_start = min(outplane_energy_real[0],outplane_energy_imag[0])
+                plas_end = max(outplane_energy_real[-1],outplane_energy_imag[-1])
+                if index == 0:
+                    plas_line, = ax.plot([plas_start,plas_end],[0,0],color=color_sampling("grey")[0],linestyle="--",lw=data[4],label="Plasmon resonance line")
+
                 lines_real = ax.plot(outplane_energy_real, outplane_density_xx_real, color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
                 lines_real[0].set_dashes([2, 0])
                 lines_imag = ax.plot(outplane_energy_imag, outplane_density_xx_imag, color=color_sampling(data[2])[2], alpha=data[3], lw=data[4], label=f"Imaginary part {current_label}")
@@ -176,7 +208,12 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
         if supplot_index == 0:
             ax.set_ylabel(r"Dielectric function")
         ax.set_xlabel(r"Photon energy (eV)")
-        ax.legend(loc="upper right")
+
+        # Legend
+        handles, labels = ax.get_legend_handles_labels()
+        plas_index = handles.index(plas_line)
+        legend_order = [i for i in range(len(handles)) if i != plas_index] + [plas_index]
+        ax.legend([handles[idx] for idx in legend_order], [labels[idx] for idx in legend_order], loc="upper right")
 
         # Subplots label
         orderlab_shift = 0.05
@@ -218,6 +255,7 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energ
 
     # Materials information
     dataset = create_matters_dielectric_function(dielectric_list)
+    # data_length = len(dataset)
     subtitles = ["In-plane real part", "Out-of-plane real part", "In-plane imaginary part", "Out-of-plane imaginary part"]
 
     # Suptitle
@@ -234,12 +272,17 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energ
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
         ax.set_title(subtitles[supplot_index])
 
-        for _, data in enumerate(dataset):
+        # Dielectric function = 0
+        for index, data in enumerate(dataset):
             # Labels
             current_label = data[0]
             # Inplane real part
             if supplot_index == 0:
                 inplane_energy_real, inplane_density_xx_real = extract_part(data[1]["density_energy_real"],data[1]["density_xx_real"],inplane_start,inplane_end)
+
+                # plasmon resonance line
+                if index == 0:
+                    plas_line, = ax.plot([inplane_energy_real[0],inplane_energy_real[-1]],[0,0],color=color_sampling("grey")[0],linestyle="--",lw=data[4],label="Plasmon resonance line")
 
                 lines_real = ax.plot(inplane_energy_real, inplane_density_xx_real, color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
                 lines_real[0].set_dashes([2, 0])
@@ -247,6 +290,10 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energ
             # Outplane real part
             elif supplot_index == 1:
                 outplane_energy_real, outplane_density_xx_real = extract_part(data[1]["density_energy_real"],data[1]["density_zz_real"],outplane_start,outplane_end)
+
+                # plasmon resonance line
+                if index == 0:
+                    plas_line, = ax.plot([outplane_energy_real[0],outplane_energy_real[-1]],[0,0],color=color_sampling("grey")[0],linestyle="--",lw=data[4],label="Plasmon resonance line")
 
                 lines_real = ax.plot(outplane_energy_real, outplane_density_xx_real, color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"Real part {current_label}")
                 lines_real[0].set_dashes([2, 0])
@@ -270,7 +317,16 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energ
             ax.set_ylabel(r"Dielectric function")
         if supplot_index in [2,3]:
             ax.set_xlabel(r"Photon energy (eV)")
-        ax.legend(loc="upper right")
+
+        # Legend
+        if supplot_index in [0,1]:
+            handles, labels = ax.get_legend_handles_labels()
+            plas_index = handles.index(plas_line)
+            legend_order = [i for i in range(len(handles)) if i != plas_index] + [plas_index]
+            ax.legend([handles[idx] for idx in legend_order], [labels[idx] for idx in legend_order], loc="upper right")
+        else:
+            ax.legend(loc="upper right")
+
 
         # Subplots label
         orderlab_shift = 0.05
@@ -299,5 +355,5 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energ
 
 def plot_dielectric_function_XZ(*args):
     # return plot_dielectric_function_XZ_col(*args)
-    # return plot_dielectric_function_XZ_block(*args)
     return plot_dielectric_function_XZ_row(*args)
+    # return plot_dielectric_function_XZ_block(*args)
