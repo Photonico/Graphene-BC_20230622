@@ -1,3 +1,52 @@
-% Presentation on June 5th, 2024
 % !TEX options = --output-directory=output --clean
 
+%%%% Author: Lu Niu, lukeniu@outlook.com
+
+%% Document declaration
+\documentclass[xcolor=dvipsnames]{beamer}
+
+%% Packages invoking
+\usetheme{SimplePlus}
+% \usecolortheme{dolphin}
+\usecolortheme{dove}
+\usefonttheme{serif}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{booktabs}   % Allows the use of \toprule, \midrule and \bottomrule in tables.
+\usepackage{graphicx}   % Allows including images.
+\usepackage{helvet}
+\usepackage{hyperref}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{fit, shadows}
+
+%% Fundamental settings
+% % Colors (default)
+% \definecolor{midTheme}{HTML}{6482E6}          % #6482E6
+% \definecolor{shallowTheme}{HTML}{78A0FF}      % #78A0FF
+% \definecolor{lightTheme}{HTML}{96B4FF}        % #96B4FF
+% Colors (USyd)
+\definecolor{midTheme}{HTML}{E64628}            % #E64628
+\definecolor{shallowTheme}{HTML}{F07850}        % #F07850
+\definecolor{lightTheme}{HTML}{FFA064}          % #FFA064
+% Content colors
+\definecolor{table1}{HTML}{BBE6DC}              % #BBE6DC
+\definecolor{table2}{HTML}{F0FAF5}              % #F0FAF5
+\definecolor{table3}{HTML}{E6F5EB}              % #E6F5EB
+\definecolor{darkBlue}{HTML}{285FB4}            % #285FB4
+
+% Personal information
+\newcommand{\myName}{Lu Niu}
+\newcommand{\myDepartment}{School of Phsics}
+\newcommand{\myInstitution}{University of Sydney}
+\newcommand{\myEmail}{lukeniu@outlook.com}
+\newcommand{\progressBarShift}{-2pt}
+\newcommand{\placeLogo}{
+\begin{tikzpicture}[overlay,remember picture]
+    \node[anchor=north west]at(current page.north west){\includegraphics[width=100pt]{Logo/USydLogo_White.png}};
+\end{tikzpicture}
+}
+
+% Presentation on June 5th, 2024
