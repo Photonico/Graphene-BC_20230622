@@ -51,13 +51,7 @@ def create_matters_lattice(lattice_list):
             data.append([label, lattice_data, lattice_tot, spec_path, color])
     return data
 
-def plot_free_energy_lattice(suptitle, lattice_list = None, lattice_range = (None,None)):
-    # help information
-    help_info = "Usage: plot_free_energy_lattice" + \
-                "Use summarize_free_energy_lattice_directory to extract the free energy versus lattice into free_energy_lattice.dat firstly.\n"
-    if suptitle in ["help", "Help"]:
-        print(help_info)
-
+def plot_free_energy_lattice_single(suptitle, lattice_list, lattice_range = (None, None)):
     # figure Settings
     fig_setting = canvas_setting()
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
@@ -100,3 +94,42 @@ def plot_free_energy_lattice(suptitle, lattice_list = None, lattice_range = (Non
 
     plt.legend(loc=fig_setting[4])
     plt.tight_layout()
+
+def plot_free_energy_lattice_double(suptitle, lattice_list, subtitle_1, subtitle_2, 
+                                    lattice_range_1 = (None, None), lattice_range_2 = None):
+    # figure Settings
+    fig_setting = canvas_setting(16, 6)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(1, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0], axs[1]]
+
+    # Colors calling
+    annotate_color = color_sampling("Grey")
+    order_labels = ["a","b"]
+
+    # Subfigures information
+    subtitles = [subtitle_1, subtitle_2]
+
+    # Title
+    plt.title("Free energy versus lattice")
+
+    # plot data
+
+# def plot_free_energy_lattice_triple
+
+# def plot_free_energy_lattice_quadruple
+
+def plot_free_energy_lattice(subfigures_amount, *args):
+    help_info = "Usage: plot_free_energy_lattice" + \
+                "Use summarize_free_energy_lattice_directory to extract the free energy versus lattice into free_energy_lattice.dat firstly.\n"
+    if subfigures_amount == 1:
+        return plot_free_energy_lattice_single(*args)
+    # subfigures_amount == 2:
+    #     return plot_free_energy_lattice_double(*args)
+    # subfigures_amount == 3:
+    #     return plot_free_energy_lattice_triple(*args)
+    # subfigures_amount == 4:
+    #     return plot_free_energy_lattice_quadruple(*args)
+    # help information
+    else:
+        print(help_info)
