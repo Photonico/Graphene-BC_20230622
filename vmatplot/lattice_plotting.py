@@ -114,21 +114,18 @@ def plot_free_energy_lattice_double(suptitle, lattice_list, subtitle_1, subtitle
     # Title
     plt.suptitle("Free energy versus lattice", fontsize=fig_setting[3][0], y=1.00)
     subtitles = [subtitle_1, subtitle_2]
+    lattice_ranges = [lattice_range_1, lattice_range_2]
 
     # plot data
     for supplot_index in range(2):
         ax = axes_element[supplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
         ax.set_title(subtitles[supplot_index])
-        if supplot_index == 0:
-            lattice_range = lattice_range_1
-        elif supplot_index == 1:
-            lattice_range = lattice_range_2
         for _, lattice_info in enumerate(lattice_info_set):
             # current label
             current_label = lattice_info[0]
             # fitted curve
-            selection_fitted = extract_part(lattice_info[2][0],lattice_info[2][1],lattice_range[0],lattice_range[1])
+            selection_fitted = extract_part(lattice_info[2][0],lattice_info[2][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
             fitted_lattice, fitted_free_energy = fit_eos(selection_fitted[0], selection_fitted[1])
             colors = color_sampling(lattice_info[4])
             if lattice_info[1] is not None:
@@ -137,11 +134,11 @@ def plot_free_energy_lattice_double(suptitle, lattice_list, subtitle_1, subtitle
                 plt.plot(fitted_lattice, fitted_free_energy, color=colors[1], label=f"Fitted curve {current_label}", zorder=1)
             # scatter
             if lattice_info[1] is not None:
-                samples_scatter=extract_part(lattice_info[1][0],lattice_info[1][1],lattice_range[0],lattice_range[1])
+                samples_scatter=extract_part(lattice_info[1][0],lattice_info[1][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
                 plt.scatter(samples_scatter[0], samples_scatter[1], s=48, fc="#FFFFFF", ec=colors[1], label=f"Source data {current_label}", zorder=1)
 
             # demonstrate the minimum free energy and the corresponding lattice
-            selection_source=extract_part(lattice_info[2][0],lattice_info[2][1],lattice_range[0],lattice_range[1])
+            selection_source=extract_part(lattice_info[2][0],lattice_info[2][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
             energy_min_index = np.argmin(selection_source[1])       # Find the index of the minimum energy
             lattice_min = selection_source[0][energy_min_index]     # Retrieve the corresponding lattice value
             free_energy_min = selection_source[1][energy_min_index] # Retrieve the minimum free energy value
