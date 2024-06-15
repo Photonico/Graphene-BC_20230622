@@ -95,7 +95,7 @@ def plot_free_energy_lattice_single(suptitle, lattice_list, lattice_range = (Non
     plt.legend(loc=fig_setting[4])
     plt.tight_layout()
 
-def plot_free_energy_lattice_double(suptitle, lattice_list, subtitle_1, subtitle_2, 
+def plot_free_energy_lattice_double(suptitle, lattice_list, subtitle_1, subtitle_2,
                                     lattice_range_1 = (None, None), lattice_range_2 = None):
     # figure Settings
     fig_setting = canvas_setting(16, 6)
@@ -109,6 +109,7 @@ def plot_free_energy_lattice_double(suptitle, lattice_list, subtitle_1, subtitle
 
     # Subfigures information
     subtitles = [subtitle_1, subtitle_2]
+    lattice_info_set = create_matters_lattice(lattice_list)
 
     # Title
     plt.title("Free energy versus lattice")
@@ -119,6 +120,7 @@ def plot_free_energy_lattice_double(suptitle, lattice_list, subtitle_1, subtitle
         ax = axes_element[supplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
         ax.set_title(subtitles[supplot_index])
+
 
 # def plot_free_energy_lattice_triple
 
