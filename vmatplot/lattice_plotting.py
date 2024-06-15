@@ -116,6 +116,9 @@ def plot_free_energy_lattice_double(suptitle, lattice_list, subtitle_1, subtitle
 
     # plot data
     for supplot_index in range(2):
+        ax = axes_element[supplot_index]
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+        ax.set_title(subtitles[supplot_index])
 
 # def plot_free_energy_lattice_triple
 
