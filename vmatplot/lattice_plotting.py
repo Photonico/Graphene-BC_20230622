@@ -112,9 +112,10 @@ def plot_free_energy_lattice_double(suptitle, lattice_list, subtitle_1, subtitle
 
     # Title
     plt.title("Free energy versus lattice")
+    subtitles = [subtitle_1, subtitle_2]
 
     # plot data
-    # for supplot_index in range(2):
+    for supplot_index in range(2):
 
 # def plot_free_energy_lattice_triple
 
