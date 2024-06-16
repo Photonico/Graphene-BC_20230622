@@ -219,7 +219,7 @@ def extract_extreme_bilayer_lattice(extract_type, source_data):
     if extract_type in ("Maxium", "maxium", "MAX", "Max", "max"):
         return extract_maximum_bilayer_lattice(source_data)
 
-def plot_bilayer_lattice(system, source_data, colormap, point_color, additional_work=None, legend_loc="upper right"):
+def plot_bilayer_lattice_single(suptitle, source_data, colormap, point_color, additional_work=None, legend_loc="upper right"):
     # Data input
     lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data)
     lattice_source = np.array(lattice_source)
@@ -266,7 +266,7 @@ def plot_bilayer_lattice(system, source_data, colormap, point_color, additional_
 
     # Figure title
     # plt.title(f"Free energy versus lattice and spacing for {matter}")
-    plt.title(f"Free energy {system}")
+    plt.title(f"Free energy {suptitle}")
     plt.xlabel(r"Lattice constant (Å)"); plt.ylabel(r"Interlayer spacing (Å)")
 
     # Colormap
@@ -287,3 +287,44 @@ def plot_bilayer_lattice(system, source_data, colormap, point_color, additional_
 
     plt.legend(loc=legend_loc)
     plt.tight_layout()
+
+def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, colormap_1, colormap_2, point_color_1, point_color_2, additional_work=None, legend_loc="upper right"):
+    # figure Settings
+    fig_setting = canvas_setting(16, 6)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(1, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0], axs[1]]
+
+
+def plot_bilayer_lattice_triple(suptitle, source_data_1, source_data_2, source_data_3,
+                                colormap_1, colormap_2, colormap_3, point_color_1, point_color_2, point_color_3,
+                                additional_work=None, legend_loc="upper right"):
+    # figure Settings
+    fig_setting = canvas_setting(24, 6)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(1, 3, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0], axs[1], axs[2]]
+
+def plot_bilayer_lattice_quadruple(suptitle, source_data_1, source_data_2, source_data_3, source_data_4,
+                                   colormap_1, colormap_2, colormap_3, colormap_4, point_color_1, point_color_2, point_color_3, point_color_4,
+                                   additional_work=None, legend_loc="upper right"):
+    # figure Settings
+    fig_setting = canvas_setting(16, 12)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0,0], axs[0,1], axs[1,0], axs[1,1]]
+
+def plot_bilayer_lattice(subfigures_amount, *args):
+    help_info = "Usage: plot_free_energy_lattice \n" + \
+                "Use summarize_free_energy_lattice_directory to extract the free energy versus lattice into free_energy_lattice.dat firstly.\n"
+    if subfigures_amount == 1:
+        return plot_bilayer_lattice_single(*args)
+    elif subfigures_amount == 2:
+        return plot_bilayer_lattice_double(*args)
+    elif subfigures_amount == 3:
+        return plot_bilayer_lattice_triple(*args)
+    elif subfigures_amount == 4:
+        return plot_bilayer_lattice_quadruple(*args)
+    # help information
+    else:
+        print(help_info)

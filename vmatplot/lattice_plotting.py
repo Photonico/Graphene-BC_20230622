@@ -70,14 +70,11 @@ def plot_free_energy_lattice_single(suptitle, lattice_list, lattice_range = (Non
         fitted_lattice, fitted_free_energy = fit_eos(selection_fitted[0], selection_fitted[1])
         colors = color_sampling(lattice_info[4])
         if lattice_info[1] is not None:
+            samples_scatter=extract_part(lattice_info[1][0],lattice_info[1][1],lattice_range[0],lattice_range[1])
             plt.plot(fitted_lattice, fitted_free_energy, color=colors[1], zorder=1)
+            plt.scatter(samples_scatter[0], samples_scatter[1], s=48, fc="#FFFFFF", ec=colors[1], label=f"Source data {current_label}", zorder=1)
         else:
             plt.plot(fitted_lattice, fitted_free_energy, color=colors[1], label=f"Fitted curve {current_label}", zorder=1)
-        # scatter
-        if lattice_info[1] is not None:
-            samples_scatter=extract_part(lattice_info[1][0],lattice_info[1][1],lattice_range[0],lattice_range[1])
-            plt.scatter(samples_scatter[0], samples_scatter[1], s=48, fc="#FFFFFF", ec=colors[1], label=f"Source data {current_label}", zorder=1)
-
         # demonstrate the minimum free energy and the corresponding lattice
         selection_source=extract_part(lattice_info[2][0],lattice_info[2][1],lattice_range[0],lattice_range[1])
         energy_min_index = np.argmin(selection_source[1])       # Find the index of the minimum energy
@@ -96,7 +93,7 @@ def plot_free_energy_lattice_single(suptitle, lattice_list, lattice_range = (Non
     plt.tight_layout()
 
 def plot_free_energy_lattice_double(suptitle, lattice_list_1, lattice_list_2, subtitle_1, subtitle_2,
-                                    lattice_range_1 = (None, None), lattice_range_2 = None):
+                                    lattice_range_1 = (None, None), lattice_range_2 = (None, None)):
     # figure Settings
     fig_setting = canvas_setting(16, 6)
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -113,7 +110,7 @@ def plot_free_energy_lattice_double(suptitle, lattice_list_1, lattice_list_2, su
     lattice_info_set_2 = create_matters_lattice(lattice_list_2)
 
     # Title
-    plt.suptitle("Free energy versus lattice", fontsize=fig_setting[3][0], y=1.00)
+    plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
     subtitles = [subtitle_1, subtitle_2]
     lattice_ranges = [lattice_range_1, lattice_range_2]
 
@@ -124,63 +121,231 @@ def plot_free_energy_lattice_double(suptitle, lattice_list_1, lattice_list_2, su
         ax.set_title(subtitles[supplot_index])
 
         if supplot_index == 0:
-            for _, lattice_info in enumerate(lattice_info_set_1):
-                # current label
-                current_label = lattice_info[0]
-
-                ax.plot(lattice_info[1][0], lattice_info[1][1], label=f"{current_label}")
-
-            # # fitted curve
-            # selection_fitted = extract_part(lattice_info[2][0],lattice_info[2][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
-            # fitted_lattice, fitted_free_energy = fit_eos(selection_fitted[0], selection_fitted[1])
-            # colors = color_sampling(lattice_info[4])
-            # if lattice_info[1] is not None:
-            #     ax.plot(fitted_lattice, fitted_free_energy, color=colors[1], zorder=1)
-            # else:
-            #     ax.plot(fitted_lattice, fitted_free_energy, color=colors[1], label=f"Fitted curve {current_label}", zorder=1)
-            # # scatter
-            # if lattice_info[1] is not None:
-            #     samples_scatter=extract_part(lattice_info[1][0],lattice_info[1][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
-            #     ax.scatter(samples_scatter[0], samples_scatter[1], s=48, fc="#FFFFFF", ec=colors[1], label=f"Source data {current_label}", zorder=1)
-
-            # # demonstrate the minimum free energy and the corresponding lattice
-            # selection_source=extract_part(lattice_info[2][0],lattice_info[2][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
-            # energy_min_index = np.argmin(selection_source[1])       # Find the index of the minimum energy
-            # lattice_min = selection_source[0][energy_min_index]     # Retrieve the corresponding lattice value
-            # free_energy_min = selection_source[1][energy_min_index] # Retrieve the minimum free energy value
+            current_set = lattice_info_set_1
+        else:
+            current_set = lattice_info_set_2
+        for _, lattice_info in enumerate(current_set):
+            # current label
+            current_label = lattice_info[0]
+            # fitted curve
+            selection_fitted = extract_part(lattice_info[2][0],lattice_info[2][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
+            fitted_lattice, fitted_free_energy = fit_eos(selection_fitted[0], selection_fitted[1])
+            colors = color_sampling(lattice_info[4])
+            if lattice_info[1] is not None:
+                samples_scatter=extract_part(lattice_info[1][0],lattice_info[1][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
+                ax.plot(fitted_lattice, fitted_free_energy, label=f"Fitted curve {current_label}", color=colors[1], zorder=1)
+                ax.scatter(samples_scatter[0], samples_scatter[1], s=48, fc="#FFFFFF", ec=colors[1], label=f"Source data {current_label}", zorder=1)
+            else:
+                ax.plot(fitted_lattice, fitted_free_energy, color=colors[1], label=f"Fitted curve {current_label}", zorder=1)
+            # demonstrate the minimum free energy and the corresponding lattice
+            selection_source=extract_part(lattice_info[2][0],lattice_info[2][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
+            energy_min_index = np.argmin(selection_source[1])       # Find the index of the minimum energy
+            lattice_min = selection_source[0][energy_min_index]     # Retrieve the corresponding lattice value
+            free_energy_min = selection_source[1][energy_min_index] # Retrieve the minimum free energy value
             # ax.scatter(lattice_min, free_energy_min, s=48, fc=colors[2], ec=colors[2], label=f"Source lowest point {current_label}", zorder=1)
-            # # specific data
-            # if lattice_info[3] not in [None, ""]:
-            #     selected_lattice, selected_energy = specify_free_energy_lattice(lattice_info[3])
-            #     ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
+            ax.scatter(lattice_min, free_energy_min, s=48, fc=colors[2], ec=colors[2], zorder=1)
+            # specific data
+            if lattice_info[3] not in [None, ""]:
+                selected_lattice, selected_energy = specify_free_energy_lattice(lattice_info[3])
+                # ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
+                ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], zorder=2)
 
-    #     # axis label
-    #     ax.set_xlabel(r"Energy (eV)")
-    #     if supplot_index == 0:
-    #         ax.set_ylabel(r"Lattice constant (Å)")
-    #     else: continue
-    #     plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
+        # axis label
+        ax.set_xlabel(r"Energy (eV)")
+        if supplot_index == 0:
+            ax.set_ylabel(r"Lattice constant (Å)")
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
-    #     # Legend
-    #     ax.legend(loc="upper right")
-    #     ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+        # Legend
+        ax.legend(loc="upper right")
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
-    #     # Subplots label
-    #     orderlab_shift = 0.05
-    #     x_loc = 0+orderlab_shift*0.75
-    #     y_loc = 1-orderlab_shift
-    #     ax.annotate(f"({order_labels[supplot_index]})",
-    #                 xy=(x_loc,y_loc),
-    #                 xycoords="axes fraction",
-    #                 fontsize=1.0 * 16,
-    #                 ha="center", va="center",
-    #                 bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+        # Subplots label
+        orderlab_shift = 0.05
+        x_loc = 0+orderlab_shift*0.75
+        y_loc = 1-orderlab_shift
+        ax.annotate(f"({order_labels[supplot_index]})",
+                    xy=(x_loc,y_loc),
+                    xycoords="axes fraction",
+                    fontsize=1.0 * 16,
+                    ha="center", va="center",
+                    bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
-    # plt.tight_layout()
+    plt.tight_layout()
 
-# def plot_free_energy_lattice_triple
+def plot_free_energy_lattice_triple(suptitle, lattice_list_1, lattice_list_2, lattice_list_3, subtitle_1, subtitle_2, subtitle_3,
+                                    lattice_range_1 = (None, None), lattice_range_2 = (None, None), lattice_range_3 = (None, None)):
+    # figure Settings
+    fig_setting = canvas_setting(24, 6)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(1, 3, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0], axs[1], axs[2]]
 
-# def plot_free_energy_lattice_quadruple
+    # Colors calling
+    annotate_color = color_sampling("Grey")
+    order_labels = ["a","b","c"]
+
+    # Subfigures information
+    subtitles = [subtitle_1, subtitle_2, subtitle_3]
+    lattice_info_set_1 = create_matters_lattice(lattice_list_1)
+    lattice_info_set_2 = create_matters_lattice(lattice_list_2)
+    lattice_info_set_3 = create_matters_lattice(lattice_list_3)
+
+    # Title
+    plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
+    subtitles = [subtitle_1, subtitle_2, subtitle_3]
+    lattice_ranges = [lattice_range_1, lattice_range_2, lattice_range_3]
+
+    # plot data
+    for supplot_index in range(3):
+        ax = axes_element[supplot_index]
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+        ax.set_title(subtitles[supplot_index])
+
+        if supplot_index == 0:
+            current_set = lattice_info_set_1
+        elif supplot_index == 1:
+            current_set = lattice_info_set_2
+        else:
+            current_set = lattice_info_set_3
+        for _, lattice_info in enumerate(current_set):
+            # current label
+            current_label = lattice_info[0]
+            # fitted curve
+            selection_fitted = extract_part(lattice_info[2][0],lattice_info[2][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
+            fitted_lattice, fitted_free_energy = fit_eos(selection_fitted[0], selection_fitted[1])
+            colors = color_sampling(lattice_info[4])
+            if lattice_info[1] is not None:
+                samples_scatter=extract_part(lattice_info[1][0],lattice_info[1][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
+                ax.plot(fitted_lattice, fitted_free_energy, label=f"Fitted curve {current_label}", color=colors[1], zorder=1)
+                ax.scatter(samples_scatter[0], samples_scatter[1], s=48, fc="#FFFFFF", ec=colors[1], label=f"Source data {current_label}", zorder=1)
+            else:
+                ax.plot(fitted_lattice, fitted_free_energy, color=colors[1], label=f"Fitted curve {current_label}", zorder=1)
+            # demonstrate the minimum free energy and the corresponding lattice
+            selection_source=extract_part(lattice_info[2][0],lattice_info[2][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
+            energy_min_index = np.argmin(selection_source[1])       # Find the index of the minimum energy
+            lattice_min = selection_source[0][energy_min_index]     # Retrieve the corresponding lattice value
+            free_energy_min = selection_source[1][energy_min_index] # Retrieve the minimum free energy value
+            # ax.scatter(lattice_min, free_energy_min, s=48, fc=colors[2], ec=colors[2], label=f"Source lowest point {current_label}", zorder=1)
+            ax.scatter(lattice_min, free_energy_min, s=48, fc=colors[2], ec=colors[2], zorder=1)
+            # specific data
+            if lattice_info[3] not in [None, ""]:
+                selected_lattice, selected_energy = specify_free_energy_lattice(lattice_info[3])
+                # ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
+                ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], zorder=2)
+
+        # axis label
+        ax.set_xlabel(r"Energy (eV)")
+        if supplot_index == 0:
+            ax.set_ylabel(r"Lattice constant (Å)")
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
+
+        # Legend
+        ax.legend(loc="upper right")
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+
+        # Subplots label
+        orderlab_shift = 0.05
+        x_loc = 0+orderlab_shift*0.75
+        y_loc = 1-orderlab_shift
+        ax.annotate(f"({order_labels[supplot_index]})",
+                    xy=(x_loc,y_loc),
+                    xycoords="axes fraction",
+                    fontsize=1.0 * 16,
+                    ha="center", va="center",
+                    bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+
+    plt.tight_layout()
+
+def plot_free_energy_lattice_quadruple(suptitle, lattice_list_1, lattice_list_2, lattice_list_3, lattice_list_4,
+                                       subtitle_1, subtitle_2, subtitle_3, subtitle_4,
+                                       lattice_range_1=(None,None), lattice_range_2=(None,None),
+                                       lattice_range_3=(None,None), lattice_range_4=(None,None)):
+    # figure Settings
+    fig_setting = canvas_setting(16, 12)
+    params = fig_setting[2]; plt.rcParams.update(params)
+    fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+    axes_element = [axs[0,0], axs[0,1], axs[1,0], axs[1,1]]
+
+    # Colors calling
+    annotate_color = color_sampling("Grey")
+    order_labels = ["a","b","c","d"]
+
+    # Subfigures information
+    subtitles = [subtitle_1, subtitle_2, subtitle_3, subtitle_4]
+    lattice_info_set_1 = create_matters_lattice(lattice_list_1)
+    lattice_info_set_2 = create_matters_lattice(lattice_list_2)
+    lattice_info_set_3 = create_matters_lattice(lattice_list_3)
+    lattice_info_set_4 = create_matters_lattice(lattice_list_4)
+
+    # Title
+    plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
+    subtitles = [subtitle_1, subtitle_2, subtitle_3, subtitle_4]
+    lattice_ranges = [lattice_range_1, lattice_range_2, lattice_range_3, lattice_range_4]
+
+    # plot data
+    for supplot_index in range(4):
+        ax = axes_element[supplot_index]
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+        ax.set_title(subtitles[supplot_index])
+
+        if supplot_index == 0:
+            current_set = lattice_info_set_1
+        elif supplot_index == 1:
+            current_set = lattice_info_set_2
+        elif supplot_index == 2:
+            current_set = lattice_info_set_3
+        else:
+            current_set = lattice_info_set_4
+        for _, lattice_info in enumerate(current_set):
+            # current label
+            current_label = lattice_info[0]
+            # fitted curve
+            selection_fitted = extract_part(lattice_info[2][0],lattice_info[2][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
+            fitted_lattice, fitted_free_energy = fit_eos(selection_fitted[0], selection_fitted[1])
+            colors = color_sampling(lattice_info[4])
+            if lattice_info[1] is not None:
+                samples_scatter=extract_part(lattice_info[1][0],lattice_info[1][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
+                ax.plot(fitted_lattice, fitted_free_energy, label=f"Fitted curve {current_label}", color=colors[1], zorder=1)
+                ax.scatter(samples_scatter[0], samples_scatter[1], s=48, fc="#FFFFFF", ec=colors[1], label=f"Source data {current_label}", zorder=1)
+            else:
+                ax.plot(fitted_lattice, fitted_free_energy, color=colors[1], label=f"Fitted curve {current_label}", zorder=1)
+            # demonstrate the minimum free energy and the corresponding lattice
+            selection_source=extract_part(lattice_info[2][0],lattice_info[2][1],lattice_ranges[supplot_index][0],lattice_ranges[supplot_index][1])
+            energy_min_index = np.argmin(selection_source[1])       # Find the index of the minimum energy
+            lattice_min = selection_source[0][energy_min_index]     # Retrieve the corresponding lattice value
+            free_energy_min = selection_source[1][energy_min_index] # Retrieve the minimum free energy value
+            # ax.scatter(lattice_min, free_energy_min, s=48, fc=colors[2], ec=colors[2], label=f"Source lowest point {current_label}", zorder=1)
+            ax.scatter(lattice_min, free_energy_min, s=48, fc=colors[2], ec=colors[2], zorder=1)
+            # specific data
+            if lattice_info[3] not in [None, ""]:
+                selected_lattice, selected_energy = specify_free_energy_lattice(lattice_info[3])
+                # ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
+                ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], zorder=2)
+
+        # axis label
+        if supplot_index in [0,2]:
+            ax.set_ylabel(r"Lattice constant (Å)")
+        if supplot_index in [2,3]:
+            ax.set_xlabel(r"Energy (eV)")
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
+
+        # Legend
+        ax.legend(loc="upper right")
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+
+        # Subplots label
+        orderlab_shift = 0.05
+        x_loc = 0+orderlab_shift*0.75
+        y_loc = 1-orderlab_shift
+        ax.annotate(f"({order_labels[supplot_index]})",
+                    xy=(x_loc,y_loc),
+                    xycoords="axes fraction",
+                    fontsize=1.0 * 16,
+                    ha="center", va="center",
+                    bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+
+    plt.tight_layout()
 
 def plot_free_energy_lattice(subfigures_amount, *args):
     help_info = "Usage: plot_free_energy_lattice \n" + \
@@ -189,10 +354,10 @@ def plot_free_energy_lattice(subfigures_amount, *args):
         return plot_free_energy_lattice_single(*args)
     elif subfigures_amount == 2:
         return plot_free_energy_lattice_double(*args)
-    # elif subfigures_amount == 3:
-    #     return plot_free_energy_lattice_triple(*args)
-    # elif subfigures_amount == 4:
-    #     return plot_free_energy_lattice_quadruple(*args)
+    elif subfigures_amount == 3:
+        return plot_free_energy_lattice_triple(*args)
+    elif subfigures_amount == 4:
+        return plot_free_energy_lattice_quadruple(*args)
     # help information
     else:
         print(help_info)
