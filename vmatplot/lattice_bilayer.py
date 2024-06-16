@@ -288,31 +288,51 @@ def plot_bilayer_lattice_single(suptitle, source_data, colormap, point_color, ad
     plt.legend(loc=legend_loc)
     plt.tight_layout()
 
-def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, colormap_1, colormap_2, point_color_1, point_color_2, additional_work=None, legend_loc="upper right"):
+def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, colormap_1, colormap_2, point_color_1, point_color_2, additional_work_1=None, additional_work_2=None, legend_loc="upper right"):
     # figure Settings
     fig_setting = canvas_setting(16, 6)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(1, 2, figsize=fig_setting[0], dpi=fig_setting[1])
     axes_element = [axs[0], axs[1]]
 
+    # data sets
+    source_data_set = [source_data_1, source_data_2]
+    colormap_set = [colormap_1, colormap_2]
+    point_color_set = [point_color_1, point_color_2]
+    additional_set = [additional_work_1, additional_work_2]
+
 
 def plot_bilayer_lattice_triple(suptitle, source_data_1, source_data_2, source_data_3,
                                 colormap_1, colormap_2, colormap_3, point_color_1, point_color_2, point_color_3,
-                                additional_work=None, legend_loc="upper right"):
+                                additional_work_1=None, additional_work_2=None, additional_work_3=None,
+                                legend_loc="upper right"):
     # figure Settings
     fig_setting = canvas_setting(24, 6)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(1, 3, figsize=fig_setting[0], dpi=fig_setting[1])
     axes_element = [axs[0], axs[1], axs[2]]
 
+    # data sets
+    source_data_set = [source_data_1, source_data_2, source_data_3]
+    colormap_set = [colormap_1, colormap_2, colormap_3]
+    point_color_set = [point_color_1, point_color_2, point_color_3]
+    additional_set = [additional_work_1, additional_work_2, additional_work_3]
+
 def plot_bilayer_lattice_quadruple(suptitle, source_data_1, source_data_2, source_data_3, source_data_4,
                                    colormap_1, colormap_2, colormap_3, colormap_4, point_color_1, point_color_2, point_color_3, point_color_4,
-                                   additional_work=None, legend_loc="upper right"):
+                                   additional_work_1=None, additional_work_2=None, additional_work_3=None, additional_work_4=None,
+                                   legend_loc="upper right"):
     # figure Settings
     fig_setting = canvas_setting(16, 12)
     params = fig_setting[2]; plt.rcParams.update(params)
     fig, axs = plt.subplots(2, 2, figsize=fig_setting[0], dpi=fig_setting[1])
     axes_element = [axs[0,0], axs[0,1], axs[1,0], axs[1,1]]
+
+    # data sets
+    source_data_set = [source_data_1, source_data_2, source_data_3, source_data_4]
+    colormap_set = [colormap_1, colormap_2, colormap_3, colormap_4]
+    point_color_set = [point_color_1, point_color_2, point_color_3, point_color_4]
+    additional_set = [additional_work_1, additional_work_2, additional_work_3, additional_work_4]
 
 def plot_bilayer_lattice(subfigures_amount, *args):
     help_info = "Usage: plot_free_energy_lattice \n" + \
