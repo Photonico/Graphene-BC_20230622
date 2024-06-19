@@ -310,6 +310,11 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle
     subtitles = [subtitle_1, subtitle_2]
 
 
+
+    plt.legend(loc=legend_loc)
+    plt.tight_layout()
+
+
 def plot_bilayer_lattice_triple(suptitle, source_data_1, source_data_2, source_data_3, subtitle_1, subtitle_2, subtitle_3,
                                 colormap_1, colormap_2, colormap_3, point_color_1, point_color_2, point_color_3,
                                 additional_work_1=None, additional_work_2=None, additional_work_3=None,
@@ -333,6 +338,11 @@ def plot_bilayer_lattice_triple(suptitle, source_data_1, source_data_2, source_d
     # title
     plt.suptitle(f"Free energy versus lattice and spacing {suptitle}", fontsize=fig_setting[3][0], y=1.00)
     subtitles = [subtitle_1, subtitle_2, subtitle_3]
+
+
+
+    plt.legend(loc=legend_loc)
+    plt.tight_layout()
 
 def plot_bilayer_lattice_quadruple(suptitle, source_data_1, source_data_2, source_data_3, source_data_4,
                                    subtitle_1, subtitle_2, subtitle_3, subtitle_4,
@@ -358,6 +368,11 @@ def plot_bilayer_lattice_quadruple(suptitle, source_data_1, source_data_2, sourc
 
     plt.suptitle(f"Free energy versus lattice and spacing {suptitle}", fontsize=fig_setting[3][0], y=1.00)
     subtitles = [subtitle_1, subtitle_2, subtitle_3, subtitle_4]
+
+
+
+    plt.legend(loc=legend_loc)
+    plt.tight_layout()
 
 def plot_bilayer_lattice(subfigures_amount, *args):
     help_info = "Usage: plot_free_energy_lattice \n" + \
