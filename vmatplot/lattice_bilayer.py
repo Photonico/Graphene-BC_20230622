@@ -301,6 +301,11 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, colormap
     point_color_set = [point_color_1, point_color_2]
     additional_set = [additional_work_1, additional_work_2]
 
+    # plot data
+    # for supplot_index in range(2):
+
+    plt.tight_layout()
+
 
 def plot_bilayer_lattice_triple(suptitle, source_data_1, source_data_2, source_data_3,
                                 colormap_1, colormap_2, colormap_3, point_color_1, point_color_2, point_color_3,
@@ -318,6 +323,11 @@ def plot_bilayer_lattice_triple(suptitle, source_data_1, source_data_2, source_d
     point_color_set = [point_color_1, point_color_2, point_color_3]
     additional_set = [additional_work_1, additional_work_2, additional_work_3]
 
+    # plot data
+    # for supplot_index in range(3):
+
+    plt.tight_layout()
+
 def plot_bilayer_lattice_quadruple(suptitle, source_data_1, source_data_2, source_data_3, source_data_4,
                                    colormap_1, colormap_2, colormap_3, colormap_4, point_color_1, point_color_2, point_color_3, point_color_4,
                                    additional_work_1=None, additional_work_2=None, additional_work_3=None, additional_work_4=None,
@@ -333,6 +343,11 @@ def plot_bilayer_lattice_quadruple(suptitle, source_data_1, source_data_2, sourc
     colormap_set = [colormap_1, colormap_2, colormap_3, colormap_4]
     point_color_set = [point_color_1, point_color_2, point_color_3, point_color_4]
     additional_set = [additional_work_1, additional_work_2, additional_work_3, additional_work_4]
+
+    # plot data
+    # for supplot_index in range(4):
+
+    plt.tight_layout()
 
 def plot_bilayer_lattice(subfigures_amount, *args):
     help_info = "Usage: plot_free_energy_lattice \n" + \
