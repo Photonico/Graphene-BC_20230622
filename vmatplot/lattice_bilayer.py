@@ -306,13 +306,60 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle
     additional_set = [additional_work_1, additional_work_2]
 
     # plot data
-    # for supplot_index in range(2):
+    for supplot_index in range(2):
+        ax = axes_element[supplot_index]
+        # Data input
+        lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data_set[supplot_index])
+        lattice_source = np.array(lattice_source)
+        distance_source = np.array(distance_source)
+        free_energy_source = np.array(free_energy_source)
+
+        # Extrema of source data
+        energy_min = np.min(free_energy_source)
+        energy_max = np.max(free_energy_source)
+        energy_range = energy_max - energy_min
+        energy_demo = energy_min + energy_range * 0.125
+        lattice_min = lattice_source [np.argmin(free_energy_source)]
+        distance_min = distance_source [np.argmin(free_energy_source)]
+
+        # Data grid
+        lattice_fine = np.linspace(lattice_source.min(), lattice_source.max(), 1024)
+        distance_fine = np.linspace(distance_source.min(), distance_source.max(), 1024)
+        lattice_grid_fine, distance_grid_fine = np.meshgrid(lattice_fine, distance_fine)
+
+        # Interpolate using the "cubic" method
+        free_energy_grid_fine = griddata((lattice_source, distance_source), free_energy_source, (lattice_grid_fine, distance_grid_fine), method="linear")
+
+        # Fitted data
+        Fitted_data = extract_minimum_bilayer_lattice(source_data_set[supplot_index])
+        lattice_fitted_min = Fitted_data[0]
+        distance_fitted_min = Fitted_data[1]
+        # free_energy_fitted_min = Fitted_data[-1]
+
+        # Additional data
+        if additional_set[supplot_index] is not None:
+            additional_data = specify_bilayer_lattice(additional_set[supplot_index])
+            additional_lattice = additional_data[0]
+            additional_distance = additional_data[1]
+            additional_energy = additional_data[-1]
+
+        # Colormap
+        cp = ax.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap_set[supplot_index], alpha = 0.75, vmax = energy_demo, zorder=1)
+        cbar = ax.colorbar(cp)
+        formatter = ScalarFormatter(useMathText=True, useOffset=False)
+        formatter.set_powerlimits((-3, 3))
+        cbar.ax.yaxis.set_major_formatter(formatter)
+        colors = color_sampling(point_color_set[supplot_index])
+
+        # Extreme of source data
+        ax.scatter(lattice_min, distance_min, s=48, color=colors[2], label="Extrema of source data", zorder=2)
+        # Extreme of fitted data
+        ax.scatter(lattice_fitted_min, distance_fitted_min, s=48, lw=1.5, facecolors="none", edgecolors=colors[2], label="Extrema of fitted data", zorder=2)
+        # Additional point
+        if additional_set[supplot_index] is not None:
+            ax.scatter(additional_lattice, additional_distance, s=36, color=colors[3], label=f"Specific energy: {additional_energy:.3f} (eV)", zorder=3)
 
     plt.tight_layout()
-
-    plt.legend(loc=legend_loc)
-    plt.tight_layout()
-
 
 def plot_bilayer_lattice_triple(suptitle, source_data_1, source_data_2, source_data_3, subtitle_1, subtitle_2, subtitle_3,
                                 colormap_1, colormap_2, colormap_3, point_color_1, point_color_2, point_color_3,
@@ -361,18 +408,9 @@ def plot_bilayer_lattice_quadruple(suptitle, source_data_1, source_data_2, sourc
     point_color_set = [point_color_1, point_color_2, point_color_3, point_color_4]
     additional_set = [additional_work_1, additional_work_2, additional_work_3, additional_work_4]
 
-<<<<<<< HEAD
     # plot data
     # for supplot_index in range(4):
 
-=======
-    plt.suptitle(f"Free energy versus lattice and spacing {suptitle}", fontsize=fig_setting[3][0], y=1.00)
-    subtitles = [subtitle_1, subtitle_2, subtitle_3, subtitle_4]
-
-
-
-    plt.legend(loc=legend_loc)
->>>>>>> 58f6e9ceda94cda7736a9ed6bacbbcee0219fcbf
     plt.tight_layout()
 
 def plot_bilayer_lattice(subfigures_amount, *args):
