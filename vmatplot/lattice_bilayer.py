@@ -345,7 +345,7 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle
 
         # Colormap
         cp = ax.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap_set[supplot_index], alpha = 0.75, vmax = energy_demo, zorder=1)
-        cbar = ax.colorbar(cp)
+        cbar = fig.colorbar(cp, ax=ax)  # 修改这一行，将colorbar添加到fig中，并传递当前的ax
         formatter = ScalarFormatter(useMathText=True, useOffset=False)
         formatter.set_powerlimits((-3, 3))
         cbar.ax.yaxis.set_major_formatter(formatter)
@@ -360,7 +360,6 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle
             ax.scatter(additional_lattice, additional_distance, s=36, color=colors[3], label=f"Specific energy: {additional_energy:.3f} (eV)", zorder=3)
 
     plt.tight_layout()
-
 def plot_bilayer_lattice_triple(suptitle, source_data_1, source_data_2, source_data_3, subtitle_1, subtitle_2, subtitle_3,
                                 colormap_1, colormap_2, colormap_3, point_color_1, point_color_2, point_color_3,
                                 additional_work_1=None, additional_work_2=None, additional_work_3=None,
