@@ -102,23 +102,23 @@ def plot_free_energy_lattice_double(suptitle, lattice_list_1, lattice_list_2, su
 
     # Colors calling
     annotate_color = color_sampling("Grey")
-    order_labels = ["a","b"]
+    # order_labels = ["a","b"]
 
     # Subfigures information
     subtitles = [subtitle_1, subtitle_2]
     lattice_info_set_1 = create_matters_lattice(lattice_list_1)
     lattice_info_set_2 = create_matters_lattice(lattice_list_2)
+    order_labels = subtitles
 
     # Title
     plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
-    subtitles = [subtitle_1, subtitle_2]
     lattice_ranges = [lattice_range_1, lattice_range_2]
 
     # plot data
     for supplot_index in range(2):
         ax = axes_element[supplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-        ax.set_title(subtitles[supplot_index])
+        # ax.set_title(subtitles[supplot_index])
 
         if supplot_index == 0:
             current_set = lattice_info_set_1
@@ -168,7 +168,7 @@ def plot_free_energy_lattice_double(suptitle, lattice_list_1, lattice_list_2, su
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
-                    ha="center", va="center",
+                    ha="left", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
     plt.tight_layout()
@@ -183,24 +183,24 @@ def plot_free_energy_lattice_triple(suptitle, lattice_list_1, lattice_list_2, la
 
     # Colors calling
     annotate_color = color_sampling("Grey")
-    order_labels = ["a","b","c"]
+    # order_labels = ["a","b","c"]
 
     # Subfigures information
     subtitles = [subtitle_1, subtitle_2, subtitle_3]
     lattice_info_set_1 = create_matters_lattice(lattice_list_1)
     lattice_info_set_2 = create_matters_lattice(lattice_list_2)
     lattice_info_set_3 = create_matters_lattice(lattice_list_3)
+    order_labels = subtitles
 
     # Title
     plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
-    subtitles = [subtitle_1, subtitle_2, subtitle_3]
     lattice_ranges = [lattice_range_1, lattice_range_2, lattice_range_3]
 
     # plot data
     for supplot_index in range(3):
         ax = axes_element[supplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-        ax.set_title(subtitles[supplot_index])
+        # ax.set_title(subtitles[supplot_index])
 
         if supplot_index == 0:
             current_set = lattice_info_set_1
@@ -252,7 +252,7 @@ def plot_free_energy_lattice_triple(suptitle, lattice_list_1, lattice_list_2, la
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
-                    ha="center", va="center",
+                    ha="left", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
     plt.tight_layout()
@@ -269,7 +269,7 @@ def plot_free_energy_lattice_quadruple(suptitle, lattice_list_1, lattice_list_2,
 
     # Colors calling
     annotate_color = color_sampling("Grey")
-    order_labels = ["a","b","c","d"]
+    # order_labels = ["a","b","c","d"]
 
     # Subfigures information
     subtitles = [subtitle_1, subtitle_2, subtitle_3, subtitle_4]
@@ -277,17 +277,17 @@ def plot_free_energy_lattice_quadruple(suptitle, lattice_list_1, lattice_list_2,
     lattice_info_set_2 = create_matters_lattice(lattice_list_2)
     lattice_info_set_3 = create_matters_lattice(lattice_list_3)
     lattice_info_set_4 = create_matters_lattice(lattice_list_4)
+    order_labels = subtitles
 
     # Title
     plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
-    subtitles = [subtitle_1, subtitle_2, subtitle_3, subtitle_4]
     lattice_ranges = [lattice_range_1, lattice_range_2, lattice_range_3, lattice_range_4]
 
     # plot data
     for supplot_index in range(4):
         ax = axes_element[supplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-        ax.set_title(subtitles[supplot_index])
+        # ax.set_title(subtitles[supplot_index])
 
         if supplot_index == 0:
             current_set = lattice_info_set_1
@@ -339,10 +339,10 @@ def plot_free_energy_lattice_quadruple(suptitle, lattice_list_1, lattice_list_2,
         x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
         ax.annotate(f"({order_labels[supplot_index]})",
-                    xy=(x_loc,y_loc),
+                    xy=(x_loc, y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
-                    ha="center", va="center",
+                    ha="left", va="center",
                     bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
 
     plt.tight_layout()
