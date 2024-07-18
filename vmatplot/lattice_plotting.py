@@ -164,7 +164,7 @@ def plot_free_energy_lattice_double(suptitle, lattice_list_1, lattice_list_2, su
         orderlab_shift = 0.05
         x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
-        ax.annotate(f"({order_labels[supplot_index]})",
+        ax.annotate(f"{order_labels[supplot_index]}",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
@@ -248,7 +248,7 @@ def plot_free_energy_lattice_triple(suptitle, lattice_list_1, lattice_list_2, la
         orderlab_shift = 0.05
         x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
-        ax.annotate(f"({order_labels[supplot_index]})",
+        ax.annotate(f"{order_labels[supplot_index]}",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
@@ -338,7 +338,7 @@ def plot_free_energy_lattice_quadruple(suptitle, lattice_list_1, lattice_list_2,
         orderlab_shift = 0.05
         x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
-        ax.annotate(f"({order_labels[supplot_index]})",
+        ax.annotate(f"{order_labels[supplot_index]}",
                     xy=(x_loc, y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
