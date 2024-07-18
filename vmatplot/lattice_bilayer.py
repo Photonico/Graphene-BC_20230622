@@ -297,13 +297,18 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle
 
     # colors calling
     annotate_color = color_sampling("Grey")
-    order_labels = ["a","b"]
+    # order_labels = ["a","b"]
 
     # data sets
     source_data_set = [source_data_1, source_data_2]
     colormap_set = [colormap_1, colormap_2]
     point_color_set = [point_color_1, point_color_2]
     additional_set = [additional_work_1, additional_work_2]
+    subtitles = [subtitle_1, subtitle_2]
+    order_labels = subtitles
+
+    # Title
+    plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
 
     # plot data
     for supplot_index in range(2):
@@ -345,7 +350,7 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle
 
         # Colormap
         cp = ax.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap_set[supplot_index], alpha = 0.75, vmax = energy_demo, zorder=1)
-        cbar = fig.colorbar(cp, ax=ax)  # 修改这一行，将colorbar添加到fig中，并传递当前的ax
+        cbar = fig.colorbar(cp, ax=ax)
         formatter = ScalarFormatter(useMathText=True, useOffset=False)
         formatter.set_powerlimits((-3, 3))
         cbar.ax.yaxis.set_major_formatter(formatter)
@@ -359,7 +364,19 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle
         if additional_set[supplot_index] is not None:
             ax.scatter(additional_lattice, additional_distance, s=36, color=colors[3], label=f"Specific energy: {additional_energy:.3f} (eV)", zorder=3)
 
+        # Subplots label
+        orderlab_shift = 0.05
+        x_loc = 0+orderlab_shift*0.75
+        y_loc = 1-orderlab_shift
+        ax.annotate(f"({order_labels[supplot_index]})",
+                    xy=(x_loc,y_loc),
+                    xycoords="axes fraction",
+                    fontsize=1.0 * 16,
+                    ha="left", va="center",
+                    bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+
     plt.tight_layout()
+
 def plot_bilayer_lattice_triple(suptitle, source_data_1, source_data_2, source_data_3, subtitle_1, subtitle_2, subtitle_3,
                                 colormap_1, colormap_2, colormap_3, point_color_1, point_color_2, point_color_3,
                                 additional_work_1=None, additional_work_2=None, additional_work_3=None,
