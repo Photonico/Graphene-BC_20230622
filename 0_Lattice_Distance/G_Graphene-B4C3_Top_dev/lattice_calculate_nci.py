@@ -30,7 +30,7 @@ for z_var in np.arange(z_start, z_end+z_step, z_step):
     for a_var in np.arange(a_start, a_end+a_step, a_step):
         dest_dir = f"lattice_a{a_var:.3f}_d{z_var:.3f}"
         os.makedirs(dest_dir, exist_ok = True)
-        for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_gad.sh", "vasp_usyd.sh"]:
+        for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_gadi.sh", "vasp_usyd.sh"]:
             shutil.copy(os.path.join(source_dir, file_name), dest_dir)
         a_1 = np.sqrt(3) * 0.5 * a_var
         a_2 = 0.5 * a_var
@@ -65,5 +65,5 @@ time.sleep(2)
 for dest_dir in dirs_to_walk:
     if "vasp_usyd.sh" in os.listdir(dest_dir):
         print(dest_dir)
-        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_gad.sh"])
+        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_gadi.sh"])
         time.sleep(4)

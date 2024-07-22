@@ -5,7 +5,7 @@ import os
 
 # List of files to keep
 files_to_keep = [
-    "INCAR", "KPOINTS", "POSCAR", "POTCAR", "vasp_gad.sh", "lattice_cleanup.py"
+    "INCAR", "KPOINTS", "POSCAR", "POTCAR", "vasp_gadi.sh", "lattice_cleanup.py"
 ]
 
 def cleanup(files):
