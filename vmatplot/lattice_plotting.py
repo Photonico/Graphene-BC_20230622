@@ -57,7 +57,7 @@ def plot_free_energy_lattice_single(suptitle, lattice_list, lattice_range = (Non
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
     params = fig_setting[2]; plt.rcParams.update(params)
     plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-    plt.title(f"Free energy versus lattice {suptitle}")
+    plt.title(f"Tot energy versus lattice {suptitle}")
 
     # plot data
     lattice_info_set = create_matters_lattice(lattice_list)
@@ -111,7 +111,7 @@ def plot_free_energy_lattice_double(suptitle, lattice_list_1, lattice_list_2, su
     order_labels = subtitles
 
     # Title
-    plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
+    plt.suptitle(f"Total energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
     lattice_ranges = [lattice_range_1, lattice_range_2]
 
     # plot data
@@ -193,7 +193,7 @@ def plot_free_energy_lattice_triple(suptitle, lattice_list_1, lattice_list_2, la
     order_labels = subtitles
 
     # Title
-    plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
+    plt.suptitle(f"Total energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
     lattice_ranges = [lattice_range_1, lattice_range_2, lattice_range_3]
 
     # plot data
@@ -280,7 +280,7 @@ def plot_free_energy_lattice_quadruple(suptitle, lattice_list_1, lattice_list_2,
     order_labels = subtitles
 
     # Title
-    plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
+    plt.suptitle(f"Total energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
     lattice_ranges = [lattice_range_1, lattice_range_2, lattice_range_3, lattice_range_4]
 
     # plot data
