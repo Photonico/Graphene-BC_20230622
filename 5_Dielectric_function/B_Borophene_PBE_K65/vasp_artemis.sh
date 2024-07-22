@@ -1,5 +1,5 @@
 #!/bin/bash 
-#PBS -N dielectric
+#PBS -N dielectric_Borop
 #PBS -P MOSHEMT
 #PBS -q defaultQ
 #PBS -o output.txt
