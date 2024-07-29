@@ -24,7 +24,7 @@ arr_ext = np.append(arr, 2.467)
 for a_var in arr_ext:
     dest_dir = f"{dest_dir_base}{a_var:.3f}"
     os.makedirs(dest_dir, exist_ok = True)
-    for file_name in ["INCAR", "KPOINTS", "vasp_gad.sh", "POTCAR"]:
+    for file_name in ["INCAR", "KPOINTS", "vasp_gadi.sh", "POTCAR"]:
         shutil.copy(os.path.join(source_dir, file_name), dest_dir)
     a_1 = np.sqrt(3) * a_var * 0.5
     a_2 = a_var * 0.5
@@ -44,7 +44,7 @@ for a_var in arr_ext:
 time.sleep(2)
 
 for dest_dir in dirs_to_walk:
-    if "vasp_gad.sh" in os.listdir(dest_dir):
+    if "vasp_gadi.sh" in os.listdir(dest_dir):
         print(dest_dir)
-        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_gad.sh"])
+        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_gadi.sh"])
         time.sleep(4)

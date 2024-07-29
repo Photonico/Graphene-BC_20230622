@@ -13,7 +13,7 @@ import time
 lattice_type = "Bridge"
 lattice_shift = 1/12
 
-source_dir      = "../lattice_source"  # Source directory containing INCAR, KPOINTS, POTCAR, and vasp_usyd.sh
+source_dir      = "../lattice_source"  # Source directory containing INCAR, KPOINTS, POTCAR, and vasp_cluster.sh
 dirs_to_walk    = []
 
 distance_bound = 15.0
@@ -28,7 +28,7 @@ a_end = 5.020
 for a_var in [5.000]:
     dest_dir = f"Lattice_a{a_var:.3f}_d{z_var:.3f}"
     os.makedirs(dest_dir, exist_ok = True)
-    for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_gad.sh", "vasp_usyd.sh"]:
+    for file_name in ["INCAR", "KPOINTS", "POTCAR", "vasp_gadi.sh", "vasp_cluster.sh"]:
         shutil.copy(os.path.join(source_dir, file_name), dest_dir)
     a_1 = np.sqrt(3) * 0.5 * a_var
     a_2 = 0.5 * a_var
@@ -62,7 +62,7 @@ for a_var in [5.000]:
 time.sleep(2)
 
 for dest_dir in dirs_to_walk:
-    if "vasp_usyd.sh" in os.listdir(dest_dir):
+    if "vasp_cluster.sh" in os.listdir(dest_dir):
         print(dest_dir)
-        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_gad.sh"])
+        subprocess.run(["bash", "-c", f"cd {dest_dir}; qsub vasp_gadi.sh"])
         time.sleep(4)
