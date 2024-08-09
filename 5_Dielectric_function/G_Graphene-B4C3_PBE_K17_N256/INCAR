@@ -1,0 +1,71 @@
+#### Calculation Information for Dielectric GGA-PBE
+# Created by Lu Niu, LukeNiu@outlook.com, March 04, 2024
+
+## Project name
+SYSTEM = DF
+
+## Start parameters for this Run (use wavefunction from the SCF calculation)
+ISTART = 1
+ICHARG = 2
+#LCHARG = .TRUE.         # LCHARG = .TRUE. for generating CHGCAR (not needed for optical properties)
+
+## Electronic optimization (Low, Medium, High, Accurate)
+PREC = Accurate
+# Defaults from POTCAR
+ENCUT = 450             # Taken from "Strain-tunable electronic..." RSC Adv., 2018, 8, 1686
+
+# Alorithm for electron optimization, can be also FAST or ALL
+ALGO = Exact
+# of ELM steps, sometimes default is too small
+# NELM = 200
+# Stopping-criterion for ELM (1E-8 for dielectric function)
+EDIFF = 1E-8
+# Projected Density of States and Mulliken population analysis
+#LORBIT = 11
+# Number of points the dielectric function is calculated for
+NEDOS = 4000
+
+# Broadening and DOS related values (ISMEAR = -5 for tetrahedral method for DOS)
+ISMEAR = 0  # Gaussian Smearing for optical properties
+SIGMA = 0.01 # Set smaller for dielectric function calculation
+
+# Use hybrid functional (PBE0) - Commonly used for optical properties
+# LHFCALC = .TRUE.
+# AEXX = 0.25
+# HFSCREEN = 0.2
+
+# Calculate the frequency dependent dielectric matrix
+LOPTICS = .TRUE.
+CSHIFT = 0.1
+
+# Number of empty bands (this should be sufficiently large), it can be found in OUTCAR, serach 'NELECT'
+NBANDS = 256
+
+# Stress tensor (not needed for optical properties)
+# ISIF = 3
+
+# Electron Spin (depends on system)
+# ISPIN = 2
+
+# Magnetic moment (depends on system)
+# MAGMON = 1
+
+## Ionic relaxation (not needed for optical properties)
+# Number of steps for IOM   
+#NSW = 1
+# CG for ions, often 1 (RMM-DISS) is faster (IBRION = -1 for time-independent)
+#IBRION = 8
+# Step for ionic-motion (for MD in fs)
+# POTIM = .1
+
+# Performance optimization
+# The number of groups made, each group working on one set of k-points 
+# KPAR = 1
+# How many cores handling one orbital
+# NCORE = 4
+# Real space projection; slightly less accurate but faster 
+LREAL = .FALSE.
+NWRITE = 3
+
+# Stopping-criterion for IOM (all forces smaller 1E-2) (not needed for optical properties)
+# EDIFFG = -1E-3

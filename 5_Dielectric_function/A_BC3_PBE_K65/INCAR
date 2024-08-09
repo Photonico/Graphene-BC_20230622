@@ -15,15 +15,16 @@ PREC = Accurate
 ENCUT = 450             # Taken from "Strain-tunable electronic..." RSC Adv., 2018, 8, 1686
 
 # Alorithm for electron optimization, can be also FAST or ALL
-ALGO = Exact
+ALGO = Normal
 # of ELM steps, sometimes default is too small
 # NELM = 200
 # Stopping-criterion for ELM (1E-8 for dielectric function)
-EDIFF = 1E-8
+EDIFF = 1E-6
 # Projected Density of States and Mulliken population analysis
 #LORBIT = 11
 # Number of points the dielectric function is calculated for
 NEDOS = 4000
+SYMPREC = 1E-4
 
 # Broadening and DOS related values (ISMEAR = -5 for tetrahedral method for DOS)
 ISMEAR = 0  # Gaussian Smearing for optical properties
