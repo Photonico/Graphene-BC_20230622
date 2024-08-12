@@ -12,7 +12,7 @@ from vmatplot.commons import extract_fermi, identify_algorithm
 hbar = 4.135667662e-15
 c_vacuum = 2.99792458e8
 
-def extract_dielectric_function(directory):
+def extract_dielectric_vasprun(directory):
     # Construct the full path to the vasprun.xml file
     vasprun_path = os.path.join(directory, "vasprun.xml")
     # Check if the vasprun.xml file exists in the given directory
@@ -241,8 +241,11 @@ def extract_dielectric_function(directory):
 def extract_dielectric_myhdf5(directory):
     # Use "myhdf5" to extract dielectric function
     # Address: results / linear_response_kpoints_opt
-    # Phono energy: energies_dielectric_function
-    # Real part in plane: D2 0,0,0 or 1,1,0
-    # Imag part in plane: D2 0,0,1 or 1,1,1
-    # Real part out of plane: D2 2,2,0
-    # Imag part out of plane: D2 2,2,1
+    # [0] Phono energy: energies_dielectric_function
+    # [1] Real part in plane: D2 0,0,0 or 1,1,0
+    # [2] Imag part in plane: D2 0,0,1 or 1,1,1
+    # [3] Real part out of plane: D2 2,2,0
+    # [4] Imag part out of plane: D2 2,2,1
+
+def extract_dielectric_function(directory):
+    
