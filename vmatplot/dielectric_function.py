@@ -237,3 +237,12 @@ def extract_dielectric_function(directory):
         "total_dos": dos_data["total_dos"],                                 # [39]: Total DOS
         "integrated_dos": dos_data["integrated_dos"],                       # [40]: Integrated DOS
     }
+
+def extract_dielectric_myhdf5(directory):
+    # Use "myhdf5" to extract dielectric function
+    # Address: results / linear_response_kpoints_opt
+    # Phono energy: energies_dielectric_function
+    # Real part in plane: D2 0,0,0 or 1,1,0
+    # Imag part in plane: D2 0,0,1 or 1,1,1
+    # Real part out of plane: D2 2,2,0
+    # Imag part out of plane: D2 2,2,1
