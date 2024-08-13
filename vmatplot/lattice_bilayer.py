@@ -288,7 +288,7 @@ def plot_bilayer_lattice_single(suptitle, source_data, colormap, point_color, ad
     plt.legend(loc=legend_loc)
     plt.tight_layout()
 
-def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle_1, subtitle_2, colormap_1, colormap_2, point_color_1, point_color_2, additional_work_1=None, additional_work_2=None, legend_loc="upper right"):
+def plot_bilayer_lattice_double(suptitle, subtitle_1, subtitle_2, source_data_1, source_data_2, colormap_1, colormap_2, point_color_1, point_color_2, additional_work_1=None, additional_work_2=None, legend_loc="upper right"):
     # figure Settings
     fig_setting = canvas_setting(16, 6)
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -297,6 +297,7 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle
 
     # colors calling
     annotate_color = color_sampling("Grey")
+    plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
     # order_labels = ["a","b"]
 
     # data sets
@@ -319,6 +320,8 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle
         distance_source = np.array(distance_source)
         free_energy_source = np.array(free_energy_source)
 
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
         # Extrema of source data
         energy_min = np.min(free_energy_source)
         energy_max = np.max(free_energy_source)
@@ -384,7 +387,7 @@ def plot_bilayer_lattice_double(suptitle, source_data_1, source_data_2, subtitle
 
     plt.tight_layout()
 
-def plot_bilayer_lattice_triple_row(suptitle, source_data_1, source_data_2, source_data_3, subtitle_1, subtitle_2, subtitle_3,
+def plot_bilayer_lattice_triple_row(suptitle, subtitle_1, subtitle_2, subtitle_3, source_data_1, source_data_2, source_data_3,
                                     colormap_1, colormap_2, colormap_3, point_color_1, point_color_2, point_color_3,
                                     additional_work_1=None, additional_work_2=None, additional_work_3=None,
                                     legend_loc="upper right"):
@@ -396,7 +399,7 @@ def plot_bilayer_lattice_triple_row(suptitle, source_data_1, source_data_2, sour
 
     # colors calling
     annotate_color = color_sampling("Grey")
-    order_labels = ["a","b","c"]
+    # order_labels = ["a","b","c"]
 
     # data sets
     source_data_set = [source_data_1, source_data_2, source_data_3]
@@ -417,6 +420,8 @@ def plot_bilayer_lattice_triple_row(suptitle, source_data_1, source_data_2, sour
         distance_source = np.array(distance_source)
         free_energy_source = np.array(free_energy_source)
 
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
         # Extrema of source data
         energy_min = np.min(free_energy_source)
         energy_max = np.max(free_energy_source)
@@ -482,13 +487,14 @@ def plot_bilayer_lattice_triple_row(suptitle, source_data_1, source_data_2, sour
 
     plt.tight_layout()
 
-def plot_bilayer_lattice_quadruple(suptitle, source_data_1, source_data_2, source_data_3, source_data_4,
+def plot_bilayer_lattice_quadruple(suptitle,
                                    subtitle_1, subtitle_2, subtitle_3, subtitle_4,
+                                   source_data_1, source_data_2, source_data_3, source_data_4,
                                    colormap_1, colormap_2, colormap_3, colormap_4,
                                    point_color_1, point_color_2, point_color_3, point_color_4,
                                    additional_work_1=None, additional_work_2=None, additional_work_3=None, additional_work_4=None,
                                    legend_loc="upper right"):
-    
+
     # figure Settings
     fig_setting = canvas_setting(16, 12)
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -497,33 +503,148 @@ def plot_bilayer_lattice_quadruple(suptitle, source_data_1, source_data_2, sourc
 
     # Colors calling
     annotate_color = color_sampling("Grey")
-    order_labels = ["a","b","c","d"]
+    # order_labels = ["a","b","c","d"]
 
     # data sets
     source_data_set = [source_data_1, source_data_2, source_data_3, source_data_4]
     colormap_set = [colormap_1, colormap_2, colormap_3, colormap_4]
     point_color_set = [point_color_1, point_color_2, point_color_3, point_color_4]
     additional_set = [additional_work_1, additional_work_2, additional_work_3, additional_work_4]
+    subtitles = [subtitle_1, subtitle_2, subtitle_3, subtitle_4]
+    order_labels = subtitles
 
     # Title
     plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
 
     # plot data
-    # for supplot_index in range(4):
+    for supplot_index in range(4):
+        ax = axes_element[supplot_index]
+        # Data input
+        lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data_set[supplot_index])
+        lattice_source = np.array(lattice_source)
+        distance_source = np.array(distance_source)
+        free_energy_source = np.array(free_energy_source)
+
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
+        # Extrema of source data
+        energy_min = np.min(free_energy_source)
+        energy_max = np.max(free_energy_source)
+        energy_range = energy_max - energy_min
+        energy_demo = energy_min + energy_range * 0.125
+        lattice_min = lattice_source [np.argmin(free_energy_source)]
+        distance_min = distance_source [np.argmin(free_energy_source)]
+
+        # Data grid
+        lattice_fine = np.linspace(lattice_source.min(), lattice_source.max(), 1024)
+        distance_fine = np.linspace(distance_source.min(), distance_source.max(), 1024)
+        lattice_grid_fine, distance_grid_fine = np.meshgrid(lattice_fine, distance_fine)
+
+        # Interpolate using the "cubic" method
+        free_energy_grid_fine = griddata((lattice_source, distance_source), free_energy_source, (lattice_grid_fine, distance_grid_fine), method="linear")
+
+        # Fitted data
+        Fitted_data = extract_minimum_bilayer_lattice(source_data_set[supplot_index])
+        lattice_fitted_min = Fitted_data[0]
+        distance_fitted_min = Fitted_data[1]
+        # free_energy_fitted_min = Fitted_data[-1]
+
+        # Additional data
+        if additional_set[supplot_index] is not None:
+            additional_data = specify_bilayer_lattice(additional_set[supplot_index])
+            additional_lattice = additional_data[0]
+            additional_distance = additional_data[1]
+            additional_energy = additional_data[-1]
+
+        # Colormap
+        cp = ax.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap_set[supplot_index], alpha = 0.75, vmax = energy_demo, zorder=1)
+        cbar = fig.colorbar(cp, ax=ax)
+        formatter = ScalarFormatter(useMathText=True, useOffset=False)
+        formatter.set_powerlimits((-3, 3))
+        cbar.ax.yaxis.set_major_formatter(formatter)
+        colors = color_sampling(point_color_set[supplot_index])
+
+        # Extreme of source data
+        ax.scatter(lattice_min, distance_min, s=48, color=colors[2], label="Extrema of source data", zorder=2)
+        # Extreme of fitted data
+        ax.scatter(lattice_fitted_min, distance_fitted_min, s=48, lw=1.5, facecolors="none", edgecolors=colors[2], label="Extrema of fitted data", zorder=2)
+        # Additional point
+        if additional_set[supplot_index] is not None:
+            ax.scatter(additional_lattice, additional_distance, s=36, color=colors[3], label=f"Specific energy: {additional_energy:.3f} (eV)", zorder=3)
+
+        # Subplots label
+        orderlab_shift = 0.05
+        x_loc = 0+orderlab_shift*0.75
+        y_loc = 1-orderlab_shift
+        ax.annotate(f"{order_labels[supplot_index]}",
+                    xy=(x_loc,y_loc),
+                    xycoords="axes fraction",
+                    fontsize=1.0 * 16,
+                    ha="left", va="center",
+                    bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
+
+        if lattice_min < np.mean(lattice_source) and distance_min < np.mean(distance_source):
+            legend_loc = "lower right"
+        else:
+            legend_loc = "lower left"
+
+        ax.legend(loc=legend_loc)
 
     plt.tight_layout()
 
-def plot_bilayer_lattice(subfigures_amount, *args):
+def plot_bilayer_lattice(subfigures_amount, suptitle, *data_sets):
     help_info = "Usage: plot_free_energy_lattice \n" + \
                 "Use summarize_free_energy_lattice_directory to extract the free energy versus lattice into free_energy_lattice.dat firstly.\n"
+
     if subfigures_amount == 1:
-        return plot_bilayer_lattice_single(*args)
+        args = tuple(data_sets[0])
+        return plot_bilayer_lattice_single(suptitle, *args)
+
     elif subfigures_amount == 2:
+        data_set = data_sets
+        args = [suptitle,
+                data_set[0][0], data_set[1][0],
+                data_set[0][1], data_set[1][1],
+                data_set[0][2], data_set[1][2],
+                data_set[0][3], data_set[1][3]]
+        if len(data_set[0]) > 4:
+            args.append(data_set[0][4])
+        if len(data_set[1]) > 4:
+            args.append(data_set[1][4])
         return plot_bilayer_lattice_double(*args)
+
     elif subfigures_amount == 3:
+        data_set = data_sets
+        args = [suptitle,
+                data_set[0][0], data_set[1][0], data_set[2][0],
+                data_set[0][1], data_set[1][1], data_set[2][1],
+                data_set[0][2], data_set[1][2], data_set[2][2],
+                data_set[0][3], data_set[1][3], data_set[2][3]]
+        if len(data_set[0]) > 4:
+            args.append(data_set[0][4])
+        if len(data_set[1]) > 4:
+            args.append(data_set[1][4])
+        if len(data_set[2]) > 4:
+            args.append(data_set[2][4])
         return plot_bilayer_lattice_triple_row(*args)
+
     elif subfigures_amount == 4:
+        data_set = data_sets
+        args = [suptitle,
+                data_set[0][0], data_set[1][0], data_set[2][0], data_set[3][0],
+                data_set[0][1], data_set[1][1], data_set[2][1], data_set[3][1],
+                data_set[0][2], data_set[1][2], data_set[2][2], data_set[3][2],
+                data_set[0][3], data_set[1][3], data_set[2][3], data_set[3][3]]
+        if len(data_set[0]) > 4:
+            args.append(data_set[0][4])
+        if len(data_set[1]) > 4:
+            args.append(data_set[1][4])
+        if len(data_set[2]) > 4:
+            args.append(data_set[2][4])
+        if len(data_set[3]) > 4:
+            args.append(data_set[3][4])
         return plot_bilayer_lattice_quadruple(*args)
+
     # help information
     else:
         print(help_info)
