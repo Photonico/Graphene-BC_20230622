@@ -2,10 +2,11 @@
 # pylint: disable = C0103, C0114, C0116, C0301, C0321, R0913, R0914
 
 import matplotlib.pyplot as plt
+import os
 
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import process_boundary, extract_part
-from vmatplot.dielectric_function import extract_dielectric_function
+from vmatplot.dielectric_function import extract_dielectric_function, extract_dielectric_hdf5opt
 
 def create_matters_dielectric_function(dielectric_list):
     # data = create_matters_dielectric_function(dielectric_list)
@@ -30,7 +31,11 @@ def create_matters_dielectric_function(dielectric_list):
             linewidth = None
         else:
             label, directory, color, alpha,  linewidth = dielectric_dir
-        dielectric_data = extract_dielectric_function(directory)
+        opt_path = os.path.join(directory, "KPOINTS_OPT")
+        if not os.path.isfile(opt_path):
+            dielectric_data = extract_dielectric_function(directory)
+        else:
+            dielectric_data = extract_dielectric_hdf5opt(directory)
         data.append([label,dielectric_data,color,alpha,linewidth])
     return data
 

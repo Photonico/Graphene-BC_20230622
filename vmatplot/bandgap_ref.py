@@ -4,7 +4,7 @@
 import os
 from pymatgen.io.vasp import Vasprun
 
-def extract_bandgap(directory):
+def extract_bandgap_ref(directory):
     # Construct the full path to the vasprun.xml file
     vasprun_path = os.path.join(directory, "vasprun.xml")
 
@@ -47,7 +47,7 @@ def extract_bandgap(directory):
 
 # Example usage
 directory_path = "path/to/your/calculation/directory"
-band_gap_info, is_metal = extract_bandgap(directory_path)
+band_gap_info, is_metal = extract_bandgap_ref(directory_path)
 if band_gap_info is not None:
     if is_metal:
         print("The material is metallic.")

@@ -2,9 +2,11 @@
 # pylint: disable = C0103, C0114, C0116, C0301, R0914
 
 ### Necessary packages invoking
+
 import xml.etree.ElementTree as ET
-import os
 import numpy as np
+import h5py
+import os
 
 from vmatplot.commons import extract_fermi, identify_algorithm
 
@@ -238,7 +240,17 @@ def extract_dielectric_vasprun(directory):
         "integrated_dos": dos_data["integrated_dos"],                       # [40]: Integrated DOS
     }
 
-def extract_dielectric_myhdf5(directory):
+def extract_dielectric_hdf5opt(directory):
+    # Construct the full path to the vaspout.h5 file
+    h5_path = os.path.join(directory, "vaspout.h5")
+    # Check if the vaspout.h5 file exists in the given directory
+    if not os.path.isfile(h5_path):
+        print(f"Error: The file vaspout.h5 does not exist in the directory {directory}.")
+        return
+
+    return 0
+
+# def extract_dielectric_myhdf5(directory):
     # Use "myhdf5" to extract dielectric function
     # Address: results / linear_response_kpoints_opt
     # [0] Phono energy: energies_dielectric_function
@@ -246,6 +258,3 @@ def extract_dielectric_myhdf5(directory):
     # [2] Imag part in plane: D2 0,0,1 or 1,1,1
     # [3] Real part out of plane: D2 2,2,0
     # [4] Imag part out of plane: D2 2,2,1
-
-def extract_dielectric_function(directory):
-    

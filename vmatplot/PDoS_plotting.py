@@ -46,6 +46,7 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
 
     if title in ["help", "Help"]:
         print(help_info)
+    
     # Figure Settings
     fig_setting = canvas_setting()
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
