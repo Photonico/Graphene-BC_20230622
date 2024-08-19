@@ -271,7 +271,7 @@ def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
 
     # Materials information
     dataset = comp_function(matters_list)
-    subtitles = ["In-plane", "Out-of-plane", "In-plane (zoom)", "Out-of-plane (zoom)"]
+    subtitles = ["In-plane", "Out-of-plane", "In-plane (zoomed)", "Out-of-plane (zoomed)"]
 
     # Data plotting
     for supplot_index in range(4):
@@ -344,7 +344,7 @@ def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
                     outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_absorption_full,outplane_start_1,outplane_end_1)
                     ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
-            # Inplane (zoom)
+            # Inplane (zoomed)
             elif supplot_index == 2:
                 inplane_energy_full = data[1]["density_energy_real"]
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
@@ -361,7 +361,7 @@ def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
                     inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_absorption_full,inplane_start_2,inplane_end_2)
                     ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
 
-            # Outplane (zoom)
+            # Outplane (zoomed)
             elif supplot_index == 3:
                 outplane_energy_full = data[1]["density_energy_real"]
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
