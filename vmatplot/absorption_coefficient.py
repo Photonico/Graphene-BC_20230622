@@ -61,6 +61,8 @@ def plot_absorption_XZ_row(title, absorption_list=None, unit=None, abs_type=None
     fig.suptitle(f"Absorption coefficient {current_title}", fontsize=fig_setting[3][0], y=1.00)
 
     # Boundary
+    if outplane_boundary == (None,None):
+        outplane_boundary = inplane_boundary
     inplane_start, inplane_end = process_boundary(inplane_boundary)
     outplane_start, outplane_end = process_boundary(outplane_boundary)
 
@@ -168,6 +170,8 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, abs_type=None
     fig.suptitle(f"Absorption coefficient {current_title}", fontsize=fig_setting[3][0], y=1.00)
 
     # Boundary
+    if outplane_boundary == (None,None):
+        outplane_boundary = inplane_boundary
     inplane_start, inplane_end = process_boundary(inplane_boundary)
     outplane_start, outplane_end = process_boundary(outplane_boundary)
 
@@ -281,6 +285,16 @@ def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
     fig.suptitle(f"{prop} {current_title}", fontsize=fig_setting[3][0], y=1.00)
 
     # Boundary
+    if outplane_boundary_1 == (None,None):
+        outplane_boundary_1, inplane_boundary_2, outplane_boundary_2 = inplane_boundary_1
+    elif inplane_boundary_2 == (None,None):
+        inplane_boundary_2 = inplane_boundary_1; outplane_boundary_2 = outplane_boundary_1
+    elif outplane_boundary_2 == (None,None):
+        inplane_range_1 = process_boundary(inplane_boundary_1)[-1]-process_boundary(inplane_boundary_1)[0]
+        inplane_range_2 = process_boundary(inplane_boundary_2)[-1]-process_boundary(inplane_boundary_2)[0]
+        rate = inplane_range_2/inplane_range_1
+        outplane_boundary_2 = tuple(x * rate for x in outplane_boundary_1)
+
     inplane_start_1, inplane_end_1   = process_boundary(inplane_boundary_1)
     outplane_start_1, outplane_end_1 = process_boundary(outplane_boundary_1)
     inplane_start_2, inplane_end_2   = process_boundary(inplane_boundary_2)
