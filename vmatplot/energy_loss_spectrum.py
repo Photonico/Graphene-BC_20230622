@@ -218,7 +218,7 @@ def plot_energy_loss_XZ_col(title, matters_list=None, unit=None, inplane_boundar
 
 def plot_energy_loss_XZ_zoom(title, matters_list=None, unit=None,
                              inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
-                             inplane_boundary_2=(None, None), outplane_boundary_2=(None, None),):
+                             inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
 
     help_info = "Usage: plot_energy_loss" + \
                 "The independent value includes \n" +\

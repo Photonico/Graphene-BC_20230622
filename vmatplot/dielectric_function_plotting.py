@@ -234,6 +234,11 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, inplane_energy_
 
     plt.tight_layout()
 
+def plot_dielectric_function_XZ_zoom(title, dielectric_list=None,
+                                     inplane_energy_boundary_1=(None, None), outplane_energy_boundary_1=(None, None),
+                                     inplane_energy_boundary_2=(None, None), outplane_energy_boundary_2=(None, None)):
+    return 0
+
 def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
     # Help information
     help_info = "Usage: plot_dielectric_function_XZ_block" + \
@@ -344,4 +349,5 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, inplane_energ
 def plot_dielectric_function_XZ(*args):
     # return plot_dielectric_function_XZ_col(*args)
     return plot_dielectric_function_XZ_row(*args)
+    return plot_dielectric_function_XZ_zoom(*args)
     # return plot_dielectric_function_XZ_block(*args)
