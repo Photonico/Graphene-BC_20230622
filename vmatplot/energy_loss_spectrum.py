@@ -225,7 +225,6 @@ def plot_energy_loss_XZ_zoom(title, matters_list=None, unit=None,
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
                 "\t x-axis unit, \n" +\
-                "\t formula type, \n" +\
                 "\t Inplane photon wavelenght range 1 (Optional), \n" +\
                 "\t Outplane photon wavelenght range 1 (Optional). \n" +\
                 "\t Inplane photon wavelenght range 2 (Optional), \n" +\
