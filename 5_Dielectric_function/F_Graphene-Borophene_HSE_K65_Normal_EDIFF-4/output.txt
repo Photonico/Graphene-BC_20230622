@@ -1,0 +1,178 @@
+ running  128 mpi-ranks, on    4 nodes
+ distrk:  each k-point on  128 cores,    1 groups
+ distr:  one band on    1 cores,  128 groups
+ vasp.6.3.2 27Jun22 (build May 31 2023 12:07:17) complex                        
+  
+ POSCAR found type information on POSCAR B C 
+ POSCAR found :  2 types and      16 ions
+ Reading from existing POTCAR
+ scaLAPACK will be used
+ -----------------------------------------------------------------------------
+|                                                                             |
+|           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
+|           W    W   A  A   R    R  NN   N  II  NN   N  G    G  !!!           |
+|           W    W  A    A  R    R  N N  N  II  N N  N  G       !!!           |
+|           W WW W  AAAAAA  RRRRR   N  N N  II  N  N N  G  GGG   !            |
+|           WW  WW  A    A  R   R   N   NN  II  N   NN  G    G                |
+|           W    W  A    A  R    R  N    N  II  N    N   GGGG   !!!           |
+|                                                                             |
+|     For optimal performance we recommend to set                             |
+|       NCORE = 2 up to number-of-cores-per-socket                            |
+|     NCORE specifies how many cores store one orbital (NPAR=cpu/NCORE).      |
+|     This setting can greatly improve the performance of VASP for DFT.       |
+|     The default, NCORE=1 might be grossly inefficient on modern             |
+|     multi-core architectures or massively parallel machines. Do your        |
+|     own testing! More info at https://www.vasp.at/wiki/index.php/NCORE      |
+|     Unfortunately you need to use the default for GW and RPA                |
+|     calculations (for HF NCORE is supported but not extensively tested      |
+|     yet).                                                                   |
+|                                                                             |
+ -----------------------------------------------------------------------------
+
+ Reading from existing POTCAR
+ LDA part: xc-table for Pade appr. of Perdew
+ found WAVECAR, reading the header
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ... GRIDC
+ FFT: planning ... GRID_SOFT
+ FFT: planning ... GRID
+ reading WAVECAR
+ the WAVECAR file was read successfully
+ initial charge from wavefunction
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          ort
+ gam= 0.000 g(H,U,f)=  0.158E-05 0.193E-06 0.291E-19 ort(H,U,f) = 0.000E+00 0.000E+00 0.000E+00
+SDA:   1    -0.140190976607E+03   -0.14019E+03   -0.71091E-06  4224   0.178E-05 0.000E+00
+ gam= 0.382 g(H,U,f)=  0.575E-06 0.140E-06 0.215E-19 ort(H,U,f) = 0.925E-06 0.164E-06 0.235E-19
+DMP:   2    -0.140190977191E+03   -0.58380E-06   -0.45229E-06  4224   0.715E-06 0.109E-05
+ final diagonalization
+   1 F= -.14019098E+03 E0= -.14019098E+03  d E =-.774445E-12
+ Start KPOINTS_OPT (optional k-point list driver)
+k-point batch [1-33\385]
+       N       E                     dE             ncg
+DAV:   1    -0.878393942425E+04   -0.28179E+05    12672
+DAV:   2    -0.182013288631E+05   -0.94174E+04    16896
+DAV:   3    -0.185014254286E+05   -0.30010E+03    16896
+DAV:   4    -0.185087287118E+05   -0.73033E+01    16896
+DAV:   5    -0.185089659563E+05   -0.23724E+00    16896
+DAV:   6    -0.185089751700E+05   -0.92137E-02    16896
+DAV:   7    -0.185089755666E+05   -0.39664E-03    16896
+DAV:   8    -0.185089755850E+05   -0.18375E-04    16896
+k-point batch [34-66\385]
+       N       E                     dE             ncg
+DAV:   1    -0.885914759815E+04   -0.29110E+05    12672
+DAV:   2    -0.182253180049E+05   -0.93662E+04    16896
+DAV:   3    -0.185183546244E+05   -0.29304E+03    16896
+DAV:   4    -0.185254817449E+05   -0.71271E+01    16896
+DAV:   5    -0.185257128954E+05   -0.23115E+00    16896
+DAV:   6    -0.185257218542E+05   -0.89588E-02    16896
+DAV:   7    -0.185257222391E+05   -0.38481E-03    16896
+DAV:   8    -0.185257222568E+05   -0.17791E-04    16896
+k-point batch [67-99\385]
+       N       E                     dE             ncg
+DAV:   1    -0.885270300336E+04   -0.28409E+05    12672
+DAV:   2    -0.182292155826E+05   -0.93765E+04    16896
+DAV:   3    -0.185240113776E+05   -0.29480E+03    16896
+DAV:   4    -0.185311157439E+05   -0.71044E+01    16896
+DAV:   5    -0.185313453397E+05   -0.22960E+00    16896
+DAV:   6    -0.185313542177E+05   -0.88779E-02    16896
+DAV:   7    -0.185313545981E+05   -0.38048E-03    16896
+DAV:   8    -0.185313546157E+05   -0.17576E-04    16896
+k-point batch [100-132\385]
+       N       E                     dE             ncg
+DAV:   1    -0.882217735754E+04   -0.30963E+05    12672
+DAV:   2    -0.182887334330E+05   -0.94666E+04    16896
+DAV:   3    -0.185798007145E+05   -0.29107E+03    16896
+DAV:   4    -0.185867460438E+05   -0.69453E+01    16896
+DAV:   5    -0.185869679779E+05   -0.22193E+00    16896
+DAV:   6    -0.185869764665E+05   -0.84886E-02    16896
+DAV:   7    -0.185869768272E+05   -0.36076E-03    16896
+DAV:   8    -0.185869768438E+05   -0.16537E-04    16896
+k-point batch [133-165\385]
+       N       E                     dE             ncg
+DAV:   1    -0.883310158265E+04   -0.32928E+05    12672
+DAV:   2    -0.183628965902E+05   -0.95298E+04    16896
+DAV:   3    -0.186494931178E+05   -0.28660E+03    16896
+DAV:   4    -0.186563074770E+05   -0.68144E+01    16896
+DAV:   5    -0.186565248574E+05   -0.21738E+00    16896
+DAV:   6    -0.186565331370E+05   -0.82796E-02    16896
+DAV:   7    -0.186565334865E+05   -0.34948E-03    16896
+DAV:   8    -0.186565335024E+05   -0.15868E-04    16896
+k-point batch [166-198\385]
+       N       E                     dE             ncg
+DAV:   1    -0.887181898373E+04   -0.38443E+05    12672
+DAV:   2    -0.184538882776E+05   -0.95821E+04    16896
+DAV:   3    -0.187371775786E+05   -0.28329E+03    16896
+DAV:   4    -0.187438406851E+05   -0.66631E+01    16896
+DAV:   5    -0.187440507227E+05   -0.21004E+00    16896
+DAV:   6    -0.187440586148E+05   -0.78922E-02    16896
+DAV:   7    -0.187440589437E+05   -0.32893E-03    16896
+DAV:   8    -0.187440589585E+05   -0.14763E-04    16896
+k-point batch [199-231\385]
+       N       E                     dE             ncg
+DAV:   1    -0.888152151494E+04   -0.37038E+05    12672
+DAV:   2    -0.184384548383E+05   -0.95569E+04    16896
+DAV:   3    -0.187205374908E+05   -0.28208E+03    16896
+DAV:   4    -0.187271787165E+05   -0.66412E+01    16896
+DAV:   5    -0.187273886640E+05   -0.20995E+00    16896
+DAV:   6    -0.187273965675E+05   -0.79035E-02    16896
+DAV:   7    -0.187273968972E+05   -0.32970E-03    16896
+DAV:   8    -0.187273969120E+05   -0.14773E-04    16896
+k-point batch [232-264\385]
+       N       E                     dE             ncg
+DAV:   1    -0.888675746205E+04   -0.43426E+05    12672
+DAV:   2    -0.185411970877E+05   -0.96544E+04    16896
+DAV:   3    -0.188174507735E+05   -0.27625E+03    16896
+DAV:   4    -0.188239247937E+05   -0.64740E+01    16896
+DAV:   5    -0.188241288481E+05   -0.20405E+00    16896
+DAV:   6    -0.188241364943E+05   -0.76463E-02    16896
+DAV:   7    -0.188241368116E+05   -0.31730E-03    16896
+DAV:   8    -0.188241368257E+05   -0.14137E-04    16896
+k-point batch [265-297\385]
+       N       E                     dE             ncg
+DAV:   1    -0.884920936706E+04   -0.43474E+05    12672
+DAV:   2    -0.185507866645E+05   -0.97016E+04    16896
+DAV:   3    -0.188292709296E+05   -0.27848E+03    16896
+DAV:   4    -0.188357672704E+05   -0.64963E+01    16896
+DAV:   5    -0.188359712100E+05   -0.20394E+00    16896
+DAV:   6    -0.188359788351E+05   -0.76251E-02    16896
+DAV:   7    -0.188359791509E+05   -0.31581E-03    16896
+DAV:   8    -0.188359791649E+05   -0.14047E-04    16896
+k-point batch [298-330\385]
+       N       E                     dE             ncg
+DAV:   1    -0.886240209278E+04   -0.48349E+05    12672
+DAV:   2    -0.186099519903E+05   -0.97475E+04    16896
+DAV:   3    -0.188822876141E+05   -0.27234E+03    16896
+DAV:   4    -0.188886436504E+05   -0.63560E+01    16896
+DAV:   5    -0.188888445341E+05   -0.20088E+00    16896
+DAV:   6    -0.188888520840E+05   -0.75499E-02    16896
+DAV:   7    -0.188888523991E+05   -0.31509E-03    16896
+DAV:   8    -0.188888524132E+05   -0.14131E-04    16896
+k-point batch [331-363\385]
+       N       E                     dE             ncg
+DAV:   1    -0.889387187188E+04   -0.51147E+05    12672
+DAV:   2    -0.186452280512E+05   -0.97514E+04    16896
+DAV:   3    -0.189148533711E+05   -0.26963E+03    16896
+DAV:   4    -0.189211525484E+05   -0.62992E+01    16896
+DAV:   5    -0.189213538309E+05   -0.20128E+00    16896
+DAV:   6    -0.189213615156E+05   -0.76848E-02    16896
+DAV:   7    -0.189213618431E+05   -0.32741E-03    16896
+DAV:   8    -0.189213618581E+05   -0.15077E-04    16896
+k-point batch [364-385\385]
+       N       E                     dE             ncg
+DAV:   1     0.864665899198E+04   -0.35671E+05     8448
+DAV:   2     0.214884416556E+04   -0.64978E+04    11264
+DAV:   3     0.197050333246E+04   -0.17834E+03    11264
+DAV:   4     0.196634476649E+04   -0.41586E+01    11264
+DAV:   5     0.196621111117E+04   -0.13366E+00    11264
+DAV:   6     0.196620593106E+04   -0.51801E-02    11264
+DAV:   7     0.196620570494E+04   -0.22613E-03    11264
+DAV:   8     0.196620569418E+04   -0.10758E-04    11264
+ writing wavefunctions
+ optical routines
+ imaginary and real dielectric function
+ recalculating local potential from charge density
+ direction            1
+ direction            2
+ direction            3
+ PROFILE, used timers:     652

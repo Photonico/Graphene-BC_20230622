@@ -240,6 +240,54 @@ def extract_dielectric_vasprun(directory):
         "integrated_dos": dos_data["integrated_dos"],                       # [40]: Integrated DOS
     }
 
+def extract_dielectric_hdf5(directory):
+    # Construct the full path to the vaspout.h5 file
+    h5_path = os.path.join(directory, "vaspout.h5")
+    # Check if the vaspout.h5 file exists in the given directory
+    if not os.path.isfile(h5_path):
+        print(f"Error: The file vaspout.h5 does not exist in the directory {directory}.")
+        return
+
+    # Open the vaspout.h5 file and extract the energies_dielectric_function
+    with h5py.File(h5_path, "r") as f:
+        # Extract the energies_dielectric_function dataset
+        energy_list = f["results/linear_response/energies_dielectric_function"][()]
+        current_list = f["results/linear_response/current_current_dielectric_function"][()]
+        density_list = f["results/linear_response/density_density_dielectric_function"][()]
+
+    # Return the extracted data as a dictionary
+    return {
+        "energy": energy_list,
+        "current_energy_real": energy_list,
+        "current_xx_real": current_list[0,0,:,0],
+        "current_yy_real": current_list[1,1,:,0],
+        "current_zz_real": current_list[2,2,:,0],
+        "current_xy_real": current_list[0,1,:,0],
+        "current_yz_real": current_list[1,2,:,0],
+        "current_zx_real": current_list[2,0,:,0],
+        "current_energy_imag": energy_list,
+        "current_xx_imag": current_list[0,0,:,1],
+        "current_yy_imag": current_list[1,1,:,1],
+        "current_zz_imag": current_list[2,2,:,1],
+        "current_xy_imag": current_list[0,1,:,1],
+        "current_yz_imag": current_list[1,2,:,1],
+        "current_zx_imag": current_list[2,0,:,1],
+        "density_energy_real": energy_list,
+        "density_xx_real": density_list[0,0,:,0],
+        "density_yy_real": density_list[1,1,:,0],
+        "density_zz_real": density_list[2,2,:,0],
+        "density_xy_real": density_list[0,1,:,0],
+        "density_yz_real": density_list[1,2,:,0],
+        "density_zx_real": density_list[2,0,:,0],
+        "density_energy_imag": energy_list,
+        "density_xx_imag": density_list[0,0,:,1],
+        "density_yy_imag": density_list[1,1,:,1],
+        "density_zz_imag": density_list[2,2,:,1],
+        "density_xy_imag": density_list[0,1,:,1],
+        "density_yz_imag": density_list[1,2,:,1],
+        "density_zx_imag": density_list[2,0,:,1],
+    }
+
 def extract_dielectric_hdf5opt(directory):
     # Construct the full path to the vaspout.h5 file
     h5_path = os.path.join(directory, "vaspout.h5")
@@ -248,13 +296,64 @@ def extract_dielectric_hdf5opt(directory):
         print(f"Error: The file vaspout.h5 does not exist in the directory {directory}.")
         return
 
-    return 0
+    # Open the vaspout.h5 file and extract the energies_dielectric_function
+    with h5py.File(h5_path, "r") as f:
+        # Extract the energies_dielectric_function dataset
+        energy_list = f["results/linear_response_kpoints_opt/energies_dielectric_function"][()]
+        current_list = f['results/linear_response_kpoints_opt/current_current_dielectric_function'][()]
+        density_list = f['results/linear_response_kpoints_opt/density_density_dielectric_function'][()]
+
+    # Return the extracted data as a dictionary
+    return {
+        "energy": energy_list,
+        "current_energy_real": energy_list,
+        "current_xx_real": current_list[0,0,:,0],
+        "current_yy_real": current_list[1,1,:,0],
+        "current_zz_real": current_list[2,2,:,0],
+        "current_xy_real": current_list[0,1,:,0],
+        "current_yz_real": current_list[1,2,:,0],
+        "current_zx_real": current_list[2,0,:,0],
+        "current_energy_imag": energy_list,
+        "current_xx_imag": current_list[0,0,:,1],
+        "current_yy_imag": current_list[1,1,:,1],
+        "current_zz_imag": current_list[2,2,:,1],
+        "current_xy_imag": current_list[0,1,:,1],
+        "current_yz_imag": current_list[1,2,:,1],
+        "current_zx_imag": current_list[2,0,:,1],
+        "density_energy_real": energy_list,
+        "density_xx_real": density_list[0,0,:,0],
+        "density_yy_real": density_list[1,1,:,0],
+        "density_zz_real": density_list[2,2,:,0],
+        "density_xy_real": density_list[0,1,:,0],
+        "density_yz_real": density_list[1,2,:,0],
+        "density_zx_real": density_list[2,0,:,0],
+        "density_energy_imag": energy_list,
+        "density_xx_imag": density_list[0,0,:,1],
+        "density_yy_imag": density_list[1,1,:,1],
+        "density_zz_imag": density_list[2,2,:,1],
+        "density_xy_imag": density_list[0,1,:,1],
+        "density_yz_imag": density_list[1,2,:,1],
+        "density_zx_imag": density_list[2,0,:,1],
+    }
 
 # def extract_dielectric_myhdf5(directory):
     # Use "myhdf5" to extract dielectric function
     # Address: results / linear_response_kpoints_opt
     # [0] Phono energy: energies_dielectric_function
-    # [1] Real part in plane: D2 0,0,0 or 1,1,0
-    # [2] Imag part in plane: D2 0,0,1 or 1,1,1
-    # [3] Real part out of plane: D2 2,2,0
-    # [4] Imag part out of plane: D2 2,2,1
+    # [1] Real part xx plane: D2 0,0,:,0
+    # [2] Imag part xx plane: D2 0,0,:,1
+    # [3] Real part yy plane: D2 1,1,:,0
+    # [4] Imag part yy plane: D2 1,1,:,1
+    # [5] Real part zz plane: D2 2,2,:,0
+    # [6] Imag part zz plane: D2 2,2,:,1
+
+def extract_dielectric_function(directory):
+    hdf5_path = os.path.join(directory, "vaspout.h5")
+    opt_path = os.path.join(directory, "KPOINTS_OPT")
+    if os.path.isfile(hdf5_path):
+        if os.path.isfile(opt_path):
+            return extract_dielectric_hdf5opt(directory)
+        else:
+            return extract_dielectric_hdf5(directory)
+    else:
+        return extract_dielectric_vasprun(directory)
