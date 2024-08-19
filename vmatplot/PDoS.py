@@ -15,7 +15,7 @@ def cal_type_pdos(directory_path):
     kpoints_file_path = os.path.join(directory_path, "KPOINTS")
     kpoints_opt_path = os.path.join(directory_path, "KPOINTS_OPT")
     if os.path.exists(kpoints_opt_path):
-        return "PBE"
+        return "GGA-PBE"
     elif os.path.exists(kpoints_file_path):
         return "HSE06"
 
