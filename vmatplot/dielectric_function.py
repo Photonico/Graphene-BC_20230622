@@ -289,6 +289,15 @@ def extract_dielectric_hdf5(directory):
     }
 
 def extract_dielectric_hdf5opt(directory):
+    # Use "myhdf5" to extract dielectric function
+    # Address: results / linear_response_kpoints_opt
+    # [0] Phono energy: energies_dielectric_function
+    # [1] Real part xx plane: D2 0,0,:,0
+    # [2] Imag part xx plane: D2 0,0,:,1
+    # [3] Real part yy plane: D2 1,1,:,0
+    # [4] Imag part yy plane: D2 1,1,:,1
+    # [5] Real part zz plane: D2 2,2,:,0
+    # [6] Imag part zz plane: D2 2,2,:,1
     # Construct the full path to the vaspout.h5 file
     h5_path = os.path.join(directory, "vaspout.h5")
     # Check if the vaspout.h5 file exists in the given directory
@@ -336,17 +345,6 @@ def extract_dielectric_hdf5opt(directory):
         "density_zx_imag": density_list[2,0,:,1],
     }
 
-# def extract_dielectric_myhdf5(directory):
-    # Use "myhdf5" to extract dielectric function
-    # Address: results / linear_response_kpoints_opt
-    # [0] Phono energy: energies_dielectric_function
-    # [1] Real part xx plane: D2 0,0,:,0
-    # [2] Imag part xx plane: D2 0,0,:,1
-    # [3] Real part yy plane: D2 1,1,:,0
-    # [4] Imag part yy plane: D2 1,1,:,1
-    # [5] Real part zz plane: D2 2,2,:,0
-    # [6] Imag part zz plane: D2 2,2,:,1
-
 def extract_dielectric_function(directory):
     hdf5_path = os.path.join(directory, "vaspout.h5")
     opt_path = os.path.join(directory, "KPOINTS_OPT")
@@ -358,5 +356,7 @@ def extract_dielectric_function(directory):
     else:
         return extract_dielectric_vasprun(directory)
 
-def plot_dielectric_function(suptitle, matters_list=None, components=None, unit=None, layout=None, energy_boundary=(None, None)):
+def plot_dielectric_function(suptitle, matters_list=None, components=None, comp_aliases=None,
+                             unit=None, layout=None, energy_boundary=(None, None)):
+
     return 0
