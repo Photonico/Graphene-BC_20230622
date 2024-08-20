@@ -357,3 +357,6 @@ def extract_dielectric_function(directory):
             return extract_dielectric_hdf5(directory)
     else:
         return extract_dielectric_vasprun(directory)
+
+def plot_dielectric_function(suptitle, matters_list=None, components=None, unit=None, layout=None, energy_boundary=(None, None)):
+    return 0
