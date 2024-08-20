@@ -554,6 +554,11 @@ def plot_dielectric_function(suptitle, systems=None, components=None, comp_alias
 
     plt.tight_layout()
 
-# def plot_dielectric_function_component
+# def plot_dielectric_function_component_zoomed
 
-# def plot_dielectric_function_complex
+# def plot_dielectric_function_component_ranged
+
+# def plot_dielectric_function_component(*args):
+#     if len(*args) <= 5:
+#         return plot_dielectric_function_component_ranged(*args)
+#     else: return plot_dielectric_function_component_zoomed(*args)
