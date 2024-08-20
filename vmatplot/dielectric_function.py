@@ -477,7 +477,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None, comp_alias
     # print(component_keys) # ['xx-component', 'yy-component', 'zz-component', ...]
 
     ## suptitle
-    fig.suptitle(f"Dielectric function {suptitle}", fontsize=fig_setting[3][0])
+    fig.suptitle(f"Dielectric function {suptitle}\n", fontsize=fig_setting[3][0])
 
     ## data boundary
     photon_start, photon_end = process_boundary(boundary)
