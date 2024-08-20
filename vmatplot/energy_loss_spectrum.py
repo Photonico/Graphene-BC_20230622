@@ -22,8 +22,8 @@ def create_matters_energy_loss(*args):
     # data[5] = linewidth
     return create_matters_dielectric_function(*args)
 
-def plot_energy_loss_XZ_row(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: plot_energy_loss_XZ" + \
+def plot_energy_loss_XXZZ_row(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
+    help_info = "Usage: plot_energy_loss_XXZZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -120,8 +120,8 @@ def plot_energy_loss_XZ_row(title, matters_list=None, unit=None, inplane_boundar
 
     plt.tight_layout()
 
-def plot_energy_loss_XZ_col(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: plot_energy_loss_XZ" + \
+def plot_energy_loss_XXZZ_col(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
+    help_info = "Usage: plot_energy_loss_XXZZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -217,7 +217,7 @@ def plot_energy_loss_XZ_col(title, matters_list=None, unit=None, inplane_boundar
 
     plt.tight_layout()
 
-def plot_energy_loss_XZ_zoom(title, matters_list=None, unit=None,
+def plot_energy_loss_XXZZ_zoom(title, matters_list=None, unit=None,
                              inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
                              inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
 
@@ -365,9 +365,9 @@ def plot_energy_loss_XZ_zoom(title, matters_list=None, unit=None,
 
     plt.tight_layout()
 
-def plot_energy_loss_XZ(*args):
+def plot_energy_loss_XXZZ(*args):
     if len(args) <= 5:
-        # return plot_energy_loss_XZ_col(*args)
-        return plot_energy_loss_XZ_row(*args)
+        # return plot_energy_loss_XXZZ_col(*args)
+        return plot_energy_loss_XXZZ_row(*args)
     elif len(args) > 5:
-        return plot_energy_loss_XZ_zoom(*args)
+        return plot_energy_loss_XXZZ_zoom(*args)

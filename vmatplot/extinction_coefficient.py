@@ -22,8 +22,8 @@ def create_matters_extinction(*args):
     # data[5] = linewidth
     return create_matters_dielectric_function(*args)
 
-def plot_extinction_XZ_row(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: plot_extinction_XZ" + \
+def plot_extinction_XXZZ_row(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
+    help_info = "Usage: plot_extinction_XXZZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -120,8 +120,8 @@ def plot_extinction_XZ_row(title, matters_list=None, unit=None, inplane_boundary
 
     plt.tight_layout()
 
-def plot_extinction_XZ_col(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: plot_extinction_XZ" + \
+def plot_extinction_XXZZ_col(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
+    help_info = "Usage: plot_extinction_XXZZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -217,7 +217,7 @@ def plot_extinction_XZ_col(title, matters_list=None, unit=None, inplane_boundary
 
     plt.tight_layout()
 
-def plot_extinction_XZ_zoom(title, matters_list=None, unit=None,
+def plot_extinction_XXZZ_zoom(title, matters_list=None, unit=None,
                             inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
                             inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
     help_info = "Usage: plot_extinction" + \
@@ -364,9 +364,9 @@ def plot_extinction_XZ_zoom(title, matters_list=None, unit=None,
 
     plt.tight_layout()
 
-def plot_extinction_XZ(*args):
+def plot_extinction_XXZZ(*args):
     if len(args) <= 5:
-        # return plot_extinction_XZ_col(*args)
-        return plot_extinction_XZ_row(*args)
+        # return plot_extinction_XXZZ_col(*args)
+        return plot_extinction_XXZZ_row(*args)
     elif len(args) > 5:
-        return plot_extinction_XZ_zoom(*args)
+        return plot_extinction_XXZZ_zoom(*args)

@@ -43,9 +43,9 @@ def create_matters_dielectric_function(dielectric_list):
         data.append([label,dielectric_data,color,linestyle,alpha,linewidth])
     return data
 
-def plot_dielectric_function_XZ_col(title, dielectric_list=None, unit=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
+def plot_dielectric_function_XXZZ_col(title, dielectric_list=None, unit=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
     # Help information
-    help_info = "Usage: plot_dielectric_function_XZ" + \
+    help_info = "Usage: plot_dielectric_function_XXZZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -146,9 +146,9 @@ def plot_dielectric_function_XZ_col(title, dielectric_list=None, unit=None, inpl
 
     plt.tight_layout()
 
-def plot_dielectric_function_XZ_row(title, dielectric_list=None, unit=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
+def plot_dielectric_function_XXZZ_row(title, dielectric_list=None, unit=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
     # Help information
-    help_info = "Usage: plot_dielectric_function_XZ" + \
+    help_info = "Usage: plot_dielectric_function_XXZZ" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -285,9 +285,9 @@ def plot_dielectric_function_XZ_row(title, dielectric_list=None, unit=None, inpl
 
 #
 
-def plot_dielectric_function_XZ_block(title, dielectric_list=None, unit=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
+def plot_dielectric_function_XXZZ_block(title, dielectric_list=None, unit=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
     # Help information
-    help_info = "Usage: plot_dielectric_function_XZ_block" + \
+    help_info = "Usage: plot_dielectric_function_XXZZ_block" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -439,8 +439,8 @@ def plot_dielectric_function_XZ_block(title, dielectric_list=None, unit=None, in
         #             bbox = {"facecolor": "white", "alpha": 0.75, "edgecolor": annotate_color[2], "linewidth": 1.5, "boxstyle": "round, pad=0.2"})
     plt.tight_layout()
 
-def plot_dielectric_function_XZ(*args):
-    # return plot_dielectric_function_XZ_col(*args)
-    return plot_dielectric_function_XZ_row(*args)
-    # return plot_dielectric_function_XZ_zoom(*args)
-    # return plot_dielectric_function_XZ_block(*args)
+def plot_dielectric_function_XXZZ(*args):
+    # return plot_dielectric_function_XXZZ_col(*args)
+    return plot_dielectric_function_XXZZ_row(*args)
+    # return plot_dielectric_function_XXZZ_zoom(*args)
+    # return plot_dielectric_function_XXZZ_block(*args)

@@ -225,7 +225,7 @@ def extract_pdos(directory_path):
     shift = efermi
     energy_dos_shift = energy_dos_list - shift
 
-    ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_xz-PDoS, x2-y2-PDoS
+    ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_XXZZ-PDoS, x2-y2-PDoS
     # Matrices initialization
     for ions_index in range(1, ions_number + 1):
         path_ions = f".//set[@comment='ion {ions_index}']/set[@comment='spin 1']/r"
@@ -238,7 +238,7 @@ def extract_pdos(directory_path):
         d_xy_pdos_column    = np.empty(0)
         d_yz_pdos_column    = np.empty(0)
         d_z2_pdos_column    = np.empty(0)
-        d_xz_pdos_column    = np.empty(0)
+        d_XXZZ_pdos_column    = np.empty(0)
         x2_y2_pdos_column   = np.empty(0)
         for pdos_element in root.findall(path_ions):
             pdos_values = list(map(float, pdos_element.text.split()))
@@ -258,8 +258,8 @@ def extract_pdos(directory_path):
             d_yz_pdos_column = np.append(d_yz_pdos_column, pdos_values[6])
             # Columns of d_z2-PDoS
             d_z2_pdos_column = np.append(d_z2_pdos_column, pdos_values[7])
-            # Columns of d_xz-PDoS
-            d_xz_pdos_column = np.append(d_xz_pdos_column, pdos_values[8])
+            # Columns of d_XXZZ-PDoS
+            d_XXZZ_pdos_column = np.append(d_XXZZ_pdos_column, pdos_values[8])
             # Columns of x2-y2-PDoS
             x2_y2_pdos_column = np.append(x2_y2_pdos_column, pdos_values[9])
         if ions_index == 1:
@@ -271,7 +271,7 @@ def extract_pdos(directory_path):
             d_xy_pdos_matrix = d_xy_pdos_column.reshape(-1, 1)
             d_yz_pdos_matrix = d_yz_pdos_column.reshape(-1, 1)
             d_z2_pdos_matrix = d_z2_pdos_column.reshape(-1, 1)
-            d_xz_pdos_matrix = d_xz_pdos_column.reshape(-1, 1)
+            d_XXZZ_pdos_matrix = d_XXZZ_pdos_column.reshape(-1, 1)
             x2_y2_pdos_matrix = x2_y2_pdos_column.reshape(-1, 1)
         else:
             energy_pdos_matrix = np.hstack((energy_pdos_matrix, energy_pdos_column.reshape(-1, 1)))
@@ -282,7 +282,7 @@ def extract_pdos(directory_path):
             d_xy_pdos_matrix = np.hstack((d_xy_pdos_matrix, d_xy_pdos_column.reshape(-1, 1)))
             d_yz_pdos_matrix = np.hstack((d_yz_pdos_matrix, d_yz_pdos_column.reshape(-1, 1)))
             d_z2_pdos_matrix = np.hstack((d_z2_pdos_matrix, d_z2_pdos_column.reshape(-1, 1)))
-            d_xz_pdos_matrix = np.hstack((d_xz_pdos_matrix, d_xz_pdos_column.reshape(-1, 1)))
+            d_XXZZ_pdos_matrix = np.hstack((d_XXZZ_pdos_matrix, d_XXZZ_pdos_column.reshape(-1, 1)))
             x2_y2_pdos_matrix = np.hstack((x2_y2_pdos_matrix, x2_y2_pdos_column.reshape(-1, 1)))
     energy_pdos_sum = energy_pdos_matrix[:,0]
     s_pdos_sum = np.sum(s_pdos_matrix, axis=1)
@@ -292,13 +292,13 @@ def extract_pdos(directory_path):
     d_xy_pdos_sum = np.sum(d_xy_pdos_matrix, axis=1)
     d_yz_pdos_sum = np.sum(d_yz_pdos_matrix, axis=1)
     d_z2_pdos_sum = np.sum(d_z2_pdos_matrix, axis=1)
-    d_xz_pdos_sum = np.sum(d_xz_pdos_matrix, axis=1)
+    d_XXZZ_pdos_sum = np.sum(d_XXZZ_pdos_matrix, axis=1)
     x2_y2_pdos_sum = np.sum(x2_y2_pdos_matrix, axis=1)
     energy_pdos_shift = energy_pdos_sum - shift
     return (efermi, ions_number, kpoints_number, eigen_matrix, occu_matrix,             # 0 ~ 4
             energy_dos_shift, total_dos_list, integrated_dos_list,                      # 5 ~ 7
             energy_pdos_shift, s_pdos_sum, p_y_pdos_sum, p_z_pdos_sum, p_x_pdos_sum,    # 8 ~ 12
-            d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_xz_pdos_sum,                 # 13 ~ 16
+            d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_XXZZ_pdos_sum,                 # 13 ~ 16
             x2_y2_pdos_sum)
 
 # Extract PDoS for elements
@@ -347,7 +347,7 @@ def extract_element_pdos(directory_path, element):
     shift = extract_fermi(directory_path)
     energy_dos_shift = extract_energy_shift(directory_path)
 
-    ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_xz-PDoS, x2-y2-PDoS
+    ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_XXZZ-PDoS, x2-y2-PDoS
     # Matrices initialization
     for ions_index in range(index_start, index_end + 1):
         path_ions = f".//set[@comment='ion {ions_index}']/set[@comment='spin 1']/r"
@@ -360,7 +360,7 @@ def extract_element_pdos(directory_path, element):
         d_xy_pdos_column        = np.array([])
         d_yz_pdos_column        = np.array([])
         d_z2_pdos_column        = np.array([])
-        d_xz_pdos_column        = np.array([])
+        d_XXZZ_pdos_column        = np.array([])
         x2_y2_pdos_column       = np.array([])
         for pdos_element in root.findall(path_ions):
             pdos_values = list(map(float, pdos_element.text.split()))
@@ -380,8 +380,8 @@ def extract_element_pdos(directory_path, element):
             d_yz_pdos_column = np.append(d_yz_pdos_column, pdos_values[6])
             # Columns of d_z2-PDoS
             d_z2_pdos_column = np.append(d_z2_pdos_column, pdos_values[7])
-            # Columns of d_xz-PDoS
-            d_xz_pdos_column = np.append(d_xz_pdos_column, pdos_values[8])
+            # Columns of d_XXZZ-PDoS
+            d_XXZZ_pdos_column = np.append(d_XXZZ_pdos_column, pdos_values[8])
             # Columns of x2-y2-PDoS
             x2_y2_pdos_column = np.append(x2_y2_pdos_column, pdos_values[9])
         if ions_index == index_start:
@@ -393,7 +393,7 @@ def extract_element_pdos(directory_path, element):
             d_xy_pdos_matrix = d_xy_pdos_column.reshape(-1, 1)
             d_yz_pdos_matrix = d_yz_pdos_column.reshape(-1, 1)
             d_z2_pdos_matrix = d_z2_pdos_column.reshape(-1, 1)
-            d_xz_pdos_matrix = d_xz_pdos_column.reshape(-1, 1)
+            d_XXZZ_pdos_matrix = d_XXZZ_pdos_column.reshape(-1, 1)
             x2_y2_pdos_matrix = x2_y2_pdos_column.reshape(-1, 1)
         else:
             energy_pdos_matrix = np.hstack((energy_pdos_matrix, energy_pdos_column.reshape(-1, 1)))
@@ -404,7 +404,7 @@ def extract_element_pdos(directory_path, element):
             d_xy_pdos_matrix = np.hstack((d_xy_pdos_matrix, d_xy_pdos_column.reshape(-1, 1)))
             d_yz_pdos_matrix = np.hstack((d_yz_pdos_matrix, d_yz_pdos_column.reshape(-1, 1)))
             d_z2_pdos_matrix = np.hstack((d_z2_pdos_matrix, d_z2_pdos_column.reshape(-1, 1)))
-            d_xz_pdos_matrix = np.hstack((d_xz_pdos_matrix, d_xz_pdos_column.reshape(-1, 1)))
+            d_XXZZ_pdos_matrix = np.hstack((d_XXZZ_pdos_matrix, d_XXZZ_pdos_column.reshape(-1, 1)))
             x2_y2_pdos_matrix = np.hstack((x2_y2_pdos_matrix, x2_y2_pdos_column.reshape(-1, 1)))
     energy_pdos_sum = energy_pdos_matrix[:,0]
     s_pdos_sum = np.sum(s_pdos_matrix, axis=1)
@@ -414,16 +414,16 @@ def extract_element_pdos(directory_path, element):
     d_xy_pdos_sum = np.sum(d_xy_pdos_matrix, axis=1)
     d_yz_pdos_sum = np.sum(d_yz_pdos_matrix, axis=1)
     d_z2_pdos_sum = np.sum(d_z2_pdos_matrix, axis=1)
-    d_xz_pdos_sum = np.sum(d_xz_pdos_matrix, axis=1)
+    d_XXZZ_pdos_sum = np.sum(d_XXZZ_pdos_matrix, axis=1)
     x2_y2_pdos_sum = np.sum(x2_y2_pdos_matrix, axis=1)
-    total_pdos_list = s_pdos_sum + p_y_pdos_sum + p_z_pdos_sum + p_x_pdos_sum + d_xy_pdos_sum + d_yz_pdos_sum + d_z2_pdos_sum + d_xz_pdos_sum + x2_y2_pdos_sum
+    total_pdos_list = s_pdos_sum + p_y_pdos_sum + p_z_pdos_sum + p_x_pdos_sum + d_xy_pdos_sum + d_yz_pdos_sum + d_z2_pdos_sum + d_XXZZ_pdos_sum + x2_y2_pdos_sum
     integrated_dos_list = np.trapz(total_pdos_list, x = energy_dos_shift)
     energy_pdos_shift = energy_pdos_sum - shift
     return (efermi, ions_number, kpoints_number, eigen_matrix, occu_matrix,             # 0 ~ 4
             energy_dos_shift,                                                           # 5
             total_pdos_list, integrated_dos_list,                                       # 6 ~ 7
             energy_pdos_shift, s_pdos_sum, p_y_pdos_sum, p_z_pdos_sum, p_x_pdos_sum,    # 8 ~ 12
-            d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_xz_pdos_sum,                 # 13 ~ 16
+            d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_XXZZ_pdos_sum,                 # 13 ~ 16
             x2_y2_pdos_sum)
 
 # PDoS for customized range
@@ -471,7 +471,7 @@ def extract_segment_pdos(directory_path, start, end):
     shift = extract_fermi(directory_path)
     energy_dos_shift = extract_energy_shift(directory_path)
 
-    ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_xz-PDoS, x2-y2-PDoS
+    ## Extract energy, s-PDoS, p_y-PDoS, p_z-PDoS, p_x-PDoS, d_xy-PDoS, d_yz-PDoS, d_z2-PDoS, d_XXZZ-PDoS, x2-y2-PDoS
     # Matrices initialization
     for ions_index in range(index_start, index_end + 1):
         path_ions = f".//set[@comment='ion {ions_index}']/set[@comment='spin 1']/r"
@@ -484,7 +484,7 @@ def extract_segment_pdos(directory_path, start, end):
         d_xy_pdos_column    = np.empty(0)
         d_yz_pdos_column    = np.empty(0)
         d_z2_pdos_column    = np.empty(0)
-        d_xz_pdos_column    = np.empty(0)
+        d_XXZZ_pdos_column    = np.empty(0)
         x2_y2_pdos_column   = np.empty(0)
         for pdos_element in root.findall(path_ions):
             pdos_values = list(map(float, pdos_element.text.split()))
@@ -504,8 +504,8 @@ def extract_segment_pdos(directory_path, start, end):
             d_yz_pdos_column = np.append(d_yz_pdos_column, pdos_values[6])
             # Columns of d_z2-PDoS
             d_z2_pdos_column = np.append(d_z2_pdos_column, pdos_values[7])
-            # Columns of d_xz-PDoS
-            d_xz_pdos_column = np.append(d_xz_pdos_column, pdos_values[8])
+            # Columns of d_XXZZ-PDoS
+            d_XXZZ_pdos_column = np.append(d_XXZZ_pdos_column, pdos_values[8])
             # Columns of x2-y2-PDoS
             x2_y2_pdos_column = np.append(x2_y2_pdos_column, pdos_values[9])
         if ions_index == index_start:
@@ -517,7 +517,7 @@ def extract_segment_pdos(directory_path, start, end):
             d_xy_pdos_matrix = d_xy_pdos_column.reshape(-1, 1)
             d_yz_pdos_matrix = d_yz_pdos_column.reshape(-1, 1)
             d_z2_pdos_matrix = d_z2_pdos_column.reshape(-1, 1)
-            d_xz_pdos_matrix = d_xz_pdos_column.reshape(-1, 1)
+            d_XXZZ_pdos_matrix = d_XXZZ_pdos_column.reshape(-1, 1)
             x2_y2_pdos_matrix = x2_y2_pdos_column.reshape(-1, 1)
         else:
             energy_pdos_matrix = np.hstack((energy_pdos_matrix, energy_pdos_column.reshape(-1, 1)))
@@ -528,7 +528,7 @@ def extract_segment_pdos(directory_path, start, end):
             d_xy_pdos_matrix = np.hstack((d_xy_pdos_matrix, d_xy_pdos_column.reshape(-1, 1)))
             d_yz_pdos_matrix = np.hstack((d_yz_pdos_matrix, d_yz_pdos_column.reshape(-1, 1)))
             d_z2_pdos_matrix = np.hstack((d_z2_pdos_matrix, d_z2_pdos_column.reshape(-1, 1)))
-            d_xz_pdos_matrix = np.hstack((d_xz_pdos_matrix, d_xz_pdos_column.reshape(-1, 1)))
+            d_XXZZ_pdos_matrix = np.hstack((d_XXZZ_pdos_matrix, d_XXZZ_pdos_column.reshape(-1, 1)))
             x2_y2_pdos_matrix = np.hstack((x2_y2_pdos_matrix, x2_y2_pdos_column.reshape(-1, 1)))
     energy_pdos_sum = energy_pdos_matrix[:,0]
     s_pdos_sum = np.sum(s_pdos_matrix, axis=1)
@@ -538,14 +538,14 @@ def extract_segment_pdos(directory_path, start, end):
     d_xy_pdos_sum = np.sum(d_xy_pdos_matrix, axis=1)
     d_yz_pdos_sum = np.sum(d_yz_pdos_matrix, axis=1)
     d_z2_pdos_sum = np.sum(d_z2_pdos_matrix, axis=1)
-    d_xz_pdos_sum = np.sum(d_xz_pdos_matrix, axis=1)
+    d_XXZZ_pdos_sum = np.sum(d_XXZZ_pdos_matrix, axis=1)
     x2_y2_pdos_sum = np.sum(x2_y2_pdos_matrix, axis=1)
     energy_pdos_shift = energy_pdos_sum - shift
-    total_pdos_list = s_pdos_sum + p_y_pdos_sum + p_z_pdos_sum + p_x_pdos_sum + d_xy_pdos_sum + d_yz_pdos_sum + d_z2_pdos_sum + d_xz_pdos_sum + x2_y2_pdos_sum
+    total_pdos_list = s_pdos_sum + p_y_pdos_sum + p_z_pdos_sum + p_x_pdos_sum + d_xy_pdos_sum + d_yz_pdos_sum + d_z2_pdos_sum + d_XXZZ_pdos_sum + x2_y2_pdos_sum
     integrated_dos_list = np.trapz(total_pdos_list, x=energy_dos_shift)
 
     return (efermi, ions_number, kpoints_number, eigen_matrix, occu_matrix,             # 0 ~ 4
             energy_dos_shift, total_pdos_list, integrated_dos_list,                     # 5 ~ 7
             energy_pdos_shift, s_pdos_sum, p_y_pdos_sum, p_z_pdos_sum, p_x_pdos_sum,    # 8 ~ 12
-            d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_xz_pdos_sum,                 # 13 ~ 16
+            d_xy_pdos_sum, d_yz_pdos_sum, d_z2_pdos_sum, d_XXZZ_pdos_sum,                 # 13 ~ 16
             x2_y2_pdos_sum)
