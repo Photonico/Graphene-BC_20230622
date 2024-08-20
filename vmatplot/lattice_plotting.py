@@ -87,7 +87,7 @@ def plot_free_energy_lattice_single(suptitle, lattice_list, lattice_range = (Non
             plt.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
         # axis
         plt.xlabel(r"Lattice constant (Å)"); plt.ylabel(r"Energy (eV)")
-        plt.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+        plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
     plt.legend(loc=fig_setting[4])
     plt.tight_layout()
@@ -154,11 +154,10 @@ def plot_free_energy_lattice_double(suptitle, lattice_list_1, lattice_list_2, su
         ax.set_xlabel(r"Energy (eV)")
         if supplot_index == 0:
             ax.set_ylabel(r"Lattice constant (Å)")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # Legend
         ax.legend(loc="upper right")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
         # Subplots label
         orderlab_shift = 0.05
@@ -238,11 +237,10 @@ def plot_free_energy_lattice_triple(suptitle, lattice_list_1, lattice_list_2, la
         ax.set_xlabel(r"Energy (eV)")
         if supplot_index == 0:
             ax.set_ylabel(r"Lattice constant (Å)")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
         # Legend
         ax.legend(loc="upper right")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # Subplots label
         orderlab_shift = 0.05
@@ -328,11 +326,10 @@ def plot_free_energy_lattice_quadruple(suptitle, lattice_list_1, lattice_list_2,
             ax.set_ylabel(r"Lattice constant (Å)")
         if supplot_index in [2,3]:
             ax.set_xlabel(r"Energy (eV)")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
         # Legend
         ax.legend(loc="upper right")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # Subplots label
         orderlab_shift = 0.05

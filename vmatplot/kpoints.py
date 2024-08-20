@@ -237,7 +237,7 @@ def plot_kpoints_free_energy_data(matter, source_data=None, direction="Total", k
     plt.xlabel(f"{kpoints_type}"); plt.ylabel(r"Energy (eV)")
 
     # Axis style
-    plt.ticklabel_format(style="sci", axis="y", scilimits=(-2,2))
+    plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3))
 
     # Boundary
     kpoints_start = kpoints_boundary[0]

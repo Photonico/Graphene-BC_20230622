@@ -550,7 +550,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None, comp_alias
                     ax.plot(wavelength_imag, density_wl_imag, color=color_sampling(data[2])[2], ls=data[3], alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
         # Legend
         ax.legend(loc="best")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
     plt.tight_layout()
 

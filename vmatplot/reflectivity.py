@@ -109,7 +109,7 @@ def plot_reflectivity_XXZZ_row(title, matters_list=None, unit=None, inplane_boun
             ax.set_xlabel(r"Photon energy (eV)")
 
         ax.legend(loc="best")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
         # # Subplots label
         # orderlab_shift = 0.05
@@ -206,7 +206,7 @@ def plot_reflectivity_XXZZ_col(title, matters_list=None, unit=None, inplane_boun
                 ax.set_xlabel(r"Photon energy (eV)")
         ax.set_ylabel(r"Reflectivity")
         ax.legend(loc="best")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
         # # Subplots label
         # orderlab_shift = 0.05
@@ -354,7 +354,7 @@ def plot_reflectivity_XXZZ_zoom(title, matters_list=None, unit=None,
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
         ax.legend(loc="best")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
         # # Subplots label
         # orderlab_shift = 0.05
