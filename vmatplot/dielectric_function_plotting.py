@@ -325,7 +325,7 @@ def plot_dielectric_function_XXZZ_block(title, dielectric_list=None, unit=None, 
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
         ax.set_title(subtitles[supplot_index])
 
-        # Dielectric function = 0
+        # Dielectric function
         wavelength_starts = []; wavelength_ends = []; energy_starts = []; energy_ends=[]
         for index, data in enumerate(dataset):
             # Labels

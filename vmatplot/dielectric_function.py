@@ -4,9 +4,9 @@
 ### Necessary packages invoking
 
 import xml.etree.ElementTree as ET
+import os
 import numpy as np
 import h5py
-import os
 
 from vmatplot.commons import extract_fermi, identify_algorithm
 
@@ -14,6 +14,7 @@ from vmatplot.commons import extract_fermi, identify_algorithm
 hbar = 4.135667662e-15
 c_vacuum = 2.99792458e8
 
+### Data extracting
 def extract_dielectric_vasprun(directory):
     # Construct the full path to the vasprun.xml file
     vasprun_path = os.path.join(directory, "vasprun.xml")
@@ -356,7 +357,37 @@ def extract_dielectric_function(directory):
     else:
         return extract_dielectric_vasprun(directory)
 
-def plot_dielectric_function(suptitle, matters_list=None, components=None, comp_aliases=None,
-                             unit=None, layout=None, energy_boundary=(None, None)):
-
-    return 0
+### Visualization
+def dielectric_systems_list(systems):
+    # data = dielectric_systems_list(systems)
+    # data[0] = current curve label
+    # data[1] = dielectric function data
+    # data[2] = color family
+    # data[3] = linestyle
+    # data[4] = alpha
+    # data[5] = linewidth
+    data = []
+    for values_dir in systems:
+        if len(values_dir) == 2:
+            label, directory = values_dir
+            color = "blue"
+            linestyle = "solid"
+            alpha = 1.0
+            linewidth = None
+        elif len(values_dir) == 3:
+            label, directory, color = values_dir
+            linestyle = "solid"
+            alpha = 1.0
+            linewidth = None
+        elif len(values_dir) == 4:
+            label, directory, color, linestyle = values_dir
+            alpha = 1.0
+            linewidth = None
+        elif len(values_dir) == 5:
+            label, directory, color, linestyle, alpha = values_dir
+            linewidth = None
+        else:
+            label, directory, color, linestyle, alpha, linewidth = values_dir
+        dielectric_data = extract_dielectric_function(directory)
+        data.append([label,dielectric_data,color,linestyle,alpha,linewidth])
+    return data
