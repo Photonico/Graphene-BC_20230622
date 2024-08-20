@@ -107,7 +107,7 @@ def plot_reflectivity_XZ_row(title, matters_list=None, unit=None, inplane_bounda
         else:
             ax.set_xlabel(r"Photon energy (eV)")
 
-        ax.legend(loc="upper right")
+        ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # # Subplots label
@@ -204,7 +204,7 @@ def plot_reflectivity_XZ_col(title, matters_list=None, unit=None, inplane_bounda
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
         ax.set_ylabel(r"Reflectivity")
-        ax.legend(loc="upper right")
+        ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # # Subplots label
@@ -352,7 +352,7 @@ def plot_reflectivity_XZ_zoom(title, matters_list=None, unit=None,
                 ax.set_xlabel(r"Photon wavelength (nm)")
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
-        ax.legend(loc="upper right")
+        ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # # Subplots label

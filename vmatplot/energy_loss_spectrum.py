@@ -103,7 +103,7 @@ def plot_energy_loss_XZ_row(title, matters_list=None, unit=None, inplane_boundar
         else:
             ax.set_xlabel(r"Photon energy (eV)")
 
-        ax.legend(loc="upper right")
+        ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
 
         # # Subplots label
@@ -200,7 +200,7 @@ def plot_energy_loss_XZ_col(title, matters_list=None, unit=None, inplane_boundar
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
         ax.set_ylabel(r"Energy loss spectrum")
-        ax.legend(loc="upper right")
+        ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
 
         # # Subplots label
@@ -347,7 +347,7 @@ def plot_energy_loss_XZ_zoom(title, matters_list=None, unit=None,
                 ax.set_xlabel(r"Photon wavelength (nm)")
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
-        ax.legend(loc="upper right")
+        ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # Subplots label

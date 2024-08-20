@@ -117,7 +117,7 @@ def plot_absorption_XZ_row(title, absorption_list=None, unit=None, abs_type=None
         else:
             ax.set_xlabel(r"Photon energy (eV)")
 
-        ax.legend(loc="upper right")
+        ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
 
         # # Subplots label
@@ -226,7 +226,7 @@ def plot_absorption_XZ_col(title, absorption_list=None, unit=None, abs_type=None
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
         ax.set_ylabel(r"Absorption coefficient")
-        ax.legend(loc="upper right")
+        ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
 
         # # Subplots label
@@ -251,6 +251,7 @@ def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
                 "\t x-axis unit, \n" +\
+                "\t formula type, \n" +\
                 "\t Inplane photon wavelenght range 1 (Optional), \n" +\
                 "\t Outplane photon wavelenght range 1 (Optional). \n" +\
                 "\t Inplane photon wavelenght range 2 (Optional), \n" +\
@@ -388,7 +389,7 @@ def plot_absorption_XZ_zoom(title, matters_list=None, unit=None, abs_type=None,
                 ax.set_xlabel(r"Photon wavelength (nm)")
             else:
                 ax.set_xlabel(r"Photon energy (eV)")
-        ax.legend(loc="upper right")
+        ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # # Subplots label
