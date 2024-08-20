@@ -105,7 +105,7 @@ def plot_refractive_XXZZ_row(title, refractive_list=None, unit=None, inplane_bou
             ax.set_xlabel(r"Photon energy (eV)")
 
         ax.legend(loc="best")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # # Subplots label
         # orderlab_shift = 0.05
@@ -202,7 +202,7 @@ def plot_refractive_XXZZ_col(title, refractive_list=None, unit=None, inplane_bou
                 ax.set_xlabel(r"Photon energy (eV)")
         ax.set_ylabel(r"Refractive index")
         ax.legend(loc="best")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(0,0), useOffset=False, useMathText=True)
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-2,2), useOffset=False, useMathText=True)
 
         # # Subplots label
         # orderlab_shift = 0.05
