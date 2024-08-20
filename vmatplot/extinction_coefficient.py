@@ -17,8 +17,9 @@ def create_matters_extinction(*args):
     # data[0] = current curve label
     # data[1] = dielectric data
     # data[2] = color family
-    # data[3] = alpha
-    # data[4] = linewidth
+    # data[3] = linestyle
+    # data[4] = alpha
+    # data[5] = linewidth
     return create_matters_dielectric_function(*args)
 
 def plot_extinction_XZ_row(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
@@ -75,10 +76,10 @@ def plot_extinction_XZ_row(title, matters_list=None, unit=None, inplane_boundary
 
                 if unit in ["nm", "NM"]:
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_variables_full,inplane_start,inplane_end)
-                    ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
                 else:
                     inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_variables_full,inplane_start,inplane_end)
-                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
             # Outplane
             elif supplot_index == 1:
@@ -90,10 +91,10 @@ def plot_extinction_XZ_row(title, matters_list=None, unit=None, inplane_boundary
 
                 if unit in ["nm", "NM"]:
                     outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_variables_full,outplane_start,outplane_end)
-                    ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
                 else:
                     outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_variables_full,outplane_start,outplane_end)
-                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
         # axis label
         if supplot_index == 0:
@@ -173,10 +174,10 @@ def plot_extinction_XZ_col(title, matters_list=None, unit=None, inplane_boundary
 
                 if unit in ["nm", "NM"]:
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_variables_full,inplane_start,inplane_end)
-                    ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
                 else:
                     inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_variables_full,inplane_start,inplane_end)
-                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
             # Outplane
             elif supplot_index == 1:
@@ -188,10 +189,10 @@ def plot_extinction_XZ_col(title, matters_list=None, unit=None, inplane_boundary
 
                 if unit in ["nm", "NM"]:
                     outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_variables_full,outplane_start,outplane_end)
-                    ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
                 else:
                     outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_variables_full,outplane_start,outplane_end)
-                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
         # axis label
         if supplot_index == 1:
@@ -288,10 +289,10 @@ def plot_extinction_XZ_zoom(title, matters_list=None, unit=None,
 
                 if unit in ["nm", "NM"]:
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_variables_full,inplane_start_1,inplane_end_1)
-                    ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
                 else:
                     inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_variables_full,inplane_start_1,inplane_end_1)
-                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
             # Outplane
             elif supplot_index == 1:
@@ -303,10 +304,10 @@ def plot_extinction_XZ_zoom(title, matters_list=None, unit=None,
 
                 if unit in ["nm", "NM"]:
                     outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_variables_full,outplane_start_1,outplane_end_1)
-                    ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
                 else:
                     outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_variables_full,outplane_start_1,outplane_end_1)
-                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
             # Inplane (zoomed)
             elif supplot_index == 2:
@@ -318,10 +319,10 @@ def plot_extinction_XZ_zoom(title, matters_list=None, unit=None,
 
                 if unit in ["nm", "NM"]:
                     inplane_wavelength, inplane_absorption = extract_part(inplane_wavelength_full,inplane_variables_full,inplane_start_2,inplane_end_2)
-                    ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(inplane_wavelength,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
                 else:
                     inplane_energy, inplane_absorption = extract_part(inplane_energy_full,inplane_variables_full,inplane_start_2,inplane_end_2)
-                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
             # Outplane (zoomed)
             elif supplot_index == 3:
@@ -333,10 +334,10 @@ def plot_extinction_XZ_zoom(title, matters_list=None, unit=None,
 
                 if unit in ["nm", "NM"]:
                     outplane_wavelength, outplane_absorption = extract_part(outplane_wavelength_full,outplane_variables_full,outplane_start_2,outplane_end_2)
-                    ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(outplane_wavelength,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
                 else:
                     outplane_energy, outplane_absorption = extract_part(outplane_energy_full,outplane_variables_full,outplane_start_2,outplane_end_2)
-                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], alpha=data[3], lw=data[4], label=f"{current_label}")
+                    ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
         # axis label
         if supplot_index in [0,2]:
