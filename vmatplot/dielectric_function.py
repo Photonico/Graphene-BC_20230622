@@ -433,37 +433,67 @@ def identify_components(component_key):
     }
     return components.get(component_key)
 
-def plot_dielectric_function(suptitle, systems=None, components=None, comp_aliases=None,
-                            layout=None, unit=None, boundary=(None, None), figure_size=(None,None)):
+def plot_dielectric_function_zoomed(suptitle, systems, components,
+                                    layout, combine_complex,
+                                    unit, boundaries, boundary_zoomed):
+    return 0
+
+def plot_dielectric_function(suptitle, systems=None, components=None,
+                             layout="horizontal", combine_complex=False,
+                             unit=None, boundary=(None,None), figure_size=(None,None)):
     ## Help information
     help_info = "Usage: plot_dielectric_function" + \
+                "\t Demonstrate dielectric function by each component \n" +\
                 "The independent value includes \n" +\
                 "\t the suptitle, \n" +\
                 "\t dielectric function data list, \n" +\
                 "\t components:('xx'<default>, 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'), \n" +\
                 "\t the aliases of selected components, \n" +\
                 "\t subfigures layout (horizontal<default>, vertical), \n" +\
+                "\t whether to combine the real and imaginary parts (False<default>, True), \n" +\
                 "\t x-axis unit (eV<default>, nm), \n" +\
                 "\t a-axis range <optional>, \n" +\
                 "\t figure size <optional>. \n"
     if suptitle in ["help", "Help"]:
         print(help_info)
 
-    ## figure settings
-    if layout is None or layout.lower() not in ["hor", "horizontal"]:
-        fig_setting = canvas_setting(16, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
-        params = fig_setting[2]
-        plt.rcParams.update(params)
-        fig, axs = plt.subplots(len(components), 2, figsize=fig_setting[0], dpi=fig_setting[1])
-        axes_element = [axs[i, j] for i in range(len(components)) for j in range(2)] if len(components) != 1 else [axs[0], axs[1]]
-        layout_label = "vertical"
+    ## combine flag
+    if isinstance(combine_complex, bool):
+        combine_flag = combine_complex
+    elif combine_complex.lower() not in ["true", "yes", "t", "y", "combine"]:
+        combine_flag = False
     else:
-        fig_setting = canvas_setting(8*len(components), 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
-        params = fig_setting[2]
-        plt.rcParams.update(params)
-        fig, axs = plt.subplots(2, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
-        axes_element = [axs[i, j] for j in range(len(components)) for i in range(2)] if len(components) != 1 else [axs[0], axs[1]]
-        layout_label = "horizontal"
+        combine_flag = True
+
+    ## components aliases
+    component_keys, comp_aliases = [], []
+    for comp in components:
+        if isinstance(comp, dict):
+            for key, value in comp.items():
+                component_keys.append(f"{key}-component")
+                comp_aliases.append(value)
+        else:
+            component_keys.append(f"{comp}-component")
+            comp_aliases.append(f"{comp}-component")
+
+    ## figure settings
+    if combine_flag is False:
+        if layout.lower() not in ["vertical", "ver"]:
+            layout_label = "horizontal"
+            fig_setting = canvas_setting(8*len(components), 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(2, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
+            axes_element = [axs[i, j] for j in range(len(components)) for i in range(2)] if len(components) != 1 else [axs[0], axs[1]]
+        else:
+            layout_label = "vertical"
+            fig_setting = canvas_setting(16, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(len(components), 2, figsize=fig_setting[0], dpi=fig_setting[1])
+            axes_element = [axs[i, j] for i in range(len(components)) for j in range(2)] if len(components) != 1 else [axs[0], axs[1]]
+    else:
+        return plot_dielectric_function_zoomed(suptitle, systems, components, layout, combine_complex, unit, boundary, figure_size)
 
     ## identify x-axis unit
     var_label = "wavelength" if unit and unit.lower() == "nm" else "energy"
@@ -472,9 +502,6 @@ def plot_dielectric_function(suptitle, systems=None, components=None, comp_alias
     ## systems information
     dataset = dielectric_systems_list(systems)
     component_keys = [comp.lower() + "-component" for comp in components] if not comp_aliases else comp_aliases
-    # subtitle_keys = [key for key in component_keys for _ in range(2)]
-    # subtitles = [f"{item} real part" if i % 2 == 0 else f"{item} imaginary part" for i, item in enumerate(subtitle_keys)]
-    # print(component_keys) # ['xx-component', 'yy-component', 'zz-component', ...]
 
     ## suptitle
     fig.suptitle(f"Dielectric function {suptitle}\n", fontsize=fig_setting[3][0])
@@ -490,10 +517,12 @@ def plot_dielectric_function(suptitle, systems=None, components=None, comp_alias
         # ax.set_title(subtitles[supplot_index])
 
         # current component index and label
-        component_index = supplot_index//2
-        current_component = components[component_index].lower()
-        data_key = f"density_{current_component}_real" if supplot_index%2 == 0 else f"density_{current_component}_imag"
-        # print(data_key) # density_xx_real, density_xx_imag, density_yy_real, density_yy_imag, density_zz_real, density_zz_imag
+        component_index = supplot_index // 2
+        if isinstance(components[component_index], dict):
+            current_component = list(components[component_index].keys())[0]
+        else:
+            current_component = components[component_index].lower()
+        data_key = f"density_{current_component}_real" if supplot_index % 2 == 0 else f"density_{current_component}_imag"
 
         # subtitles and axis label (self-assertive)
         if layout_label == "vertical" and supplot_index in range(2):
@@ -553,12 +582,3 @@ def plot_dielectric_function(suptitle, systems=None, components=None, comp_alias
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
     plt.tight_layout()
-
-# def plot_dielectric_function_component_zoomed
-
-# def plot_dielectric_function_component_ranged
-
-# def plot_dielectric_function_component(*args):
-#     if len(*args) <= 5:
-#         return plot_dielectric_function_component_ranged(*args)
-#     else: return plot_dielectric_function_component_zoomed(*args)
