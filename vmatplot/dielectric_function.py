@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import h5py
 
-from vmatplot.commons import extract_fermi, check_range_type
+from vmatplot.commons import extract_fermi, process_boundary, process_boundaries_scaling, extract_part
 from vmatplot.output import canvas_setting, color_sampling
-from vmatplot.algorithms import process_boundary, extract_part, energy_to_wavelength
+from vmatplot.algorithms import energy_to_wavelength
 
 ### Physical constants
 hbar = 4.135667662e-15
@@ -91,42 +91,6 @@ def extract_dielectric_vasprun(directory):
         # Convert lists to numpy arrays
         for col in columns:
             data[prefix + col] = np.array(data[prefix + col])
-
-    # ## Extract imaginary part of Density-Density
-    # density_imag_path = f".//{data_label}[@comment='density-density']/imag/array/set"
-    # density_imag_elements = root.findall(density_imag_path)
-    # density_imag_columns = ["e_energy_imag_col",
-    #                         "e_xx_imag_col", "e_yy_imag_col", "e_zz_imag_col",
-    #                         "e_xy_imag_col", "e_yz_imag_col", "e_zx_imag_col"]
-    # for _, element in enumerate(density_imag_elements[0:2]):
-    #     for column in density_imag_columns:
-    #         data[column] = []
-    #     # Append data to lists
-    #     for index in element.findall("r"):
-    #         values = list(map(float, index.text.split()))
-    #         for value_index, column in enumerate(density_imag_columns):
-    #             data[column].append(values[value_index])
-    #     # Convert lists to numpy arrays
-    #     for column in density_imag_columns:
-    #         data[column]=np.array(data[column])
-
-    # ## Extract real part of Density-Density
-    # density_real_path = f".//{data_label}[@comment='density-density']/real/array/set"
-    # density_real_elements = root.findall(density_real_path)
-    # density_real_columns = ["e_energy_real_col",
-    #                         "e_xx_real_col", "e_yy_real_col", "e_zz_real_col",
-    #                         "e_xy_real_col", "e_yz_real_col", "e_zx_real_col"]
-    # for _, element in enumerate(density_real_elements[0:2]):
-    #     for column in density_real_columns:
-    #         data[column] = []
-    #     # Append data to lists
-    #     for index in element.findall("r"):
-    #         values = list(map(float, index.text.split()))
-    #         for value_index, column in enumerate(density_real_columns):
-    #             data[column].append(values[value_index])
-    #     # Convert lists to numpy arrays
-    #     for column in density_real_columns:
-    #         data[column]=np.array(data[column])
 
     ## Extract imaginary part of Current-Current
     current_imag_path = f".//{data_label}[@comment='current-current']/imag/array/set"
@@ -451,33 +415,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
         print(help_info)
 
     ## scale flag and databoundaries
-    boundary_type = check_range_type(boundary)
-    if boundary_type == "Simple end":
-        scale_flag = False
-        source_range = (None, boundary)
-        source_start, source_end = process_boundary(source_range)
-    elif boundary_type == "Simple range":
-        scale_flag = False
-        source_range = boundary[0]
-        source_start, source_end = process_boundary(source_range)
-    elif boundary_type == "Double ends":
-        scale_flag = True
-        source_range = (None, boundary[0])
-        scaled_range = (None, boundary[1])
-        source_start, source_end = process_boundary(source_range)
-        scaled_start, scaled_end = process_boundary(scaled_range)
-    elif boundary_type == "Simple range with a rate":
-        scale_flag = True
-        source_range = boundary[0]
-        scaled_range = tuple(bounds * boundary[1] for bounds in boundary[0])
-        source_start, source_end = process_boundary(source_range)
-        scaled_start, scaled_end = process_boundary(scaled_range)
-    elif boundary_type == "Double ranges":
-        scale_flag = True
-        source_range = boundary[0]
-        scaled_range = boundary[1]
-        source_start, source_end = process_boundary(source_range)
-        scaled_start, scaled_end = process_boundary(scaled_range)
+    scale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_scaling(boundary)
 
     ## components aliases
     component_keys, comp_aliases = [], []
@@ -499,7 +437,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             plt.rcParams.update(params)
             fig, axs = plt.subplots(2, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for j in range(len(components)) for i in range(2)] if len(components) != 1 else [axs[0], axs[1]]
-   
+
         else:
             layout_flag = "vertical"
             fig_setting = canvas_setting(16, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
@@ -536,7 +474,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
 
     ## data plotting
     # scale flag is opened
-    if scale_flag == True:
+    if scale_flag is True:
         for supplot_index in range(2*len(components)):
             ax = axes_element[supplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
@@ -559,7 +497,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             else:
                 x_start = scaled_start
                 x_end = scaled_end
-            
+
             # data plotting: real part and imaginary part for each system
             for _, data in enumerate(dataset):
                 energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], x_start, x_end)
@@ -576,7 +514,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
                     ax.plot(wavelength_imag, density_wl_imag, color=color_sampling(data[2])[1], ls="dashed", alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
                     wavelength_starts.append(min(wavelength_real))
                     wavelength_ends.append(np.max(np.array(wavelength_real)[np.isfinite(wavelength_real)]))
-            
+
             # plasmon resonance line and scale rate
             if var_label == "energy":
                 plasmon_start = min(energy_starts)
@@ -653,7 +591,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
                 plasmon_end=max(wavelength_ends)
                 ax.plot([plasmon_start, plasmon_end],[0,0],color=color_sampling("grey")[1],linestyle="dashed")
 
-            # subtitles and axis label (self-assertive): subtitles 
+            # subtitles and axis label (self-assertive): subtitles
             if layout_flag == "vertical":
                 ax.set_ylabel(f"Dielectric function for {component_keys[component_index]}")
                 if layout_flag == "vertical" and supplot_index == len(components)-1:
@@ -662,7 +600,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
                 ax.set_title(component_keys[component_index])
                 ax.set_xlabel(xaxis_label)
                 if supplot_index == 0:
-                    ax.set_ylabel(f"Dielectric function")
+                    ax.set_ylabel("Dielectric function")
 
             ax.legend(loc="best")
             ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
@@ -670,7 +608,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
     plt.tight_layout()
 
 def plot_dielectric_function(suptitle, systems=None, components=None,
-                             layout="horizontal", combine_complex=False,
+                             layout="horizontal", expansion_label=True,
                              unit=None, boundary=(None,None), figure_size=(None,None)):
     ## Help information
     help_info = "Usage: plot_dielectric_function \n" + \
@@ -680,20 +618,21 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
                 "\t systems: dielectric function data list; \n" +\
                 "\t components: planes ('xx'<default>, 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'); \n" +\
                 "\t layout: subfigures layout (horizontal<default>, vertical); \n" +\
-                "\t combine_complex: whether to combine the real and imaginary parts (False<default>, True); \n" +\
+                "\t expansion_label: whether to expand the real and imaginary parts (True<default>, False); \n" +\
                 "\t unit: x-axis unit (eV<default>, nm); \n" +\
                 "\t boundary: a-axis range <optional>; \n" +\
                 "\t figure_size: figure size <optional>. \n"
     if suptitle in ["help", "Help"]:
         print(help_info)
 
-    ## combine flag
-    if isinstance(combine_complex, bool):
-        combine_flag = combine_complex
-    elif combine_complex.lower() not in ["true", "yes", "t", "y", "combine"]:
-        combine_flag = False
+    ## expansion flag
+    if isinstance(expansion_label, bool):
+        expansion_flag = expansion_label
+    elif expansion_label.lower() not in ["true", "yes", "t", "y", "combine"]:
+        expansion_flag = False
     else:
-        combine_flag = True
+        expansion_flag = True
+    combine_flag = not expansion_flag
 
     ## components aliases
     component_keys, comp_aliases = [], []

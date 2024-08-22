@@ -6,6 +6,15 @@ import numpy as np
 
 from scipy.optimize import leastsq
 
+# Mathematical constants
+pi = 3.141592654
+
+# Physical constants
+h_ev = 4.135667662e-15      # Planck constant in eV·s
+hbar_ev = h_ev/(2*pi)       # reduced Planck in eV·s
+c_vacuum = 2.99792458e8     # light speed in meter/s
+c_vacuum_nm = c_vacuum*1e9  # light speed in nm/s
+
 def get_matrix_shape(matrix):
     rows = len(matrix)
     cols = len(matrix[0]) if rows > 0 else 0
@@ -29,46 +38,6 @@ def extract_midpoint(inde_values, dep_values):
     ind_mid = inde_values[ind_mid_index]
     dep_mid = dep_values[ind_mid_index]
     return ind_mid, dep_mid
-
-def extract_part(ind_values, dep_values, start_value=None, end_value=None):
-    # Ensure ind_values and dep_values are numpy arrays
-    ind_values = np.asarray(ind_values)
-    dep_values = np.asarray(dep_values)
-    # Condition handling:
-    # If both start_value and end_value are None, return the original data without processing.
-    if start_value is None and end_value is None:
-        return (ind_values, dep_values)
-    # If only start_value is provided (not None), slice from start_value to the end.
-    elif start_value is not None and end_value is None:
-        condition = ind_values >= start_value
-    # If only end_value is provided (not None), slice from the beginning to end_value.
-    elif start_value is None and end_value is not None:
-        condition = ind_values <= end_value
-    # If both start_value and end_value are provided, slice between start_value and end_value.
-    else:
-        condition = (ind_values >= start_value) & (ind_values <= end_value)
-    # Filtering data based on the condition
-    ind_values_filtered = ind_values[condition]
-    dep_values_filtered = dep_values[condition]
-    return (ind_values_filtered, dep_values_filtered)
-
-def process_boundary(boundary, default=(None, None)):
-    # Enhanced to handle single values as well as tuples/lists
-    # If boundary is None or empty, return the default
-    if not boundary:
-        return default
-    # If boundary is a single value (not a container), treat it as the end value
-    if isinstance(boundary, (int, float)):
-        return (None, boundary)
-    # If boundary is a container with a single item, unpack it
-    if isinstance(boundary, (list, tuple)) and len(boundary) == 1:
-        return (None, boundary[0])
-    # If boundary is a container with two items, return them as start and end
-    elif isinstance(boundary, (list, tuple)) and len(boundary) == 2:
-        return (boundary[0], boundary[1])
-    # In case boundary doesn't match any expected pattern, return default
-    else:
-        return default
 
 def birch_murnaghan_eos(params, vol):
     """Birch-Murnaghan equation of state."""
@@ -222,15 +191,6 @@ def cart_to_rec(klist_source, directory, crystal_type):
     # Convert the Kpoints from Cartesian to reciprocal coordinates
     reciprocal_kpoints = np.dot(klist_source, transform_matrix.T)
     return reciprocal_kpoints
-
-# Mathematical constants
-pi = 3.141592654
-
-# Physical constants
-h_ev = 4.135667662e-15      # Planck constant in eV·s
-hbar_ev = h_ev/(2*pi)       # reduced Planck in eV·s
-c_vacuum = 2.99792458e8     # light speed in meter/s
-c_vacuum_nm = c_vacuum*1e9  # light speed in nm/s
 
 def energy_to_wavelength(energy_array):
     # The unit of energy is eV

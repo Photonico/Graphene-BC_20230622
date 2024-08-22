@@ -44,14 +44,7 @@ def comp_energy_loss_spectrum(density_energy_real,density_energy_imag):
 
 ## Plotting
 # systems list
-def LOP_create_matters(*args):
-    # data = dielectric_function_list(systems)
-    # data[0] = current curve label
-    # data[1] = dielectric function data
-    # data[2] = color family
-    # data[3] = linestyle
-    # data[4] = alpha
-    # data[5] = linewidth
+def lop_systems(*args):
     return dielectric_systems_list(*args)
 
 def identify_linear_optical_functions(incoming=None):
@@ -94,6 +87,7 @@ def lop_plotting_help(linear_chars):
         help_info = f"Usage: {func_label['plotting function']} \n" +\
                     f"Demonstrate {(func_label['title']).lower()} by each component \n" +\
                     "\t suptitle: the suptitle; \n" +\
+                    "\t systems: dielectric function data list; \n" +\
                     "\t components: planes ('xx'<default>, 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'); \n" +\
                     "\t layout: subfigures layout (horizontal<default>, vertical); \n" +\
                     "\t unit: x-axis unit (eV<default>, nm); \n" +\

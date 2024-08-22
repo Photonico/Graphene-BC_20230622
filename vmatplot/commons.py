@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 import os
 
 from typing import Tuple, Union
+import numpy as np
 
 def check_range_type(data: Union[Tuple, Tuple[Tuple, ...], int, float]) -> str:
     """
@@ -189,3 +190,75 @@ def extract_fermi(directory):
                     fermi_energy = float(i.text)
                     return fermi_energy
     raise ValueError("Fermi energy not found in vasprun.xml")
+
+def extract_part(ind_values, dep_values, start_value=None, end_value=None):
+    # Ensure ind_values and dep_values are numpy arrays
+    ind_values = np.asarray(ind_values)
+    dep_values = np.asarray(dep_values)
+    # Condition handling:
+    # If both start_value and end_value are None, return the original data without processing.
+    if start_value is None and end_value is None:
+        return (ind_values, dep_values)
+    # If only start_value is provided (not None), slice from start_value to the end.
+    elif start_value is not None and end_value is None:
+        condition = ind_values >= start_value
+    # If only end_value is provided (not None), slice from the beginning to end_value.
+    elif start_value is None and end_value is not None:
+        condition = ind_values <= end_value
+    # If both start_value and end_value are provided, slice between start_value and end_value.
+    else:
+        condition = (ind_values >= start_value) & (ind_values <= end_value)
+    # Filtering data based on the condition
+    ind_values_filtered = ind_values[condition]
+    dep_values_filtered = dep_values[condition]
+    return (ind_values_filtered, dep_values_filtered)
+
+def process_boundary(boundary, default=(None, None)):
+    # Enhanced to handle single values as well as tuples/lists
+    # If boundary is None or empty, return the default
+    if not boundary:
+        return default
+    # If boundary is a single value (not a container), treat it as the end value
+    if isinstance(boundary, (int, float)):
+        return (None, boundary)
+    # If boundary is a container with a single item, unpack it
+    if isinstance(boundary, (list, tuple)) and len(boundary) == 1:
+        return (None, boundary[0])
+    # If boundary is a container with two items, return them as start and end
+    elif isinstance(boundary, (list, tuple)) and len(boundary) == 2:
+        return (boundary[0], boundary[1])
+    # In case boundary doesn't match any expected pattern, return default
+    else:
+        return default
+
+def process_boundaries_scaling(boundary):
+    boundary_type = check_range_type(boundary)
+    scale_flag = False
+    source_start, source_end, scaled_start, scaled_end = None, None, None, None
+
+    if boundary_type == "Simple end":
+        source_range = (None, boundary)
+        source_start, source_end = process_boundary(source_range)
+    elif boundary_type == "Simple range":
+        source_range = boundary[0]
+        source_start, source_end = process_boundary(source_range)
+    elif boundary_type == "Double ends":
+        scale_flag = True
+        source_range = (None, boundary[0])
+        scaled_range = (None, boundary[1])
+        source_start, source_end = process_boundary(source_range)
+        scaled_start, scaled_end = process_boundary(scaled_range)
+    elif boundary_type == "Simple range with a rate":
+        scale_flag = True
+        source_range = boundary[0]
+        scaled_range = tuple(bounds * boundary[1] for bounds in boundary[0])
+        source_start, source_end = process_boundary(source_range)
+        scaled_start, scaled_end = process_boundary(scaled_range)
+    elif boundary_type == "Double ranges":
+        scale_flag = True
+        source_range = boundary[0]
+        scaled_range = boundary[1]
+        source_start, source_end = process_boundary(source_range)
+        scaled_start, scaled_end = process_boundary(scaled_range)
+
+    return scale_flag, source_start, source_end, scaled_start, scaled_end
