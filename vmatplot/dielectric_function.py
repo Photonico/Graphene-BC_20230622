@@ -437,7 +437,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
                                     layout="horizontal", unit=None, boundary=(None,None), figure_size=(None,None)):
 
     ## Help information
-    help_info = "Usage: plot_dielectric_function" + \
+    help_info = "Usage: plot_dielectric_function \n" + \
                 "\t Demonstrate dielectric function by each component \n" +\
                 "The independent value includes \n" +\
                 "\t suptitle: the suptitle; \n" +\
@@ -589,20 +589,20 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
 
             # subtitles and axis label (self-assertive): subtitles
             if layout_flag == "vertical" and supplot_index in range(2):
-                ax.set_title(["Original view", f"Rescaled view"][supplot_index])
+                ax.set_title(["Original view", "Rescaled view"][supplot_index])
             elif layout_flag == "horizontal" and supplot_index%2 == 0:
                 ax.set_title(component_keys[component_index])
             # ylabel
             if layout_flag == "vertical" and supplot_index%2 == 0:
                 ax.set_ylabel(f"Dielectric function for {component_keys[component_index]}")
             elif layout_flag == "horizontal" and supplot_index in range(2):
-                ax.set_ylabel(["Dielectric function", f"Dielectric function (Rescaled)"][supplot_index])
+                ax.set_ylabel(["Dielectric function", "Dielectric function (Rescaled)"][supplot_index])
             # xlabel
             if layout_flag == "vertical" and supplot_index >= 2*len(components)-2:
                 ax.set_xlabel(xaxis_label)
             elif layout_flag == "horizontal" and supplot_index%2 == 1:
                 ax.set_xlabel(xaxis_label)
-        
+
             ax.legend(loc="best")
             ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
@@ -625,7 +625,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
             x_start = source_start
             x_end = source_end
-            
+
             # data plotting: real part and imaginary part
             for _, data in enumerate(dataset):
                 energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], x_start, x_end)
@@ -642,7 +642,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
                     ax.plot(wavelength_imag, density_wl_imag, color=color_sampling(data[2])[1], ls="dashed", alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
                     wavelength_starts.append(min(wavelength_real))
                     wavelength_ends.append(np.max(np.array(wavelength_real)[np.isfinite(wavelength_real)]))
-            
+
             # plasmon resonance line and scale rate
             if var_label == "energy":
                 plasmon_start = min(energy_starts)
@@ -673,13 +673,12 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
                              layout="horizontal", combine_complex=False,
                              unit=None, boundary=(None,None), figure_size=(None,None)):
     ## Help information
-    help_info = "Usage: plot_dielectric_function" + \
+    help_info = "Usage: plot_dielectric_function \n" + \
                 "\t Demonstrate dielectric function by each component \n" +\
                 "The independent value includes \n" +\
                 "\t suptitle: the suptitle; \n" +\
                 "\t systems: dielectric function data list; \n" +\
                 "\t components: planes ('xx'<default>, 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'); \n" +\
-                "\t the aliases of selected components; \n" +\
                 "\t layout: subfigures layout (horizontal<default>, vertical); \n" +\
                 "\t combine_complex: whether to combine the real and imaginary parts (False<default>, True); \n" +\
                 "\t unit: x-axis unit (eV<default>, nm); \n" +\

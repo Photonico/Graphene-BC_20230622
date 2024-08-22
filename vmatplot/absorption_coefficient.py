@@ -32,7 +32,7 @@ def create_matters_absorption(*args):
     return create_matters_dielectric_function(*args)
 
 def plot_absorption_XXZZ_row(title, absorption_list=None, unit=None, abs_type=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: plot_absorption_XXZZ" + \
+    help_info = "Usage: plot_absorption_XXZZ \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -141,7 +141,7 @@ def plot_absorption_XXZZ_row(title, absorption_list=None, unit=None, abs_type=No
     plt.tight_layout()
 
 def plot_absorption_XXZZ_col(title, absorption_list=None, unit=None, abs_type=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: plot_absorption_XXZZ" + \
+    help_info = "Usage: plot_absorption_XXZZ \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -247,7 +247,7 @@ def plot_absorption_XXZZ_col(title, absorption_list=None, unit=None, abs_type=No
 def plot_absorption_XXZZ_zoom(title, matters_list=None, unit=None, abs_type=None,
                               inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
                               inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
-    help_info = "Usage: plot_absorption_XXZZ" + \
+    help_info = "Usage: plot_absorption_XXZZ \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\

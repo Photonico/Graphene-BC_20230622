@@ -23,7 +23,7 @@ def create_matters_refractive(*args):
     return create_matters_dielectric_function(*args)
 
 def plot_refractive_XXZZ_row(title, refractive_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: plot_refractive_XXZZ" + \
+    help_info = "Usage: plot_refractive_XXZZ \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -121,7 +121,7 @@ def plot_refractive_XXZZ_row(title, refractive_list=None, unit=None, inplane_bou
     plt.tight_layout()
 
 def plot_refractive_XXZZ_col(title, refractive_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: plot_refractive_XXZZ" + \
+    help_info = "Usage: plot_refractive_XXZZ \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -220,7 +220,7 @@ def plot_refractive_XXZZ_col(title, refractive_list=None, unit=None, inplane_bou
 def plot_refractive_XXZZ_zoom(title, matters_list=None, unit=None,
                             inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
                             inplane_boundary_2=(None, None), outplane_boundary_2=(None, None)):
-    help_info = "Usage: plot_refractive" + \
+    help_info = "Usage: plot_refractive \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\

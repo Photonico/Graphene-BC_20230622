@@ -27,7 +27,7 @@ def create_matters_reflectivity(*args):
     return create_matters_dielectric_function(*args)
 
 def plot_reflectivity_XXZZ_row(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: plot_reflectivity_XXZZ" + \
+    help_info = "Usage: plot_reflectivity_XXZZ \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -125,7 +125,7 @@ def plot_reflectivity_XXZZ_row(title, matters_list=None, unit=None, inplane_boun
     plt.tight_layout()
 
 def plot_reflectivity_XXZZ_col(title, matters_list=None, unit=None, inplane_boundary=(None, None), outplane_boundary=(None, None)):
-    help_info = "Usage: plot_reflectivity_XXZZ" + \
+    help_info = "Usage: plot_reflectivity_XXZZ \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -225,7 +225,7 @@ def plot_reflectivity_XXZZ_zoom(title, matters_list=None, unit=None,
                               inplane_boundary_1=(None, None), outplane_boundary_1=(None, None),
                               inplane_boundary_2=(None, None), outplane_boundary_2=(None, None),):
 
-    help_info = "Usage: plot_reflectivity" + \
+    help_info = "Usage: plot_reflectivity \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\

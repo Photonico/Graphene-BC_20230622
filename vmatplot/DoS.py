@@ -124,7 +124,7 @@ def extract_dos(directory_path):
 # DoS Plotting
 def plot_dos_sol(matter, x_range=None, y_top=None, dos_type=None, dos_data=None, color_family="blue"):
     # Help information
-    help_info = "Usage: plot_dos_sol" + \
+    help_info = "Usage: plot_dos_sol \n" + \
                 "Use extract_dos to extract the DoS data."
 
     if matter in ["help", "Help"]:
@@ -204,7 +204,7 @@ def create_matters_dos(matters_list):
 # Universal DoS Plotting
 def plot_dos_data(title, x_range = None, y_top = None, dos_type = None, matters = None):
     # Help information
-    help_info = "Usage: plot_dos" + \
+    help_info = "Usage: plot_dos \n" + \
                 "Use extract_dos to extract the DoS data into a two-dimensional list firstly.\n"
 
     if title in ["help", "Help"]:
@@ -257,7 +257,7 @@ def plot_dos_data(title, x_range = None, y_top = None, dos_type = None, matters 
 
 def plot_dos(title, x_range = None, y_top = None, dos_type = None, matters_list = None):
     # Help information
-    help_info = "Usage: plot_dos" + \
+    help_info = "Usage: plot_dos \n" + \
                 "Use extract_dos to extract the DoS data into a two-dimensional list firstly.\n"
 
     if title in ["help", "Help"]:

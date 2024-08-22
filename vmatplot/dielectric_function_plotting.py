@@ -45,7 +45,7 @@ def create_matters_dielectric_function(dielectric_list):
 
 def plot_dielectric_function_XXZZ_col(title, dielectric_list=None, unit=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
     # Help information
-    help_info = "Usage: plot_dielectric_function_XXZZ" + \
+    help_info = "Usage: plot_dielectric_function_XXZZ \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -148,7 +148,7 @@ def plot_dielectric_function_XXZZ_col(title, dielectric_list=None, unit=None, in
 
 def plot_dielectric_function_XXZZ_row(title, dielectric_list=None, unit=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
     # Help information
-    help_info = "Usage: plot_dielectric_function_XXZZ" + \
+    help_info = "Usage: plot_dielectric_function_XXZZ \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\
@@ -285,7 +285,7 @@ def plot_dielectric_function_XXZZ_row(title, dielectric_list=None, unit=None, in
 
 def plot_dielectric_function_XXZZ_block(title, dielectric_list=None, unit=None, inplane_energy_boundary=(None, None), outplane_energy_boundary=(None, None)):
     # Help information
-    help_info = "Usage: plot_dielectric_function_XXZZ_block" + \
+    help_info = "Usage: plot_dielectric_function_XXZZ_block \n" + \
                 "The independent value includes \n" +\
                 "\t title, \n" +\
                 "\t dielectric function data list, \n" +\

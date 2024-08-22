@@ -21,24 +21,24 @@ def comp_absorption_coefficient(frequency,density_energy_real,density_energy_ima
     return coe
 
 # 2 refractive index
-def com_refractive(density_energy_real,density_energy_imag):
+def comp_refractive_index(density_energy_real,density_energy_imag):
     index = np.sqrt((np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))+density_energy_real)/2)
     return index
 
 # 3 extinction coefficient
-def com_extinction(density_energy_real,density_energy_imag):
+def comp_extinction_coefficient(density_energy_real,density_energy_imag):
     coe = np.sqrt((np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))-density_energy_imag)/2)
     return coe
 
 # 4 reflectivity
-def com_reflectivity(density_energy_real,density_energy_imag):
-    n = com_refractive(density_energy_real,density_energy_imag)
-    k = com_extinction(density_energy_real,density_energy_imag)
+def comp_reflectivity(density_energy_real,density_energy_imag):
+    n = comp_refractive_index(density_energy_real,density_energy_imag)
+    k = comp_extinction_coefficient(density_energy_real,density_energy_imag)
     R = (np.square(n-1)+np.square(k))/(np.square(n+1)+np.square(k))
     return R
 
 # 5 energy loss spectrum
-def com_energy_loss_spectrum(density_energy_real,density_energy_imag):
+def comp_energy_loss_spectrum(density_energy_real,density_energy_imag):
     spectrum = (density_energy_imag)/(np.square(density_energy_real)+np.square(density_energy_imag))
     return spectrum
 
@@ -54,28 +54,50 @@ def LOP_create_matters(*args):
     # data[5] = linewidth
     return dielectric_systems_list(*args)
 
-# plot absorption coefficient
-
 def identify_linear_optical_functions(incoming=None):
-    help_info = "Please use one of the following terminologies as a string-type variable:" + \
+    help_info = "Please use one of the following terminologies as a string-type variable:\n" + \
                 "\t absorption coefficient, refractive index, extinction coefficient, reflectivity, energy-loss\n"
-    linear_flag = None
+    linear_flag, linear_title, compfunc_name, plotfunc_name = None, None, None, None
     if incoming.lower() in ["absorption coefficient","absorption"]:
         linear_flag = "absorption"
-    elif incoming.lower() in ["refractive index"]:
+        linear_title = "Absorption coefficient"
+        compfunc_name = "comp_absorption_coefficient"
+        plotfunc_name = "plot_absorption_coefficient"
+    elif incoming.lower() in ["refractive index","refractive"]:
         linear_flag = "refractive"
+        linear_title = "Refractive"
+        compfunc_name = "comp_refractive_index"
+        plotfunc_name = "plot_refractive_index"
     elif incoming.lower() in ["extinction coefficient", "extinction"]:
         linear_flag = "extinction"
+        linear_title = "Extinction coefficient"
+        compfunc_name = "comp_extinction_coefficient"
+        plotfunc_name = "plot_extinction_coefficient"
     elif incoming.lower() in ["reflectivity"]:
         linear_flag = "reflectivity"
-    elif incoming.lower() in ["energy-loss function","energy-loss"]:
+        linear_title = "Reflectivity"
+        compfunc_name = "comp_reflectivity"
+        plotfunc_name = "plot_reflectivity"
+    elif incoming.lower() in ["energy-loss function", "energy-loss spectrum", "energy-loss"]:
         linear_flag = "energy-loss"
+        linear_title = "Energy-loss spectrum"
+        compfunc_name = "comp_energy_loss_spectrum"
+        plotfunc_name = "plot_energy_loss_spectrum"
     else:
-        print("help_info")
-    return linear_flag
+        print(help_info)
+        return None
+    return {"flag":linear_flag, "title":linear_title, "calculation function":compfunc_name, "plotting function": plotfunc_name}
 
-def plot_linear_optics(suptitle, formula=None, systems=None, components=None, comp_aliases=None,
-                       layout=None, unit=None, boundary_1=(None, None), boundary_2=(None, None),
-                       figure_size=(None,None)):
-
-    return 0
+def lop_plotting_help(linear_chars):
+    func_label = identify_linear_optical_functions(linear_chars)
+    if func_label is not None:
+        help_info = f"Usage: {func_label['plotting function']} \n" +\
+                    f"Demonstrate {(func_label['title']).lower()} by each component \n" +\
+                    "\t suptitle: the suptitle; \n" +\
+                    "\t components: planes ('xx'<default>, 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'); \n" +\
+                    "\t layout: subfigures layout (horizontal<default>, vertical); \n" +\
+                    "\t unit: x-axis unit (eV<default>, nm); \n" +\
+                    "\t boundary: a-axis range <optional>; \n" +\
+                    "\t figure_size: figure size <optional>. \n"
+    else: help_info = None
+    return help_info

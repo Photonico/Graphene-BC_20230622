@@ -41,7 +41,7 @@ def create_matters_totpdos(matters_list):
 
 def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_list = None):
     # Help information
-    help_info = "Usage: plot_dos" + \
+    help_info = "Usage: plot_dos \n" + \
                 "Use extract_dos to extract the DoS data into a two-dimensional list firstly.\n"
 
     if title in ["help", "Help"]:
