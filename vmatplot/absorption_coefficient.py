@@ -5,7 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from vmatplot.output import canvas_setting, color_sampling
-from vmatplot.algorithms import process_boundary, extract_part, energy_to_wavelength, energy_to_frequency
+from vmatplot.algorithms import energy_to_wavelength, energy_to_frequency
+from vmatplot.commons import process_boundary, extract_part
 from vmatplot.dielectric_function_plotting import create_matters_dielectric_function
 
 # Speed of light in vacuum in meters per second

@@ -437,7 +437,6 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             plt.rcParams.update(params)
             fig, axs = plt.subplots(2, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for j in range(len(components)) for i in range(2)] if len(components) != 1 else [axs[0], axs[1]]
-
         else:
             layout_flag = "vertical"
             fig_setting = canvas_setting(16, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
@@ -479,6 +478,15 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             ax = axes_element[supplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
+            # initialization
+            wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
+            if supplot_index%2 == 0:
+                x_start = source_start
+                x_end = source_end
+            else:
+                x_start = scaled_start
+                x_end = scaled_end
+
             # current component index and label
             component_index = supplot_index // 2
             if isinstance(components[component_index], dict):
@@ -488,17 +496,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             data_key_real = f"density_{current_component}_real"
             data_key_imag = f"density_{current_component}_imag"
 
-            # initialization
-            wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
-            if supplot_index%2 == 0:
-                x_start = source_start
-                x_end = source_end
-                # for each system
-            else:
-                x_start = scaled_start
-                x_end = scaled_end
-
-            # data plotting: real part and imaginary part for each system
+            # curve plotting: real part and imaginary part for each system
             for _, data in enumerate(dataset):
                 energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], x_start, x_end)
                 energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key_imag], x_start, x_end)
@@ -550,6 +548,11 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             ax = axes_element[supplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
+            # initialization
+            wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
+            x_start = source_start
+            x_end = source_end
+
             # current component index and label
             component_index = supplot_index
             if isinstance(components[component_index], dict):
@@ -559,12 +562,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             data_key_real = f"density_{current_component}_real"
             data_key_imag = f"density_{current_component}_imag"
 
-            # initialization
-            wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
-            x_start = source_start
-            x_end = source_end
-
-            # data plotting: real part and imaginary part
+            # curve plotting: real part and imaginary part
             for _, data in enumerate(dataset):
                 energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], x_start, x_end)
                 energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key_imag], x_start, x_end)
@@ -713,7 +711,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
         # initialization
         wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
 
-        # real part
+        # curve plotting: real part
         if supplot_index%2 == 0:
             # for each system
             for _, data in enumerate(dataset):
@@ -740,7 +738,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
                 wavelength_end=max(wavelength_ends)
                 ax.plot([wavelength_start, wavelength_end],[0,0],color=color_sampling("grey")[1],linestyle="--")
 
-        # imaginary part
+        # curve plotting: imaginary part
         else:
             for _, data in enumerate(dataset):
                 energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key], photon_start, photon_end)

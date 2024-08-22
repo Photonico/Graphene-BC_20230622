@@ -81,6 +81,33 @@ def identify_linear_optical_functions(incoming=None):
         return None
     return {"flag":linear_flag, "title":linear_title, "calculation function":compfunc_name, "plotting function": plotfunc_name}
 
+# current linear optical propertie
+def current_lop(lop_flag, *args):
+    formula_flag = identify_linear_optical_functions(lop_flag)["flag"]
+    if formula_flag == "absorption":
+        return comp_absorption_coefficient(*args)
+    elif formula_flag == "refractive":
+        return comp_refractive_index(*args)
+    elif formula_flag == "extinction":
+        return comp_extinction_coefficient(*args)
+    elif formula_flag == "reflectivity":
+        return comp_reflectivity(*args)
+    elif formula_flag == "energy-loss":
+        return comp_energy_loss_spectrum(*args)
+
+def determine_formula_flag(plotting_function_name):
+    if plotting_function_name == "plot_absorption_coefficient":
+        formula_flag = "absorption"
+    elif plotting_function_name == "plot_refractive_index":
+        formula_flag = "refractive"
+    elif plotting_function_name == "plot_extinction_coefficient":
+        formula_flag = "extinction"
+    elif plotting_function_name == "plot_reflectivity":
+        formula_flag = "reflectivity"
+    elif plotting_function_name == "plot_energy_loss_spectrum":
+        formula_flag = "energy-loss"
+    return formula_flag
+
 def lop_plotting_help(linear_chars):
     func_label = identify_linear_optical_functions(linear_chars)
     if func_label is not None:
