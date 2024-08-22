@@ -5,6 +5,10 @@ import numpy as np
 
 from vmatplot.dielectric_function import dielectric_systems_list
 
+## References
+
+# <https://vaspkit.com/tutorials.html#linear-optical-properties>
+
 ## Constants
 c_ms = 2.99792458e8     # Speed of light in vacuum in meters per second
 c_nm = c_ms * 1e9       # Speed of light in vacuum nanometers per second
@@ -51,6 +55,24 @@ def LOP_create_matters(*args):
     return dielectric_systems_list(*args)
 
 # plot absorption coefficient
+
+def identify_linear_optical_functions(incoming=None):
+    help_info = "Please use one of the following terminologies as a string-type variable:" + \
+                "\t absorption coefficient, refractive index, extinction coefficient, reflectivity, energy-loss\n"
+    linear_flag = None
+    if incoming.lower() in ["absorption coefficient","absorption"]:
+        linear_flag = "absorption"
+    elif incoming.lower() in ["refractive index"]:
+        linear_flag = "refractive"
+    elif incoming.lower() in ["extinction coefficient", "extinction"]:
+        linear_flag = "extinction"
+    elif incoming.lower() in ["reflectivity"]:
+        linear_flag = "reflectivity"
+    elif incoming.lower() in ["energy-loss function","energy-loss"]:
+        linear_flag = "energy-loss"
+    else:
+        print("help_info")
+    return linear_flag
 
 def plot_linear_optics(suptitle, formula=None, systems=None, components=None, comp_aliases=None,
                        layout=None, unit=None, boundary_1=(None, None), boundary_2=(None, None),
