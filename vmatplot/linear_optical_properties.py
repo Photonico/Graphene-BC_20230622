@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 
 from vmatplot.dielectric_function import dielectric_systems_list
 from vmatplot.commons import process_boundaries_scaling, extract_part
-# from vmatplot.commons import process_boundary, process_boundaries_scaling, extract_part
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import energy_to_wavelength, energy_to_frequency
 
