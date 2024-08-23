@@ -418,14 +418,14 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
     scale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_scaling(boundary)
 
     ## components aliases
-    component_keys, comp_aliases = [], []
+    component_labels, comp_aliases = [], []
     for comp in components:
         if isinstance(comp, dict):
             for key, value in comp.items():
-                component_keys.append(f"{key}-component")
+                component_labels.append(f"{key}-component")
                 comp_aliases.append(value)
         else:
-            component_keys.append(f"{comp}-component")
+            component_labels.append(f"{comp}-component")
             comp_aliases.append(f"{comp}-component")
 
     ## figure settings
@@ -463,7 +463,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
 
     ## systems information
     dataset = dielectric_systems_list(systems)
-    component_keys = [comp.lower() + "-component" for comp in components] if not comp_aliases else comp_aliases
+    component_labels = [comp.lower() + "-component" for comp in components] if not comp_aliases else comp_aliases
 
     ## suptitle
     fig.suptitle(f"Dielectric function {suptitle}\n", fontsize=fig_setting[3][0])
@@ -524,10 +524,10 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             if layout_flag == "vertical" and supplot_index in range(2):
                 ax.set_title(["Original view", "Rescaled view"][supplot_index])
             elif layout_flag == "horizontal" and supplot_index%2 == 0:
-                ax.set_title(component_keys[component_index])
+                ax.set_title(component_labels[component_index])
             # ylabel
             if layout_flag == "vertical" and supplot_index%2 == 0:
-                ax.set_ylabel(f"Dielectric function for {component_keys[component_index]}")
+                ax.set_ylabel(f"Dielectric function for {component_labels[component_index]}")
             elif layout_flag == "horizontal" and supplot_index in range(2):
                 ax.set_ylabel(["Dielectric function", "Dielectric function (Rescaled)"][supplot_index])
             # xlabel
@@ -588,11 +588,11 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
 
             # subtitles and axis label (self-assertive): subtitles
             if layout_flag == "vertical":
-                ax.set_ylabel(f"Dielectric function for {component_keys[component_index]}")
+                ax.set_ylabel(f"Dielectric function for {component_labels[component_index]}")
                 if layout_flag == "vertical" and supplot_index == len(components)-1:
                     ax.set_xlabel(xaxis_label)
             else:
-                ax.set_title(component_keys[component_index])
+                ax.set_title(component_labels[component_index])
                 ax.set_xlabel(xaxis_label)
                 if supplot_index == 0:
                     ax.set_ylabel("Dielectric function")
@@ -630,14 +630,14 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
     combine_flag = not expansion_flag
 
     ## components aliases
-    component_keys, comp_aliases = [], []
+    component_labels, comp_aliases = [], []
     for comp in components:
         if isinstance(comp, dict):
             for key, value in comp.items():
-                component_keys.append(f"{key}-component")
+                component_labels.append(f"{key}-component")
                 comp_aliases.append(value)
         else:
-            component_keys.append(f"{comp}-component")
+            component_labels.append(f"{comp}-component")
             comp_aliases.append(f"{comp}-component")
 
     ## figure settings
@@ -664,7 +664,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
     ## systems information
     dataset = dielectric_systems_list(systems)
-    component_keys = [comp.lower() + "-component" for comp in components] if not comp_aliases else comp_aliases
+    component_labels = [comp.lower() + "-component" for comp in components] if not comp_aliases else comp_aliases
 
     ## suptitle
     fig.suptitle(f"Dielectric function {suptitle}\n", fontsize=fig_setting[3][0])
@@ -692,10 +692,10 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
         if layout_flag == "vertical" and supplot_index in range(2):
             ax.set_title(["Real part", "Imaginary part"][supplot_index])
         elif layout_flag == "horizontal" and supplot_index%2 == 0:
-            ax.set_title(component_keys[component_index])
+            ax.set_title(component_labels[component_index])
         # ylabel
         if layout_flag == "vertical" and supplot_index%2 == 0:
-            ax.set_ylabel(f"Dielectric function for {component_keys[component_index]}")
+            ax.set_ylabel(f"Dielectric function for {component_labels[component_index]}")
         elif layout_flag == "horizontal" and supplot_index in range(2):
             ax.set_ylabel(f"Dielectric function for {['real part', 'imaginary part'][supplot_index]}")
         # xlabel

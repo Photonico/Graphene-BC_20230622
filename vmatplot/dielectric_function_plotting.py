@@ -6,7 +6,8 @@ import numpy as np
 import os
 
 from vmatplot.output import canvas_setting, color_sampling
-from vmatplot.algorithms import process_boundary, extract_part, energy_to_wavelength
+from vmatplot.algorithms import energy_to_wavelength
+from vmatplot.commons import extract_part, process_boundary
 from vmatplot.dielectric_function import extract_dielectric_function
 
 def create_matters_dielectric_function(dielectric_list):

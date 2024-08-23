@@ -5,7 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from vmatplot.output import canvas_setting, color_sampling
-from vmatplot.algorithms import process_boundary, extract_part, energy_to_wavelength, energy_to_frequency
+from vmatplot.commons import extract_part, process_boundary
+from vmatplot.algorithms import energy_to_wavelength, energy_to_frequency
 from vmatplot.dielectric_function_plotting import create_matters_dielectric_function
 
 def com_refractive(density_energy_real,density_energy_imag):
