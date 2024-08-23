@@ -429,31 +429,28 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             comp_aliases.append(f"{comp}-component")
 
     ## figure settings
+    layout_flag = "horizontal" if layout.lower() not in ["vertical", "ver","v"] else "vertical"
     if scale_flag is True:
-        if layout.lower() not in ["vertical", "ver"]:
-            layout_flag = "horizontal"
+        if layout_flag == "horizontal":
             fig_setting = canvas_setting(8*len(components), 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(2, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for j in range(len(components)) for i in range(2)] if len(components) != 1 else [axs[0], axs[1]]
         else:
-            layout_flag = "vertical"
             fig_setting = canvas_setting(16, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(len(components), 2, figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for i in range(len(components)) for j in range(2)] if len(components) != 1 else [axs[0], axs[1]]
     else:
-        if layout.lower() not in ["vertical", "ver"]:
-            layout_flag = "horizontal"
+        if layout_flag == "horizontal":
             fig_setting = canvas_setting(8*len(components), 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(1, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i] for i in range(len(components))]
         else:
-            layout_flag = "vertical"
             fig_setting = canvas_setting(8, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
@@ -644,16 +641,15 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
             comp_aliases.append(f"{comp}-component")
 
     ## figure settings
+    layout_flag = "horizontal" if layout.lower() not in ["vertical", "ver","v"] else "vertical"
     if combine_flag is False:
-        if layout.lower() not in ["vertical", "ver"]:
-            layout_flag = "horizontal"
+        if layout_flag == "horizontal":
             fig_setting = canvas_setting(8*len(components), 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(2, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for j in range(len(components)) for i in range(2)] if len(components) != 1 else [axs[0], axs[1]]
         else:
-            layout_flag = "vertical"
             fig_setting = canvas_setting(16, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
