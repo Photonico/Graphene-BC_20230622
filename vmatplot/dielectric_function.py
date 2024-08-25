@@ -602,6 +602,11 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
 
     plt.tight_layout()
 
+def plot_dielectric_monocomp(suptitle, systems=None, component=None,
+                             layout="horizontal", expansion_label=True,
+                             unit=None, boundary=(None,None), figure_size=(None,None)):
+    print("test")
+
 def plot_dielectric_function(suptitle, systems=None, components=None,
                              layout="horizontal", expansion_label=True,
                              unit=None, boundary=(None,None), figure_size=(None,None)):
@@ -621,7 +626,11 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
         print(help_info)
 
     ## expansion flag
-    if isinstance(expansion_label, bool):
+    if isinstance(components, str) or isinstance(components, dict):
+        return plot_dielectric_monocomp(suptitle, systems, components,layout, expansion_label,unit, boundary, figure_size)
+    elif isinstance(components, list) and len(components) == 1:
+        return plot_dielectric_monocomp(suptitle, systems, components,layout, expansion_label,unit, boundary, figure_size)
+    elif isinstance(expansion_label, bool):
         expansion_flag = expansion_label
     elif expansion_label.lower() not in ["true", "yes", "t", "y", "combine"]:
         expansion_flag = False

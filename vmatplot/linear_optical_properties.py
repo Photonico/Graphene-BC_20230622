@@ -127,6 +127,10 @@ def lop_plotting_help(linear_chars):
     else: help_info = None
     return help_info
 
+def plot_lop_monocomp(suptitle, systems_list=None, current_property=None, components=None, layout="horizontal",
+                      unit="eV", boundary=(None,None), figure_size=(None,None)):
+    print("test")
+
 def plot_linear_optical_property(suptitle, systems_list=None, current_property=None, components=None, layout="horizontal",
                                  unit="eV", boundary=(None,None), figure_size=(None,None)):
     ## Help information
