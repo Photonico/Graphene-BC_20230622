@@ -119,7 +119,7 @@ def lop_plotting_help(linear_chars):
                     f"Demonstrate {(func_label['title']).lower()} by each component \n" +\
                     "\t suptitle: the suptitle; \n" +\
                     "\t systems_list: dielectric function data list; \n" +\
-                    "\t components: planes ('xx'<default>, 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'); \n" +\
+                    "\t components: select components in a list ({'xx'<default>, 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'}); \n" +\
                     "\t layout: subfigures layout (horizontal<default>, vertical); \n" +\
                     "\t unit: x-axis unit (eV<default>, nm); \n" +\
                     "\t boundary: a-axis range <optional>; \n" +\
@@ -127,11 +127,16 @@ def lop_plotting_help(linear_chars):
     else: help_info = None
     return help_info
 
-def plot_lop_monocomp(suptitle, systems_list=None, current_property=None, components=None, layout="horizontal",
+def plot_lop_monocomp(suptitle, systems_list=None, current_property=None, components="xx", layout="horizontal",
                       unit="eV", boundary=(None,None), figure_size=(None,None)):
+    ## Help information
+    current_help = lop_plotting_help("absorption")
+    if suptitle.lower() =="help":
+        print(current_help)
+
     print("test")
 
-def plot_linear_optical_property(suptitle, systems_list=None, current_property=None, components=None, layout="horizontal",
+def plot_linear_optical_property(suptitle, systems_list=None, current_property=None, components="xx", layout="horizontal",
                                  unit="eV", boundary=(None,None), figure_size=(None,None)):
     ## Help information
     current_help = lop_plotting_help("absorption")
@@ -141,7 +146,12 @@ def plot_linear_optical_property(suptitle, systems_list=None, current_property=N
     ## scale flag and databoundaries
     scale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_scaling(boundary)
 
-    ## components aliases
+    ## multi components flag
+    if isinstance(components, str) or isinstance(components, dict):
+        return plot_lop_monocomp(suptitle, systems_list, current_property, components,layout,unit, boundary, figure_size)
+    elif isinstance(components, list) and len(components) == 1:
+        return plot_lop_monocomp(suptitle, systems_list, current_property, components,layout, unit, boundary, figure_size)
+
     component_labels, comp_aliases = [], []
     for comp in components:
         if isinstance(comp, dict):

@@ -602,35 +602,47 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
 
     plt.tight_layout()
 
+def plot_dielectric_help():
+    help_info = "Usage: plot_dielectric_function \n" + \
+                "\t Demonstrate dielectric function by each component \n" +\
+                "The independent value includes \n" +\
+                "\t suptitle: the suptitle; \n" +\
+                "\t systems: dielectric function data list; \n" +\
+                "\t components: select components in a list ({'xx', 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'}); \n" +\
+                "\t layout: subfigures layout (horizontal<default>, vertical); \n" +\
+                "\t expansion_label: whether to expand the real and imaginary parts (True<default>, False); \n" +\
+                "\t unit: x-axis unit (eV<default>, nm); \n" +\
+                "\t boundary: a-axis range <optional>; \n" +\
+                "\t figure_size: figure size <optional>. \n"
+    return help_info
+
+
 def plot_dielectric_monocomp(suptitle, systems=None, component=None,
                              layout="horizontal", expansion_label=True,
                              unit=None, boundary=(None,None), figure_size=(None,None)):
+    ## Help information
+    dielectric_help =  plot_dielectric_help()
+    if suptitle in ["help", "Help"]:
+        print(dielectric_help)
+
     print("test")
 
 def plot_dielectric_function(suptitle, systems=None, components=None,
                              layout="horizontal", expansion_label=True,
                              unit=None, boundary=(None,None), figure_size=(None,None)):
     ## Help information
-    help_info = "Usage: plot_dielectric_function \n" + \
-                "\t Demonstrate dielectric function by each component \n" +\
-                "The independent value includes \n" +\
-                "\t suptitle: the suptitle; \n" +\
-                "\t systems: dielectric function data list; \n" +\
-                "\t components: planes ('xx'<default>, 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'); \n" +\
-                "\t layout: subfigures layout (horizontal<default>, vertical); \n" +\
-                "\t expansion_label: whether to expand the real and imaginary parts (True<default>, False); \n" +\
-                "\t unit: x-axis unit (eV<default>, nm); \n" +\
-                "\t boundary: a-axis range <optional>; \n" +\
-                "\t figure_size: figure size <optional>. \n"
+    dielectric_help =  plot_dielectric_help()
     if suptitle in ["help", "Help"]:
-        print(help_info)
+        print(dielectric_help)
 
-    ## expansion flag
+    ## multi components flag
     if isinstance(components, str) or isinstance(components, dict):
         return plot_dielectric_monocomp(suptitle, systems, components,layout, expansion_label,unit, boundary, figure_size)
     elif isinstance(components, list) and len(components) == 1:
         return plot_dielectric_monocomp(suptitle, systems, components,layout, expansion_label,unit, boundary, figure_size)
-    elif isinstance(expansion_label, bool):
+
+    ## expansion flag
+    if isinstance(expansion_label, bool):
         expansion_flag = expansion_label
     elif expansion_label.lower() not in ["true", "yes", "t", "y", "combine"]:
         expansion_flag = False
