@@ -153,6 +153,7 @@ def plot_linear_optical_property(suptitle, systems_list=None, current_property=N
         return plot_lop_monocomp(suptitle, systems_list, current_property, components,layout, unit, boundary, figure_size)
 
     component_labels, comp_aliases = [], []
+    ## components
     for comp in components:
         if isinstance(comp, dict):
             for key, value in comp.items():

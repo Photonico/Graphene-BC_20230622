@@ -610,7 +610,7 @@ def plot_dielectric_help():
                 "\t systems: dielectric function data list; \n" +\
                 "\t components: select components in a list ({'xx', 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'}); \n" +\
                 "\t layout: subfigures layout (horizontal<default>, vertical); \n" +\
-                "\t expansion_label: whether to expand the real and imaginary parts (True<default>, False); \n" +\
+                "\t rescale_label: whether to expand the real and imaginary parts (True<default>, False); \n" +\
                 "\t unit: x-axis unit (eV<default>, nm); \n" +\
                 "\t boundary: a-axis range <optional>; \n" +\
                 "\t figure_size: figure size <optional>. \n"
@@ -618,7 +618,7 @@ def plot_dielectric_help():
 
 
 def plot_dielectric_monocomp(suptitle, systems=None, component=None,
-                             layout="horizontal", expansion_label=True,
+                             layout="horizontal", rescale_label=True,
                              unit=None, boundary=(None,None), figure_size=(None,None)):
     ## Help information
     dielectric_help =  plot_dielectric_help()
@@ -628,7 +628,7 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,
     print("test")
 
 def plot_dielectric_function(suptitle, systems=None, components=None,
-                             layout="horizontal", expansion_label=True,
+                             layout="horizontal", rescale_label=True,
                              unit=None, boundary=(None,None), figure_size=(None,None)):
     ## Help information
     dielectric_help =  plot_dielectric_help()
@@ -637,18 +637,18 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
     ## multi components flag
     if isinstance(components, str) or isinstance(components, dict):
-        return plot_dielectric_monocomp(suptitle, systems, components,layout, expansion_label,unit, boundary, figure_size)
+        return plot_dielectric_monocomp(suptitle, systems, components,layout, rescale_label,unit, boundary, figure_size)
     elif isinstance(components, list) and len(components) == 1:
-        return plot_dielectric_monocomp(suptitle, systems, components,layout, expansion_label,unit, boundary, figure_size)
+        return plot_dielectric_monocomp(suptitle, systems, components,layout, rescale_label,unit, boundary, figure_size)
 
-    ## expansion flag
-    if isinstance(expansion_label, bool):
-        expansion_flag = expansion_label
-    elif expansion_label.lower() not in ["true", "yes", "t", "y", "combine"]:
-        expansion_flag = False
+    ## rescale flag
+    if isinstance(rescale_label, bool):
+        rescale_flag = rescale_label
+    elif rescale_label.lower() not in ["true", "yes", "t", "y", "combine"]:
+        rescale_flag = False
     else:
-        expansion_flag = True
-    combine_flag = not expansion_flag
+        rescale_flag = True
+    combine_flag = not rescale_flag
 
     ## components aliases
     component_labels, comp_aliases = [], []
