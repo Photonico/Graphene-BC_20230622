@@ -4,7 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from vmatplot.dielectric_function import dielectric_systems_list
+from vmatplot.dielectric_function import extract_dielectric_function, dielectric_systems_list
 from vmatplot.commons import process_boundaries_scaling, extract_part
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import energy_to_wavelength, energy_to_frequency
@@ -55,7 +55,12 @@ def identify_linear_optical_functions(incoming=None):
     help_info = "Please use one of the following terminologies as a string-type variable:\n" + \
                 "\t absorption coefficient, refractive index, extinction coefficient, reflectivity, energy-loss\n"
     linear_title, linear_flag, compfunc_name, plotfunc_name = None, None, None, None
-    if incoming.lower() in ["absorption coefficient","absorption"]:
+    if incoming.lower() in ["dielectric function","dielectric"]:
+        linear_title = "Dielectric function"
+        linear_flag = "dielectric"
+        compfunc_name = "extract_dielectric_function"
+        plotfunc_name = "plot_dielectric_function"
+    elif incoming.lower() in ["absorption coefficient","absorption"]:
         linear_title = "Absorption coefficient"
         linear_flag = "absorption"
         compfunc_name = "comp_absorption_coefficient"
@@ -127,7 +132,9 @@ def lop_plotting_help(linear_chars):
     else: help_info = None
     return help_info
 
-def plot_lop_monocomp(suptitle, systems_list=None, current_property=None, components="xx", layout="horizontal",
+### rebuild
+
+def plot_lop_monocomp_testing(suptitle, systems_list=None, current_property=None, components="xx", layout="horizontal",
                       unit="eV", boundary=(None,None), figure_size=(None,None)):
     ## Help information
     current_help = lop_plotting_help("absorption")
@@ -148,9 +155,9 @@ def plot_linear_optical_property(suptitle, systems_list=None, current_property=N
 
     ## multi components flag
     if isinstance(components, str) or isinstance(components, dict):
-        return plot_lop_monocomp(suptitle, systems_list, current_property, components,layout,unit, boundary, figure_size)
+        return plot_lop_monocomp_testing(suptitle, systems_list, current_property, components,layout,unit, boundary, figure_size)
     elif isinstance(components, list) and len(components) == 1:
-        return plot_lop_monocomp(suptitle, systems_list, current_property, components,layout, unit, boundary, figure_size)
+        return plot_lop_monocomp_testing(suptitle, systems_list, current_property, components,layout, unit, boundary, figure_size)
 
     component_labels, comp_aliases = [], []
     ## components
