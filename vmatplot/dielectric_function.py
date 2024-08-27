@@ -503,7 +503,6 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
             fig, axs = plt.subplots(3, 3, figsize=fig_setting[0], dpi=fig_setting[1])
             # axes_element = [axs[i, j] for i in range(int(len(components)/2)) for j in range(2)]
             axes_element = [axs[i, j] for j in range(3) for i in range(3)]
-
     else:
         if layout_flag == "horizontal":
             fig_setting = canvas_setting(8*len(components), 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
