@@ -44,9 +44,10 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
     help_info = "Usage: plot_dos \n" + \
                 "Use extract_dos to extract the DoS data into a two-dimensional list firstly.\n"
 
-    if title in ["help", "Help"]:
+    if title.lower() == "help":
         print(help_info)
-    
+        return None
+
     # Figure Settings
     fig_setting = canvas_setting()
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
