@@ -88,7 +88,8 @@ def identify_linear_optical_functions(incoming=None):
     else:
         print(help_info)
         return None
-    return {"title":linear_title, "flag":linear_flag, "calculation function":compfunc_name, "plotting function": plotfunc_name}
+    # return {"title":linear_title, "flag":linear_flag, "calculation function":compfunc_name, "plotting function": plotfunc_name}
+    return {"title":linear_title, "flag":linear_flag, "calculation function":compfunc_name}
 
 # current linear optical propertie
 def current_lop(lop_flag, *args):
