@@ -461,13 +461,13 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
     layout_flag = "horizontal" if layout.lower() not in ["vertical", "ver","v"] else "vertical"
     if expansion_flag is True:
         if layout_flag == "horizontal":
-            fig_setting = canvas_setting(8*len(components), 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(8*len(components), 12+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(2, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for j in range(len(components)) for i in range(2)] if len(components) != 1 else [axs[0], axs[1]]
         else:
-            fig_setting = canvas_setting(16, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(16, 6*len(components)+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(len(components), 2, figsize=fig_setting[0], dpi=fig_setting[1])
@@ -475,14 +475,14 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
     elif expansion_flag is False and len(components)%2 ==0:
         folding_flag = True
         if layout_flag == "horizontal":
-            fig_setting = canvas_setting(8*len(components)/2, 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(8*len(components)/2, 12+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(2, int(len(components)/2), figsize=fig_setting[0], dpi=fig_setting[1])
             # axes_element = [axs[i, j] for j in range(int(len(components)/2)) for i in range(2)]
             axes_element = [axs[i, j] for i in range(2) for j in range(int(len(components)/2))]
         else:
-            fig_setting = canvas_setting(16, 6*len(components)/2) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(16, 6*len(components)/2+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(int(len(components)/2), 2, figsize=fig_setting[0], dpi=fig_setting[1])
@@ -491,13 +491,13 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
     elif expansion_flag is False and len(components) == 9:
         allcomps_flag = True
         if layout_flag == "horizontal":
-            fig_setting = canvas_setting(24, 18) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(24, 18+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(3, 3, figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for i in range(3) for j in range(3)]
         else:
-            fig_setting = canvas_setting(24, 18) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(24, 18+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(3, 3, figsize=fig_setting[0], dpi=fig_setting[1])
@@ -505,13 +505,13 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
             axes_element = [axs[i, j] for j in range(3) for i in range(3)]
     else:
         if layout_flag == "horizontal":
-            fig_setting = canvas_setting(8*len(components), 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(8*len(components), 6+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(1, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i] for i in range(len(components))]
         else:
-            fig_setting = canvas_setting(8, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(10, 6*len(components)+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(len(components), 1, figsize=fig_setting[0], dpi=fig_setting[1])
