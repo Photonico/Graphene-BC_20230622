@@ -549,10 +549,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
             ## subtitles and axis label (self-assertive)
             # subtitles
-            if layout_flag == "vertical":
-                ax.set_title([f"Real part for {comp_aliases[component_index]}", f"Imaginary part for {comp_aliases[component_index]}"][supplot_index%2])
-            elif layout_flag == "horizontal":
-                ax.set_title([f"Real part for {comp_aliases[component_index]}", f"Imaginary part for {comp_aliases[component_index]}"][supplot_index%2])
+            ax.set_title([f"Real part for {comp_aliases[component_index]}", f"Imaginary part for {comp_aliases[component_index]}"][supplot_index%2])
             # ylabel
             if layout_flag == "vertical" and supplot_index%2 == 0:
                 ax.set_ylabel("Dielectric function")
@@ -735,18 +732,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             fig, axs = plt.subplots(len(components), 2, figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for i in range(len(components)) for j in range(2)] if len(components) != 1 else [axs[0], axs[1]]
     else:
-        if layout_flag == "horizontal":
-            fig_setting = canvas_setting(8*len(components), 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
-            params = fig_setting[2]
-            plt.rcParams.update(params)
-            fig, axs = plt.subplots(1, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
-            axes_element = [axs[i] for i in range(len(components))]
-        else:
-            fig_setting = canvas_setting(8, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
-            params = fig_setting[2]
-            plt.rcParams.update(params)
-            fig, axs = plt.subplots(len(components), 1, figsize=fig_setting[0], dpi=fig_setting[1])
-            axes_element = [axs[i] for i in range(len(components))]
+        return plot_dielectric_function(suptitle, systems, components, layout, False,unit, boundary, figure_size)
 
     ## identify x-axis unit
     var_label = "wavelength" if unit and unit.lower() == "nm" else "energy"
@@ -760,135 +746,71 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
     fig.suptitle(f"Dielectric function {suptitle}\n", fontsize=fig_setting[3][0])
 
     ## data plotting
-    # scale flag is opened
-    if scale_flag is True:
-        for supplot_index in range(2*len(components)):
-            ax = axes_element[supplot_index]
-            ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+    for supplot_index in range(2*len(components)):
+        ax = axes_element[supplot_index]
+        ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
-            # initialization
-            wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
-            if supplot_index%2 == 0:
-                x_start = source_start
-                x_end = source_end
-            else:
-                x_start = scaled_start
-                x_end = scaled_end
-
-            # current component index and label
-            component_index = supplot_index // 2
-            if isinstance(components[component_index], dict):
-                current_component = list(components[component_index].keys())[0]
-            else:
-                current_component = components[component_index].lower()
-            data_key_real = f"density_{current_component}_real"
-            data_key_imag = f"density_{current_component}_imag"
-
-            # curve plotting: real part and imaginary part for each system
-            for _, data in enumerate(dataset):
-                energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], x_start, x_end)
-                energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key_imag], x_start, x_end)
-                if var_label == "energy":
-                    ax.plot(energy_real, density_energy_real, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"Real part {data[0]}")
-                    ax.plot(energy_imag, density_energy_imag, color=color_sampling(data[2])[1], ls="dashed", alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
-                    energy_starts.append(min(energy_real))
-                    energy_ends.append(max(energy_real))
-                else:
-                    wavelength_real, density_wl_real = extract_part(energy_to_wavelength(data[1]["density_energy_real"]), data[1][data_key_real], x_start, x_end)
-                    wavelength_imag, density_wl_imag = extract_part(energy_to_wavelength(data[1]["density_energy_imag"]), data[1][data_key_imag], x_start, x_end)
-                    ax.plot(wavelength_real, density_wl_real, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"Real part {data[0]}")
-                    ax.plot(wavelength_imag, density_wl_imag, color=color_sampling(data[2])[1], ls="dashed", alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
-                    wavelength_starts.append(min(wavelength_real))
-                    wavelength_ends.append(np.max(np.array(wavelength_real)[np.isfinite(wavelength_real)]))
-
-            # plasmon resonance line and scale rate
-            if var_label == "energy":
-                plasmon_start = min(energy_starts)
-                plasmon_end = max(energy_ends)
-                ax.plot([plasmon_start, plasmon_end],[0,0], color=color_sampling("grey")[1], linestyle="dashed")
-            else:
-                plasmon_start=min(wavelength_starts)
-                plasmon_end=max(wavelength_ends)
-                ax.plot([plasmon_start, plasmon_end],[0,0],color=color_sampling("grey")[1],linestyle="dashed")
-
-            # subtitles and axis label (self-assertive): subtitles
-            if layout_flag == "vertical":
-                ax.set_title([f"Original view for {component_labels[component_index]}", f"Rescaled view for {component_labels[component_index]}"][supplot_index])
-            elif layout_flag == "horizontal" and supplot_index%2 == 0:
-                ax.set_title(component_labels[component_index])
-            # ylabel
-            if layout_flag == "vertical" and supplot_index%2 == 0:
-                ax.set_ylabel(f"Dielectric function for {component_labels[component_index]}")
-            elif layout_flag == "horizontal" and supplot_index in range(2):
-                ax.set_ylabel(["Dielectric function", "Dielectric function (Rescaled)"][supplot_index])
-            # xlabel
-            if layout_flag == "vertical" and supplot_index >= 2*len(components)-2:
-                ax.set_xlabel(xaxis_label)
-            elif layout_flag == "horizontal" and supplot_index%2 == 1:
-                ax.set_xlabel(xaxis_label)
-
-            ax.legend(loc="best")
-            ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
-
-    # scale flag is closed
-    else:
-        for supplot_index in range(len(components)):
-            ax = axes_element[supplot_index]
-            ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-
-            # initialization
-            wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
+        # initialization
+        wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
+        if supplot_index%2 == 0:
             x_start = source_start
             x_end = source_end
+        else:
+            x_start = scaled_start
+            x_end = scaled_end
 
-            # current component index and label
-            component_index = supplot_index
-            if isinstance(components[component_index], dict):
-                current_component = list(components[component_index].keys())[0]
-            else:
-                current_component = components[component_index].lower()
-            data_key_real = f"density_{current_component}_real"
-            data_key_imag = f"density_{current_component}_imag"
+        # current component index and label
+        component_index = supplot_index // 2
+        if isinstance(components[component_index], dict):
+            current_component = list(components[component_index].keys())[0]
+        else:
+            current_component = components[component_index].lower()
+        data_key_real = f"density_{current_component}_real"
+        data_key_imag = f"density_{current_component}_imag"
 
-            # curve plotting: real part and imaginary part
-            for _, data in enumerate(dataset):
-                energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], x_start, x_end)
-                energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key_imag], x_start, x_end)
-                if var_label == "energy":
-                    ax.plot(energy_real, density_energy_real, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"Real part {data[0]}")
-                    ax.plot(energy_imag, density_energy_imag, color=color_sampling(data[2])[1], ls="dashed", alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
-                    energy_starts.append(min(energy_real))
-                    energy_ends.append(max(energy_real))
-                else:
-                    wavelength_real, density_wl_real = extract_part(energy_to_wavelength(data[1]["density_energy_real"]), data[1][data_key_real], x_start, x_end)
-                    wavelength_imag, density_wl_imag = extract_part(energy_to_wavelength(data[1]["density_energy_imag"]), data[1][data_key_imag], x_start, x_end)
-                    ax.plot(wavelength_real, density_wl_real, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"Real part {data[0]}")
-                    ax.plot(wavelength_imag, density_wl_imag, color=color_sampling(data[2])[1], ls="dashed", alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
-                    wavelength_starts.append(min(wavelength_real))
-                    wavelength_ends.append(np.max(np.array(wavelength_real)[np.isfinite(wavelength_real)]))
-
-            # plasmon resonance line and scale rate
+        # curve plotting: real part and imaginary part for each system
+        for _, data in enumerate(dataset):
+            energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], x_start, x_end)
+            energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key_imag], x_start, x_end)
             if var_label == "energy":
-                plasmon_start = min(energy_starts)
-                plasmon_end = max(energy_ends)
-                ax.plot([plasmon_start, plasmon_end],[0,0], color=color_sampling("grey")[1], linestyle="dashed")
+                ax.plot(energy_real, density_energy_real, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"Real part {data[0]}")
+                ax.plot(energy_imag, density_energy_imag, color=color_sampling(data[2])[1], ls="dashed", alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
+                energy_starts.append(min(energy_real))
+                energy_ends.append(max(energy_real))
             else:
-                plasmon_start=min(wavelength_starts)
-                plasmon_end=max(wavelength_ends)
-                ax.plot([plasmon_start, plasmon_end],[0,0],color=color_sampling("grey")[1],linestyle="dashed")
+                wavelength_real, density_wl_real = extract_part(energy_to_wavelength(data[1]["density_energy_real"]), data[1][data_key_real], x_start, x_end)
+                wavelength_imag, density_wl_imag = extract_part(energy_to_wavelength(data[1]["density_energy_imag"]), data[1][data_key_imag], x_start, x_end)
+                ax.plot(wavelength_real, density_wl_real, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"Real part {data[0]}")
+                ax.plot(wavelength_imag, density_wl_imag, color=color_sampling(data[2])[1], ls="dashed", alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
+                wavelength_starts.append(min(wavelength_real))
+                wavelength_ends.append(np.max(np.array(wavelength_real)[np.isfinite(wavelength_real)]))
 
-            # subtitles and axis label (self-assertive): subtitles
-            ax.set_title(component_labels[component_index])
-            if layout_flag == "vertical":
-                ax.set_ylabel("Dielectric function")
-                if layout_flag == "vertical" and supplot_index == len(components)-1:
-                    ax.set_xlabel(xaxis_label)
-            else:
-                ax.set_xlabel(xaxis_label)
-                if supplot_index == 0:
-                    ax.set_ylabel("Dielectric function")
+        # plasmon resonance line and scale rate
+        if var_label == "energy":
+            plasmon_start = min(energy_starts)
+            plasmon_end = max(energy_ends)
+            ax.plot([plasmon_start, plasmon_end],[0,0], color=color_sampling("grey")[1], linestyle="dashed")
+        else:
+            plasmon_start=min(wavelength_starts)
+            plasmon_end=max(wavelength_ends)
+            ax.plot([plasmon_start, plasmon_end],[0,0],color=color_sampling("grey")[1],linestyle="dashed")
 
-            ax.legend(loc="best")
-            ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
+        # subtitles and axis label (self-assertive): subtitles
+        ax.set_title([f"Original view for {comp_aliases[component_index]}", f"Rescaled view for {comp_aliases[component_index]}"][supplot_index%2])
+
+        # ylabel
+        if layout_flag == "vertical" and supplot_index%2 == 0:
+            ax.set_ylabel("Dielectric function")
+        elif layout_flag == "horizontal" and supplot_index in range(2):
+            ax.set_ylabel("Dielectric function")
+
+        # xlabel
+        if layout_flag == "vertical" and supplot_index >= 2*len(components)-2:
+            ax.set_xlabel(xaxis_label)
+        elif layout_flag == "horizontal" and supplot_index%2 == 1:
+            ax.set_xlabel(xaxis_label)
+
+        ax.legend(loc="best")
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
     plt.tight_layout()
