@@ -629,7 +629,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
                     wavelength_starts.append(min(wavelength_real))
                     wavelength_ends.append(np.max(np.array(wavelength_real)[np.isfinite(wavelength_real)]))
 
-            # plasmon resonance line and scale rate
+            # plasmon resonance line and rescale rate
             if var_label == "energy":
                 plasmon_start = min(energy_starts)
                 plasmon_end = max(energy_ends)
@@ -773,7 +773,7 @@ def plot_dielectric_function_rescaled(suptitle, systems=None, components=None,
                 wavelength_starts.append(min(wavelength_real))
                 wavelength_ends.append(np.max(np.array(wavelength_real)[np.isfinite(wavelength_real)]))
 
-        # plasmon resonance line and scale rate
+        # plasmon resonance line and rescale rate
         if var_label == "energy":
             plasmon_start = min(energy_starts)
             plasmon_end = max(energy_ends)
