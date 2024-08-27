@@ -38,7 +38,7 @@ def canvas_setting(*args):
                 "\t[3]: Suptitle and subtitle fontsize"+\
                 "\t[4]: legend location"
     default_style = {"length": 10,
-                     "width": 7,
+                     "width": 6,
                      "dpi": 256,
                      "font_style": "serif"}
     default_params = {"text.usetex": False,

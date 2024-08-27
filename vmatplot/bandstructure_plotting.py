@@ -144,6 +144,7 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
     """
     if title in ["help", "Help"]:
         print(help_info)
+        return
 
     # Figure settings
     fig_setting = canvas_setting()

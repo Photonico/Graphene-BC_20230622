@@ -54,6 +54,8 @@ def plot_dielectric_function_XXZZ_col(title, dielectric_list=None, unit=None, in
                 "\t Outplane photon energy range (Optional). \n"
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # Figure settings
     fig_setting = canvas_setting(8, 11)
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -157,6 +159,8 @@ def plot_dielectric_function_XXZZ_row(title, dielectric_list=None, unit=None, in
                 "\t Outplane photon energy range (Optional). \n"
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # Figure settings
     fig_setting = canvas_setting(16, 6)
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -295,6 +299,8 @@ def plot_dielectric_function_XXZZ_block(title, dielectric_list=None, unit=None, 
                 "\t Outplane photon energy range (Optional). \n"
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # Figure settings
     fig_setting = canvas_setting(16, 12)
     params = fig_setting[2]; plt.rcParams.update(params)

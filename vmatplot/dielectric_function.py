@@ -436,7 +436,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
     elif isinstance(components, list) and len(components) == 1:
         return plot_dielectric_monocomp(suptitle, systems, components,layout, expansion_label,unit, boundary, figure_size)
 
-    ## rescale flag
+    ## expansion flag
     if isinstance(expansion_label, bool):
         expansion_flag = expansion_label
     elif expansion_label.lower() not in ["true", "yes", "t", "y", "combine"]:
@@ -449,10 +449,10 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
     for comp in components:
         if isinstance(comp, dict):
             for key, value in comp.items():
-                component_labels.append(f"{key}-component")
+                component_labels.append(key.lower())
                 comp_aliases.append(value)
         else:
-            component_labels.append(f"{comp}-component")
+            component_labels.append(comp.lower())
             comp_aliases.append(f"{comp}-component")
 
     ## figure settings
@@ -461,13 +461,13 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
     layout_flag = "horizontal" if layout.lower() not in ["vertical", "ver","v"] else "vertical"
     if expansion_flag is True:
         if layout_flag == "horizontal":
-            fig_setting = canvas_setting(8*len(components), 12+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(8*len(components), 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(2, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for j in range(len(components)) for i in range(2)] if len(components) != 1 else [axs[0], axs[1]]
         else:
-            fig_setting = canvas_setting(16, 6*len(components)+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(16, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(len(components), 2, figsize=fig_setting[0], dpi=fig_setting[1])
@@ -475,7 +475,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
     elif expansion_flag is False and len(components)%2 ==0:
         folding_flag = True
         if layout_flag == "horizontal":
-            fig_setting = canvas_setting(8*len(components)/2, 12+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(8*len(components)/2, 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(2, int(len(components)/2), figsize=fig_setting[0], dpi=fig_setting[1])
@@ -486,32 +486,30 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(int(len(components)/2), 2, figsize=fig_setting[0], dpi=fig_setting[1])
-            # axes_element = [axs[i, j] for i in range(int(len(components)/2)) for j in range(2)]
             axes_element = [axs[i, j] for j in range(2) for i in range(int(len(components)/2))]
     elif expansion_flag is False and len(components) == 9:
         allcomps_flag = True
         if layout_flag == "horizontal":
-            fig_setting = canvas_setting(24, 18+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(24, 18) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(3, 3, figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for i in range(3) for j in range(3)]
         else:
-            fig_setting = canvas_setting(24, 18+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(24, 18) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(3, 3, figsize=fig_setting[0], dpi=fig_setting[1])
-            # axes_element = [axs[i, j] for i in range(int(len(components)/2)) for j in range(2)]
             axes_element = [axs[i, j] for j in range(3) for i in range(3)]
     else:
         if layout_flag == "horizontal":
-            fig_setting = canvas_setting(8*len(components), 6+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(8*len(components), 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(1, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i] for i in range(len(components))]
         else:
-            fig_setting = canvas_setting(10, 6*len(components)+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            fig_setting = canvas_setting(10, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
             plt.rcParams.update(params)
             fig, axs = plt.subplots(len(components), 1, figsize=fig_setting[0], dpi=fig_setting[1])
@@ -523,7 +521,6 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
     ## systems information
     dataset = dielectric_systems_list(systems)
-    component_labels = [comp.lower() + "-component" for comp in components] if not comp_aliases else comp_aliases
 
     ## suptitle
     fig.suptitle(f"Dielectric function {suptitle}\n", fontsize=fig_setting[3][0])
@@ -540,10 +537,8 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
             # current component index and label
             component_index = supplot_index // 2
-            if isinstance(components[component_index], dict):
-                current_component = list(components[component_index].keys())[0]
-            else:
-                current_component = components[component_index].lower()
+            current_component = component_labels[component_index].lower()
+
             data_key = f"density_{current_component}_real" if supplot_index % 2 == 0 else f"density_{current_component}_imag"
 
             ## subtitles and axis label (self-assertive)
@@ -613,10 +608,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
             # current component index and label
             component_index = supplot_index
-            if isinstance(components[component_index], dict):
-                current_component = list(components[component_index].keys())[0]
-            else:
-                current_component = components[component_index].lower()
+            current_component = component_labels[component_index].lower()
             data_key_real = f"density_{current_component}_real"
             data_key_imag = f"density_{current_component}_imag"
 
@@ -648,7 +640,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
                 ax.plot([plasmon_start, plasmon_end],[0,0],color=color_sampling("grey")[1],linestyle="dashed")
 
             # subtitles and axis label (self-assertive): subtitles
-            ax.set_title(component_labels[component_index])
+            ax.set_title(comp_aliases[component_index])
             if allcomps_flag is True and layout_flag == "horizontal":
                 if supplot_index in [0, len(components)/3, 2*len(components)/3]:
                     ax.set_ylabel("Dielectric function")
@@ -683,8 +675,8 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
     plt.tight_layout()
 
-def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
-                                    layout="horizontal", unit=None, boundary=(None,None), figure_size=(None,None)):
+def plot_dielectric_function_rescaled(suptitle, systems=None, components=None,
+                                      layout="horizontal", unit=None, boundary=(None,None), figure_size=(None,None)):
 
     ## Help information
     help_info = "Usage: plot_dielectric_function_scaled \n" + \
@@ -699,25 +691,25 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
                 "\t figure_size: figure size <optional>. \n"
     if suptitle in ["help", "Help"]:
         print(help_info)
-        return None
+        return
 
-    ## scale flag and databoundaries
-    scale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_scaling(boundary)
+    ## rescale flag and databoundaries
+    rescale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_scaling(boundary)
 
     ## components aliases
     component_labels, comp_aliases = [], []
     for comp in components:
         if isinstance(comp, dict):
             for key, value in comp.items():
-                component_labels.append(f"{key}-component")
+                component_labels.append(key.lower())
                 comp_aliases.append(value)
         else:
-            component_labels.append(f"{comp}-component")
+            component_labels.append(comp.lower())
             comp_aliases.append(f"{comp}-component")
 
     ## figure settings
     layout_flag = "horizontal" if layout.lower() not in ["vertical", "ver","v"] else "vertical"
-    if scale_flag is True:
+    if rescale_flag is True:
         if layout_flag == "horizontal":
             fig_setting = canvas_setting(8*len(components), 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
             params = fig_setting[2]
@@ -731,7 +723,7 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
             fig, axs = plt.subplots(len(components), 2, figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for i in range(len(components)) for j in range(2)] if len(components) != 1 else [axs[0], axs[1]]
     else:
-        return plot_dielectric_function(suptitle, systems, components, layout, False,unit, boundary, figure_size)
+        return plot_dielectric_function(suptitle, systems, components, layout, False, unit, boundary, figure_size)
 
     ## identify x-axis unit
     var_label = "wavelength" if unit and unit.lower() == "nm" else "energy"
@@ -739,7 +731,6 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
 
     ## systems information
     dataset = dielectric_systems_list(systems)
-    component_labels = [comp.lower() + "-component" for comp in components] if not comp_aliases else comp_aliases
 
     ## suptitle
     fig.suptitle(f"Dielectric function {suptitle}\n", fontsize=fig_setting[3][0])
@@ -760,10 +751,8 @@ def plot_dielectric_function_scaled(suptitle, systems=None, components=None,
 
         # current component index and label
         component_index = supplot_index // 2
-        if isinstance(components[component_index], dict):
-            current_component = list(components[component_index].keys())[0]
-        else:
-            current_component = components[component_index].lower()
+        current_component = component_labels[component_index].lower()
+
         data_key_real = f"density_{current_component}_real"
         data_key_imag = f"density_{current_component}_imag"
 

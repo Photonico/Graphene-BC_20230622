@@ -37,6 +37,8 @@ def plot_reflectivity_XXZZ_row(title, matters_list=None, unit=None, inplane_boun
                 "\t Outplane photon wavelenght range (Optional). \n"
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # Figure settings
     fig_setting = canvas_setting(16, 6)
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -135,6 +137,8 @@ def plot_reflectivity_XXZZ_col(title, matters_list=None, unit=None, inplane_boun
                 "\t Outplane photon wavelenght range (Optional). \n"
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # Figure settings
     fig_setting = canvas_setting(8, 11)
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -237,6 +241,8 @@ def plot_reflectivity_XXZZ_zoom(title, matters_list=None, unit=None,
                 "\t Outplane photon wavelenght range 2 (Optional). \n"
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # General information
     prop = "Reflectivity"
     comp_function = create_matters_reflectivity

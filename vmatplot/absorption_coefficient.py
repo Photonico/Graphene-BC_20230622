@@ -43,6 +43,8 @@ def plot_absorption_XXZZ_row(title, absorption_list=None, unit=None, abs_type=No
                 "\t Outplane photon wavelenght range (Optional). \n"
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # Figure settings
     fig_setting = canvas_setting(16, 6)
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -152,6 +154,8 @@ def plot_absorption_XXZZ_col(title, absorption_list=None, unit=None, abs_type=No
                 "\t Outplane photon wavelenght range (Optional). \n"
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # Figure settings
     fig_setting = canvas_setting(8, 11)
     params = fig_setting[2]; plt.rcParams.update(params)
@@ -260,6 +264,8 @@ def plot_absorption_XXZZ_zoom(title, matters_list=None, unit=None, abs_type=None
                 "\t Outplane photon wavelenght range 2 (Optional). \n"
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # General information
     prop = "Absorption coefficient"
     comp_function = create_matters_absorption

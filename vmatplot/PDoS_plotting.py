@@ -46,7 +46,7 @@ def plot_totpdos(title, x_range = None, y_top = None, pdos_type = None, matters_
 
     if title.lower() == "help":
         print(help_info)
-        return None
+        return
 
     # Figure Settings
     fig_setting = canvas_setting()

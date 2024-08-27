@@ -129,6 +129,7 @@ def plot_dos_sol(matter, x_range=None, y_top=None, dos_type=None, dos_data=None,
 
     if matter in ["help", "Help"]:
         print(help_info)
+        return
 
     # Figure Settings
     fig_setting = canvas_setting()
@@ -209,6 +210,8 @@ def plot_dos_data(title, x_range = None, y_top = None, dos_type = None, matters 
 
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # Figure Settings
     fig_setting = canvas_setting()
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
@@ -262,6 +265,8 @@ def plot_dos(title, x_range = None, y_top = None, dos_type = None, matters_list 
 
     if title in ["help", "Help"]:
         print(help_info)
+        return
+
     # Figure Settings
     fig_setting = canvas_setting()
     plt.figure(figsize=fig_setting[0], dpi = fig_setting[1])
@@ -301,7 +306,7 @@ def plot_dos(title, x_range = None, y_top = None, dos_type = None, matters_list 
 
         # Title
         # plt.title(f"Electronic density of state for {title} ({supplement})")
-        plt.title(f"DoS {title} ")
+        plt.title(f"DoS {title}")
         plt.ylabel(r"Density of States"); plt.xlabel(r"Energy (eV)")
 
         plt.ylim(0, y_top)
