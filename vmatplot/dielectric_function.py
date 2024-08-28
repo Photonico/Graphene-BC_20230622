@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import h5py
 
-from vmatplot.commons import extract_fermi, process_boundary, process_boundaries_scaling, extract_part
+from vmatplot.commons import extract_fermi, process_boundary, process_boundaries_rescaling, extract_part
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import energy_to_wavelength
 
@@ -420,18 +420,18 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
         return
 
     ## scale flag and databoundaries
-    rescale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_scaling(boundary)
+    rescale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_rescaling(boundary)
 
     ## components aliases
-    component_label, comp_aliase = None, None
+    comp_label, comp_aliase = None, None
     if isinstance(component, list):
         component = component[0]
     if isinstance(component, dict):
         key, value = next(iter(component.items()))
-        component_label = key.lower()
+        comp_label = key.lower()
         comp_aliase = value
     else:
-        component_label = component.lower()
+        comp_label = component.lower()
         comp_aliase = f"{component}-component"
 
     ## expansion flag
@@ -505,7 +505,7 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
         wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
 
         # component key
-        current_component = component_label.lower()
+        current_component = comp_label.lower()
         data_key_real = f"density_{current_component}_real"
         data_key_imag = f"density_{current_component}_imag"
 
@@ -558,7 +558,7 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
                 x_end = scaled_end
 
             # component key
-            current_component = component_label.lower()
+            current_component = comp_label.lower()
             data_key_real = f"density_{current_component}_real"
             data_key_imag = f"density_{current_component}_imag"
 
@@ -628,7 +628,7 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
             x_end = source_end
 
             # component key
-            current_component = component_label.lower()
+            current_component = comp_label.lower()
             data_key_real = f"density_{current_component}_real"
             data_key_imag = f"density_{current_component}_imag"
 
@@ -700,7 +700,7 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
                 x_end = scaled_end
 
             # component key
-            current_component = component_label.lower()
+            current_component = comp_label.lower()
             data_key_real = f"density_{current_component}_real"
             data_key_imag = f"density_{current_component}_imag"
 
@@ -770,14 +770,14 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
         expansion_flag = True
 
     ## components aliases
-    component_labels, comp_aliases = [], []
+    comp_labels, comp_aliases = [], []
     for comp in components:
         if isinstance(comp, dict):
             for key, value in comp.items():
-                component_labels.append(key.lower())
+                comp_labels.append(key.lower())
                 comp_aliases.append(value)
         else:
-            component_labels.append(comp.lower())
+            comp_labels.append(comp.lower())
             comp_aliases.append(f"{comp}-component")
 
     ## figure settings
@@ -862,7 +862,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
             # current component index and label
             component_index = supplot_index // 2
-            current_component = component_labels[component_index].lower()
+            current_component = comp_labels[component_index].lower()
 
             data_key = f"density_{current_component}_real" if supplot_index % 2 == 0 else f"density_{current_component}_imag"
 
@@ -933,7 +933,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
             # current component index and label
             component_index = supplot_index
-            current_component = component_labels[component_index].lower()
+            current_component = comp_labels[component_index].lower()
             data_key_real = f"density_{current_component}_real"
             data_key_imag = f"density_{current_component}_imag"
 
@@ -1019,17 +1019,17 @@ def plot_dielectric_function_rescaled(suptitle, systems=None, components=None,
         return
 
     ## rescale flag and databoundaries
-    rescale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_scaling(boundary)
+    rescale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_rescaling(boundary)
 
     ## components aliases
-    component_labels, comp_aliases = [], []
+    comp_labels, comp_aliases = [], []
     for comp in components:
         if isinstance(comp, dict):
             for key, value in comp.items():
-                component_labels.append(key.lower())
+                comp_labels.append(key.lower())
                 comp_aliases.append(value)
         else:
-            component_labels.append(comp.lower())
+            comp_labels.append(comp.lower())
             comp_aliases.append(f"{comp}-component")
 
     ## figure settings
@@ -1076,7 +1076,7 @@ def plot_dielectric_function_rescaled(suptitle, systems=None, components=None,
 
         # current component index and label
         component_index = supplot_index // 2
-        current_component = component_labels[component_index].lower()
+        current_component = comp_labels[component_index].lower()
 
         data_key_real = f"density_{current_component}_real"
         data_key_imag = f"density_{current_component}_imag"
