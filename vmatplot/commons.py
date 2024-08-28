@@ -230,7 +230,7 @@ def process_boundary(boundary, default=(None, None)):
     else:
         return default
 
-def process_boundaries_scaling(boundary):
+def process_boundaries_rescaling(boundary):
     boundary_type = check_range_type(boundary)
     scale_flag = False
     source_start, source_end, scaled_start, scaled_end = None, None, None, None
@@ -259,5 +259,4 @@ def process_boundaries_scaling(boundary):
         scaled_range = boundary[1]
         source_start, source_end = process_boundary(source_range)
         scaled_start, scaled_end = process_boundary(scaled_range)
-
     return scale_flag, source_start, source_end, scaled_start, scaled_end

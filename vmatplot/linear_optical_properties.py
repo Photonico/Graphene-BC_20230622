@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from vmatplot.dielectric_function import extract_dielectric_function, dielectric_systems_list
-from vmatplot.commons import process_boundaries_scaling, extract_part
+from vmatplot.commons import process_boundaries_rescaling, extract_part
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import energy_to_wavelength, energy_to_frequency
 
@@ -59,36 +59,29 @@ def identify_linear_optical_functions(incoming=None):
         linear_title = "Dielectric function"
         linear_flag = "dielectric"
         compfunc_name = "extract_dielectric_function"
-        plotfunc_name = "plot_dielectric_function"
     elif incoming.lower() in ["absorption coefficient","absorption"]:
         linear_title = "Absorption coefficient"
         linear_flag = "absorption"
         compfunc_name = "comp_absorption_coefficient"
-        plotfunc_name = "plot_absorption_coefficient"
     elif incoming.lower() in ["refractive index","refractive"]:
         linear_title = "Refractive"
         linear_flag = "refractive"
         compfunc_name = "comp_refractive_index"
-        plotfunc_name = "plot_refractive_index"
     elif incoming.lower() in ["extinction coefficient", "extinction"]:
         linear_title = "Extinction coefficient"
         linear_flag = "extinction"
         compfunc_name = "comp_extinction_coefficient"
-        plotfunc_name = "plot_extinction_coefficient"
     elif incoming.lower() in ["reflectivity"]:
         linear_title = "Reflectivity"
         linear_flag = "reflectivity"
         compfunc_name = "comp_reflectivity"
-        plotfunc_name = "plot_reflectivity"
     elif incoming.lower() in ["energy-loss function", "energy-loss spectrum", "energy-loss"]:
         linear_title = "Energy-loss spectrum"
         linear_flag = "energy-loss"
         compfunc_name = "comp_energy_loss_spectrum"
-        plotfunc_name = "plot_energy_loss_spectrum"
     else:
         print(help_info)
         return None
-    # return {"title":linear_title, "flag":linear_flag, "calculation function":compfunc_name, "plotting function": plotfunc_name}
     return {"title":linear_title, "flag":linear_flag, "calculation function":compfunc_name}
 
 # current linear optical propertie
@@ -118,47 +111,35 @@ def determine_formula_flag(plotting_function_name):
         formula_flag = "energy-loss"
     return formula_flag
 
-def lop_plotting_help(linear_chars):
-    func_label = identify_linear_optical_functions(linear_chars)
-    if func_label is not None:
-        help_info = f"Usage: {func_label['plotting function']} \n" +\
-                    f"Demonstrate {(func_label['title']).lower()} by each component \n" +\
-                    "\t suptitle: the suptitle; \n" +\
-                    "\t systems_list: dielectric function data list; \n" +\
-                    "\t components: select components in a list ({'xx'<default>, 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'}); \n" +\
-                    "\t layout: subfigures layout (horizontal<default>, vertical); \n" +\
-                    "\t unit: x-axis unit (eV<default>, nm); \n" +\
-                    "\t boundary: a-axis range <optional>; \n" +\
-                    "\t figure_size: figure size <optional>. \n"
-    else: help_info = None
+def lop_plotting_help():
+    help_info = "Usage: plot_linear_optical_property \n" +\
+                "Demonstrate linear optical properties by each component \n" +\
+                "\t suptitle: the suptitle; \n" +\
+                "\t systems_list: dielectric function data list; \n" +\
+                "\t components: select components in a list ({'xx'<default>, 'yy', 'zz', 'xy', 'yx', 'yz', 'zy', 'zx', 'xz'}); \n" +\
+                "\t expansion: select one variable to expansion (rescale<auto>, properties, systems); \n" +\
+                "\t layout: subfigures layout (horizontal<default>, vertical); \n" +\
+                "\t unit: x-axis unit (eV<default>, nm); \n" +\
+                "\t boundary: a-axis range <optional>; \n" +\
+                "\t figure_size: figure size <optional>. \n"
     return help_info
 
 ### rebuild
 
-def plot_lop_monocomp_testing(suptitle, systems_list=None, current_property=None, components="xx", layout="horizontal",
-                      unit="eV", boundary=(None,None), figure_size=(None,None)):
-    ## Help information
-    current_help = lop_plotting_help("absorption")
-    if suptitle.lower() =="help":
-        print(current_help)
-
-    print("test")
-
-def plot_linear_optical_property(suptitle, systems_list=None, current_property=None, components="xx", layout="horizontal",
+def plot_linear_optical_property_old(suptitle, systems_list=None, current_property=None, components="xx", layout="horizontal",
                                  unit="eV", boundary=(None,None), figure_size=(None,None)):
     ## Help information
-    current_help = lop_plotting_help("absorption")
     if suptitle.lower() =="help":
-        print(current_help)
+        print("help")
 
     ## scale flag and databoundaries
-    scale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_scaling(boundary)
+    scale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_rescaling(boundary)
 
     ## multi components flag
-    if isinstance(components, str) or isinstance(components, dict):
-        return plot_lop_monocomp_testing(suptitle, systems_list, current_property, components,layout,unit, boundary, figure_size)
-    elif isinstance(components, list) and len(components) == 1:
-        return plot_lop_monocomp_testing(suptitle, systems_list, current_property, components,layout, unit, boundary, figure_size)
+    # if isinstance(components, str) or isinstance(components, dict):
+    #     return plot_lop_monocomp_testing(suptitle, systems_list, current_property, components,layout,unit, boundary, figure_size)
+    # elif isinstance(components, list) and len(components) == 1:
+    #     return plot_lop_monocomp_testing(suptitle, systems_list, current_property, components,layout, unit, boundary, figure_size)
 
     component_labels, comp_aliases = [], []
     ## components
