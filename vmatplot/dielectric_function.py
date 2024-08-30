@@ -797,7 +797,22 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
             plt.rcParams.update(params)
             fig, axs = plt.subplots(len(components), 2, figsize=fig_setting[0], dpi=fig_setting[1])
             axes_element = [axs[i, j] for i in range(len(components)) for j in range(2)] if len(components) != 1 else [axs[0], axs[1]]
-    elif expansion_flag is False and len(components)%2 ==0:
+    elif expansion_flag is False and len(components) == 2:
+        if layout_flag == "horizontal":
+            fig_setting = canvas_setting(16, 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(1, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+            axs = axs.reshape(1, 2)
+            axes_element = [axs[0, i] for i in range(2)]
+        else:
+            fig_setting = canvas_setting(8, 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(2, 1, figsize=fig_setting[0], dpi=fig_setting[1])
+            axs = axs.reshape(2, 1)
+            axes_element = [axs[i, 0] for i in range(2)]
+    elif expansion_flag is False and len(components)%2 == 0:
         folding_flag = True
         if layout_flag == "horizontal":
             fig_setting = canvas_setting(8*len(components)/2, 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
@@ -852,7 +867,6 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
     ## data boundary
     photon_start, photon_end = process_boundary(boundary)
-    print(photon_start, photon_end)
 
     ## data plotting
     # for each subplot
