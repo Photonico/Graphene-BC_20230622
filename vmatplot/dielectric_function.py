@@ -685,7 +685,7 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
     elif expansion_flag is False and rescale_flag is True:
-        supplot_subtitles = [f"Original view for {comp_aliase}",f"Rescaled for {comp_aliase}"]
+        supplot_subtitles = ["Original view", "Rescaled view"]
         for supplot_index in range(2):
             ax = axes_element[supplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
@@ -721,15 +721,15 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
                     wavelength_starts.append(min(wavelength_real))
                     wavelength_ends.append(np.max(np.array(wavelength_real)[np.isfinite(wavelength_real)]))
 
-        # plasmon resonance line and rescale rate
-        if var_label == "energy":
-            plasmon_start = min(energy_starts)
-            plasmon_end = max(energy_ends)
-            ax.plot([plasmon_start, plasmon_end],[0,0], color=color_sampling("grey")[1], linestyle="dashed")
-        else:
-            plasmon_start=min(wavelength_starts)
-            plasmon_end=max(wavelength_ends)
-            ax.plot([plasmon_start, plasmon_end],[0,0],color=color_sampling("grey")[1],linestyle="dashed")
+            # plasmon resonance line and rescale rate
+            if var_label == "energy":
+                plasmon_start = min(energy_starts)
+                plasmon_end = max(energy_ends)
+                ax.plot([plasmon_start, plasmon_end],[0,0], color=color_sampling("grey")[1], linestyle="dashed")
+            else:
+                plasmon_start=min(wavelength_starts)
+                plasmon_end=max(wavelength_ends)
+                ax.plot([plasmon_start, plasmon_end],[0,0],color=color_sampling("grey")[1],linestyle="dashed")
 
             # subtitles and axis label (self-assertive): subtitles
             ax.set_title(supplot_subtitles[supplot_index])
@@ -742,9 +742,9 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
                 if supplot_index == 1:
                     ax.set_xlabel(xaxis_label)
 
-        # Legend
-        ax.legend(loc="best")
-        ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
+            # Legend
+            ax.legend(loc="best")
+            ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
 def plot_dielectric_function(suptitle, systems=None, components=None,
                              layout="horizontal", expansion_label=True,
@@ -852,6 +852,7 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
 
     ## data boundary
     photon_start, photon_end = process_boundary(boundary)
+    print(photon_start, photon_end)
 
     ## data plotting
     # for each subplot
@@ -1017,6 +1018,12 @@ def plot_dielectric_function_rescaled(suptitle, systems=None, components=None,
     if suptitle in ["help", "Help"]:
         print(help_info)
         return
+
+    ## multi components flag
+    if isinstance(components, str) or isinstance(components, dict):
+        return plot_dielectric_monocomp(suptitle, systems, components,layout, unit, boundary, figure_size)
+    elif isinstance(components, list) and len(components) == 1:
+        return plot_dielectric_monocomp(suptitle, systems, components,layout, unit, boundary, figure_size)
 
     ## rescale flag and databoundaries
     rescale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_rescaling(boundary)
