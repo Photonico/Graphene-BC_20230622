@@ -309,7 +309,7 @@ def plot_bilayer_lattice_double(suptitle, subtitle_1, subtitle_2, source_data_1,
     order_labels = subtitles
 
     # Title
-    plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
+    plt.suptitle(f"Free energy versus lattice and spacing {suptitle}", fontsize=fig_setting[3][0], y=1.00)
 
     # plot data
     for supplot_index in range(2):
@@ -383,6 +383,10 @@ def plot_bilayer_lattice_double(suptitle, subtitle_1, subtitle_2, source_data_1,
         else:
             legend_loc = "lower left"
 
+        ax.set_xlabel(r"Lattice constant (Å)")
+        if supplot_index == 0:
+            ax.set_ylabel(r"Interlayer spacing (Å)")
+
         ax.legend(loc=legend_loc)
 
     plt.tight_layout()
@@ -410,7 +414,7 @@ def plot_bilayer_lattice_triple_row(suptitle, subtitle_1, subtitle_2, subtitle_3
     order_labels = subtitles
 
     # Title
-    plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
+    plt.suptitle(f"Free energy versus lattice and spacing {suptitle}", fontsize=fig_setting[3][0], y=1.00)
 
     for supplot_index in range(3):
         ax = axes_element[supplot_index]
@@ -483,6 +487,10 @@ def plot_bilayer_lattice_triple_row(suptitle, subtitle_1, subtitle_2, subtitle_3
         else:
             legend_loc = "lower left"
 
+        ax.set_xlabel(r"Lattice constant (Å)")
+        if supplot_index == 0:
+            ax.set_ylabel(r"Interlayer spacing (Å)")
+
         ax.legend(loc=legend_loc)
 
     plt.tight_layout()
@@ -514,7 +522,7 @@ def plot_bilayer_lattice_quadruple(suptitle,
     order_labels = subtitles
 
     # Title
-    plt.suptitle(f"Free energy versus lattice {suptitle}", fontsize=fig_setting[3][0], y=1.00)
+    plt.suptitle(f"Free energy versus lattice and spacing {suptitle}", fontsize=fig_setting[3][0], y=1.00)
 
     # plot data
     for supplot_index in range(4):
@@ -588,6 +596,11 @@ def plot_bilayer_lattice_quadruple(suptitle,
         else:
             legend_loc = "lower left"
 
+        if supplot_index >= 2:
+            ax.set_xlabel(r"Lattice constant (Å)")
+        if supplot_index %2 ==0:
+            ax.set_ylabel(r"Interlayer spacing (Å)")
+        
         ax.legend(loc=legend_loc)
 
     plt.tight_layout()

@@ -7,7 +7,8 @@ import numpy as np
 from matplotlib.ticker import FuncFormatter
 from matplotlib.ticker import ScalarFormatter
 
-from vmatplot.algorithms import fit_eos, extract_part
+from vmatplot.algorithms import fit_eos
+from vmatplot.commons import extract_part
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.lattice import read_free_energy_lattice_count
 from vmatplot.lattice import specify_free_energy_lattice
