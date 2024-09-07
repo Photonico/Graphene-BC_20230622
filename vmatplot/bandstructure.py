@@ -8,6 +8,18 @@ import numpy as np
 from vmatplot.algorithms import transpose_matrix
 from vmatplot.bandgap import extract_bandgap_outcar
 
+def extract_high_sym(directory):
+    """
+    Extracts the high symmetry lines from the KPOINTS file in a VASP calculation directory.
+    """
+    # Open and read the KPOINTS file
+    kpoints_file_path = os.path.join(directory, "KPOINTS")
+    kpoints_opt_path = os.path.join(directory, "KPOINTS_OPT")
+    if os.path.exists(kpoints_opt_path):
+        kpoints_file = kpoints_opt_path
+    elif os.path.exists(kpoints_file_path):
+        kpoints_file = kpoints_file_path
+
 def extract_high_symlines(directory):
     """
     Extracts the high symmetry lines from the KPOINTS file in a VASP calculation directory.
