@@ -19,6 +19,21 @@ def extract_high_sym(directory):
         kpoints_file = kpoints_opt_path
     elif os.path.exists(kpoints_file_path):
         kpoints_file = kpoints_file_path
+    with open(kpoints_file, "r", encoding="utf-8") as file:
+        KPOINTS = file.readlines()
+    # Check if the KPOINTS file is in line-mode
+    if KPOINTS[2][0] not in ("l", "L"):
+        raise ValueError(f"Expected 'L' on the third line of KPOINTS file, got: {KPOINTS[2]}")
+    # Initialize a set to store unique high symmetry points
+    high_symmetry_points = set()
+    # Read the high symmetry points from the KPOINTS file
+    for i in range(4, len(KPOINTS)):
+        tokens = KPOINTS[i].strip().split()
+        if tokens and tokens[-1].isalpha():
+            high_symmetry_points.add(tokens[-1])
+    # The set of high symmetry points
+    sets = high_symmetry_points
+    return list(sets)
 
 def extract_high_symlines(directory):
     """
@@ -69,7 +84,7 @@ def extract_high_symlines(directory):
         end = non_empty_lines[i+1]
         limits.append([start, end])
     # Return the kpoints format, number of lines, set of high symmetry points, and their limits
-    return kpoints_format, lines, sets, limits
+    return kpoints_format, lines, list(sets), limits
 
 def extract_fermi_outcar(directory):
     """
@@ -333,6 +348,46 @@ def kpoints_path(directory):
         high_symmetry_paths[label] = path[index]
     # Return the dictionary of high symmetry points and their path distances
     return high_symmetry_paths
+
+def high_symmetry_coordinates(directory):
+    """
+    This function extracts the coordinates of high symmetry points from the KPOINTS file.
+
+    Args:
+    directory (str): The directory path that contains the VASP KPOINTS file.
+    
+    Returns:
+    list: A list of coordinates for the high symmetry points in the Brillouin zone.
+    """
+    # Retrieve the coordinates of the high symmetry points
+    high_symmetry_points = kpoints_coordinate(directory)
+    # Extract the coordinates from the dictionary and store them in a list
+    coordinates_list = list(high_symmetry_points.values())
+    return coordinates_list
+
+def high_symmetry_path(directory):
+    """
+    This function extracts the x-axis values (cumulative path distances) for the high symmetry points
+    in a bandstructure plot.
+
+    Args:
+    directory (str): The directory path that contains the VASP output files.
+    
+    Returns:
+    list: A list of x-axis values for the high symmetry points in the bandstructure plot.
+    """
+    # Get the indices of high symmetry points in the k-point list
+    high_symmetry_indices = kpoints_index(directory)
+    # Calculate the cumulative path distances for the k-points
+    path = extract_kpath(directory)
+    # Initialize a list to store the x-axis values for the high symmetry points
+    high_sym_path = []
+    # Iterate over the high symmetry points and their indices
+    for index in high_symmetry_indices.values():
+        # Append the corresponding path distance to the list
+        high_sym_path.append(path[index])
+    # Return the list of x-axis values
+    return high_sym_path
 
 def clean_kpoints(kpoints_list, tol=1e-10):
     kpoints_list[np.isclose(kpoints_list, 0, atol=tol)] = 0
