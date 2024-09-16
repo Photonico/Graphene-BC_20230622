@@ -4,8 +4,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from vmatplot.dielectric_function import dielectric_systems_list, extract_dielectric_function
-from vmatplot.commons import process_boundaries_rescaling, extract_part
+from vmatplot.dielectric_function import dielectric_systems_list
+from vmatplot.commons import process_boundary, extract_part
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import energy_to_wavelength, energy_to_frequency
 
@@ -123,204 +123,252 @@ def lop_plotting_help():
 
 ### rebuild
 
-def plot_linear_optical_property_old(suptitle, systems_list=None, current_property=None, components="xx", layout="horizontal",
-                                 unit="eV", boundary=(None,None), figure_size=(None,None)):
-    ## Help information
-    if suptitle.lower() =="help":
-        print("help")
+def plot_linear_optical_property(suptitle, systems=None, properties=None, components="xx", layout="horizontal", unit="eV", boundary=(None, None), figure_size=(None, None)):
 
-    ## scale flag and databoundaries
-    scale_flag, source_start, source_end, scaled_start, scaled_end = process_boundaries_rescaling(boundary)
+    ## Support information
+    if suptitle.lower() in ["help", "support"]:
+        help_info = lop_plotting_help()
+        print(help_info)
+        return
 
-    ## multi components flag
-    # if isinstance(components, str) or isinstance(components, dict):
-    #     return plot_lop_monocomp_testing(suptitle, systems_list, current_property, components,layout,unit, boundary, figure_size)
-    # elif isinstance(components, list) and len(components) == 1:
-    #     return plot_lop_monocomp_testing(suptitle, systems_list, current_property, components,layout, unit, boundary, figure_size)
+    ## properties labels and determination
+    multi_prop_flag = None
+    if isinstance(properties, str):
+        multi_prop_flag = False
+        formula_flag = identify_linear_optical_functions(properties)["flag"]
+        formula_title = identify_linear_optical_functions(properties)["title"]
+    elif isinstance(properties, list):
+        formula_flags, formula_titles =[],[]
+        for formula_input in properties:
+            formula_flags.append(identify_linear_optical_functions(formula_input)["flag"])
+            formula_titles.append(identify_linear_optical_functions(formula_input)["title"])
+        if len(properties) == 1:
+            multi_prop_flag = False
+            formula_flag = formula_flags[0]
+            formula_title = formula_titles[0]
+        elif len(properties) > 1:
+            multi_prop_flag = True
+    if multi_prop_flag == True:
+        print("We currently do not support multiple linear optical properties in one figure")
+        return None
 
-    component_labels, comp_aliases = [], []
-    ## components
-    for comp in components:
-        if isinstance(comp, dict):
-            for key, value in comp.items():
-                component_labels.append(f"{key}-component")
-                comp_aliases.append(value)
-        else:
-            component_labels.append(f"{comp}-component")
-            comp_aliases.append(f"{comp}-component")
+    ## multi component determination
+    multi_comp_flag = None
+    comp_labels, comp_aliases = [], []
+    if isinstance(components, str):
+        multi_comp_flag = False
+        comp_labels.append(components)
+        comp_aliases.append(f"{components}-component")
+    elif isinstance(components, dict):
+        if len(components) == 1:
+            multi_comp_flag = False
+            comp_labels.append(list(components.keys())[0])
+            comp_aliases.append(list(components.values())[0])
+        elif len(components) > 1:
+            multi_comp_flag = True
+            comp_labels.append(list(components.keys()))
+            comp_aliases.append(list(components.values()))
+    elif isinstance(components, list):
+        if len(components) == 1:
+            multi_comp_flag = False
+        elif len(components) > 1:
+            multi_comp_flag = True
+        for comp_unit in components:
+            if isinstance(comp_unit, dict):
+                comp_labels.append(list(comp_unit.keys())[0])
+                comp_aliases.append(list(comp_unit.values())[0])
+            elif isinstance(comp_unit, str):
+                comp_labels.append(comp_unit)
+                comp_aliases.append(f"{comp_unit}-component")
+    if multi_comp_flag == False:
+            comp_label = comp_labels[0]
+            comp_aliase = comp_aliases[0]
 
     ## figure settings
     layout_flag = "horizontal" if layout.lower() not in ["vertical", "ver","v"] else "vertical"
-    if scale_flag is True:
-        if layout_flag == "horizontal":
-            fig_setting = canvas_setting(8*len(components), 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
-            params = fig_setting[2]
-            plt.rcParams.update(params)
-            fig, axs = plt.subplots(2, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
-            axes_element = [axs[i, j] for j in range(len(components)) for i in range(2)] if len(components) != 1 else [axs[0], axs[1]]
-        else:
-            fig_setting = canvas_setting(16, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
-            params = fig_setting[2]
-            plt.rcParams.update(params)
-            fig, axs = plt.subplots(len(components), 2, figsize=fig_setting[0], dpi=fig_setting[1])
-            axes_element = [axs[i, j] for i in range(len(components)) for j in range(2)] if len(components) != 1 else [axs[0], axs[1]]
-    else:
-        if layout_flag == "horizontal":
-            fig_setting = canvas_setting(8*len(components), 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
-            params = fig_setting[2]
-            plt.rcParams.update(params)
-            fig, axs = plt.subplots(1, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
-            axes_element = [axs[i] for i in range(len(components))]
-        else:
-            fig_setting = canvas_setting(8, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
-            params = fig_setting[2]
-            plt.rcParams.update(params)
-            fig, axs = plt.subplots(len(components), 1, figsize=fig_setting[0], dpi=fig_setting[1])
-            axes_element = [axs[i] for i in range(len(components))]
+    if multi_comp_flag == False:
+        ## figure settings
+        fig_setting = canvas_setting() if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+        plt.figure(figsize=fig_setting[0], dpi=fig_setting[1])
+        params = fig_setting[2]
+        plt.rcParams.update(params)
+
+    elif multi_comp_flag == True:
+        ## figure settings
+        if len(components) == 2:
+            if layout_flag == "horizontal":
+                fig_setting = canvas_setting(16, 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+                params = fig_setting[2]
+                plt.rcParams.update(params)
+                fig, axs = plt.subplots(1, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+                axs = axs.reshape(1, 2)
+                axes_element = [axs[0, i] for i in range(2)]
+            else:
+                fig_setting = canvas_setting(8, 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+                params = fig_setting[2]
+                plt.rcParams.update(params)
+                fig, axs = plt.subplots(2, 1, figsize=fig_setting[0], dpi=fig_setting[1])
+                axs = axs.reshape(2, 1)
+                axes_element = [axs[i, 0] for i in range(2)]
+        elif len(components) in [3, 5, 7]:
+            if layout_flag == "horizontal":
+                fig_setting = canvas_setting(8*len(components), 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+                params = fig_setting[2]
+                plt.rcParams.update(params)
+                fig, axs = plt.subplots(1, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
+                axes_element = [axs[i] for i in range(len(components))]
+            else:
+                fig_setting = canvas_setting(10, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+                params = fig_setting[2]
+                plt.rcParams.update(params)
+                fig, axs = plt.subplots(len(components), 1, figsize=fig_setting[0], dpi=fig_setting[1])
+                axes_element = [axs[i] for i in range(len(components))]
+        elif len(components) in [4, 6, 8]:
+            if layout_flag == "horizontal":
+                fig_setting = canvas_setting(8*len(components)/2, 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+                params = fig_setting[2]
+                plt.rcParams.update(params)
+                fig, axs = plt.subplots(2, int(len(components)/2), figsize=fig_setting[0], dpi=fig_setting[1])
+                axes_element = [axs[i, j] for i in range(2) for j in range(int(len(components)/2))]
+            else:
+                fig_setting = canvas_setting(16, 6*len(components)/2+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+                params = fig_setting[2]
+                plt.rcParams.update(params)
+                fig, axs = plt.subplots(int(len(components)/2), 2, figsize=fig_setting[0], dpi=fig_setting[1])
+                axes_element = [axs[i, j] for j in range(2) for i in range(int(len(components)/2))]
+        elif len(components) == 9:
+            if layout_flag == "horizontal":
+                fig_setting = canvas_setting(24, 18) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+                params = fig_setting[2]
+                plt.rcParams.update(params)
+                fig, axs = plt.subplots(3, 3, figsize=fig_setting[0], dpi=fig_setting[1])
+                axes_element = [axs[i, j] for i in range(3) for j in range(3)]
+            else:
+                fig_setting = canvas_setting(24, 18) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+                params = fig_setting[2]
+                plt.rcParams.update(params)
+                fig, axs = plt.subplots(3, 3, figsize=fig_setting[0], dpi=fig_setting[1])
+                axes_element = [axs[i, j] for j in range(3) for i in range(3)]
+
+    ## boundaries processing
+    photon_start, photon_end = process_boundary(boundary)
 
     ## identify x-axis unit
     var_label = "wavelength" if unit and unit.lower() == "nm" else "energy"
     xaxis_str = "Photon wavelength (nm)" if var_label == "wavelength" else "Photon energy (eV)"
 
     ## systems information
-    dataset = lop_systems(systems_list)
-    component_labels = [comp.lower() + "-component" for comp in components] if not comp_aliases else comp_aliases
-
-    ## formula flag
-    formula_flag = identify_linear_optical_functions(current_property)["flag"]
+    dataset = dielectric_systems_list(systems)
 
     ## suptitle
-    suptitle_prefix = identify_linear_optical_functions(formula_flag)["title"]
-    fig.suptitle(f"{suptitle_prefix} {suptitle}\n", fontsize=fig_setting[3][0])
-
-    ## testing area
-    # print(identify_linear_optical_functions(formula_flag)["title"])
+    if multi_comp_flag == False:
+        plt.title(f"{formula_title} for {comp_aliase} {suptitle}", fontsize=fig_setting[3][0])
+    elif multi_comp_flag == True:
+        fig.suptitle(f"{formula_title} {suptitle}", fontsize=fig_setting[3][0])
 
     ## data plotting
-    # scale_flag is True (scaling opened)
-    if scale_flag is True:
-        for subplot_index in range(2*len(components)):
-            ax = axes_element[subplot_index]
-            ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+    if multi_comp_flag == False:
+        plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
-            # initialization
-            wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
-            if subplot_index%2 == 0:
-                x_start = source_start
-                x_end = source_end
+        # component key
+        current_component = comp_label.lower()
+        data_key_real = f"density_{current_component}_real"
+        data_key_imag = f"density_{current_component}_imag"
+
+        # curve plotting
+        for _, data in enumerate(dataset):
+            energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], photon_start, photon_end)
+            energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key_imag], photon_start, photon_end)
+            frequency_real = energy_to_frequency(energy_real)
+            wavelength_real = energy_to_wavelength(energy_real)
+            if formula_flag == "absorption":
+                variables = current_lop(formula_flag,frequency_real,density_energy_real,density_energy_imag)
             else:
-                x_start = scaled_start
-                x_end = scaled_end
+                variables = current_lop(formula_flag,density_energy_real,density_energy_imag)
+            if var_label == "energy":
+                plt.plot(energy_real, variables, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
+            elif var_label == "wavelength":
+                plt.plot(wavelength_real, variables, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
+        
+        # axis labels
+        plt.ylabel(f"{formula_title}")
+        plt.xlabel(xaxis_str)
 
-            # current component index and label
-            component_index = subplot_index // 2
-            if isinstance(components[component_index], dict):
-                current_component = list(components[component_index].keys())[0]
-            else:
-                current_component = components[component_index].lower()
-            data_key_real = f"density_{current_component}_real"
-            data_key_imag = f"density_{current_component}_imag"
+        # legends and scientific notation
+        plt.legend(loc="best")
+        plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
-            # curve plotting
-            for _, data in enumerate(dataset):
-                energy_full = data[1]["density_energy_real"]
-                density_real_full, density_imag_full = data[1][data_key_real], data[1][data_key_imag]
-                frequency_real_full = energy_to_frequency(energy_full)
+        plt.tight_layout()
 
-                # calculate curve
-                if formula_flag == "absorption":
-                    curve_full = current_lop(formula_flag, frequency_real_full, density_real_full, density_imag_full)
-                else:
-                    curve_full = current_lop(formula_flag, density_real_full, density_imag_full)
-
-                if var_label == "energy":
-                    demo_var, curve_energy = extract_part(energy_full, curve_full, x_start, x_end)
-                    ax.plot(demo_var, curve_energy, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
-                    energy_starts.append(min(demo_var))
-                    energy_ends.append(max(demo_var))
-                elif var_label == "wavelength":
-                    wavelength_full = energy_to_wavelength(energy_full)
-                    wavelength_var, curve_wavelength = extract_part(wavelength_full, curve_full, x_start, x_end)
-                    ax.plot(wavelength_var, curve_wavelength, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
-                    wavelength_starts.append(min(wavelength_var))
-                    wavelength_ends.append(np.max(np.array(wavelength_var)[np.isfinite(wavelength_var)]))
-
-            # subtitles and axis label (self-assertive): subtitles
-            if layout_flag == "vertical" and subplot_index in range(2):
-                ax.set_title(["Original view", "Rescaled view"][subplot_index])
-            elif layout_flag == "horizontal" and subplot_index%2 == 0:
-                ax.set_title(component_labels[component_index])
-
-            # ylabel
-            if layout_flag == "vertical" and subplot_index%2 == 0:
-                ax.set_ylabel(f"{suptitle_prefix} for {component_labels[component_index]}")
-            elif layout_flag == "horizontal" and subplot_index in range(2):
-                ax.set_ylabel([f"{suptitle_prefix}", f"{suptitle_prefix} (Rescaled)"][subplot_index])
-            # xlabel
-            if layout_flag == "vertical" and subplot_index >= 2*len(components)-2:
-                ax.set_xlabel(xaxis_str)
-            elif layout_flag == "horizontal" and subplot_index%2 == 1:
-                ax.set_xlabel(xaxis_str)
-
-            ax.legend(loc="best")
-            ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
-
-    # scale_flag is False (scaling closed)
-    else:
+    elif multi_comp_flag == True:
         for subplot_index in range(len(components)):
             ax = axes_element[subplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
-            # initialization
-            wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
-            x_start = source_start
-            x_end = source_end
-
-            # current component index and label
+            # components index and subtitles
             component_index = subplot_index
-            if isinstance(components[component_index], dict):
-                current_component = list(components[component_index].keys())[0]
-            else:
-                current_component = components[component_index].lower()
+            ax.set_title(comp_aliases[component_index])
+
+            # current component key and label
+            current_component = comp_labels[component_index].lower()
             data_key_real = f"density_{current_component}_real"
             data_key_imag = f"density_{current_component}_imag"
 
             # curve plotting
             for _, data in enumerate(dataset):
-                energy_full = data[1]["density_energy_real"]
-                density_real_full, density_imag_full = data[1][data_key_real], data[1][data_key_imag]
-                frequency_real_full = energy_to_frequency(energy_full)
-
-                # calculate curve
+                energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], photon_start, photon_end)
+                energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key_imag], photon_start, photon_end)
+                frequency_real = energy_to_frequency(energy_real)
+                wavelength_real = energy_to_wavelength(energy_real)
                 if formula_flag == "absorption":
-                    curve_full = current_lop(formula_flag, frequency_real_full, density_real_full, density_imag_full)
+                    variables = current_lop(formula_flag,frequency_real,density_energy_real,density_energy_imag)
                 else:
-                    curve_full = current_lop(density_real_full, density_imag_full)
-
+                    variables = current_lop(formula_flag,density_energy_real,density_energy_imag)
                 if var_label == "energy":
-                    demo_var, curve_energy = extract_part(energy_full, curve_full, x_start, x_end)
-                    ax.plot(demo_var, curve_energy, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
-                    energy_starts.append(min(demo_var))
-                    energy_ends.append(max(demo_var))
+                    ax.plot(energy_real, variables, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
                 elif var_label == "wavelength":
-                    wavelength_full = energy_to_wavelength(energy_full)
-                    wavelength_var, curve_wavelength = extract_part(wavelength_full, curve_full, x_start, x_end)
-                    ax.plot(wavelength_var, curve_wavelength, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
-                    wavelength_starts.append(min(wavelength_var))
-                    wavelength_ends.append(np.max(np.array(wavelength_var)[np.isfinite(wavelength_var)]))
-
-            # subtitles and axis label (self-assertive): subtitles
-            if layout_flag == "vertical":
-                ax.set_ylabel(f"{suptitle_prefix} for {component_labels[component_index]}")
-                if layout_flag == "vertical" and subplot_index == len(components)-1:
-                    ax.set_xlabel(xaxis_str)
-            else:
-                ax.set_title(component_labels[component_index])
+                    ax.plot(wavelength_real, variables, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
+            
+            # axis labels
+            if layout_flag == "horizontal" and len(components) == 2:
                 ax.set_xlabel(xaxis_str)
                 if subplot_index == 0:
-                    ax.set_ylabel(f"{suptitle_prefix}")
+                    ax.set_ylabel(f"{formula_title}")
+            elif layout_flag == "vertical" and len(components) == 2:
+                ax.set_ylabel(f"{formula_title}")
+                if subplot_index == len(components)-1:
+                    ax.set_xlabel(xaxis_str)
+            elif layout_flag == "horizontal" and len(components) == 9:
+                if subplot_index >= len(components)-3:
+                    ax.set_xlabel(xaxis_str)
+                if subplot_index%3==0:
+                    ax.set_ylabel(f"{formula_title}")
+            elif layout_flag == "vertical" and len(components) == 9:
+                if subplot_index%3==2:
+                    ax.set_xlabel(xaxis_str)
+                if subplot_index in [0,1,2]:
+                    ax.set_ylabel(f"{formula_title}")
+            elif layout_flag == "horizontal" and len(components)%2==0:
+                if subplot_index >= len(components)-(len(components)/2):
+                    ax.set_xlabel(xaxis_str)
+                if subplot_index%(len(components)/2)==0:
+                    ax.set_ylabel(f"{formula_title}")
+            elif layout_flag == "vertical" and len(components)%2==0:
+                if (subplot_index+1) % len(components)==0:
+                    ax.set_xlabel(xaxis_str)
+                if subplot_index < len(components):
+                    ax.set_ylabel(f"{formula_title}")
+            elif layout_flag == "horizontal" and len(components) in [3,5,7]:
+                ax.set_xlabel(xaxis_str)
+                if subplot_index == 0:
+                    ax.set_ylabel(f"{formula_title}")
+            elif layout_flag == "vertical" and len(components) in [3,5,7]:
+                if subplot_index == len(components)-1:
+                    ax.set_xlabel(xaxis_str)
+                ax.set_ylabel(f"{formula_title}")
 
+            # legends and scientific notation
             ax.legend(loc="best")
             ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
-    plt.tight_layout()
+            plt.tight_layout()
