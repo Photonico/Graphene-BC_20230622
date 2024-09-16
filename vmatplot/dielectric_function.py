@@ -541,6 +541,8 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
         plt.legend(loc="best")
         plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
+        plt.tight_layout()
+
     elif all_expansion is True:
         supplot_subtitles = ["Original view for real part", "Original view for Imaginary",
                              "Rescaled view for real part", "Original view for Imaginary"]
@@ -616,6 +618,8 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
         ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
+        plt.tight_layout()
+
     elif expansion_flag is True and rescale_flag is False:
         supplot_subtitles = [f"Real part for {comp_aliase}",f"Imaginary part for {comp_aliase}"]
         for supplot_index in range(2):
@@ -684,6 +688,8 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
         ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
+        plt.tight_layout()
+
     elif expansion_flag is False and rescale_flag is True:
         supplot_subtitles = ["Original view", "Rescaled view"]
         for supplot_index in range(2):
@@ -745,6 +751,8 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
             # Legend
             ax.legend(loc="best")
             ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
+
+        plt.tight_layout()
 
 def plot_dielectric_function(suptitle, systems=None, components=None,
                              layout="horizontal", expansion_label=True,
