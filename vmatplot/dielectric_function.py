@@ -546,13 +546,13 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
     elif all_expansion is True:
         supplot_subtitles = ["Original view for real part", "Original view for Imaginary",
                              "Rescaled view for real part", "Original view for Imaginary"]
-        for supplot_index in range(4):
-            ax = axes_element[supplot_index]
+        for subplot_index in range(4):
+            ax = axes_element[subplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
             # initialization
             wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
-            if supplot_index < 2:
+            if subplot_index < 2:
                 x_start = source_start
                 x_end = source_end
             else:
@@ -565,7 +565,7 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
             data_key_imag = f"density_{current_component}_imag"
 
             # curve plotting: real part
-            if supplot_index%2 == 0:
+            if subplot_index%2 == 0:
                 # for each system
                 for _, data in enumerate(dataset):
                     energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], x_start, x_end)
@@ -592,7 +592,7 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
                     ax.plot([wavelength_start, wavelength_end],[0,0],color=color_sampling("grey")[1],linestyle="--")
 
             # curve plotting: imag part
-            elif supplot_index%2 != 0:
+            elif subplot_index%2 != 0:
                 for _, data in enumerate(dataset):
                     energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key_imag], x_start, x_end)
                     if var_label == "energy":
@@ -602,16 +602,16 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
                         ax.plot(wavelength_imag, density_wl_imag, color=color_sampling(data[2])[2], ls=data[3], alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
 
             # subtitles and axis label (self-assertive): subtitles
-            ax.set_title(supplot_subtitles[supplot_index])
+            ax.set_title(supplot_subtitles[subplot_index])
             if layout_flag == "horizontal":
-                if supplot_index%2 == 0:
+                if subplot_index%2 == 0:
                     ax.set_ylabel("Dielectric function")
-                if supplot_index >= 2:
+                if subplot_index >= 2:
                     ax.set_xlabel(xaxis_label)
             else:
-                if supplot_index < 2:
+                if subplot_index < 2:
                     ax.set_ylabel("Dielectric function")
-                if supplot_index%2 == 1:
+                if subplot_index%2 == 1:
                     ax.set_xlabel(xaxis_label)
 
         # Legend
@@ -622,8 +622,8 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
 
     elif expansion_flag is True and rescale_flag is False:
         supplot_subtitles = [f"Real part for {comp_aliase}",f"Imaginary part for {comp_aliase}"]
-        for supplot_index in range(2):
-            ax = axes_element[supplot_index]
+        for subplot_index in range(2):
+            ax = axes_element[subplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
             # initialization
@@ -637,7 +637,7 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
             data_key_imag = f"density_{current_component}_imag"
 
              # curve plotting: real part
-            if supplot_index%2 == 0:
+            if subplot_index%2 == 0:
                 # for each system
                 for _, data in enumerate(dataset):
                     energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], x_start, x_end)
@@ -664,7 +664,7 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
                     ax.plot([wavelength_start, wavelength_end],[0,0],color=color_sampling("grey")[1],linestyle="--")
 
             # curve plotting: imag part
-            elif supplot_index%2 != 0:
+            elif subplot_index%2 != 0:
                 for _, data in enumerate(dataset):
                     energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key_imag], x_start, x_end)
                     if var_label == "energy":
@@ -674,14 +674,14 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
                         ax.plot(wavelength_imag, density_wl_imag, color=color_sampling(data[2])[2], ls=data[3], alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
 
             # subtitles and axis label (self-assertive): subtitles
-            ax.set_title(supplot_subtitles[supplot_index])
+            ax.set_title(supplot_subtitles[subplot_index])
             if layout_flag == "horizontal":
                 ax.set_xlabel(xaxis_label)
-                if supplot_index == 0:
+                if subplot_index == 0:
                     ax.set_ylabel("Dielectric function")
             else:
                 ax.set_ylabel("Dielectric function")
-                if supplot_index == 1:
+                if subplot_index == 1:
                     ax.set_xlabel(xaxis_label)
 
         # Legend
@@ -692,13 +692,13 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
 
     elif expansion_flag is False and rescale_flag is True:
         supplot_subtitles = ["Original view", "Rescaled view"]
-        for supplot_index in range(2):
-            ax = axes_element[supplot_index]
+        for subplot_index in range(2):
+            ax = axes_element[subplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
             # initialization
             wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
-            if supplot_index == 0:
+            if subplot_index == 0:
                 x_start = source_start
                 x_end = source_end
             else:
@@ -738,14 +738,14 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
                 ax.plot([plasmon_start, plasmon_end],[0,0],color=color_sampling("grey")[1],linestyle="dashed")
 
             # subtitles and axis label (self-assertive): subtitles
-            ax.set_title(supplot_subtitles[supplot_index])
+            ax.set_title(supplot_subtitles[subplot_index])
             if layout_flag == "horizontal":
                 ax.set_xlabel(xaxis_label)
-                if supplot_index == 0:
+                if subplot_index == 0:
                     ax.set_ylabel("Dielectric function")
             else:
                 ax.set_ylabel("Dielectric function")
-                if supplot_index == 1:
+                if subplot_index == 1:
                     ax.set_xlabel(xaxis_label)
 
             # Legend
@@ -879,35 +879,35 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
     ## data plotting
     # for each subplot
     if expansion_flag is True:
-        for supplot_index in range(2*len(components)):
-            ax = axes_element[supplot_index]
+        for subplot_index in range(2*len(components)):
+            ax = axes_element[subplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
             # current component index and label
-            component_index = supplot_index // 2
+            component_index = subplot_index // 2
             current_component = comp_labels[component_index].lower()
 
-            data_key = f"density_{current_component}_real" if supplot_index % 2 == 0 else f"density_{current_component}_imag"
+            data_key = f"density_{current_component}_real" if subplot_index % 2 == 0 else f"density_{current_component}_imag"
 
             ## subtitles and axis label (self-assertive)
             # subtitles
-            ax.set_title([f"Real part for {comp_aliases[component_index]}", f"Imaginary part for {comp_aliases[component_index]}"][supplot_index%2])
+            ax.set_title([f"Real part for {comp_aliases[component_index]}", f"Imaginary part for {comp_aliases[component_index]}"][subplot_index%2])
             # ylabel
-            if layout_flag == "vertical" and supplot_index%2 == 0:
+            if layout_flag == "vertical" and subplot_index%2 == 0:
                 ax.set_ylabel("Dielectric function")
-            elif layout_flag == "horizontal" and supplot_index in range(2):
+            elif layout_flag == "horizontal" and subplot_index in range(2):
                 ax.set_ylabel("Dielectric function")
             # xlabel
-            if layout_flag == "vertical" and supplot_index >= 2*len(components)-2:
+            if layout_flag == "vertical" and subplot_index >= 2*len(components)-2:
                 ax.set_xlabel(xaxis_label)
-            elif layout_flag == "horizontal" and supplot_index%2 == 1:
+            elif layout_flag == "horizontal" and subplot_index%2 == 1:
                 ax.set_xlabel(xaxis_label)
 
             # initialization
             wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
 
             # curve plotting: real part
-            if supplot_index%2 == 0:
+            if subplot_index%2 == 0:
                 # for each system
                 for _, data in enumerate(dataset):
                     energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key], photon_start, photon_end)
@@ -947,15 +947,15 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
             ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
     else:
-        for supplot_index in range(len(components)):
-            ax = axes_element[supplot_index]
+        for subplot_index in range(len(components)):
+            ax = axes_element[subplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
             # initialization
             wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
 
             # current component index and label
-            component_index = supplot_index
+            component_index = subplot_index
             current_component = comp_labels[component_index].lower()
             data_key_real = f"density_{current_component}_real"
             data_key_imag = f"density_{current_component}_imag"
@@ -990,32 +990,32 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
             # subtitles and axis label (self-assertive): subtitles
             ax.set_title(comp_aliases[component_index])
             if allcomps_flag is True and layout_flag == "horizontal":
-                if supplot_index in [0, len(components)/3, 2*len(components)/3]:
+                if subplot_index in [0, len(components)/3, 2*len(components)/3]:
                     ax.set_ylabel("Dielectric function")
-                if supplot_index >= 2*len(components)/3:
+                if subplot_index >= 2*len(components)/3:
                     ax.set_xlabel(xaxis_label)
             elif allcomps_flag is True and layout_flag == "vertical":
-                if supplot_index < len(components)/3:
+                if subplot_index < len(components)/3:
                     ax.set_ylabel("Dielectric function")
-                if supplot_index in [len(components)/3-1, 2*len(components)/3-1, len(components)-1]:
+                if subplot_index in [len(components)/3-1, 2*len(components)/3-1, len(components)-1]:
                     ax.set_xlabel(xaxis_label)
             elif folding_flag is True and layout_flag == "horizontal":
-                if supplot_index in [0, len(components)/2]:
+                if subplot_index in [0, len(components)/2]:
                     ax.set_ylabel("Dielectric function")
-                if supplot_index >= len(components)/2:
+                if subplot_index >= len(components)/2:
                     ax.set_xlabel(xaxis_label)
             elif folding_flag is True and layout_flag == "vertical":
-                if supplot_index < len(components)/2:
+                if subplot_index < len(components)/2:
                     ax.set_ylabel("Dielectric function")
-                if supplot_index in [len(components)/2-1, len(components)-1]:
+                if subplot_index in [len(components)/2-1, len(components)-1]:
                     ax.set_xlabel(xaxis_label)
             elif layout_flag == "vertical":
                 ax.set_ylabel("Dielectric function")
-                if layout_flag == "vertical" and supplot_index == len(components)-1:
+                if layout_flag == "vertical" and subplot_index == len(components)-1:
                     ax.set_xlabel(xaxis_label)
             else:
                 ax.set_xlabel(xaxis_label)
-                if supplot_index == 0:
+                if subplot_index == 0:
                     ax.set_ylabel("Dielectric function")
 
             ax.legend(loc="best")
@@ -1090,13 +1090,13 @@ def plot_dielectric_function_rescaled(suptitle, systems=None, components=None,
     fig.suptitle(f"Dielectric function {suptitle}\n", fontsize=fig_setting[3][0])
 
     ## data plotting
-    for supplot_index in range(2*len(components)):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(2*len(components)):
+        ax = axes_element[subplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
         # initialization
         wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
-        if supplot_index%2 == 0:
+        if subplot_index%2 == 0:
             x_start = source_start
             x_end = source_end
         else:
@@ -1104,7 +1104,7 @@ def plot_dielectric_function_rescaled(suptitle, systems=None, components=None,
             x_end = scaled_end
 
         # current component index and label
-        component_index = supplot_index // 2
+        component_index = subplot_index // 2
         current_component = comp_labels[component_index].lower()
 
         data_key_real = f"density_{current_component}_real"
@@ -1138,18 +1138,18 @@ def plot_dielectric_function_rescaled(suptitle, systems=None, components=None,
             ax.plot([plasmon_start, plasmon_end],[0,0],color=color_sampling("grey")[1],linestyle="dashed")
 
         # subtitles and axis label (self-assertive): subtitles
-        ax.set_title([f"Original view for {comp_aliases[component_index]}", f"Rescaled view for {comp_aliases[component_index]}"][supplot_index%2])
+        ax.set_title([f"Original view for {comp_aliases[component_index]}", f"Rescaled view for {comp_aliases[component_index]}"][subplot_index%2])
 
         # ylabel
-        if layout_flag == "vertical" and supplot_index%2 == 0:
+        if layout_flag == "vertical" and subplot_index%2 == 0:
             ax.set_ylabel("Dielectric function")
-        elif layout_flag == "horizontal" and supplot_index in range(2):
+        elif layout_flag == "horizontal" and subplot_index in range(2):
             ax.set_ylabel("Dielectric function")
 
         # xlabel
-        if layout_flag == "vertical" and supplot_index >= 2*len(components)-2:
+        if layout_flag == "vertical" and subplot_index >= 2*len(components)-2:
             ax.set_xlabel(xaxis_label)
-        elif layout_flag == "horizontal" and supplot_index%2 == 1:
+        elif layout_flag == "horizontal" and subplot_index%2 == 1:
             ax.set_xlabel(xaxis_label)
 
         ax.legend(loc="best")

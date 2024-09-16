@@ -199,13 +199,13 @@ def plot_linear_optical_property_old(suptitle, systems_list=None, current_proper
     ## data plotting
     # scale_flag is True (scaling opened)
     if scale_flag is True:
-        for supplot_index in range(2*len(components)):
-            ax = axes_element[supplot_index]
+        for subplot_index in range(2*len(components)):
+            ax = axes_element[subplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
             # initialization
             wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
-            if supplot_index%2 == 0:
+            if subplot_index%2 == 0:
                 x_start = source_start
                 x_end = source_end
             else:
@@ -213,7 +213,7 @@ def plot_linear_optical_property_old(suptitle, systems_list=None, current_proper
                 x_end = scaled_end
 
             # current component index and label
-            component_index = supplot_index // 2
+            component_index = subplot_index // 2
             if isinstance(components[component_index], dict):
                 current_component = list(components[component_index].keys())[0]
             else:
@@ -246,20 +246,20 @@ def plot_linear_optical_property_old(suptitle, systems_list=None, current_proper
                     wavelength_ends.append(np.max(np.array(wavelength_var)[np.isfinite(wavelength_var)]))
 
             # subtitles and axis label (self-assertive): subtitles
-            if layout_flag == "vertical" and supplot_index in range(2):
-                ax.set_title(["Original view", "Rescaled view"][supplot_index])
-            elif layout_flag == "horizontal" and supplot_index%2 == 0:
+            if layout_flag == "vertical" and subplot_index in range(2):
+                ax.set_title(["Original view", "Rescaled view"][subplot_index])
+            elif layout_flag == "horizontal" and subplot_index%2 == 0:
                 ax.set_title(component_labels[component_index])
 
             # ylabel
-            if layout_flag == "vertical" and supplot_index%2 == 0:
+            if layout_flag == "vertical" and subplot_index%2 == 0:
                 ax.set_ylabel(f"{suptitle_prefix} for {component_labels[component_index]}")
-            elif layout_flag == "horizontal" and supplot_index in range(2):
-                ax.set_ylabel([f"{suptitle_prefix}", f"{suptitle_prefix} (Rescaled)"][supplot_index])
+            elif layout_flag == "horizontal" and subplot_index in range(2):
+                ax.set_ylabel([f"{suptitle_prefix}", f"{suptitle_prefix} (Rescaled)"][subplot_index])
             # xlabel
-            if layout_flag == "vertical" and supplot_index >= 2*len(components)-2:
+            if layout_flag == "vertical" and subplot_index >= 2*len(components)-2:
                 ax.set_xlabel(xaxis_str)
-            elif layout_flag == "horizontal" and supplot_index%2 == 1:
+            elif layout_flag == "horizontal" and subplot_index%2 == 1:
                 ax.set_xlabel(xaxis_str)
 
             ax.legend(loc="best")
@@ -267,8 +267,8 @@ def plot_linear_optical_property_old(suptitle, systems_list=None, current_proper
 
     # scale_flag is False (scaling closed)
     else:
-        for supplot_index in range(len(components)):
-            ax = axes_element[supplot_index]
+        for subplot_index in range(len(components)):
+            ax = axes_element[subplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
             # initialization
@@ -277,7 +277,7 @@ def plot_linear_optical_property_old(suptitle, systems_list=None, current_proper
             x_end = source_end
 
             # current component index and label
-            component_index = supplot_index
+            component_index = subplot_index
             if isinstance(components[component_index], dict):
                 current_component = list(components[component_index].keys())[0]
             else:
@@ -312,12 +312,12 @@ def plot_linear_optical_property_old(suptitle, systems_list=None, current_proper
             # subtitles and axis label (self-assertive): subtitles
             if layout_flag == "vertical":
                 ax.set_ylabel(f"{suptitle_prefix} for {component_labels[component_index]}")
-                if layout_flag == "vertical" and supplot_index == len(components)-1:
+                if layout_flag == "vertical" and subplot_index == len(components)-1:
                     ax.set_xlabel(xaxis_str)
             else:
                 ax.set_title(component_labels[component_index])
                 ax.set_xlabel(xaxis_str)
-                if supplot_index == 0:
+                if subplot_index == 0:
                     ax.set_ylabel(f"{suptitle_prefix}")
 
             ax.legend(loc="best")

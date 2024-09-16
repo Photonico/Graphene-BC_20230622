@@ -312,10 +312,10 @@ def plot_bilayer_lattice_double(suptitle, subtitle_1, subtitle_2, source_data_1,
     plt.suptitle(f"Free energy versus lattice and spacing {suptitle}", fontsize=fig_setting[3][0], y=1.00)
 
     # plot data
-    for supplot_index in range(2):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(2):
+        ax = axes_element[subplot_index]
         # Data input
-        lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data_set[supplot_index])
+        lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data_set[subplot_index])
         lattice_source = np.array(lattice_source)
         distance_source = np.array(distance_source)
         free_energy_source = np.array(free_energy_source)
@@ -339,39 +339,39 @@ def plot_bilayer_lattice_double(suptitle, subtitle_1, subtitle_2, source_data_1,
         free_energy_grid_fine = griddata((lattice_source, distance_source), free_energy_source, (lattice_grid_fine, distance_grid_fine), method="linear")
 
         # Fitted data
-        Fitted_data = extract_minimum_bilayer_lattice(source_data_set[supplot_index])
+        Fitted_data = extract_minimum_bilayer_lattice(source_data_set[subplot_index])
         lattice_fitted_min = Fitted_data[0]
         distance_fitted_min = Fitted_data[1]
         # free_energy_fitted_min = Fitted_data[-1]
 
         # Additional data
-        if additional_set[supplot_index] is not None:
-            additional_data = specify_bilayer_lattice(additional_set[supplot_index])
+        if additional_set[subplot_index] is not None:
+            additional_data = specify_bilayer_lattice(additional_set[subplot_index])
             additional_lattice = additional_data[0]
             additional_distance = additional_data[1]
             additional_energy = additional_data[-1]
 
         # Colormap
-        cp = ax.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap_set[supplot_index], alpha = 0.75, vmax = energy_demo, zorder=1)
+        cp = ax.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap_set[subplot_index], alpha = 0.75, vmax = energy_demo, zorder=1)
         cbar = fig.colorbar(cp, ax=ax)
         formatter = ScalarFormatter(useMathText=True, useOffset=False)
         formatter.set_powerlimits((-3, 3))
         cbar.ax.yaxis.set_major_formatter(formatter)
-        colors = color_sampling(point_color_set[supplot_index])
+        colors = color_sampling(point_color_set[subplot_index])
 
         # Extreme of source data
         ax.scatter(lattice_min, distance_min, s=48, color=colors[2], label="Extrema of source data", zorder=2)
         # Extreme of fitted data
         ax.scatter(lattice_fitted_min, distance_fitted_min, s=48, lw=1.5, facecolors="none", edgecolors=colors[2], label="Extrema of fitted data", zorder=2)
         # Additional point
-        if additional_set[supplot_index] is not None:
+        if additional_set[subplot_index] is not None:
             ax.scatter(additional_lattice, additional_distance, s=36, color=colors[3], label=f"Specific energy: {additional_energy:.3f} (eV)", zorder=3)
 
         # Subplots label
         orderlab_shift = 0.05
         x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
-        ax.annotate(f"{order_labels[supplot_index]}",
+        ax.annotate(f"{order_labels[subplot_index]}",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
@@ -384,7 +384,7 @@ def plot_bilayer_lattice_double(suptitle, subtitle_1, subtitle_2, source_data_1,
             legend_loc = "lower left"
 
         ax.set_xlabel(r"Lattice constant (Å)")
-        if supplot_index == 0:
+        if subplot_index == 0:
             ax.set_ylabel(r"Interlayer spacing (Å)")
 
         ax.legend(loc=legend_loc)
@@ -416,10 +416,10 @@ def plot_bilayer_lattice_triple_row(suptitle, subtitle_1, subtitle_2, subtitle_3
     # Title
     plt.suptitle(f"Free energy versus lattice and spacing {suptitle}", fontsize=fig_setting[3][0], y=1.00)
 
-    for supplot_index in range(3):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(3):
+        ax = axes_element[subplot_index]
         # Data input
-        lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data_set[supplot_index])
+        lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data_set[subplot_index])
         lattice_source = np.array(lattice_source)
         distance_source = np.array(distance_source)
         free_energy_source = np.array(free_energy_source)
@@ -443,39 +443,39 @@ def plot_bilayer_lattice_triple_row(suptitle, subtitle_1, subtitle_2, subtitle_3
         free_energy_grid_fine = griddata((lattice_source, distance_source), free_energy_source, (lattice_grid_fine, distance_grid_fine), method="linear")
 
         # Fitted data
-        Fitted_data = extract_minimum_bilayer_lattice(source_data_set[supplot_index])
+        Fitted_data = extract_minimum_bilayer_lattice(source_data_set[subplot_index])
         lattice_fitted_min = Fitted_data[0]
         distance_fitted_min = Fitted_data[1]
         # free_energy_fitted_min = Fitted_data[-1]
 
         # Additional data
-        if additional_set[supplot_index] is not None:
-            additional_data = specify_bilayer_lattice(additional_set[supplot_index])
+        if additional_set[subplot_index] is not None:
+            additional_data = specify_bilayer_lattice(additional_set[subplot_index])
             additional_lattice = additional_data[0]
             additional_distance = additional_data[1]
             additional_energy = additional_data[-1]
 
         # Colormap
-        cp = ax.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap_set[supplot_index], alpha = 0.75, vmax = energy_demo, zorder=1)
+        cp = ax.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap_set[subplot_index], alpha = 0.75, vmax = energy_demo, zorder=1)
         cbar = fig.colorbar(cp, ax=ax)
         formatter = ScalarFormatter(useMathText=True, useOffset=False)
         formatter.set_powerlimits((-3, 3))
         cbar.ax.yaxis.set_major_formatter(formatter)
-        colors = color_sampling(point_color_set[supplot_index])
+        colors = color_sampling(point_color_set[subplot_index])
 
         # Extreme of source data
         ax.scatter(lattice_min, distance_min, s=48, color=colors[2], label="Extrema of source data", zorder=2)
         # Extreme of fitted data
         ax.scatter(lattice_fitted_min, distance_fitted_min, s=48, lw=1.5, facecolors="none", edgecolors=colors[2], label="Extrema of fitted data", zorder=2)
         # Additional point
-        if additional_set[supplot_index] is not None:
+        if additional_set[subplot_index] is not None:
             ax.scatter(additional_lattice, additional_distance, s=36, color=colors[3], label=f"Specific energy: {additional_energy:.3f} (eV)", zorder=3)
 
         # Subplots label
         orderlab_shift = 0.05
         x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
-        ax.annotate(f"{order_labels[supplot_index]}",
+        ax.annotate(f"{order_labels[subplot_index]}",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
@@ -488,7 +488,7 @@ def plot_bilayer_lattice_triple_row(suptitle, subtitle_1, subtitle_2, subtitle_3
             legend_loc = "lower left"
 
         ax.set_xlabel(r"Lattice constant (Å)")
-        if supplot_index == 0:
+        if subplot_index == 0:
             ax.set_ylabel(r"Interlayer spacing (Å)")
 
         ax.legend(loc=legend_loc)
@@ -525,10 +525,10 @@ def plot_bilayer_lattice_quadruple(suptitle,
     plt.suptitle(f"Free energy versus lattice and spacing {suptitle}", fontsize=fig_setting[3][0], y=1.00)
 
     # plot data
-    for supplot_index in range(4):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(4):
+        ax = axes_element[subplot_index]
         # Data input
-        lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data_set[supplot_index])
+        lattice_source, distance_source, free_energy_source = read_bilayer_lattice_data(source_data_set[subplot_index])
         lattice_source = np.array(lattice_source)
         distance_source = np.array(distance_source)
         free_energy_source = np.array(free_energy_source)
@@ -552,39 +552,39 @@ def plot_bilayer_lattice_quadruple(suptitle,
         free_energy_grid_fine = griddata((lattice_source, distance_source), free_energy_source, (lattice_grid_fine, distance_grid_fine), method="linear")
 
         # Fitted data
-        Fitted_data = extract_minimum_bilayer_lattice(source_data_set[supplot_index])
+        Fitted_data = extract_minimum_bilayer_lattice(source_data_set[subplot_index])
         lattice_fitted_min = Fitted_data[0]
         distance_fitted_min = Fitted_data[1]
         # free_energy_fitted_min = Fitted_data[-1]
 
         # Additional data
-        if additional_set[supplot_index] is not None:
-            additional_data = specify_bilayer_lattice(additional_set[supplot_index])
+        if additional_set[subplot_index] is not None:
+            additional_data = specify_bilayer_lattice(additional_set[subplot_index])
             additional_lattice = additional_data[0]
             additional_distance = additional_data[1]
             additional_energy = additional_data[-1]
 
         # Colormap
-        cp = ax.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap_set[supplot_index], alpha = 0.75, vmax = energy_demo, zorder=1)
+        cp = ax.pcolormesh(lattice_grid_fine, distance_grid_fine, free_energy_grid_fine, shading="auto", cmap=colormap_set[subplot_index], alpha = 0.75, vmax = energy_demo, zorder=1)
         cbar = fig.colorbar(cp, ax=ax)
         formatter = ScalarFormatter(useMathText=True, useOffset=False)
         formatter.set_powerlimits((-3, 3))
         cbar.ax.yaxis.set_major_formatter(formatter)
-        colors = color_sampling(point_color_set[supplot_index])
+        colors = color_sampling(point_color_set[subplot_index])
 
         # Extreme of source data
         ax.scatter(lattice_min, distance_min, s=48, color=colors[2], label="Extrema of source data", zorder=2)
         # Extreme of fitted data
         ax.scatter(lattice_fitted_min, distance_fitted_min, s=48, lw=1.5, facecolors="none", edgecolors=colors[2], label="Extrema of fitted data", zorder=2)
         # Additional point
-        if additional_set[supplot_index] is not None:
+        if additional_set[subplot_index] is not None:
             ax.scatter(additional_lattice, additional_distance, s=36, color=colors[3], label=f"Specific energy: {additional_energy:.3f} (eV)", zorder=3)
 
         # Subplots label
         orderlab_shift = 0.05
         x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
-        ax.annotate(f"{order_labels[supplot_index]}",
+        ax.annotate(f"{order_labels[subplot_index]}",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
@@ -596,9 +596,9 @@ def plot_bilayer_lattice_quadruple(suptitle,
         else:
             legend_loc = "lower left"
 
-        if supplot_index >= 2:
+        if subplot_index >= 2:
             ax.set_xlabel(r"Lattice constant (Å)")
-        if supplot_index %2 ==0:
+        if subplot_index %2 ==0:
             ax.set_ylabel(r"Interlayer spacing (Å)")
         
         ax.legend(loc=legend_loc)

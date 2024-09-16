@@ -728,31 +728,31 @@ def plot_sol_segment_pdos_col(title, matters_list):
     # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
 
-    for supplot_index in range(2):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(2):
+        ax = axes_element[subplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
         # Data ploting
-        ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
+        ax.set_title(f"{titles[subplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            current_label = labels[matter_index][supplot_index]
-            current_pdos  = pdoses[matter_index][supplot_index]
+            current_label = labels[matter_index][subplot_index]
+            current_pdos  = pdoses[matter_index][subplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[12],c=color_sampling(color[matter_index])[4],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_x$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[10],c=color_sampling(color[matter_index])[5],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_y$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS {current_label}",zorder=2)
-        ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
-        ax.set_ylim(0, y_top[supplot_index])
+        ax.set_xlim(-x_range[subplot_index],x_range[subplot_index])
+        ax.set_ylim(0, y_top[subplot_index])
         ax.set_ylabel(r"Density of states")
-        if supplot_index == 1:
+        if subplot_index == 1:
             ax.set_xlabel(r"Energy (eV)")
         shift = efermi
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
 
         # Fermi energy
-        ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+        ax.text(efermi-shift-x_range[subplot_index]*0.02, y_top[subplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
         ax.legend(loc="upper right")
 
         # Subplots label
@@ -761,7 +761,7 @@ def plot_sol_segment_pdos_col(title, matters_list):
         x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
 
-        ax.annotate(f"({order_labels[supplot_index]})",
+        ax.annotate(f"({order_labels[subplot_index]})",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
@@ -817,25 +817,25 @@ def plot_sol_segment_pdos_row(title, matters_list):
     # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
 
-    for supplot_index in range(2):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(2):
+        ax = axes_element[subplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
         # Data ploting
-        ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
+        ax.set_title(f"{titles[subplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            current_label = labels[matter_index][supplot_index]
-            current_pdos  = pdoses[matter_index][supplot_index]
+            current_label = labels[matter_index][subplot_index]
+            current_pdos  = pdoses[matter_index][subplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[12],c=color_sampling(color[matter_index])[4],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_x$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[10],c=color_sampling(color[matter_index])[5],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_y$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS {current_label}",zorder=2)
-        ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
-        ax.set_ylim(0, y_top[supplot_index])
+        ax.set_xlim(-x_range[subplot_index],x_range[subplot_index])
+        ax.set_ylim(0, y_top[subplot_index])
 
         ax.set_xlabel(r"Energy (eV)")
-        if supplot_index == 0:
+        if subplot_index == 0:
             ax.set_ylabel(r"Density of states")
 
         shift = efermi
@@ -843,7 +843,7 @@ def plot_sol_segment_pdos_row(title, matters_list):
         ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
 
         # Fermi energy
-        ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+        ax.text(efermi-shift-x_range[subplot_index]*0.02, y_top[subplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
         ax.legend(loc="upper right")
 
         # Subplots label
@@ -853,7 +853,7 @@ def plot_sol_segment_pdos_row(title, matters_list):
         # x_loc = 1-orderlab_shift*0.75
         y_loc = 1-orderlab_shift
 
-        ax.annotate(f"({order_labels[supplot_index]})",
+        ax.annotate(f"({order_labels[subplot_index]})",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
@@ -909,31 +909,31 @@ def plot_duo_segment_pdos_col(title, matters_list):
     # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
 
-    for supplot_index in range(3):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(3):
+        ax = axes_element[subplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
         # Data ploting
-        ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
+        ax.set_title(f"{titles[subplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            current_label = labels[matter_index][supplot_index]
-            current_pdos  = pdoses[matter_index][supplot_index]
+            current_label = labels[matter_index][subplot_index]
+            current_pdos  = pdoses[matter_index][subplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[12],c=color_sampling(color[matter_index])[4],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_x$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[10],c=color_sampling(color[matter_index])[5],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_y$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS {current_label}",zorder=2)
-        ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
-        ax.set_ylim(0, y_top[supplot_index])
+        ax.set_xlim(-x_range[subplot_index],x_range[subplot_index])
+        ax.set_ylim(0, y_top[subplot_index])
         ax.set_ylabel(r"Density of states")
-        if supplot_index == 2:
+        if subplot_index == 2:
             ax.set_xlabel(r"Energy (eV)")
         shift = efermi
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
 
         # Fermi energy
-        ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+        ax.text(efermi-shift-x_range[subplot_index]*0.02, y_top[subplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
         ax.legend(loc="upper right")
 
         # Subplots label
@@ -943,7 +943,7 @@ def plot_duo_segment_pdos_col(title, matters_list):
         # x_loc = 1-orderlab_shift*0.75
         y_loc = 1-orderlab_shift
 
-        ax.annotate(f"({order_labels[supplot_index]})",
+        ax.annotate(f"({order_labels[subplot_index]})",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
@@ -998,31 +998,31 @@ def plot_duo_segment_pdos_row(title, matters_list):
     # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.00)
 
-    for supplot_index in range(3):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(3):
+        ax = axes_element[subplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
         # Data ploting
-        ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
+        ax.set_title(f"{titles[subplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            current_label = labels[matter_index][supplot_index]
-            current_pdos  = pdoses[matter_index][supplot_index]
+            current_label = labels[matter_index][subplot_index]
+            current_pdos  = pdoses[matter_index][subplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[12],c=color_sampling(color[matter_index])[4],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_x$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[10],c=color_sampling(color[matter_index])[5],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_y$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS {current_label}",zorder=2)
-        ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
-        ax.set_ylim(0, y_top[supplot_index])
+        ax.set_xlim(-x_range[subplot_index],x_range[subplot_index])
+        ax.set_ylim(0, y_top[subplot_index])
         ax.set_xlabel(r"Energy (eV)")
-        if supplot_index == 0:
+        if subplot_index == 0:
             ax.set_ylabel(r"Density of states")
         shift = efermi
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
 
         # Fermi energy
-        ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+        ax.text(efermi-shift-x_range[subplot_index]*0.02, y_top[subplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
         ax.legend(loc="upper right")
 
         # Subplots label
@@ -1032,7 +1032,7 @@ def plot_duo_segment_pdos_row(title, matters_list):
         x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
 
-        ax.annotate(f"({order_labels[supplot_index]})",
+        ax.annotate(f"({order_labels[subplot_index]})",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
@@ -1089,31 +1089,31 @@ def plot_tri_segment_pdos_col(title, matters_list):
     # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=1.0)
 
-    for supplot_index in range(4):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(4):
+        ax = axes_element[subplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
         # Data ploting
-        ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
+        ax.set_title(f"{titles[subplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            current_label = labels[matter_index][supplot_index]
-            current_pdos  = pdoses[matter_index][supplot_index]
+            current_label = labels[matter_index][subplot_index]
+            current_pdos  = pdoses[matter_index][subplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[12],c=color_sampling(color[matter_index])[4],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_x$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[10],c=color_sampling(color[matter_index])[5],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_y$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS {current_label}",zorder=2)
-        ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
-        ax.set_ylim(0, y_top[supplot_index])
+        ax.set_xlim(-x_range[subplot_index],x_range[subplot_index])
+        ax.set_ylim(0, y_top[subplot_index])
         ax.set_ylabel(r"Density of states")
-        if supplot_index == 3:
+        if subplot_index == 3:
             ax.set_xlabel(r"Energy (eV)")
         shift = efermi
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
 
         # Fermi energy
-        ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+        ax.text(efermi-shift-x_range[subplot_index]*0.02, y_top[subplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
         ax.legend(loc="upper right")
 
         # Subplots label
@@ -1123,7 +1123,7 @@ def plot_tri_segment_pdos_col(title, matters_list):
         # x_loc = 1-orderlab_shift*0.75
         y_loc = 1-orderlab_shift
 
-        ax.annotate(f"({order_labels[supplot_index]})",
+        ax.annotate(f"({order_labels[subplot_index]})",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,
@@ -1177,54 +1177,54 @@ def plot_tri_segment_pdos_block(title, matters_list):
     # fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0], y=0.96)
     fig.suptitle(f"PDoS {title}", fontsize=fig_setting[3][0])
 
-    for supplot_index in range(4):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(4):
+        ax = axes_element[subplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
         # testing area
-        # if supplot_index == 1:
-        #     axes_element[supplot_index].axis("off")
+        # if subplot_index == 1:
+        #     axes_element[subplot_index].axis("off")
         #     continue
 
         # Data ploting
-        ax.set_title(f"{titles[supplot_index]}", fontsize=fig_setting[3][1])
+        ax.set_title(f"{titles[subplot_index]}", fontsize=fig_setting[3][1])
         for matter_index in range(num_elements):
-            current_label = labels[matter_index][supplot_index]
-            current_pdos  = pdoses[matter_index][supplot_index]
+            current_label = labels[matter_index][subplot_index]
+            current_pdos  = pdoses[matter_index][subplot_index]
             ax.plot(current_pdos[8], current_pdos[6],c=color_sampling(color[matter_index])[1],alpha=alpha[matter_index],ls=lines[matter_index],label=f"Total PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[9],c=color_sampling(color[matter_index])[3],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$s$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[12],c=color_sampling(color[matter_index])[4],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_x$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[10],c=color_sampling(color[matter_index])[5],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_y$ PDoS {current_label}",zorder=2)
             ax.plot(current_pdos[8], current_pdos[11],c=color_sampling(color[matter_index])[6],alpha=alpha[matter_index],ls=lines[matter_index],label=f"$p_z$ PDoS {current_label}",zorder=2)
-        ax.set_xlim(-x_range[supplot_index],x_range[supplot_index])
-        ax.set_ylim(0, y_top[supplot_index])
-        if supplot_index in [0,2]:
+        ax.set_xlim(-x_range[subplot_index],x_range[subplot_index])
+        ax.set_ylim(0, y_top[subplot_index])
+        if subplot_index in [0,2]:
             ax.set_ylabel(r"Density of states")
-        if supplot_index in [2,3]:
+        if subplot_index in [2,3]:
             ax.set_xlabel(r"Energy (eV)")
         shift = efermi
         fermi_energy_text = f"Fermi energy\n{efermi:.3f} (eV)"
         ax.axvline(x = efermi-shift, linestyle="--", c=fermi_color[0], alpha=1.00, label="Fermi energy", zorder=1)
-        # if supplot_index == 2:
-        #     ax.text(efermi-shift+x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="left")
+        # if subplot_index == 2:
+        #     ax.text(efermi-shift+x_range[subplot_index]*0.02, y_top[subplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="left")
         #     ax.legend(loc="upper left")
         # else:
-        #     ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+        #     ax.text(efermi-shift-x_range[subplot_index]*0.02, y_top[subplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
         #     ax.legend(loc="upper right")
-        ax.text(efermi-shift-x_range[supplot_index]*0.02, y_top[supplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
+        ax.text(efermi-shift-x_range[subplot_index]*0.02, y_top[subplot_index]*0.98, fermi_energy_text, fontsize =1.0*12, c=fermi_color[0], rotation=0, va = "top", ha="right")
         ax.legend(loc="upper right")
 
         orderlab_shift = 0.05
-        # if supplot_index == 0:
+        # if subplot_index == 0:
         #     x_loc = 1-orderlab_shift*0.75
         #     y_loc = 0+orderlab_shift
-        # elif supplot_index == 1:
+        # elif subplot_index == 1:
         #     x_loc = 0+orderlab_shift*0.75
         #     y_loc = 0+orderlab_shift
-        # elif supplot_index == 2:
+        # elif subplot_index == 2:
         #     x_loc = 1-orderlab_shift*0.75
         #     y_loc = 1-orderlab_shift
-        # elif supplot_index == 3:
+        # elif subplot_index == 3:
         #     x_loc = 0+orderlab_shift*0.75
         #     y_loc = 1-orderlab_shift
         # x_loc = 0+orderlab_shift*0.75
@@ -1233,7 +1233,7 @@ def plot_tri_segment_pdos_block(title, matters_list):
         x_loc = 0+orderlab_shift*0.75
         y_loc = 1-orderlab_shift
 
-        ax.annotate(f"({order_labels[supplot_index]})",
+        ax.annotate(f"({order_labels[subplot_index]})",
                     xy=(x_loc,y_loc),
                     xycoords="axes fraction",
                     fontsize=1.0 * 16,

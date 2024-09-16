@@ -65,16 +65,16 @@ def plot_reflectivity_XXZZ_row(title, matters_list=None, unit=None, inplane_boun
     outplane_start, outplane_end = process_boundary(outplane_boundary)
 
     # Data plotting
-    for supplot_index in range(2):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(2):
+        ax = axes_element[subplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-        ax.set_title(subtitles[supplot_index])
+        ax.set_title(subtitles[subplot_index])
 
         for _, data in enumerate(dataset):
             # Labels
             current_label = data[0]
             # Inplane
-            if supplot_index == 0:
+            if subplot_index == 0:
                 inplane_energy_full = data[1]["density_energy_real"]
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
@@ -89,7 +89,7 @@ def plot_reflectivity_XXZZ_row(title, matters_list=None, unit=None, inplane_boun
                     ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
             # Outplane
-            elif supplot_index == 1:
+            elif subplot_index == 1:
                 outplane_energy_full = data[1]["density_energy_real"]
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
@@ -104,7 +104,7 @@ def plot_reflectivity_XXZZ_row(title, matters_list=None, unit=None, inplane_boun
                     ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
         # axis label
-        if supplot_index == 0:
+        if subplot_index == 0:
             ax.set_ylabel(r"Reflectivity")
         if unit in ["nm", "NM"]:
             ax.set_xlabel(r"Photon wavelength (nm)")
@@ -118,7 +118,7 @@ def plot_reflectivity_XXZZ_row(title, matters_list=None, unit=None, inplane_boun
         # orderlab_shift = 0.05
         # x_loc = 0+orderlab_shift*0.75
         # y_loc = 1-orderlab_shift
-        # ax.annotate(f"({order_labels[supplot_index]})",
+        # ax.annotate(f"({order_labels[subplot_index]})",
         #             xy=(x_loc,y_loc),
         #             xycoords="axes fraction",
         #             fontsize=1.0 * 16,
@@ -165,16 +165,16 @@ def plot_reflectivity_XXZZ_col(title, matters_list=None, unit=None, inplane_boun
     outplane_start, outplane_end = process_boundary(outplane_boundary)
 
     # Data plotting
-    for supplot_index in range(2):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(2):
+        ax = axes_element[subplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-        ax.set_title(subtitles[supplot_index])
+        ax.set_title(subtitles[subplot_index])
 
         for _, data in enumerate(dataset):
             # Labels
             current_label = data[0]
             # Inplane
-            if supplot_index == 0:
+            if subplot_index == 0:
                 inplane_energy_full = data[1]["density_energy_real"]
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
@@ -189,7 +189,7 @@ def plot_reflectivity_XXZZ_col(title, matters_list=None, unit=None, inplane_boun
                     ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
             # Outplane
-            elif supplot_index == 1:
+            elif subplot_index == 1:
                 outplane_energy_full = data[1]["density_energy_real"]
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
@@ -204,7 +204,7 @@ def plot_reflectivity_XXZZ_col(title, matters_list=None, unit=None, inplane_boun
                     ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
         # axis label
-        if supplot_index == 1:
+        if subplot_index == 1:
             if unit in ["nm", "NM"]:
                 ax.set_xlabel(r"Photon wavelength (nm)")
             else:
@@ -217,7 +217,7 @@ def plot_reflectivity_XXZZ_col(title, matters_list=None, unit=None, inplane_boun
         # orderlab_shift = 0.05
         # x_loc = 0+orderlab_shift*0.75
         # y_loc = 1-orderlab_shift
-        # ax.annotate(f"({order_labels[supplot_index]})",
+        # ax.annotate(f"({order_labels[subplot_index]})",
         #             xy=(x_loc,y_loc),
         #             xycoords="axes fraction",
         #             fontsize=1.0 * 16,
@@ -283,17 +283,17 @@ def plot_reflectivity_XXZZ_zoom(title, matters_list=None, unit=None,
     outplane_start_2, outplane_end_2 = process_boundary(outplane_boundary_2)
 
     # Data plotting
-    for supplot_index in range(4):
-        ax = axes_element[supplot_index]
+    for subplot_index in range(4):
+        ax = axes_element[subplot_index]
         ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-        ax.set_title(subtitles[supplot_index])
+        ax.set_title(subtitles[subplot_index])
 
         for _, data in enumerate(dataset):
             # Labels
             current_label = data[0]
 
             # Inplane
-            if supplot_index == 0:
+            if subplot_index == 0:
                 inplane_energy_full = data[1]["density_energy_real"]
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
@@ -308,7 +308,7 @@ def plot_reflectivity_XXZZ_zoom(title, matters_list=None, unit=None,
                     ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
             # Outplane
-            elif supplot_index == 1:
+            elif subplot_index == 1:
                 outplane_energy_full = data[1]["density_energy_real"]
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
@@ -323,7 +323,7 @@ def plot_reflectivity_XXZZ_zoom(title, matters_list=None, unit=None,
                     ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
             # Inplane (zoomed)
-            elif supplot_index == 2:
+            elif subplot_index == 2:
                 inplane_energy_full = data[1]["density_energy_real"]
                 inplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 inplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
@@ -338,7 +338,7 @@ def plot_reflectivity_XXZZ_zoom(title, matters_list=None, unit=None,
                     ax.plot(inplane_energy,inplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
             # Outplane (zoomed)
-            elif supplot_index == 3:
+            elif subplot_index == 3:
                 outplane_energy_full = data[1]["density_energy_real"]
                 outplane_wavelength_full = energy_to_wavelength(data[1]["density_energy_real"])
                 outplane_frequency_full = energy_to_frequency(data[1]["density_energy_real"])
@@ -353,9 +353,9 @@ def plot_reflectivity_XXZZ_zoom(title, matters_list=None, unit=None,
                     ax.plot(outplane_energy,outplane_absorption,color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{current_label}")
 
         # axis label
-        if supplot_index in [0,2]:
+        if subplot_index in [0,2]:
             ax.set_ylabel(f"{prop}")
-        if supplot_index in [2,3]:
+        if subplot_index in [2,3]:
             if unit in ["nm", "NM"]:
                 ax.set_xlabel(r"Photon wavelength (nm)")
             else:
@@ -367,7 +367,7 @@ def plot_reflectivity_XXZZ_zoom(title, matters_list=None, unit=None,
         # orderlab_shift = 0.05
         # x_loc = 0+orderlab_shift*0.75
         # y_loc = 1-orderlab_shift
-        # ax.annotate(f"({order_labels[supplot_index]})",
+        # ax.annotate(f"({order_labels[subplot_index]})",
         #                 xy=(x_loc,y_loc),
         #                 xycoords="axes fraction",
         #                 fontsize=1.0 * 16,
