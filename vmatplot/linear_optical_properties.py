@@ -4,7 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from vmatplot.dielectric_function import extract_dielectric_function, dielectric_systems_list
+from vmatplot.dielectric_function import dielectric_systems_list
 from vmatplot.commons import process_boundaries_rescaling, extract_part
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import energy_to_wavelength, energy_to_frequency
@@ -51,7 +51,7 @@ def comp_energy_loss_spectrum(density_energy_real,density_energy_imag):
 def lop_systems(*args):
     return dielectric_systems_list(*args)
 
-def identify_linear_optical_functions(incoming=None):
+def identify_linear_optical_functions(incoming = None):
     help_info = "Please use one of the following terminologies as a string-type variable:\n" + \
                 "\t absorption coefficient, refractive index, extinction coefficient, reflectivity, energy-loss\n"
     linear_title, linear_flag, compfunc_name, plotfunc_name = None, None, None, None
@@ -64,7 +64,7 @@ def identify_linear_optical_functions(incoming=None):
         linear_flag = "absorption"
         compfunc_name = "comp_absorption_coefficient"
     elif incoming.lower() in ["refractive index","refractive"]:
-        linear_title = "Refractive"
+        linear_title = "Refractive index"
         linear_flag = "refractive"
         compfunc_name = "comp_refractive_index"
     elif incoming.lower() in ["extinction coefficient", "extinction"]:
