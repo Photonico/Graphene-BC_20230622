@@ -148,7 +148,7 @@ def plot_linear_optical_property(suptitle, systems=None, properties=None, compon
             formula_title = formula_titles[0]
         elif len(properties) > 1:
             multi_prop_flag = True
-    if multi_prop_flag == True:
+    if multi_prop_flag is True:
         print("We currently do not support multiple linear optical properties in one figure")
         return None
 
@@ -180,20 +180,20 @@ def plot_linear_optical_property(suptitle, systems=None, properties=None, compon
             elif isinstance(comp_unit, str):
                 comp_labels.append(comp_unit)
                 comp_aliases.append(f"{comp_unit}-component")
-    if multi_comp_flag == False:
-            comp_label = comp_labels[0]
-            comp_aliase = comp_aliases[0]
+    if multi_comp_flag is False:
+        comp_label = comp_labels[0]
+        comp_aliase = comp_aliases[0]
 
     ## figure settings
     layout_flag = "horizontal" if layout.lower() not in ["vertical", "ver","v"] else "vertical"
-    if multi_comp_flag == False:
+    if multi_comp_flag is False:
         ## figure settings
         fig_setting = canvas_setting() if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
         plt.figure(figsize=fig_setting[0], dpi=fig_setting[1])
         params = fig_setting[2]
         plt.rcParams.update(params)
 
-    elif multi_comp_flag == True:
+    elif multi_comp_flag is True:
         ## figure settings
         if len(components) == 2:
             if layout_flag == "horizontal":
@@ -261,13 +261,13 @@ def plot_linear_optical_property(suptitle, systems=None, properties=None, compon
     dataset = dielectric_systems_list(systems)
 
     ## suptitle
-    if multi_comp_flag == False:
+    if multi_comp_flag is False:
         plt.title(f"{formula_title} for {comp_aliase} {suptitle}", fontsize=fig_setting[3][0])
-    elif multi_comp_flag == True:
+    elif multi_comp_flag is True:
         fig.suptitle(f"{formula_title} {suptitle}", fontsize=fig_setting[3][0])
 
     ## data plotting
-    if multi_comp_flag == False:
+    if multi_comp_flag is False:
         plt.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
 
         # component key
@@ -289,7 +289,7 @@ def plot_linear_optical_property(suptitle, systems=None, properties=None, compon
                 plt.plot(energy_real, variables, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
             elif var_label == "wavelength":
                 plt.plot(wavelength_real, variables, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
-        
+
         # axis labels
         plt.ylabel(f"{formula_title}")
         plt.xlabel(xaxis_str)
@@ -300,7 +300,7 @@ def plot_linear_optical_property(suptitle, systems=None, properties=None, compon
 
         plt.tight_layout()
 
-    elif multi_comp_flag == True:
+    elif multi_comp_flag is True:
         for subplot_index in range(len(components)):
             ax = axes_element[subplot_index]
             ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
@@ -328,7 +328,7 @@ def plot_linear_optical_property(suptitle, systems=None, properties=None, compon
                     ax.plot(energy_real, variables, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
                 elif var_label == "wavelength":
                     ax.plot(wavelength_real, variables, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"{data[0]}")
-            
+
             # axis labels
             if layout_flag == "horizontal" and len(components) == 2:
                 ax.set_xlabel(xaxis_str)
