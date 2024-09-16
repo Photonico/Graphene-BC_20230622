@@ -4,7 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from vmatplot.dielectric_function import dielectric_systems_list
+from vmatplot.dielectric_function import dielectric_systems_list, extract_dielectric_function
 from vmatplot.commons import process_boundaries_rescaling, extract_part
 from vmatplot.output import canvas_setting, color_sampling
 from vmatplot.algorithms import energy_to_wavelength, energy_to_frequency
@@ -19,6 +19,7 @@ c_nm = c_ms * 1e9       # Speed of light in vacuum nanometers per second
 hbar = 4.135667662e-15
 
 ## Theoretical formulas
+
 # 1 absorption coefficient
 def comp_absorption_coefficient(frequency,density_energy_real,density_energy_imag):
     coe = (np.sqrt(2)*frequency/c_nm)*(np.sqrt(np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))-density_energy_real))
@@ -55,11 +56,7 @@ def identify_linear_optical_functions(incoming = None):
     help_info = "Please use one of the following terminologies as a string-type variable:\n" + \
                 "\t absorption coefficient, refractive index, extinction coefficient, reflectivity, energy-loss\n"
     linear_title, linear_flag, compfunc_name, plotfunc_name = None, None, None, None
-    if incoming.lower() in ["dielectric function","dielectric"]:
-        linear_title = "Dielectric function"
-        linear_flag = "dielectric"
-        compfunc_name = "extract_dielectric_function"
-    elif incoming.lower() in ["absorption coefficient","absorption"]:
+    if incoming.lower() in ["absorption coefficient","absorption"]:
         linear_title = "Absorption coefficient"
         linear_flag = "absorption"
         compfunc_name = "comp_absorption_coefficient"
