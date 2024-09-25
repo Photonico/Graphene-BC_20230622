@@ -87,7 +87,8 @@ def plot_free_energy_lattice_single(suptitle, lattice_list, lattice_range = (Non
             selected_lattice, selected_energy = specify_free_energy_lattice(lattice_info[3])
             plt.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
         # axis
-        plt.xlabel(r"Lattice constant (Å)"); plt.ylabel(r"Energy (eV)")
+        plt.xlabel(r"Energy (eV)")
+        plt.ylabel(r"Lattice constant (Å)")
         plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
     plt.legend(loc=fig_setting[4])

@@ -935,6 +935,7 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
         legend.set_visible(False)
     else:
         legend = plt.legend(loc=legend_loc)
+
     plt.tight_layout()
 
 def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legend_loc="False"):
