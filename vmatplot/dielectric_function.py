@@ -11,7 +11,10 @@ import h5py
 
 from vmatplot.commons import extract_fermi, process_boundary, process_boundaries_rescaling, extract_part
 from vmatplot.output import canvas_setting, color_sampling
-from vmatplot.algorithms import energy_to_wavelength
+from vmatplot.algorithms import energy_to_wavelength, wavelength_to_energy
+
+from matplotlib.patches import Rectangle
+from matplotlib.colors import ListedColormap
 
 ### Physical constants
 hbar = 4.135667662e-15
@@ -537,6 +540,45 @@ def plot_dielectric_monocomp(suptitle, systems=None, component=None,layout="hori
 
         plt.ylabel(r"Dielectric function")
         plt.xlabel(xaxis_label)
+
+        ## Start: visible lights
+        # Define the visible light range in wavelength (in nm) and convert to energy (in eV)
+        visible_wavelengths_nm = np.linspace(380, 750, 1000)  # 380 nm (violet) to 750 nm (red)
+        visible_energies_eV = wavelength_to_energy(visible_wavelengths_nm)
+
+        # Create a non-linear mapping for the color map
+        cmap = plt.get_cmap("nipy_spectral")
+        colors = cmap(np.linspace(0, 1, 1000))
+
+        sorted_indices = np.argsort(visible_energies_eV)
+        colors_energy_based = colors[sorted_indices]
+
+        # No need to sort indices since energies are now increasing
+        # Create a new colormap based on energy
+        energy_cmap = ListedColormap(colors_energy_based)
+
+        ax = plt.gca()
+
+        visible_min = np.min(visible_energies_eV)
+        visible_max = np.max(visible_energies_eV)
+
+        gradient = np.linspace(0, 1, 1000).reshape(1, -1)
+        gradient = np.vstack([gradient] * 10)
+
+        x_min, x_max = ax.get_xlim()
+        y_min, y_max = ax.get_ylim()
+
+        # Create an alpha gradient using a sine function for transparency (0 -> 0.4 -> 0)
+        alpha_vals = np.sin(np.linspace(0, np.pi, 1000)) * 2.0
+        alpha_vals = np.clip(alpha_vals, 0, 0.4)
+        alpha_gradient = alpha_vals.reshape(1, -1)
+        alpha_gradient = np.vstack([alpha_gradient] * 10)
+
+        plt.imshow(gradient,aspect="auto",extent=[visible_min, visible_max, y_min, y_max],cmap=energy_cmap,alpha=alpha_gradient)
+
+        plt.xlim(x_min, x_max)
+        plt.ylim(y_min, y_max)
+        ## End: visible lights
 
         plt.legend(loc="best")
         plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
