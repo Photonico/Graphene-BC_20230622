@@ -255,6 +255,8 @@ def plot_kpoints_free_energy_data(matter, source_data=None, direction="Total", k
     energy_plotting = energy[start_index:end_index+1]
 
     # Plotting
-    plt.scatter(kpoints_plotting, energy_plotting, c=colors[1], zorder =1)
+    plt.scatter(kpoints_plotting, energy_plotting, s=5, c=colors[1], zorder =1)
+    plt.scatter(kpoints_plotting, energy_plotting, edgecolors=colors[1], s=45, facecolors="none", linewidths=1)
+    plt.plot(kpoints_plotting, energy_plotting, c=colors[1], lw = 1.5)
     plt.xticks(kpoints_plotting)
     plt.tight_layout()
