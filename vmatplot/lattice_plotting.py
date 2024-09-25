@@ -87,8 +87,8 @@ def plot_free_energy_lattice_single(suptitle, lattice_list, lattice_range = (Non
             selected_lattice, selected_energy = specify_free_energy_lattice(lattice_info[3])
             plt.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
         # axis
-        plt.xlabel(r"Energy (eV)")
-        plt.ylabel(r"Lattice constant (Å)")
+        plt.xlabel(r"Lattice constant (Å)")
+        plt.ylabel(r"Energy (eV)")
         plt.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
     plt.legend(loc=fig_setting[4])
@@ -153,9 +153,10 @@ def plot_free_energy_lattice_double(suptitle, lattice_list_1, lattice_list_2, su
                 ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], zorder=2)
 
         # axis label
-        ax.set_xlabel(r"Energy (eV)")
+        ax.set_xlabel(r"Lattice constant (Å)")
+
         if subplot_index == 0:
-            ax.set_ylabel(r"Lattice constant (Å)")
+            ax.set_ylabel(r"Energy (eV)")
 
         # Legend
         ax.legend(loc="upper right")
@@ -236,9 +237,9 @@ def plot_free_energy_lattice_triple(suptitle, lattice_list_1, lattice_list_2, la
                 ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], zorder=2)
 
         # axis label
-        ax.set_xlabel(r"Energy (eV)")
+        ax.set_xlabel(r"Lattice constant (Å)")
         if subplot_index == 0:
-            ax.set_ylabel(r"Lattice constant (Å)")
+            ax.set_ylabel(r"Energy (eV)")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
         # Legend
@@ -325,9 +326,9 @@ def plot_free_energy_lattice_quadruple(suptitle, lattice_list_1, lattice_list_2,
 
         # axis label
         if subplot_index in [0,2]:
-            ax.set_ylabel(r"Lattice constant (Å)")
+            ax.set_ylabel(r"Energy (eV)")
         if subplot_index in [2,3]:
-            ax.set_xlabel(r"Energy (eV)")
+            ax.set_xlabel(r"Lattice constant (Å)")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
         # Legend
