@@ -150,7 +150,7 @@ def plot_free_energy_lattice_double(suptitle, lattice_list_1, lattice_list_2, su
             if lattice_info[3] not in [None, ""]:
                 selected_lattice, selected_energy = specify_free_energy_lattice(lattice_info[3])
                 # ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
-                ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], zorder=2)
+                ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], zorder=2, label=f"Selected data {current_label}")
 
         # axis label
         ax.set_xlabel(r"Lattice constant (Å)")
@@ -221,6 +221,8 @@ def plot_free_energy_lattice_triple(suptitle, lattice_list_1, lattice_list_2, la
                 samples_scatter=extract_part(lattice_info[1][0],lattice_info[1][1],lattice_ranges[subplot_index][0],lattice_ranges[subplot_index][1])
                 ax.plot(fitted_lattice, fitted_free_energy, label=f"Fitted curve {current_label}", color=colors[1], zorder=1)
                 ax.scatter(samples_scatter[0], samples_scatter[1], s=48, fc="#FFFFFF", ec=colors[1], label=f"Source data {current_label}", zorder=1)
+                # ax.plot(fitted_lattice, fitted_free_energy, color=colors[1], zorder=1)
+                # ax.scatter(samples_scatter[0], samples_scatter[1], s=48, fc="#FFFFFF", ec=colors[1], label=f"{current_label}", zorder=1)
             else:
                 ax.plot(fitted_lattice, fitted_free_energy, color=colors[1], label=f"Fitted curve {current_label}", zorder=1)
             # demonstrate the minimum free energy and the corresponding lattice
@@ -234,7 +236,7 @@ def plot_free_energy_lattice_triple(suptitle, lattice_list_1, lattice_list_2, la
             if lattice_info[3] not in [None, ""]:
                 selected_lattice, selected_energy = specify_free_energy_lattice(lattice_info[3])
                 # ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
-                ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], zorder=2)
+                ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
 
         # axis label
         ax.set_xlabel(r"Lattice constant (Å)")
@@ -322,7 +324,7 @@ def plot_free_energy_lattice_quadruple(suptitle, lattice_list_1, lattice_list_2,
             if lattice_info[3] not in [None, ""]:
                 selected_lattice, selected_energy = specify_free_energy_lattice(lattice_info[3])
                 # ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
-                ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], zorder=2)
+                ax.scatter(selected_lattice,  selected_energy, s=24, ec=colors[0], fc=colors[0], label=f"Selected data {current_label}", zorder=2)
 
         # axis label
         if subplot_index in [0,2]:
