@@ -1021,7 +1021,7 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
 
     # ax2 DoS
     ax2.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
-    ax2.set_title("DoS", fontsize=fig_setting[3][1])
+    ax2.set_title("DOS (a.u.)", fontsize=fig_setting[3][1])
     for matter in matters:
         DoS_current_label = matter[1]
         if matter[0].lower() in ["monocolor"]:
@@ -1047,8 +1047,8 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
     ax2.set_ylim(eigen_range*(-1), eigen_range)
     ax2.set_xlim(0, dos_range)
 
-    ax2.set_ylabel(None)
-    ax2.set_xlabel(None)
+    ax2.set_xticks([])
+    ax2.set_yticks([])
 
     shift = dos_efermi
     ax2.axhline(y = dos_efermi-shift, color=bs_fermi_color[0], alpha=1.00, linestyle="--", label="Fermi energy", zorder=2)
