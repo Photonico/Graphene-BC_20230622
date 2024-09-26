@@ -876,9 +876,9 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
             for bands_index in range(0, len(matter[4])):
                 current_band = [eigenvalue - fermi for eigenvalue in matter[4][bands_index]]
                 if bands_index == 0:
-                    plt.plot(matter[3], current_band, c=color_sampling(matter[5])[1], alpha=matter[6], label=f"Bandstructure {current_label}", zorder=4)
+                    plt.plot(matter[3], current_band, c=color_sampling(matter[5])[1], linestyle=matter[6], alpha=matter[7], label=f"Bandstructure {current_label}", zorder=4)
                 else:
-                    plt.plot(matter[3], current_band, c=color_sampling(matter[5])[1], alpha=matter[6], zorder=4)
+                    plt.plot(matter[3], current_band, c=color_sampling(matter[5])[1], linestyle=matter[6], alpha=matter[7], zorder=4)
         elif matter[0] in ["bands"]:
             fermi = matter[2]
             for bands_index in range(0, len(matter[4])):
@@ -969,9 +969,9 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
             for bands_index in range(0, len(matter[4])):
                 current_band = [eigenvalue - bs_fermi for eigenvalue in matter[4][bands_index]]
                 if bands_index == 0:
-                    ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], alpha=matter[7], label=f"Bandstructure {bs_current_label}", zorder=4)
+                    ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], linestyle=matter[7], alpha=matter[8], label=f"Bandstructure {bs_current_label}", zorder=4)
                 else:
-                    ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], alpha=matter[7], zorder=4)
+                    ax1.plot(matter[3], current_band, c=color_sampling(matter[6])[1], linestyle=matter[7], alpha=matter[8], zorder=4)
         elif matter[0].lower() in ["bands"]:
             bs_fermi = matter[2]
             for bands_index in range(0, len(matter[4])):
@@ -1046,6 +1046,9 @@ def plot_bsDoS(title, eigen_range=None, dos_range=None, matters_list=None, legen
 
     ax2.set_ylim(eigen_range*(-1), eigen_range)
     ax2.set_xlim(0, dos_range)
+
+    ax2.set_ylabel(None)
+    ax2.set_xlabel(None)
 
     shift = dos_efermi
     ax2.axhline(y = dos_efermi-shift, color=bs_fermi_color[0], alpha=1.00, linestyle="--", label="Fermi energy", zorder=2)
