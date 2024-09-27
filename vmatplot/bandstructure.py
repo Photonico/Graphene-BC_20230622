@@ -911,9 +911,7 @@ def plot_bandstructure(title, eigen_range=None, matters_list=None, legend_loc="F
 
     # y-axis range
     plt.ylim(eigen_range*(-1), eigen_range)
-
-    # x-axis ticks
-
+    # x-axis range
     plt.xlim(kpath_start, kpath_end)
 
     high_symmetry_paths = kpoints_path(matters_list[-1][2])
