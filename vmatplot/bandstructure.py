@@ -1068,8 +1068,8 @@ def plot_bs_quadruple(suptitle, subtitles, tot_matters, eigen_range, legend_loc=
     fermi_color = color_sampling("Violet")
 
     # Title
-    # plt.suptitle(f"Bandstructures {suptitle}", fontsize=fig_setting[3][0], y=1.00)
-    plt.suptitle(f"{suptitle}", fontsize=fig_setting[3][0], y=1.00)
+    plt.suptitle(f"Bandstructures {suptitle}", fontsize=fig_setting[3][0], y=1.00)
+    # plt.suptitle(f"{suptitle}", fontsize=fig_setting[3][0], y=1.00)
 
     # plot data
     for subplot_index in range(4):
