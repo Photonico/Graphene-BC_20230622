@@ -1,0 +1,72 @@
+ running   32 mpi-ranks, on    1 nodes
+ distrk:  each k-point on   32 cores,    1 groups
+ distr:  one band on   16 cores,    2 groups
+ vasp.6.3.2 27Jun22 (build May 31 2023 12:07:17) complex                        
+  
+ POSCAR found type information on POSCAR B C 
+ POSCAR found :  2 types and      15 ions
+ Reading from existing POTCAR
+ scaLAPACK will be used
+ -----------------------------------------------------------------------------
+|                                                                             |
+|           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
+|           W    W   A  A   R    R  NN   N  II  NN   N  G    G  !!!           |
+|           W    W  A    A  R    R  N N  N  II  N N  N  G       !!!           |
+|           W WW W  AAAAAA  RRRRR   N  N N  II  N  N N  G  GGG   !            |
+|           WW  WW  A    A  R   R   N   NN  II  N   NN  G    G                |
+|           W    W  A    A  R    R  N    N  II  N    N   GGGG   !!!           |
+|                                                                             |
+|     For optimal performance we recommend to set                             |
+|       NCORE = 2 up to number-of-cores-per-socket                            |
+|     NCORE specifies how many cores store one orbital (NPAR=cpu/NCORE).      |
+|     This setting can greatly improve the performance of VASP for DFT.       |
+|     The default, NCORE=1 might be grossly inefficient on modern             |
+|     multi-core architectures or massively parallel machines. Do your        |
+|     own testing! More info at https://www.vasp.at/wiki/index.php/NCORE      |
+|     Unfortunately you need to use the default for GW and RPA                |
+|     calculations (for HF NCORE is supported but not extensively tested      |
+|     yet).                                                                   |
+|                                                                             |
+ -----------------------------------------------------------------------------
+
+ Reading from existing POTCAR
+ LDA part: xc-table for Pade appr. of Perdew
+ found WAVECAR, reading the header
+  number of bands has changed, file:    32 present:   128
+  trying to continue reading WAVECAR, but it might fail
+  number of k-points has changed, file:   145 present:   313
+  trying to continue reading WAVECAR, but it might fail
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ... GRIDC
+ FFT: planning ... GRID_SOFT
+ FFT: planning ... GRID
+ reading WAVECAR
+ random initialization beyond band           32
+ the WAVECAR file was read successfully
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.105511761644E+03   -0.10551E+03   -0.53858E+02 80336   0.261E+01    0.237E+01
+DAV:   2    -0.127651900981E+03   -0.22140E+02   -0.26227E+02102872   0.309E+01    0.869E+00
+DAV:   3    -0.126087183281E+03    0.15647E+01   -0.10229E+01 97464   0.500E+00    0.373E+00
+DAV:   4    -0.125610944074E+03    0.47624E+00   -0.80607E-01 98504   0.160E+00    0.119E+00
+DAV:   5    -0.125578293197E+03    0.32651E-01   -0.61164E-02 98696   0.412E-01    0.554E-01
+DAV:   6    -0.125553214294E+03    0.25079E-01   -0.60851E-03 95480   0.184E-01    0.175E-01
+DAV:   7    -0.125546760308E+03    0.64540E-02   -0.92795E-04 96616   0.661E-02    0.113E-01
+DAV:   8    -0.125542933781E+03    0.38265E-02   -0.71848E-04 88832   0.713E-02    0.952E-02
+DAV:   9    -0.125543764836E+03   -0.83106E-03   -0.13654E-04 91872   0.237E-02    0.396E-02
+DAV:  10    -0.125547187996E+03   -0.34232E-02   -0.19542E-04 91704   0.212E-02    0.207E-02
+DAV:  11    -0.125548723310E+03   -0.15353E-02   -0.45803E-05 92624   0.111E-02    0.132E-02
+DAV:  12    -0.125549177932E+03   -0.45462E-03   -0.10559E-05 93280   0.492E-03    0.336E-03
+DAV:  13    -0.125549288332E+03   -0.11040E-03   -0.25600E-06 86544   0.251E-03    0.160E-03
+DAV:  14    -0.125549297955E+03   -0.96228E-05   -0.14599E-07 86144   0.664E-04    0.497E-04
+DAV:  15    -0.125549300554E+03   -0.25987E-05   -0.24862E-08 81608   0.290E-04    0.109E-04
+DAV:  16    -0.125549300768E+03   -0.21468E-06   -0.26259E-09 87016   0.977E-05
+   1 F= -.12554930E+03 E0= -.12554930E+03  d E =-.140186E-13
+ writing wavefunctions
+ optical routines
+ imaginary and real dielectric function
+ recalculating local potential from charge density
+ direction            1
+ direction            2
+ direction            3
+ PROFILE, used timers:     388

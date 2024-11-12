@@ -1,0 +1,94 @@
+ running   96 mpi-ranks, on    3 nodes
+ distrk:  each k-point on   96 cores,    1 groups
+ distr:  one band on    1 cores,   96 groups
+ vasp.6.3.2 27Jun22 (build May 31 2023 12:07:17) complex                        
+  
+ POSCAR found type information on POSCAR B C 
+ POSCAR found :  2 types and      16 ions
+ Reading from existing POTCAR
+ scaLAPACK will be used
+ -----------------------------------------------------------------------------
+|                                                                             |
+|           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
+|           W    W   A  A   R    R  NN   N  II  NN   N  G    G  !!!           |
+|           W    W  A    A  R    R  N N  N  II  N N  N  G       !!!           |
+|           W WW W  AAAAAA  RRRRR   N  N N  II  N  N N  G  GGG   !            |
+|           WW  WW  A    A  R   R   N   NN  II  N   NN  G    G                |
+|           W    W  A    A  R    R  N    N  II  N    N   GGGG   !!!           |
+|                                                                             |
+|     For optimal performance we recommend to set                             |
+|       NCORE = 2 up to number-of-cores-per-socket                            |
+|     NCORE specifies how many cores store one orbital (NPAR=cpu/NCORE).      |
+|     This setting can greatly improve the performance of VASP for DFT.       |
+|     The default, NCORE=1 might be grossly inefficient on modern             |
+|     multi-core architectures or massively parallel machines. Do your        |
+|     own testing! More info at https://www.vasp.at/wiki/index.php/NCORE      |
+|     Unfortunately you need to use the default for GW and RPA                |
+|     calculations (for HF NCORE is supported but not extensively tested      |
+|     yet).                                                                   |
+|                                                                             |
+ -----------------------------------------------------------------------------
+
+ Reading from existing POTCAR
+ LDA part: xc-table for Pade appr. of Perdew
+ found WAVECAR, reading the header
+  number of bands has changed, file:    48 present:    96
+  trying to continue reading WAVECAR, but it might fail
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ... GRIDC
+ FFT: planning ... GRID_SOFT
+ FFT: planning ... GRID
+ reading WAVECAR
+ random initialization beyond band           48
+ the WAVECAR file was read successfully
+ initial charge from wavefunction
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          ort
+ gam= 0.000 g(H,U,f)=  0.104E-05 0.642E-07 0.951E-11 ort(H,U,f) = 0.000E+00 0.000E+00 0.000E+00
+SDA:   1    -0.140191515073E+03   -0.14019E+03   -0.44035E-06  3168   0.110E-05 0.000E+00
+ gam= 0.382 g(H,U,f)=  0.653E-06 0.473E-07 0.920E-12 ort(H,U,f) = 0.822E-06 0.476E-07 0.295E-11
+DMP:   2    -0.140191515478E+03   -0.40445E-06   -0.41298E-06  3168   0.700E-06 0.870E-06
+ final diagonalization
+   1 F= -.14019152E+03 E0= -.14019058E+03  d E =-.187594E-02
+ Start KPOINTS_OPT (optional k-point list driver)
+k-point batch [1-33\96]
+       N       E                     dE             ncg
+DAV:   1    -0.617989534337E+04   -0.30216E+05     9504
+DAV:   2    -0.179035831488E+05   -0.11724E+05    12672
+DAV:   3    -0.185539363087E+05   -0.65035E+03    12672
+DAV:   4    -0.185812548150E+05   -0.27319E+02    12672
+DAV:   5    -0.185827156876E+05   -0.14609E+01    12672
+DAV:   6    -0.185828086812E+05   -0.92994E-01    12672
+DAV:   7    -0.185828151733E+05   -0.64921E-02    12672
+DAV:   8    -0.185828156630E+05   -0.48970E-03    12672
+DAV:   9    -0.185828157020E+05   -0.38951E-04    12672
+DAV:  10    -0.185828157052E+05   -0.32505E-05    12672
+DAV:  11    -0.185828157055E+05   -0.28103E-06    12672
+k-point batch [34-66\96]
+       N       E                     dE             ncg
+DAV:   1    -0.605858626127E+04   -0.49498E+05     9504
+DAV:   2    -0.183012780975E+05   -0.12243E+05    12672
+DAV:   3    -0.188956997431E+05   -0.59442E+03    12672
+DAV:   4    -0.189186983851E+05   -0.22999E+02    12672
+DAV:   5    -0.189198487859E+05   -0.11504E+01    12672
+DAV:   6    -0.189199173494E+05   -0.68564E-01    12672
+DAV:   7    -0.189199218666E+05   -0.45172E-02    12672
+DAV:   8    -0.189199221907E+05   -0.32408E-03    12672
+DAV:   9    -0.189199222155E+05   -0.24821E-04    12672
+DAV:  10    -0.189199222175E+05   -0.20148E-05    12672
+DAV:  11    -0.189199222177E+05   -0.17161E-06    12672
+k-point batch [67-96\96]
+       N       E                     dE             ncg
+DAV:   1    -0.182823341184E+04   -0.22892E+05     8640
+DAV:   2    -0.122847979769E+05   -0.10457E+05    11520
+DAV:   3    -0.128918595742E+05   -0.60706E+03    11520
+DAV:   4    -0.129181532608E+05   -0.26294E+02    11520
+DAV:   5    -0.129195946803E+05   -0.14414E+01    11520
+DAV:   6    -0.129196882237E+05   -0.93543E-01    11520
+DAV:   7    -0.129196948405E+05   -0.66168E-02    11520
+DAV:   8    -0.129196953435E+05   -0.50300E-03    11520
+DAV:   9    -0.129196953837E+05   -0.40195E-04    11520
+DAV:  10    -0.129196953870E+05   -0.33585E-05    11520
+DAV:  11    -0.129196953873E+05   -0.29091E-06    11520
+ writing wavefunctions
+ PROFILE, used timers:     505

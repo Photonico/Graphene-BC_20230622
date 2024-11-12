@@ -1,0 +1,153 @@
+#### TIPS
+
+## Computing Tips
+
+* Directory (Gadi): `/g/data/g46/ln2626`
+
+* Directory (Artemis): `/project/RDS-FSC-MOSHEMT-RW/lniu6305`
+
+* Run this every time: module load git
+
+# VASP files
+
+* INCAR
+
+This is one of the main input files for VASP, setting the parameters for the calculation. It contains key parameters defining the type of calculation, precision, electronic structure methods, and other computational options.
+
+* POSCAR
+
+This file defines the crystal structure for the simulation, including the cell parameters and atomic positions. It is fundamental for structure optimization, molecular dynamics simulations, or electronic structure calculations in VASP.
+
+* KPOINTS
+
+This file defines the k-point mesh in reciprocal space, crucial for Brillouin zone integrations. The choice of k-points affects the accuracy and efficiency of the calculations.
+
+* POTCAR
+
+Contains information about the atomic potentials. This file is selected from VASP's pseudopotential library and can vary for different elements and types of calculations.
+
+* OUTCAR
+
+One of the primary output files from VASP, it contains a wealth of information about the calculation results, such as total energy, forces, stress tensor, charge density, etc.
+
+* CONTCAR
+
+After structure optimization or molecular dynamics simulations, this file contains the final optimized crystal structure. Its format is similar to that of POSCAR.
+
+* OSZICAR
+
+This file provides information about the self-consistent loop, including the total energy at each step and the convergence of electronic steps.
+
+* CHGCAR
+
+Contains information about the charge density distribution. This file can be used for analyzing charge distribution or for further calculations, like differential charge density plots.
+
+* WAVECAR
+
+Contains information about the wavefunctions. It is a binary file, often used for band structure and density of states calculations.
+
+* DOSCAR
+
+Contains information about the density of states (DOS) and partial density of states (PDOS), useful for analyzing the electronic structure.
+
+* EIGENVAL
+
+This file contains detailed information about the band structure, i.e., the energy levels at various k-points.
+
+* XDATCAR
+
+In molecular dynamics simulations, this file records the positions of atoms over time.
+
+* vasprun.xml
+
+An XML format file containing a comprehensive set of calculation information, which can be used by various data parsing tools.
+
+* PROCAR
+
+Contains projected density of states information, useful for analyzing the electronic structure of specific atoms or atomic orbitals.
+
+# Finding the stablest structure
+
+    * Top Layer: Graphene; 
+
+    * Bottom Layer: BC3, Borophene, B4C3;
+
+# Self-consistent
+
+    * Rename the CONTCAR from the former step to POSCAR.
+
+    * INCAR Settings:
+
+        # Output charge function file CHGCAR
+        LCHARG = .TRUE.         # LCHARG = .TRUE. for generating CHGCAR
+        # Output wave function file WAVECAR
+        LWAVE = .TRUE.          # LWAVE = .TRUE. for generating WAVECAR
+
+        # # Number of steps for IOM   
+        # NSW = 128
+        # # CG for ions, often 1 (RMM-DISS) is faster    
+        # IBRION = 2
+        # # Step for ionic-motion (for MD in fs)
+        # POTIM = .5
+        # # Stress tensor (2 for relaxation ions)
+        # ISIF = 2
+
+# Bandstructure
+
+    * Requirement: `CHGCAR`
+
+# DoS / PDoS
+
+    * Requirement: `CHGCAR`
+
+# Optical properties
+
+    * Requirment: `WAVECAR`
+
+## Server
+
+    * Check works numbers: `qstat -u $USER | wc -l`
+
+    * Check space information: `quota -v`
+
+# Git LFS
+
+* Add file type
+    **/CHG filter=lfs diff=lfs merge=lfs -text
+    **/CHGCAR filter=lfs diff=lfs merge=lfs -text
+    **/WAVECAR filter=lfs diff=lfs merge=lfs -text
+
+* Track file list
+    git add .gitattributes
+
+* LFS cache directory:
+    <.git/lfs/objects/>
+
+## Git Clean
+
+    * Purge Historical References:
+        git reflog expire --expire=now --all
+
+    * Tidy Up the Repository:
+        git gc --prune=now
+
+    * Deep cleanup:
+        git repack -ad
+        git prune
+
+    * Stage the Changes:
+        git add .
+
+    * Commit the Staged Changes:
+        git commit -m "Optimized git repository by cleaning up the history"
+
+    * Push Changes Forcefully to the Remote Repository
+        git push -f origin main
+
+## Dos2unix:
+
+    sed -i -e 's/\r$//' vasp_gadi.sh
+
+* Process the current folder
+
+    find . -type f -exec dos2unix {} \;
