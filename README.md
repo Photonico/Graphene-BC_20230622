@@ -1,5 +1,7 @@
 # Graphene - BC
 
+This project has been publicated: <https://doi.org/10.3390/nano14201659>
+
 ## Matter
 
 ### Monolayers
