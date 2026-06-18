@@ -1060,17 +1060,15 @@ def plot_dielectric_function(suptitle, systems=None, components=None,
                 ax.set_xlabel(xaxis_label)
                 if subplot_index == 0:
                     ax.set_ylabel("Dielectric function")
-
             ax.legend(loc="best")
             ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
-
     plt.tight_layout()
 
 def plot_dielectric_function_rescaled(suptitle, systems=None, components=None,
                                       layout="horizontal", unit=None, boundary=(None,None), figure_size=(None,None)):
 
     ## Help information
-    help_info = "Usage: plot_dielectric_function_scaled \n" + \
+    help_info = "Usage: plot_dielectric_function_rescaled \n" + \
                 "\t Demonstrate dielectric function by each component \n" +\
                 "The independent value includes \n" +\
                 "\t suptitle: the suptitle; \n" +\
@@ -1198,4 +1196,373 @@ def plot_dielectric_function_rescaled(suptitle, systems=None, components=None,
         ax.legend(loc="best")
         ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
 
+    plt.tight_layout()
+
+from numbers import Real
+
+
+def _process_component_boundaries(boundary, component_count):
+    """
+    Convert ``boundary`` into one processed boundary for each component.
+
+    Rules for multiple components
+    -----------------------------
+    boundary = number
+        Apply the original global boundary behaviour to every component.
+
+    boundary = (number,)
+        Apply the original global boundary behaviour to every component.
+
+    boundary = (b1, b2, ..., bn)
+        Assign one boundary specification to each component:
+        - number      -> (0, number)
+        - (start, end) -> (start, end)
+
+    A one-element sequence containing a two-value sequence, for example
+    ``((1, 8),)``, applies that interval to every component.
+    """
+    if component_count < 1:
+        return []
+
+    def is_number(value):
+        return isinstance(value, Real) and not isinstance(value, bool)
+
+    def process_single(specification):
+        if specification is None:
+            return process_boundary((None, None))
+
+        if is_number(specification):
+            return process_boundary((0, specification))
+
+        if isinstance(specification, (tuple, list)):
+            if len(specification) == 1:
+                value = specification[0]
+                if value is None:
+                    return process_boundary((None, None))
+                if is_number(value):
+                    return process_boundary(value)
+                if isinstance(value, (tuple, list)) and len(value) == 2:
+                    return process_boundary(tuple(value))
+                raise ValueError(
+                    "A one-item component boundary must contain a number, "
+                    "None, or a two-value interval."
+                )
+
+            if len(specification) == 2:
+                return process_boundary(tuple(specification))
+
+        raise TypeError(
+            "Each component boundary must be a number, None, "
+            "or a two-value tuple/list."
+        )
+
+    # A scalar keeps the original global behaviour.
+    if boundary is None:
+        processed = process_boundary((None, None))
+        return [processed] * component_count
+
+    if is_number(boundary):
+        processed = process_boundary(boundary)
+        return [processed] * component_count
+
+    if not isinstance(boundary, (tuple, list)):
+        raise TypeError(
+            "boundary must be a number, None, or a tuple/list."
+        )
+
+    # A one-item sequence also keeps the original global behaviour.
+    if len(boundary) == 1:
+        value = boundary[0]
+
+        # ((start, end),) provides an unambiguous global interval.
+        if isinstance(value, (tuple, list)) and len(value) == 2:
+            processed = process_boundary(tuple(value))
+        else:
+            processed = process_boundary(boundary)
+
+        return [processed] * component_count
+
+    # Preserve the original unbounded default for every component.
+    if len(boundary) == 2 and boundary[0] is None and boundary[1] is None:
+        processed = process_boundary((None, None))
+        return [processed] * component_count
+
+    if len(boundary) != component_count:
+        raise ValueError(
+            f"boundary contains {len(boundary)} specifications, "
+            f"but {component_count} components were supplied."
+        )
+
+    return [process_single(specification) for specification in boundary]
+
+
+def plot_dielectric_function_diff(suptitle, systems=None, components=None,
+                             layout="horizontal", expansion_label=True,
+                             unit=None, boundary=(None,None), figure_size=(None,None)):
+    ## Help information
+    dielectric_help =  plot_dielectric_help()
+    if suptitle in ["help", "Help"]:
+        print(dielectric_help)
+        return None
+
+    ## multi components flag
+    if isinstance(components, str) or isinstance(components, dict):
+        return plot_dielectric_monocomp(suptitle, systems, components,layout, expansion_label,unit, boundary, figure_size)
+    elif isinstance(components, list) and len(components) == 1:
+        return plot_dielectric_monocomp(suptitle, systems, components,layout, expansion_label,unit, boundary, figure_size)
+
+    ## expansion flag
+    if isinstance(expansion_label, bool):
+        expansion_flag = expansion_label
+    elif expansion_label.lower() not in ["true", "yes", "t", "y", "combine"]:
+        expansion_flag = False
+    else:
+        expansion_flag = True
+
+    ## components aliases
+    comp_labels, comp_aliases = [], []
+    for comp in components:
+        if isinstance(comp, dict):
+            for key, value in comp.items():
+                comp_labels.append(key.lower())
+                comp_aliases.append(value)
+        else:
+            comp_labels.append(comp.lower())
+            comp_aliases.append(f"{comp}-component")
+
+    ## figure settings
+    folding_flag = None
+    allcomps_flag = None
+    layout_flag = "horizontal" if layout.lower() not in ["vertical", "ver","v"] else "vertical"
+    if expansion_flag is True:
+        if layout_flag == "horizontal":
+            fig_setting = canvas_setting(8*len(components), 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(2, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
+            axes_element = [axs[i, j] for j in range(len(components)) for i in range(2)] if len(components) != 1 else [axs[0], axs[1]]
+        else:
+            fig_setting = canvas_setting(16, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(len(components), 2, figsize=fig_setting[0], dpi=fig_setting[1])
+            axes_element = [axs[i, j] for i in range(len(components)) for j in range(2)] if len(components) != 1 else [axs[0], axs[1]]
+    elif expansion_flag is False and len(components) == 2:
+        if layout_flag == "horizontal":
+            fig_setting = canvas_setting(16, 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(1, 2, figsize=fig_setting[0], dpi=fig_setting[1])
+            axs = axs.reshape(1, 2)
+            axes_element = [axs[0, i] for i in range(2)]
+        else:
+            fig_setting = canvas_setting(8, 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(2, 1, figsize=fig_setting[0], dpi=fig_setting[1])
+            axs = axs.reshape(2, 1)
+            axes_element = [axs[i, 0] for i in range(2)]
+    elif expansion_flag is False and len(components)%2 == 0:
+        folding_flag = True
+        if layout_flag == "horizontal":
+            fig_setting = canvas_setting(8*len(components)/2, 12) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(2, int(len(components)/2), figsize=fig_setting[0], dpi=fig_setting[1])
+            # axes_element = [axs[i, j] for j in range(int(len(components)/2)) for i in range(2)]
+            axes_element = [axs[i, j] for i in range(2) for j in range(int(len(components)/2))]
+        else:
+            fig_setting = canvas_setting(16, 6*len(components)/2+1) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(int(len(components)/2), 2, figsize=fig_setting[0], dpi=fig_setting[1])
+            axes_element = [axs[i, j] for j in range(2) for i in range(int(len(components)/2))]
+    elif expansion_flag is False and len(components) == 9:
+        allcomps_flag = True
+        if layout_flag == "horizontal":
+            fig_setting = canvas_setting(24, 18) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(3, 3, figsize=fig_setting[0], dpi=fig_setting[1])
+            axes_element = [axs[i, j] for i in range(3) for j in range(3)]
+        else:
+            fig_setting = canvas_setting(24, 18) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(3, 3, figsize=fig_setting[0], dpi=fig_setting[1])
+            axes_element = [axs[i, j] for j in range(3) for i in range(3)]
+    else:
+        if layout_flag == "horizontal":
+            fig_setting = canvas_setting(8*len(components), 6) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(1, len(components), figsize=fig_setting[0], dpi=fig_setting[1])
+            axes_element = [axs[i] for i in range(len(components))]
+        else:
+            fig_setting = canvas_setting(10, 6*len(components)) if figure_size == (None, None) else canvas_setting(figure_size[0], figure_size[1])
+            params = fig_setting[2]
+            plt.rcParams.update(params)
+            fig, axs = plt.subplots(len(components), 1, figsize=fig_setting[0], dpi=fig_setting[1])
+            axes_element = [axs[i] for i in range(len(components))]
+
+    ## identify x-axis unit
+    var_label = "wavelength" if unit and unit.lower() == "nm" else "energy"
+    xaxis_label = "Photon wavelength (nm)" if var_label == "wavelength" else "Photon energy (eV)"
+
+    ## systems information
+    dataset = dielectric_systems_list(systems)
+
+    ## suptitle
+    fig.suptitle(f"Dielectric function {suptitle}\n", fontsize=fig_setting[3][0])
+
+    ## one data boundary for each component
+    component_boundaries = _process_component_boundaries(
+        boundary, len(components)
+    )
+
+    ## data plotting
+    # for each subplot
+    if expansion_flag is True:
+        for subplot_index in range(2*len(components)):
+            ax = axes_element[subplot_index]
+            ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
+            # current component index and label
+            component_index = subplot_index // 2
+            photon_start, photon_end = component_boundaries[component_index]
+            current_component = comp_labels[component_index].lower()
+
+            data_key = f"density_{current_component}_real" if subplot_index % 2 == 0 else f"density_{current_component}_imag"
+
+            ## subtitles and axis label (self-assertive)
+            # subtitles
+            ax.set_title([f"Real part for {comp_aliases[component_index]}", f"Imaginary part for {comp_aliases[component_index]}"][subplot_index%2])
+            # ylabel
+            if layout_flag == "vertical" and subplot_index%2 == 0:
+                ax.set_ylabel("Dielectric function")
+            elif layout_flag == "horizontal" and subplot_index in range(2):
+                ax.set_ylabel("Dielectric function")
+            # xlabel
+            if layout_flag == "vertical" and subplot_index >= 2*len(components)-2:
+                ax.set_xlabel(xaxis_label)
+            elif layout_flag == "horizontal" and subplot_index%2 == 1:
+                ax.set_xlabel(xaxis_label)
+
+            # initialization
+            wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
+
+            # curve plotting: real part
+            if subplot_index%2 == 0:
+                # for each system
+                for _, data in enumerate(dataset):
+                    energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key], photon_start, photon_end)
+                    if var_label == "energy":
+                        ax.plot(energy_real, density_energy_real, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"Real part {data[0]}")
+                        # plasmon resonance line for photon energy
+                        energy_starts.append(min(energy_real))
+                        energy_ends.append(max(energy_real))
+
+                    else:
+                        wavelength_real, density_wl_real = extract_part(energy_to_wavelength(data[1]["density_energy_real"]),data[1][data_key], photon_start, photon_end)
+                        ax.plot(wavelength_real, density_wl_real, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"Real part {data[0]}")
+                        # plasmon resonance line for photon wavelength
+                        wavelength_starts.append(min(wavelength_real))
+                        wavelength_ends.append(np.max(np.array(wavelength_real)[np.isfinite(wavelength_real)]))
+                # plasmon resonance line
+                if var_label == "energy":
+                    energy_start=min(energy_starts)
+                    energy_end=max(energy_ends)
+                    ax.plot([energy_start, energy_end],[0,0],color=color_sampling("grey")[1],linestyle="--")
+                else:
+                    wavelength_start=min(wavelength_starts)
+                    wavelength_end=max(wavelength_ends)
+                    ax.plot([wavelength_start, wavelength_end],[0,0],color=color_sampling("grey")[1],linestyle="--")
+
+            # curve plotting: imaginary part
+            else:
+                for _, data in enumerate(dataset):
+                    energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key], photon_start, photon_end)
+                    if var_label == "energy":
+                        ax.plot(energy_imag, density_energy_imag, color=color_sampling(data[2])[2], ls=data[3], alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
+                    else:
+                        wavelength_imag, density_wl_imag = extract_part(energy_to_wavelength(data[1]["density_energy_imag"]), data[1][data_key], photon_start, photon_end)
+                        ax.plot(wavelength_imag, density_wl_imag, color=color_sampling(data[2])[2], ls=data[3], alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
+            # Legend
+            ax.legend(loc="best")
+            ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
+
+    else:
+        for subplot_index in range(len(components)):
+            ax = axes_element[subplot_index]
+            ax.tick_params(direction="in", which="both", top=True, right=True, bottom=True, left=True)
+
+            # initialization
+            wavelength_starts, wavelength_ends, energy_starts, energy_ends = [], [], [], []
+
+            # current component index and label
+            component_index = subplot_index
+            photon_start, photon_end = component_boundaries[component_index]
+            current_component = comp_labels[component_index].lower()
+            data_key_real = f"density_{current_component}_real"
+            data_key_imag = f"density_{current_component}_imag"
+
+            # curve plotting: real part and imaginary part
+            for _, data in enumerate(dataset):
+                energy_real, density_energy_real = extract_part(data[1]["density_energy_real"], data[1][data_key_real], photon_start, photon_end)
+                energy_imag, density_energy_imag = extract_part(data[1]["density_energy_imag"], data[1][data_key_imag], photon_start, photon_end)
+                if var_label == "energy":
+                    ax.plot(energy_real, density_energy_real, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"Real part {data[0]}")
+                    ax.plot(energy_imag, density_energy_imag, color=color_sampling(data[2])[1], ls="dashed", alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
+                    energy_starts.append(min(energy_real))
+                    energy_ends.append(max(energy_real))
+                else:
+                    wavelength_real, density_wl_real = extract_part(energy_to_wavelength(data[1]["density_energy_real"]), data[1][data_key_real], photon_start, photon_end)
+                    wavelength_imag, density_wl_imag = extract_part(energy_to_wavelength(data[1]["density_energy_imag"]), data[1][data_key_imag], photon_start, photon_end)
+                    ax.plot(wavelength_real, density_wl_real, color=color_sampling(data[2])[1], ls=data[3], alpha=data[4], lw=data[5], label=f"Real part {data[0]}")
+                    ax.plot(wavelength_imag, density_wl_imag, color=color_sampling(data[2])[1], ls="dashed", alpha=data[4], lw=data[5], label=f"Imaginary part {data[0]}")
+                    wavelength_starts.append(min(wavelength_real))
+                    wavelength_ends.append(np.max(np.array(wavelength_real)[np.isfinite(wavelength_real)]))
+
+            # plasmon resonance line and rescale rate
+            if var_label == "energy":
+                plasmon_start = min(energy_starts)
+                plasmon_end = max(energy_ends)
+                ax.plot([plasmon_start, plasmon_end],[0,0], color=color_sampling("grey")[1], linestyle="dashed")
+            else:
+                plasmon_start=min(wavelength_starts)
+                plasmon_end=max(wavelength_ends)
+                ax.plot([plasmon_start, plasmon_end],[0,0],color=color_sampling("grey")[1],linestyle="dashed")
+
+            # subtitles and axis label (self-assertive): subtitles
+            ax.set_title(comp_aliases[component_index])
+            if allcomps_flag is True and layout_flag == "horizontal":
+                if subplot_index in [0, len(components)/3, 2*len(components)/3]:
+                    ax.set_ylabel("Dielectric function")
+                if subplot_index >= 2*len(components)/3:
+                    ax.set_xlabel(xaxis_label)
+            elif allcomps_flag is True and layout_flag == "vertical":
+                if subplot_index < len(components)/3:
+                    ax.set_ylabel("Dielectric function")
+                if subplot_index in [len(components)/3-1, 2*len(components)/3-1, len(components)-1]:
+                    ax.set_xlabel(xaxis_label)
+            elif folding_flag is True and layout_flag == "horizontal":
+                if subplot_index in [0, len(components)/2]:
+                    ax.set_ylabel("Dielectric function")
+                if subplot_index >= len(components)/2:
+                    ax.set_xlabel(xaxis_label)
+            elif folding_flag is True and layout_flag == "vertical":
+                if subplot_index < len(components)/2:
+                    ax.set_ylabel("Dielectric function")
+                if subplot_index in [len(components)/2-1, len(components)-1]:
+                    ax.set_xlabel(xaxis_label)
+            elif layout_flag == "vertical":
+                ax.set_ylabel("Dielectric function")
+                if layout_flag == "vertical" and subplot_index == len(components)-1:
+                    ax.set_xlabel(xaxis_label)
+            else:
+                ax.set_xlabel(xaxis_label)
+                if subplot_index == 0:
+                    ax.set_ylabel("Dielectric function")
+            ax.legend(loc="best")
+            ax.ticklabel_format(style="sci", axis="y", scilimits=(-3,3), useOffset=False, useMathText=True)
     plt.tight_layout()
