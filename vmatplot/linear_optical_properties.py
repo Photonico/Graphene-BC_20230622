@@ -32,7 +32,7 @@ def comp_refractive_index(density_energy_real,density_energy_imag):
 
 # 3 extinction coefficient
 def comp_extinction_coefficient(density_energy_real,density_energy_imag):
-    coe = np.sqrt((np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))-density_energy_imag)/2)
+    coe = np.sqrt((np.sqrt(np.square(density_energy_real)+np.square(density_energy_imag))-density_energy_real)/2)
     return coe
 
 # 4 reflectivity
