@@ -75,33 +75,12 @@ This project has been publicated: <https://doi.org/10.3390/nano14201659>
   + Python: `rm -r <env>`
   + Conda: `conda env remove --name <env>`
 
-## Git LFS
+## License
 
-+ GitHub repository settings
-  + `Archives` → `Include Git LFS objects in archives`
+The source code in this `vmatplot` is released under the MIT License.
 
-+ Install Git-LFS extension: `git lfs install`
-  + Initialization: `git lfs install`
+You are welcome to use, modify, distribute, and adapt the code for academic, educational, or commercial purposes, provided that the original copyright and license notice are retained.
 
-+ Specify the file types to be managed by LFS
-  + Create a file named  `.gitattributes` in the root directory of your repository
-  + Specify the file types that need to be managed by LFS in this file using either the file extension or file path
-    + for zip files: `*.zip filter=lfs diff=lfs merge=lfs -text`
-    + for files without filetype: `large-file filter=lfs diff=lfs merge=lfs -text`
-  + List the large files: `git lfs ls-files`
+Unless otherwise stated, this license applies to the Python source code and related scripts in this repository. Research data, manuscript text, figures, and third-party files may be subject to separate terms.
 
-+ Track and commit LFS files
-  + Track
-    + for zip files: `git lfs track "*.zip"`
-    + for files without filetype: `git lfs track "large-file"`
-    + for the specific file: `git lfs track large-file_directory`
-  + Add the LFS list
-    + LFS attributes: `git add .gitattributes`
-    + LFS files: `git add large_file_directory`
-+ Commit the changes: `git commit -m "Commit message"`
-  + Push the change: `git push`
-  + Push to the origin branch: `git push origin main`
 
-+ Pull the repository
-  + Downloads the LFS files from the Git LFS server: `git lfs fetch`
-  + Checks out these files from the local LFS repository: `git lfs checkout`
