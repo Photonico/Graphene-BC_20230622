@@ -19,10 +19,25 @@ The `.py` plotting scripts remain the verified batch baseline. **They do not
 inherit subsequent notebook edits**: running them can overwrite a figure
 customized in the notebook. Use the notebook as the normal editing entry.
 
-The shared canvas width is 10 inches: labels 16 pt, ticks and legends 14 pt,
-inset titles 12 pt and line width 1.5 pt. Panels use ordinary Matplotlib axes,
-legends and rounded title boxes. There is no dependency on
-`vmatplot.output_settings`; only the existing numerical EOS fitter is reused.
+Canvas width follows the thesis insertion scale: 6 inches at 0.60 text width,
+8 at 0.80, 8.5 at 0.85, 9 at 0.90, and 10 at full width. This keeps the
+printed typography consistent while giving small and large figure groups
+different page widths. Heights follow the number of rows. Labels use 13 pt;
+ticks, legends and inset titles use 11 pt; line width is 1.5 pt.
+
+Panels use ordinary Matplotlib axes, legends and rounded title boxes. There
+is no dependency on `vmatplot.output_settings`; only the existing numerical
+EOS fitter is reused. Short legends sit in clear upper-right areas. Longer
+shared legends use a narrow right column, with line breaks where needed;
+there are no bottom legend strips.
+The three-structure figure `proj1.3` and three-data-panel figures (`S1.3`, `S1.4`, `S1.9` and `S1.20`–`S1.24`)
+use a compact 2 × 2 grid: panels (a), (b), (c) occupy the upper-left,
+upper-right and lower-left cells, and the shared legend occupies the
+lower-right cell. `S1.4` also places its shared colour bar in that cell.
+`S1.5` and `S1.6` retain their four data panels. Each energy-map group uses one shared colour bar: its limits
+span the previous per-panel ranges for the same composition. The source
+energies, interpolation, sampled minima and axis ranges are unchanged.
+`energy_colour_scales.json` records the shared limits.
 
 ## Combined figures
 

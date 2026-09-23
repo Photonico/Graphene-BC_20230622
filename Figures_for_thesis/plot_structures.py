@@ -3,6 +3,8 @@ import hashlib
 import json
 
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
 import numpy as np
 from PIL import Image
 
@@ -28,7 +30,7 @@ def panel(ax, filename, heading):
 
 # The seven bond markers retain the coordinates and colours in the original
 # 0.1_structure_figure.ipynb. Coordinates there refer to a 2 x 2 composite.
-fig, axes = plt.subplots(2, 2, figsize=(10, 6.0))
+fig, axes = plt.subplots(2, 2, figsize=(8, 4.8))
 fig.subplots_adjust(left=0.01, right=0.99, bottom=0.015, top=0.985,
                     wspace=0.025, hspace=0.035)
 names = ["A_BC3.png", "B_Borophene.png", "C_B4C3.png", "D_Graphene.png"]
@@ -56,16 +58,23 @@ for number, (row, col), start, end, offset, label_offset, colour in markers:
                 arrowprops=dict(arrowstyle="<->", color=colour, lw=1.5,
                                 shrinkA=0, shrinkB=0, mutation_scale=8))
     position = ((start + end) / 2 + label_offset) * scale
-    ax.text(*position, rf"$l_{number}$", fontsize=16, ha="center", color=colour)
+    ax.text(*position, rf"$l_{number}$", fontsize=13, ha="center", color=colour)
 save(fig, "proj1.1.pdf")
 
 
-fig, axes = plt.subplots(1, 3, figsize=(10, 2.05))
-fig.subplots_adjust(left=0.01, right=0.99, bottom=0.03, top=0.97, wspace=0.025)
+fig, axes = plt.subplots(2, 2, figsize=(8, 4.8))
+fig.subplots_adjust(left=0.01, right=0.99, bottom=0.015, top=0.985,
+                    wspace=0.025, hspace=0.035)
 materials = [r"Graphene–BC$_3$", "Graphene–Borophene", r"Graphene–B$_4$C$_3$"]
 prefixes = ["E_Graphene-BC3", "F_Graphene-Borophene", "G_Graphene-B4C3"]
-for ax, prefix, material, letter in zip(axes, prefixes, materials, "abc"):
+for ax, prefix, material, letter in zip(axes.flat, prefixes, materials, "abc"):
     panel(ax, prefix + ".png", f"({letter}) {material}")
+axes[1, 1].axis("off")
+axes[1, 1].legend(handles=[
+    Line2D([], [], ls="none", marker="o", ms=8, color="#58B947", label="Boron"),
+    Line2D([], [], ls="none", marker="o", ms=8, color="#A67655", label="Carbon"),
+    Patch(facecolor="none", edgecolor="#FF8000", label="Unit cell"),
+], loc="center", frameon=True)
 save(fig, "proj1.3.pdf")
 
 

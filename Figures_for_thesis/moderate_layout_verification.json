@@ -1,0 +1,824 @@
+{
+  "source_baseline": "Original raw files compared byte-for-byte to current Git index blob identities. The tracked plotting directory is Figures_for_thesis (capital F); seven selected data-reader/drawing functions were also compared by AST to HEAD with the correct case.",
+  "structural_layout": {
+    "proj1.1.pdf": {
+      "canvas_inches": [
+        8.0,
+        4.8
+      ],
+      "tex_fraction": 0.8
+    },
+    "proj1.3.pdf": {
+      "canvas_inches": [
+        8.0,
+        4.8
+      ],
+      "tex_fraction": 0.8
+    },
+    "proj1.4.pdf": {
+      "canvas_inches": [
+        10.0,
+        6.1
+      ],
+      "tex_fraction": 1.0
+    }
+  },
+  "source_files_unchanged": [
+    {
+      "file": "3_Bandstructure/D_Graphene_PBE/vaspout.h5",
+      "git_blob_sha1": "9110d4b2860449f3587d5250fa0f0d3488d18cbd"
+    },
+    {
+      "file": "3_Bandstructure/D_Graphene_HSE/vaspout.h5",
+      "git_blob_sha1": "8275b82f97cf9ecebaa81df60417559329e11a85"
+    },
+    {
+      "file": "3_Bandstructure/B_Borophene_PBE/vaspout.h5",
+      "git_blob_sha1": "cfb836c0302da7be3ce1c2e64f14d7300d856d83"
+    },
+    {
+      "file": "3_Bandstructure/B_Borophene_HSE/vaspout.h5",
+      "git_blob_sha1": "d8f9307af176573d9be0b3007d038ebefcc7e8eb"
+    },
+    {
+      "file": "3_Bandstructure/A_BC3_PBE/vaspout.h5",
+      "git_blob_sha1": "d472c456f7715dbe5d1e80c37a37a1748a9b8cc6"
+    },
+    {
+      "file": "3_Bandstructure/A_BC3_HSE/vaspout.h5",
+      "git_blob_sha1": "cbbfa95513476c293461f194994975509ced01a5"
+    },
+    {
+      "file": "3_Bandstructure/C_B4C3_PBE/vaspout.h5",
+      "git_blob_sha1": "4a9aed8425424603831dab1df47267a2ebda198c"
+    },
+    {
+      "file": "3_Bandstructure/C_B4C3_HSE/vaspout.h5",
+      "git_blob_sha1": "8712c3db2946a5251cd50e3cff026f7eb1687ca8"
+    },
+    {
+      "file": "3_Bandstructure/E_Graphene-BC3_hollow_PBE/vaspout.h5",
+      "git_blob_sha1": "1a2562880c555ea374694cc4546d3b64c400d341"
+    },
+    {
+      "file": "3_Bandstructure/E_Graphene-BC3_hollow_HSE/vaspout.h5",
+      "git_blob_sha1": "c53b8b8d84bdaf11b271728d83aed66d8b5bd559"
+    },
+    {
+      "file": "4_PDoS/E_Graphene-BC3_PBE/vaspout.h5",
+      "git_blob_sha1": "59218650b691028985ce05dfc8e45bc65e17c9bd"
+    },
+    {
+      "file": "4_PDoS/E_Graphene-BC3_HSE/vaspout.h5",
+      "git_blob_sha1": "9a387b8875acb45b990ea57de2db3cd558093fed"
+    },
+    {
+      "file": "3_Bandstructure/F_Graphene-Borophene_top_PBE/vaspout.h5",
+      "git_blob_sha1": "9523a0906e8694c23dac5e38a839e9d8d33ebf29"
+    },
+    {
+      "file": "3_Bandstructure/F_Graphene-Borophene_top_HSE/vaspout.h5",
+      "git_blob_sha1": "ec15eee135e50fcdf0c0cac3cb1a9b3e348ec208"
+    },
+    {
+      "file": "4_PDoS/F_Graphene-Borophene_PBE/vaspout.h5",
+      "git_blob_sha1": "72a65e10f4efa08050de70bd179aefc6a6ba9d50"
+    },
+    {
+      "file": "4_PDoS/F_Graphene-Borophene_HSE/vaspout.h5",
+      "git_blob_sha1": "e173193cdaf0164b6119f936ab012d3985ae037c"
+    },
+    {
+      "file": "3_Bandstructure/G_Graphene-B4C3_top_PBE/vaspout.h5",
+      "git_blob_sha1": "31fc412cb0f4a8f094e0b0d09ac224f4720ea804"
+    },
+    {
+      "file": "3_Bandstructure/G_Graphene-B4C3_top_HSE/vaspout.h5",
+      "git_blob_sha1": "7736d7332e2e624fb84b9e72cbbaef9f22cea0e7"
+    },
+    {
+      "file": "4_PDoS/G_Graphene-B4C3_PBE_K33/vaspout.h5",
+      "git_blob_sha1": "a1504092366e95830ebe99a10302d254672b47f3"
+    },
+    {
+      "file": "4_PDoS/G_Graphene-B4C3_HSE/vaspout.h5",
+      "git_blob_sha1": "d0103a11877554c6cfb206eb4a9dc4045289fefc"
+    },
+    {
+      "file": "5_Dielectric_function/E_Graphene-BC3_HSE_K17/vaspout.h5",
+      "git_blob_sha1": "a094248c14de0f8166aa3df7c5648241eeab87ef"
+    },
+    {
+      "file": "5_Dielectric_function/F_Graphene-Borophene_HSE_K65_Accurate/vaspout.h5",
+      "git_blob_sha1": "4b90b8731c4060298f4cce32af3e57d3cd50de31"
+    },
+    {
+      "file": "5_Dielectric_function/G_Graphene-B4C3_HSE_K17/vaspout.h5",
+      "git_blob_sha1": "30daf2dbed4a738d139ab1b260e411645ffe7469"
+    },
+    {
+      "file": "5_Dielectric_function/A_BC3_PBE_K65/vaspout.h5",
+      "git_blob_sha1": "4b384cf325b9ae2e79c3f759a38c6283fad3d8a1"
+    },
+    {
+      "file": "5_Dielectric_function/B_Borophene_PBE_K65/vaspout.h5",
+      "git_blob_sha1": "9b6f7afd7c61abca08d33c5baf9791485e9a034e"
+    },
+    {
+      "file": "5_Dielectric_function/C_B4C3_PBE_K65/vaspout.h5",
+      "git_blob_sha1": "d25fb9d18569ed284d99a5754ea94749f4947167"
+    },
+    {
+      "file": "5_Dielectric_function/D_Graphene_PBE_K129/vaspout.h5",
+      "git_blob_sha1": "7dfd0464864c24116c3f8532cb45a3794ef4d83d"
+    },
+    {
+      "file": "5_Dielectric_function/F_Graphene-Borophene_PBE_K65_Normal/vaspout.h5",
+      "git_blob_sha1": "b14cf80127d0f38b45bcb43132e02b302b056f64"
+    },
+    {
+      "file": "5_Dielectric_function/E_Graphene-BC3_PBE_K65_Normal/vaspout.h5",
+      "git_blob_sha1": "9b84c2c3360060d52e96a1beaf97eb175ee7ff98"
+    },
+    {
+      "file": "5_Dielectric_function/G_Graphene-B4C3_PBE_K65_Normal/vaspout.h5",
+      "git_blob_sha1": "730841834cf90c101b6f5bc5cf31992b5fb80500"
+    },
+    {
+      "file": "5_Dielectric_function/D_Graphene_PBE_K33/vaspout.h5",
+      "git_blob_sha1": "505b6f7826149b0f0f84cfdd4954a33749d2ee5b"
+    },
+    {
+      "file": "5_Dielectric_function/D_Graphene_PBE_K65/vaspout.h5",
+      "git_blob_sha1": "fde4d22c887804c652a0987ce89a960c95b4fdac"
+    },
+    {
+      "file": "5_Dielectric_function/G_Graphene-B4C3_PBE_K17_N32/vasprun.xml",
+      "git_blob_sha1": "c2fd727ee6162e067d0d209e33c7e86b16f51f6f"
+    },
+    {
+      "file": "5_Dielectric_function/G_Graphene-B4C3_PBE_K17_N64/vasprun.xml",
+      "git_blob_sha1": "9376614bd7526b6379aaa7f90b49f854b10fbba1"
+    },
+    {
+      "file": "5_Dielectric_function/G_Graphene-B4C3_PBE_K17_N128/vaspout.h5",
+      "git_blob_sha1": "804f5b5b3c90daccbf5ea9c6e1dac3620aebd09e"
+    },
+    {
+      "file": "5_Dielectric_function/G_Graphene-B4C3_PBE_K17_N256/vaspout.h5",
+      "git_blob_sha1": "ec055023e2b994f023e0c79ffecd48ea2cd95924"
+    },
+    {
+      "file": "5_Dielectric_function/G_Graphene-B4C3_PBE_K17_N512/vaspout.h5",
+      "git_blob_sha1": "11e98a740798e08db86d288618be5c42a9c9e959"
+    },
+    {
+      "file": "5_Dielectric_function/F_Graphene-Borophene_HSE_K17/vaspout.h5",
+      "git_blob_sha1": "b721552c4c5f0b68e17a51f7b7d93bb118425dda"
+    },
+    {
+      "file": "5_Dielectric_function/F_Graphene-Borophene_HSE_K65_Normal_EDIFF-4/vaspout.h5",
+      "git_blob_sha1": "ba931caca8472be4517c2efdfe45d827079cd6ce"
+    },
+    {
+      "file": "5_Dielectric_function/F_Graphene-Borophene_HSE_K65_Normal_EDIFF-5/vaspout.h5",
+      "git_blob_sha1": "1f017cce62df5ad62c4d96c7ae4b776748bed3de"
+    },
+    {
+      "file": "0_Lattice/A_BC3/free_energy_lattice.dat",
+      "git_blob_sha1": "92c2e17fb4044c55a948990a6aca2a78aff37985"
+    },
+    {
+      "file": "0_Lattice/B_Borophene/free_energy_lattice.dat",
+      "git_blob_sha1": "45081fa13825b5e5f30706de57bab4c1296dafd3"
+    },
+    {
+      "file": "0_Lattice/C_B4C3/free_energy_lattice.dat",
+      "git_blob_sha1": "cc26ec7f773504f1eddc1db8a9f1027999de5ecf"
+    },
+    {
+      "file": "0_Lattice/D_Graphene/free_energy_lattice.dat",
+      "git_blob_sha1": "75c0ee93a6864b329de9f1647c208f077b7cb56d"
+    },
+    {
+      "file": "0_Lattice/E_Graphene-BC3_Top/free_energy_lattice.dat",
+      "git_blob_sha1": "0828421868a401bb18158c89fcb47d2c3b80e7cb"
+    },
+    {
+      "file": "0_Lattice/E_Graphene-BC3_Bridge/free_energy_lattice.dat",
+      "git_blob_sha1": "14fbed58558a7e79824e371a6503a61362847b0f"
+    },
+    {
+      "file": "0_Lattice/E_Graphene-BC3_Hollow/free_energy_lattice.dat",
+      "git_blob_sha1": "e21c2688986fa845758511f18d457242942bba79"
+    },
+    {
+      "file": "0_Lattice/F_Graphene-Borophene_Top/free_energy_lattice.dat",
+      "git_blob_sha1": "e826cdeb86902234dce14ed001c10884e2621a76"
+    },
+    {
+      "file": "0_Lattice/F_Graphene-Borophene_Bridge/free_energy_lattice.dat",
+      "git_blob_sha1": "c7c94f9d295690fd290b376d40d6d12924166b68"
+    },
+    {
+      "file": "0_Lattice/F_Graphene-Borophene_Hollow1/free_energy_lattice.dat",
+      "git_blob_sha1": "25fb83e3d379bb4f757b0de0156831f0e0769a54"
+    },
+    {
+      "file": "0_Lattice/F_Graphene-Borophene_Hollow2/free_energy_lattice.dat",
+      "git_blob_sha1": "eedc648bb0e5c25d5f1bee8d5872a7c39fd4d523"
+    },
+    {
+      "file": "0_Lattice/G_Graphene-B4C3_Top/free_energy_lattice.dat",
+      "git_blob_sha1": "7fd8dd63f41359615f55ac8834af72b2424e219b"
+    },
+    {
+      "file": "0_Lattice/G_Graphene-B4C3_Bridge/free_energy_lattice.dat",
+      "git_blob_sha1": "570105ed097b6c0cd8c79a96a705eed0f55d2210"
+    },
+    {
+      "file": "0_Lattice/G_Graphene-B4C3_Hollow1/free_energy_lattice.dat",
+      "git_blob_sha1": "74b1bba71bd704e1dbd3c58e18183e5188afd02e"
+    },
+    {
+      "file": "0_Lattice/G_Graphene-B4C3_Hollow2/free_energy_lattice.dat",
+      "git_blob_sha1": "af1c7cd5acfaabca6efd3d4ef89f3a402a1ed78b"
+    },
+    {
+      "file": "0_Lattice_Distance/E_Graphene-BC3_Bridge/lattice_distance.dat",
+      "git_blob_sha1": "c29c337ea4b550a1bfeed7ec8f2945f7d4a7e283"
+    },
+    {
+      "file": "0_Lattice_Distance/E_Graphene-BC3_Hollow/lattice_distance.dat",
+      "git_blob_sha1": "42e26c45bddfd3c933598955028c0a2c456a46c6"
+    },
+    {
+      "file": "0_Lattice_Distance/E_Graphene-BC3_Top/lattice_distance.dat",
+      "git_blob_sha1": "79e5969d6bc262e3a28ade15541aceb25bb40f0d"
+    },
+    {
+      "file": "0_Lattice_Distance/F_Graphene-Borophene_Bridge/lattice_distance.dat",
+      "git_blob_sha1": "beb612334aafe96ae6028aedceb4ca5b716757f1"
+    },
+    {
+      "file": "0_Lattice_Distance/F_Graphene-Borophene_Hollow1/lattice_distance.dat",
+      "git_blob_sha1": "d0d5dff63153ede267defc6bbe84bc5609e54c50"
+    },
+    {
+      "file": "0_Lattice_Distance/F_Graphene-Borophene_Hollow2/lattice_distance.dat",
+      "git_blob_sha1": "f63cd6b66fbe0f1d513f9a8fb9bbdb98ba3fa81d"
+    },
+    {
+      "file": "0_Lattice_Distance/F_Graphene-Borophene_Top/lattice_distance.dat",
+      "git_blob_sha1": "df6f522d1ee7c9fcb4db931cf77ad8d9cce1edc3"
+    },
+    {
+      "file": "0_Lattice_Distance/G_Graphene-B4C3_Bridge/lattice_distance.dat",
+      "git_blob_sha1": "c282dd5bcf00a0389d4bc732df45ebab83a0af89"
+    },
+    {
+      "file": "0_Lattice_Distance/G_Graphene-B4C3_Hollow1/lattice_distance.dat",
+      "git_blob_sha1": "4b464ccc70239deee787748265f174764d01d801"
+    },
+    {
+      "file": "0_Lattice_Distance/G_Graphene-B4C3_Hollow2/lattice_distance.dat",
+      "git_blob_sha1": "b323e17b9604914ed52f10b0324e284ba168d6bb"
+    },
+    {
+      "file": "0_Lattice_Distance/G_Graphene-B4C3_Top/lattice_distance.dat",
+      "git_blob_sha1": "610fd9659eae2837a17e6d8df14f1cfeba092976"
+    }
+  ],
+  "pdos_against_previous_audit": [
+    {
+      "figure": "S1.9",
+      "maximum_at_Fermi_difference": 0.0
+    },
+    {
+      "figure": "S1.10",
+      "maximum_at_Fermi_difference": 0.0
+    },
+    {
+      "figure": "S1.11",
+      "maximum_at_Fermi_difference": 0.0
+    }
+  ],
+  "font_pt": {
+    "axis_label": 13,
+    "tick": 11,
+    "legend": 11,
+    "panel_title": 11
+  },
+  "line_width_pt": 1.5,
+  "data_changes": "No data-reader or spectral-formula changes. Energy-map colour normalization is shared within each same-composition figure; coordinate data and sampled minima are unchanged.",
+  "energy_colour_scales": {
+    "S1.4.pdf": {
+      "minimum_eV": -142.29112744,
+      "maximum_eV": -142.159672155,
+      "rule": "Shared range spanning sampled minima and prior per-panel upper limits; identical composition within each figure."
+    },
+    "S1.5.pdf": {
+      "minimum_eV": -125.90594355,
+      "maximum_eV": -125.833553845,
+      "rule": "Shared range spanning sampled minima and prior per-panel upper limits; identical composition within each figure."
+    },
+    "S1.6.pdf": {
+      "minimum_eV": -127.13732357,
+      "maximum_eV": -126.79015005,
+      "rule": "Shared range spanning sampled minima and prior per-panel upper limits; identical composition within each figure."
+    }
+  },
+  "pdfs": [
+    {
+      "file": "S1.1.pdf",
+      "canvas_inches": [
+        6.0,
+        3.6
+      ],
+      "tex_fraction": 0.6,
+      "legend": "No legend; material label upper right",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "204067328c171e06a27aa9c627561b6d90102692dfd9da4ea9d65b7e4e03b020",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.10.pdf",
+      "canvas_inches": [
+        8.0,
+        5.0
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Six shared entries in a narrow right column",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "6b8982087d1e742b469b956c4ac6a7338c7c49c9234a15302c3e592c9d970c54",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.11.pdf",
+      "canvas_inches": [
+        8.0,
+        5.0
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Six shared entries in a narrow right column",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "66f8b2da53dec49c35866aaf7be0d1737ed5cfb8c3b58a3a73440c569ea386de",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.12_alt.pdf",
+      "canvas_inches": [
+        8.0,
+        5.0
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Shared legend in clear upper-right area of panel (a)",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "6f264d9707e532ef2c3198401ca9b08aa5f4799117cbc9d67695eb15a42196c0",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.13_dielectric.pdf",
+      "canvas_inches": [
+        8.0,
+        7.5
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Real/imaginary legend upper right below the panel (a) title",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "1e107f22cc9e5881ef13de0ac3f09494cc59d15048078e6accc02dacb82f2e06",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.14_optics.pdf",
+      "canvas_inches": [
+        10.0,
+        8.6
+      ],
+      "tex_fraction": 1.0,
+      "legend": "Four materials in clear upper-right area of refractive-index panel (g)",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "1ea09efc0ca254fef737de1b70c975afd5facad3fa60184cb640d0128baf70a0",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.15.pdf",
+      "canvas_inches": [
+        8.0,
+        5.0
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Shared legend in clear upper-right area of panel (a)",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "f2f5f26bffde01371e256b66eabcccc5a61cf7eb428b74938aa1b8363dc5d7da",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.16_alt.pdf",
+      "canvas_inches": [
+        8.0,
+        5.0
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Five multiline convergence conditions in narrow right column",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "4986e81bc6fa016a1d2b76876ddd095b53a329b0d0feaa8930b9547dfa77a557",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.17_alt.pdf",
+      "canvas_inches": [
+        9.0,
+        6.6
+      ],
+      "tex_fraction": 0.9,
+      "legend": "Four shared entries upper right below title in near-zero panel (d)",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "43b731ecd3a1126d46f4329cae677f1f5db245be8e4dc22ddb49fcd2036e980f",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.18.pdf",
+      "canvas_inches": [
+        9.0,
+        6.6
+      ],
+      "tex_fraction": 0.9,
+      "legend": "Four shared entries in high-y empty area below panel (a) title",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "cfce13dc33bdbd5857daded46f0edee4da8d6a105a460d7168697cbeaddff7e1",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.19.pdf",
+      "canvas_inches": [
+        9.0,
+        6.6
+      ],
+      "tex_fraction": 0.9,
+      "legend": "Four shared entries in high-y empty area below panel (a) title",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "7bb787ef715b7d2eab2fecade287c739c820ba7f758fb2bd6333ae757a803da3",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.2.pdf",
+      "canvas_inches": [
+        8.0,
+        5.0
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Shared legend in clear upper-right area of panel (a)",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "43772dfee95abc5e7b0c67e353f0875848cefd905401285d3843d53ced7d7ca1",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.20.pdf",
+      "canvas_inches": [
+        8.5,
+        4.9
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Three data panels in a 2x2 grid; shared legend in fourth cell",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "48c884952fb1b07e0713dc9dcd7686045685331db8229909c2cb50a20822d275",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.21.pdf",
+      "canvas_inches": [
+        8.5,
+        4.9
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Three data panels in a 2x2 grid; shared legend in fourth cell",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "5855e20b19ea74cd8a35c080ec0ed37a43ad946eb44981628b3dd3fd9ace4e6d",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.22.pdf",
+      "canvas_inches": [
+        8.5,
+        4.9
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Three data panels in a 2x2 grid; shared legend in fourth cell",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "e2dd5d4a0f1fbe1f60590bc63d9a27321516cd325873f18ec1fb1f88e315e82d",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.23_correct.pdf",
+      "canvas_inches": [
+        8.5,
+        4.9
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Three data panels in a 2x2 grid; shared legend in fourth cell",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "9eb9126109f0b49aa2b5363a4ce3772056ce24876b04b6025df46d7de0b05394",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.24_correct.pdf",
+      "canvas_inches": [
+        8.5,
+        4.9
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Three data panels in a 2x2 grid; shared legend in fourth cell",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "c4aeb50a5a03ac79307b7be1c6ee2ff87ba1297394b21b0b152604af5826393a",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.3.pdf",
+      "canvas_inches": [
+        8.5,
+        5.0
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Three data panels in a 2x2 grid; shared legend in fourth cell",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "e6826907e7161cdb26dc9b5ef8bcb70eb84d5bb15319f4af14104f43fa36bfcd",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.4.pdf",
+      "canvas_inches": [
+        8.5,
+        5.0
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Three data panels in a 2x2 grid; shared colour bar and minimum legend in fourth cell",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "906d7d5d266b863910c62c220711f920f94b6eb2840ee548001b8e6f20e7b85a",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.5.pdf",
+      "canvas_inches": [
+        8.0,
+        5.2
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Minimum legend in existing right colourbar column; no legend over the energy field",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "75fa2518505d0225cfcff8f939298dec15320e03ea2e2590ce0d82dcf400d03d",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.6.pdf",
+      "canvas_inches": [
+        8.0,
+        5.2
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Minimum legend in existing right colourbar column; no legend over the energy field",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "a9ed173c52c4b48f837973df8400cc917fbe2aadeaf92243f996f5d07e3407e4",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "S1.9.pdf",
+      "canvas_inches": [
+        8.5,
+        5.0
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Three data panels in a 2x2 grid; shared legend in fourth cell",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "eaf07b55bb4c8968a1a418af6009b46264dee222106137b79a8d306a99d9b42e",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.10_diff.pdf",
+      "canvas_inches": [
+        10.0,
+        4.8
+      ],
+      "tex_fraction": 1.0,
+      "legend": "PBE/HSE06 legend in clear upper-right area of panel (a)",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "a4384e13cd14ce0e48ea96874469ae6da49b5b4ba641a13dbea5a1d36a8d6dfd",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.11_diff.pdf",
+      "canvas_inches": [
+        10.0,
+        4.8
+      ],
+      "tex_fraction": 1.0,
+      "legend": "PBE/HSE06 legend in clear upper-right area of panel (a)",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "7abd49f8e5e6a6629f978bb84c08db1adf30e2872809a2e52d4c6d068a0ad962",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.12_optics.pdf",
+      "canvas_inches": [
+        8.0,
+        4.8
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Three multiline full material names in narrow right column",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "e03bae2dfc8b076b8c4f1919324580f558623d0c56b6d176eab02d3c2dc1e067",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.13_optics.pdf",
+      "canvas_inches": [
+        8.0,
+        4.8
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Three multiline full material names in narrow right column",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "b7cb619154ccc22f4be8d970ef563da580cdba54580b68a8d8a82e967f48b2e2",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.14_cor.pdf",
+      "canvas_inches": [
+        8.0,
+        3.0
+      ],
+      "tex_fraction": 0.8,
+      "legend": "Three multiline full material names in narrow right column",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "086a8d60bff6b38b4500d26c1df830f1193b6710d9ee737c37f01d733e1b1f7c",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.3_bands.pdf",
+      "canvas_inches": [
+        8.5,
+        5.2
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Five shared entries in a narrow right column; multiline functional labels",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "b5268baf6eb8bbd8669886a5b51c568901e6fed014d37b05873a8322252825a3",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.5.pdf",
+      "canvas_inches": [
+        8.5,
+        3.6
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Five shared entries in a narrow right column; multiline functional labels",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "2787fb4c30face5d857ca7f30922f54a12b9cc3427dc469344bd9fe15d1caebb",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.6.pdf",
+      "canvas_inches": [
+        8.5,
+        3.6
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Five shared entries in a narrow right column; multiline functional labels",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "099830a01c4e8407cfae2e9a09f4234eeb9c009a99c6bfce317c83aaa302da29",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.7.pdf",
+      "canvas_inches": [
+        8.5,
+        3.6
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Five shared entries in a narrow right column; multiline functional labels",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "e5d2be1f173170729bc046782b79254a9f6a28d0df0ead8a37742db9be12a11e",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.8_schottky.pdf",
+      "canvas_inches": [
+        8.5,
+        3.6
+      ],
+      "tex_fraction": 0.85,
+      "legend": "Fermi annotation inside the band panel",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "334532892dbccdf5178fe645228bb7540759725a0d7688930306198ebdc645f4",
+      "thesis_copy_identical": true
+    },
+    {
+      "file": "proj1.9.pdf",
+      "canvas_inches": [
+        8.0,
+        4.8
+      ],
+      "tex_fraction": 0.8,
+      "legend": "PBE/HSE06 legend in clear upper-right area of panel (a)",
+      "out_of_bounds_text": [],
+      "out_of_bounds_white_frames": [],
+      "sha256": "aca94711c75de6e3ccd337d71b63d2e3b7a767a9c1e14b513ddf07dc87817618",
+      "thesis_copy_identical": true
+    }
+  ],
+  "data_function_checks": [
+    {
+      "repo": "Graphene-BC_20230622",
+      "file": "electronic.py",
+      "function": "bands",
+      "unchanged": true,
+      "git_path": "Figures_for_thesis/electronic.py",
+      "baseline_commit": "833e63fea57958d57e483010f9974a8ffa5489de"
+    },
+    {
+      "repo": "Graphene-BC_20230622",
+      "file": "electronic.py",
+      "function": "dos",
+      "unchanged": true,
+      "git_path": "Figures_for_thesis/electronic.py",
+      "baseline_commit": "833e63fea57958d57e483010f9974a8ffa5489de"
+    },
+    {
+      "repo": "Graphene-BC_20230622",
+      "file": "electronic.py",
+      "function": "draw_bands",
+      "unchanged": true,
+      "git_path": "Figures_for_thesis/electronic.py",
+      "baseline_commit": "833e63fea57958d57e483010f9974a8ffa5489de"
+    },
+    {
+      "repo": "Graphene-BC_20230622",
+      "file": "optics.py",
+      "function": "dielectric",
+      "unchanged": true,
+      "git_path": "Figures_for_thesis/optics.py",
+      "baseline_commit": "833e63fea57958d57e483010f9974a8ffa5489de"
+    },
+    {
+      "repo": "Graphene-BC_20230622",
+      "file": "optics.py",
+      "function": "values",
+      "unchanged": true,
+      "git_path": "Figures_for_thesis/optics.py",
+      "baseline_commit": "833e63fea57958d57e483010f9974a8ffa5489de"
+    },
+    {
+      "repo": "Graphene-BC_20230622",
+      "file": "optics.py",
+      "function": "spectrum",
+      "unchanged": true,
+      "git_path": "Figures_for_thesis/optics.py",
+      "baseline_commit": "833e63fea57958d57e483010f9974a8ffa5489de"
+    },
+    {
+      "repo": "Graphene-BC_20230622",
+      "file": "energies.py",
+      "function": "table",
+      "unchanged": true,
+      "git_path": "Figures_for_thesis/energies.py",
+      "baseline_commit": "833e63fea57958d57e483010f9974a8ffa5489de"
+    }
+  ],
+  "layout_stage": "2026-09-24 group-specific source canvases and TeX insertion fractions",
+  "raw_identity_note": "The 66 raw-file identity records are retained from the earlier verified pass; no redundant full raw-file scan was performed for these layout-only changes.",
+  "source_width_rule": "Canvas width in inches equals 10 times the TeX text-width fraction; font sizes remain 13/11/11 and linewidth 1.5 pt.",
+  "local_headroom": "Only small padding changes to expose sample/peak tips; shared partial-DOS upper limits S1.10 3.65 and S1.11 2.65. No source-array or formula changes."
+}

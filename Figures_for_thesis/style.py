@@ -7,9 +7,9 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 THESIS = ROOT.parent / "PhD_thesis_20251216" / "figures_proj1"
 plt.rcParams.update({
-    "font.family": "serif", "mathtext.fontset": "cm", "font.size": 14,
-    "axes.labelsize": 16, "axes.titlesize": 20, "xtick.labelsize": 14,
-    "ytick.labelsize": 14, "legend.fontsize": 14, "figure.dpi": 196,
+    "font.family": "serif", "mathtext.fontset": "cm", "font.size": 11,
+    "axes.labelsize": 13, "axes.titlesize": 13, "xtick.labelsize": 11,
+    "ytick.labelsize": 11, "legend.fontsize": 11, "figure.dpi": 196,
     "lines.linewidth": 1.5, "lines.solid_capstyle": "round",
     "lines.dash_capstyle": "round", "lines.solid_joinstyle": "round",
     "lines.dash_joinstyle": "round", "xtick.direction": "in",
@@ -25,24 +25,14 @@ TAB = {"boxstyle": "round", "facecolor": "white",
 
 def title(ax, text):
     ax.set_title(text, loc="left", x=0.045, y=0.955, pad=0, va="top",
-                 fontsize=12, bbox=TAB, zorder=10)
+                 fontsize=11, bbox=TAB, zorder=10)
 
 
-def grid(rows, cols, height, right_legend=False):
-    fig, axes = plt.subplots(rows, cols, figsize=(10, height), squeeze=False)
-    fig.subplots_adjust(left=0.10, right=0.75 if right_legend else 0.98,
-                        bottom=0.12 if right_legend else 0.21, top=0.97,
-                        wspace=0.27, hspace=0.25)
+def grid(rows, cols, height, width=10):
+    fig, axes = plt.subplots(rows, cols, figsize=(width, height), squeeze=False)
+    fig.subplots_adjust(left=0.08, right=0.985, bottom=0.14, top=0.97,
+                        wspace=0.20, hspace=0.20)
     return fig, axes
-
-
-def legend(fig, handles, labels=None, right=False, columns=2):
-    if right:
-        fig.legend(handles, labels, loc="center left", bbox_to_anchor=(0.77, 0.59),
-                   frameon=True, fancybox=True)
-    else:
-        fig.legend(handles, labels, loc="lower left", bbox_to_anchor=(0.09, 0.005),
-                   ncol=columns, frameon=True, fancybox=True)
 
 
 def save(fig, name):
