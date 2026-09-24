@@ -62,7 +62,7 @@ for i,(ax,prefix,label) in enumerate(zip(axes.flat,
     ["E_Graphene-BC3_","F_Graphene-Borophene_","G_Graphene-B4C3_"],
     [r"Graphene-BC$_3$","Graphene-Borophene",r"Graphene-B$_4$C$_3$"])):
     sites=["Top","Bridge","Hollow"] if i==0 else ["Top","Bridge","Hollow1","Hollow2"]
-    for site,color in zip(sites,[BLUE,GREEN,VIOLET,"#C82364"]):
+    for site,color in zip(sites,[BLUE,GREEN,FERMI if i==0 else VIOLET,"#C82364"]):
         xy=table("0_Lattice/"+prefix+site+"/free_energy_lattice.dat")
         x,y=fit_eos(xy[:,0],xy[:,-1]);ax.plot(x,y,color=color)
         ax.plot(xy[:,0],xy[:,-1],"o",color=color,mfc="white",ms=7)
@@ -74,9 +74,9 @@ for i,(ax,prefix,label) in enumerate(zip(axes.flat,
     ax.set_xlabel(r"Lattice constant ($\mathrm{\AA}$)")
     ax.set_ylabel("Energy (eV)")
 axes[1,1].axis("off")
-axes[1,1].legend([Line2D([],[],color=c,marker="o",mfc="white") for c in [BLUE,GREEN,VIOLET,"#C82364"]]
+axes[1,1].legend([Line2D([],[],color=c,marker="o",mfc="white") for c in [BLUE,GREEN,FERMI,VIOLET,"#C82364"]]
     +[Line2D([],[],color=GREY,marker="o",ls="")],
-    ["Top","Bridge",r"Hollow (BC$_3$) / Hollow 1 (others)","Hollow 2","Fitted minimum"],
+    ["Top","Bridge",r"Hollow (BC$_3$)","Hollow 1","Hollow 2","Fitted minimum"],
     loc="center",ncol=1,frameon=True,fancybox=True)
 fig.suptitle("Total energy versus lattice", fontsize=20)
 fig.tight_layout()
