@@ -1,58 +1,78 @@
 # Thesis figures
 
 Open `figures_for_thesis.ipynb` in Jupyter or VS Code. Select the Python
-`py314` kernel, run the first two setup cells, and then run the required figure
-cells. **Run All** regenerates all 36 current figures. The notebook works with
-either this folder or the repository root as the working directory.
+`py314` environment, run the first two setup cells, and then run the required
+figure cells. **Run All** regenerates all 48 current figures. The notebook
+works with either this folder or the repository root as the working directory.
 
-Edit the first cell for shared fonts, colours and legend defaults. Each figure
-group contains its own editable Matplotlib layout, canvas height, limits and
-panel arrangement. The notebook imports only numerical readers; it does not
-run the plotting scripts. Running a figure cell displays the figure, saves its
-PDF here, and copies it to `../PhD_thesis_20251216/figures_proj1`.
+Edit the first setup cell for shared fonts, colours and legend defaults. The
+second setup cell contains the numerical readers and reusable plotting helpers.
+Each figure group contains editable Matplotlib code; change its `figsize`,
+limits or layout directly. The optical groups share the editable `optical()`
+helper in the second setup cell. Running a figure cell saves its PDF here,
+copies it to `../PhD_thesis_20251216/figures_proj1`, and displays the figure.
+The edited heat-map cell's old saved output is cleared; outputs in other cells
+remain available for comparison.
 
-The saved notebook has cleared image outputs to keep it small; running its
-cells displays the figures again. `notebook_verification.json` records the
-completed execution. No VASP calculation or input is changed.
+The `.py` plotting scripts remain the batch baseline. They do not inherit
+subsequent notebook edits, so running them can overwrite a figure customized
+in the notebook. Use the notebook as the normal editing entry. No VASP
+calculation or input is changed.
 
-The `.py` plotting scripts remain the verified batch baseline. **They do not
-inherit subsequent notebook edits**: running them can overwrite a figure
-customized in the notebook. Use the notebook as the normal editing entry.
+## Original figure style
 
-Canvas width follows the thesis insertion scale: 6 inches at 0.60 text width,
-8 at 0.80, 8.5 at 0.85, 9 at 0.90, and 10 at full width. This keeps the
-printed typography consistent while giving small and large figure groups
-different page widths. Heights follow the number of rows. Labels use 13 pt;
-ticks, legends and inset titles use 11 pt; line width is 1.5 pt.
+The figures use the original author settings: serif text, Computer Modern
+math, 16 pt axis labels, 14 pt ticks, 12 pt legends, 20 pt titles and 18 pt
+subtitles where specified in the original plots. Line width is 1.5 pt.
+The settings are written explicitly, without `vmatplot.output_settings`.
+The existing numerical EOS fitter remains in use.
 
-Panels use ordinary Matplotlib axes, legends and rounded title boxes. There
-is no dependency on `vmatplot.output_settings`; only the existing numerical
-EOS fitter is reused. Short legends sit in clear upper-right areas. Longer
-shared legends use a narrow right column, with line breaks where needed;
-there are no bottom legend strips.
-The three-structure figure `proj1.3` and three-data-panel figures (`S1.3`, `S1.4`, `S1.9` and `S1.20`–`S1.24`)
-use a compact 2 × 2 grid: panels (a), (b), (c) occupy the upper-left,
-upper-right and lower-left cells, and the shared legend occupies the
-lower-right cell. `S1.4` also places its shared colour bar in that cell.
-`S1.5` and `S1.6` retain their four data panels. Each energy-map group uses one shared colour bar: its limits
-span the previous per-panel ranges for the same composition. The source
-energies, interpolation, sampled minima and axis ranges are unchanged.
-`energy_colour_scales.json` records the shared limits.
+Original canvases are restored: 10 x 6 inches for single plots, 12 x 6 for
+band/DoS figures, 16 x 6 for paired plots, 16 x 12 for four panels, 24 x 12
+for six panels and 24 x 18 for nine panels. Structure figures use their own
+20 x 12 canvases and original larger annotation sizes.
 
-## Combined figures
+The retained layout exceptions are:
 
-- `proj1.3_bands.pdf`: four monolayer band structures, one legend.
-- `proj1.8_schottky.pdf`: Schottky sketch and the HSE06 band example.
-- `proj1.12_optics.pdf`: absorption and energy loss, one material legend.
-- `proj1.13_optics.pdf`: reflectivity and refractive index, one material legend.
-- `S1.13_dielectric.pdf`: four monolayers, two directions, one line-style legend.
-- `S1.14_optics.pdf`: five optical properties, three diagonal directions,
-  one material legend.
+- The three-structure figure `proj1.3`, `S1.3`, `S1.9`, the five `S1.14`
+  optical figures, and `S1.20` through `S1.24` use a 2 x 2 grid with three
+  data panels and the shared legend in the fourth cell. Scalar optical
+  quantities retain only the three scientifically valid diagonal components.
+- `proj1.8_schottky` retains the current two panel titles.
+- `S1.4` through `S1.6` retain the heat maps and shared colour scales on
+  13 x 10 canvases with tighter panel spacing. `S1.4` places a vertical colour
+  bar and the minimum legend in the fourth cell; `S1.5` and `S1.6` retain four
+  data panels and a colour bar at the right. The source energies, linear
+  interpolation, sampled minima and axis ranges are unchanged.
+  `energy_colour_scales.json` records the limits.
 
-Existing multi-panel numerical figures retain their filenames. `S1.4.pdf`
-through `S1.6.pdf` contain complete panel groups; no TeX cropping is required.
-The old `1.3a.pdf`–`1.3d.pdf` and `1.5_alt.pdf`–`1.7_alt.pdf` are legacy exports
-already present in this folder; the current thesis uses the `proj1.*` exports.
+## Current exports
+
+The original separate figures are restored:
+
+- `proj1.3a.pdf` through `proj1.3d.pdf`: four monolayer band structures.
+- `proj1.12a.pdf`, `proj1.12b.pdf`: absorption and energy loss.
+- `proj1.13a_cor.pdf`, `proj1.13b.pdf`: reflectivity and refractive index.
+- `S1.13a.pdf` through `S1.13d.pdf`: monolayer dielectric functions.
+- `S1.14a.pdf`, `S1.14b.pdf`, `S1.14c.pdf`, `S1.14d_correct.pdf`, and
+  `S1.14e_correct.pdf`: five monolayer optical properties.
+
+The superseded combined exports are removed. Existing multi-panel figures
+retain their filenames, including `proj1.8_schottky.pdf`. `S1.4.pdf` through
+`S1.6.pdf` contain complete panel groups; no TeX cropping is required.
+The old `1.3a.pdf` through `1.3d.pdf` and `1.5_alt.pdf` through `1.7_alt.pdf`
+are legacy exports already present in this folder; the thesis uses the
+`proj1.*` exports.
+
+`original_style_verification.json` is the current export record: 48 PDF
+canvases, font sizes, text bounds, hashes and identical thesis copies,
+plus the unchanged scientific functions and completed notebook run.
+The final notebook-only helper change adds inline display after saving;
+it does not change PDF plotting or numerical calculations.
+`notebook_verification.json`, `notebook_render_verification.json`, and
+`moderate_layout_verification.json` are historical records of the superseded
+36-figure layout. Their old PDF hashes and layout descriptions are retained
+as history and do not describe the current exports.
 
 ## Data corrections made during source verification
 
@@ -79,8 +99,9 @@ entries. Scalar optical quantities use only diagonal components. Absorption
 uses `alpha = 2 E kappa / (hbar c)` in inverse nanometres.
 
 `*_sources.json` records each selected raw group and energy reference.
-`verification.json` records numerical comparisons with the previously audited
-figures, raw-file Git blob identities, PDF dimensions/fonts, and identical
-thesis copies. `spacing_audit.json` compares the old diagonal scan, the bounded
-minimum of the same polynomial, and actual sampled minima. The polynomial
-minimum is a diagnostic only; its boundary solutions are not relaxed structures.
+`verification.json` retains the earlier numerical comparisons and raw-file Git
+blob identities. Its PDF presentation records describe the earlier layout;
+use `original_style_verification.json` for the current exports.
+`spacing_audit.json` compares the old diagonal scan, the bounded minimum of
+the same polynomial, and actual sampled minima. The polynomial minimum is a
+diagnostic only; its boundary solutions are not relaxed structures.

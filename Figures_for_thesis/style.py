@@ -1,4 +1,4 @@
-"""Shared settings, matching the thesis Chapter 4 figures."""
+"""Original author figure settings, written explicitly for independent editing."""
 from pathlib import Path
 import shutil
 import matplotlib.pyplot as plt
@@ -6,33 +6,28 @@ import matplotlib.pyplot as plt
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 THESIS = ROOT.parent / "PhD_thesis_20251216" / "figures_proj1"
+plt.rcdefaults()
 plt.rcParams.update({
-    "font.family": "serif", "mathtext.fontset": "cm", "font.size": 11,
-    "axes.labelsize": 13, "axes.titlesize": 13, "xtick.labelsize": 11,
-    "ytick.labelsize": 11, "legend.fontsize": 11, "figure.dpi": 196,
-    "lines.linewidth": 1.5, "lines.solid_capstyle": "round",
-    "lines.dash_capstyle": "round", "lines.solid_joinstyle": "round",
-    "lines.dash_joinstyle": "round", "xtick.direction": "in",
-    "ytick.direction": "in", "xtick.top": True, "ytick.right": True,
-    "pdf.fonttype": 42, "path.simplify": False,
+    "font.family": "serif", "mathtext.fontset": "cm", "axes.titlesize": 20,
+    "axes.labelsize": 16, "xtick.labelsize": 14, "ytick.labelsize": 14,
+    "legend.fontsize": 12, "figure.dpi": 196, "figure.facecolor": "white",
+    "lines.linewidth": 1.5, "xtick.direction": "in", "ytick.direction": "in",
+    "xtick.top": True, "ytick.right": True, "pdf.fonttype": 42,
+    "path.simplify": False,
 })
 BLUE, GREEN, VIOLET, GREY, ORANGE = "#1478E1", "#28AF3C", "#8C64E1", "#787878", "#FA8C00"
 FERMI = "#643CC3"
-TAB = {"boxstyle": "round", "facecolor": "white",
-       "edgecolor": plt.rcParams["legend.edgecolor"],
-       "alpha": plt.rcParams["legend.framealpha"]}
+TAB = {"boxstyle": "round,pad=0.2", "facecolor": "white",
+       "edgecolor": "#B4B4B4", "alpha": .75, "linewidth": 1.5}
 
 
 def title(ax, text):
-    ax.set_title(text, loc="left", x=0.045, y=0.955, pad=0, va="top",
-                 fontsize=11, bbox=TAB, zorder=10)
+    ax.text(.04, .95, text, transform=ax.transAxes, va="top",
+            fontsize=16, bbox=TAB, zorder=10)
 
 
 def grid(rows, cols, height, width=10):
-    fig, axes = plt.subplots(rows, cols, figsize=(width, height), squeeze=False)
-    fig.subplots_adjust(left=0.08, right=0.985, bottom=0.14, top=0.97,
-                        wspace=0.20, hspace=0.20)
-    return fig, axes
+    return plt.subplots(rows, cols, figsize=(width, height), squeeze=False)
 
 
 def save(fig, name):

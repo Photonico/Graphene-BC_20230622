@@ -14,13 +14,14 @@ SOURCE = ROOT / "2_Structure_and_CDD"
 manifest = {}
 
 
-def panel(ax, filename, heading):
+def panel(ax, filename, heading, facecolor="white"):
     path = SOURCE / filename
     pixels = np.asarray(Image.open(path))
     ax.imshow(pixels, interpolation="none")
     ax.set_xticks([])
     ax.set_yticks([])
-    title(ax, heading)
+    ax.text(.04, .95, heading, transform=ax.transAxes, va="top", fontsize=24,
+            bbox=dict(TAB, facecolor=facecolor), zorder=10)
     manifest[filename] = {
         "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
         "size": list(pixels.shape[:2][::-1]),
@@ -30,7 +31,7 @@ def panel(ax, filename, heading):
 
 # The seven bond markers retain the coordinates and colours in the original
 # 0.1_structure_figure.ipynb. Coordinates there refer to a 2 x 2 composite.
-fig, axes = plt.subplots(2, 2, figsize=(8, 4.8))
+fig, axes = plt.subplots(2, 2, figsize=(20, 12))
 fig.subplots_adjust(left=0.01, right=0.99, bottom=0.015, top=0.985,
                     wspace=0.025, hspace=0.035)
 names = ["A_BC3.png", "B_Borophene.png", "C_B4C3.png", "D_Graphene.png"]
@@ -55,14 +56,14 @@ for number, (row, col), start, end, offset, label_offset, colour in markers:
     end = np.array(end) / [2976, 1749] - origin
     ax = axes[row, col]
     ax.annotate("", xy=(start + offset) * scale, xytext=(end + offset) * scale,
-                arrowprops=dict(arrowstyle="<->", color=colour, lw=1.5,
-                                shrinkA=0, shrinkB=0, mutation_scale=8))
+                arrowprops=dict(arrowstyle="<->", color=colour, lw=2,
+                                shrinkA=0, shrinkB=0, mutation_scale=16))
     position = ((start + end) / 2 + label_offset) * scale
-    ax.text(*position, rf"$l_{number}$", fontsize=13, ha="center", color=colour)
+    ax.text(*position, rf"$l_{number}$", fontsize=40, fontweight="bold", ha="center", color=colour)
 save(fig, "proj1.1.pdf")
 
 
-fig, axes = plt.subplots(2, 2, figsize=(8, 4.8))
+fig, axes = plt.subplots(2, 2, figsize=(20, 12))
 fig.subplots_adjust(left=0.01, right=0.99, bottom=0.015, top=0.985,
                     wspace=0.025, hspace=0.035)
 materials = [r"Graphene–BC$_3$", "Graphene–Borophene", r"Graphene–B$_4$C$_3$"]
@@ -71,21 +72,24 @@ for ax, prefix, material, letter in zip(axes.flat, prefixes, materials, "abc"):
     panel(ax, prefix + ".png", f"({letter}) {material}")
 axes[1, 1].axis("off")
 axes[1, 1].legend(handles=[
-    Line2D([], [], ls="none", marker="o", ms=8, color="#58B947", label="Boron"),
-    Line2D([], [], ls="none", marker="o", ms=8, color="#A67655", label="Carbon"),
+    Line2D([], [], ls="none", marker="o", ms=16, color="#58B947", label="Boron"),
+    Line2D([], [], ls="none", marker="o", ms=16, color="#A67655", label="Carbon"),
     Patch(facecolor="none", edgecolor="#FF8000", label="Unit cell"),
-], loc="center", frameon=True)
+], loc="center", frameon=True, fontsize=24)
 save(fig, "proj1.3.pdf")
 
 
-fig, axes = plt.subplots(3, 3, figsize=(10, 6.1))
+fig, axes = plt.subplots(3, 3, figsize=(20, 12))
 fig.subplots_adjust(left=0.01, right=0.99, bottom=0.015, top=0.985,
                     wspace=0.025, hspace=0.04)
 for col, (prefix, material) in enumerate(zip(prefixes, materials)):
     for row, (suffix, view) in enumerate(zip(
             ["top1", "side1a", "bottom1"], ["Top view", "Side view", "Bottom view"])):
-        heading = f"({chr(97 + col)}) {material}" if row == 0 else view
-        panel(axes[row, col], prefix + "_" + suffix + ".png", heading)
+        heading = f"({chr(97 + col)}) {material} (Top view)" if row == 0 else view
+        ax = axes[row, col]
+        path = SOURCE / (prefix + "_" + suffix + ".png")
+        panel(ax, path.name, heading)
+        ax.texts[-1].set_fontsize(16)
 save(fig, "proj1.4.pdf")
 
 (HERE / "structure_manifest.json").write_text(json.dumps({
